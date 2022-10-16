@@ -421,6 +421,19 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 
 		break;
 
+	case CUB_REVERS:
+		//glPushMatrix();
+  //glScaled(5.0,5.0,5.0);
+		ModelMatrix = glm::scale(MatriuTG, vec3(5.0f, 5.0f, 5.0f));
+		// Pas ModelView Matrix a shader
+		glUniformMatrix4fv(glGetUniformLocation(sh_programID, "modelMatrix"), 1, GL_FALSE, &ModelMatrix[0][0]);
+		// Pas NormalMatrix a shader
+		NormalMatrix = transpose(inverse(MatriuVista * ModelMatrix));
+		glUniformMatrix4fv(glGetUniformLocation(sh_programID, "normalMatrix"), 1, GL_FALSE, &NormalMatrix[0][0]);
+		draw_TriEBO_Object(GLUT_USER7);	//draw_TriVAO_Object(GLUT_CUBE);  //glutSolidCube(1.0);
+		//glPopMatrix();
+		break;
+
 	case CUB_RGB:
 		//glPushMatrix();
 		  //glScaled(5.0,5.0,5.0);

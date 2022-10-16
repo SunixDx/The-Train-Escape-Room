@@ -32,6 +32,7 @@
 #define CAMIO 'm'
 #define CILINDRE 'y'
 #define CUB 'c'
+#define CUB_REVERS 'r'		// CUB revers
 #define CUB_RGB 'd'
 #define C_BEZIER '2'
 #define C_LEMNISCATA 'K'
@@ -181,6 +182,13 @@ struct CVAO
 	GLint nVertexs;
 	GLint nIndices;
 };
+
+inline CVAO emptyCVAO()
+{
+	CVAO cvao = {0, 0, 0, 0, 0, };
+
+	return cvao;
+}
 
 // --------------- VGI: INSTANCIA (TG d'instanciació d'un objecte)
 struct INSTANCIA

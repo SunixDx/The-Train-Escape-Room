@@ -482,6 +482,118 @@ CVAO loadglutSolidCube_EBO(GLdouble dSize)
 }
 // ---------- FI CUBE ------------------------------------------------------------
 
+// ---------- CUBE REVERS ------------------------------------------------------------
+
+// Draws a solid cube. Code contributed by Andreas Umbach <marvin@dataway.ch>
+void glutSolidCubeRevers(GLdouble dSize)
+{
+	Set_VAOList(GLUT_USER7, loadglutSolidCubeRevers_EBO(dSize)); //glutSolidCube_VAO(dSize);
+	draw_TriEBO_Object(GLUT_USER7); //draw_TriVAO_Object(GLUT_CUBE); //drawSolidCube();
+	deleteVAOList(GLUT_USER7);
+}
+
+// Load a solid cube as a EBO. Code contributed by Andreas Umbach <marvin@dataway.ch> and Enric Marti <enric.marti@uab.cat>
+CVAO loadglutSolidCubeRevers_EBO(GLdouble dSize)
+{
+	GLdouble size = dSize * 0.5f;
+	CVAO auxVAO = emptyCVAO();
+
+	// cube ///////////////////////////////////////////////////////////////////////
+	//    v6----- v5
+	//   /|      /|
+	//  v1------v0|
+	//  | |     | |
+	//  | |v7---|-|v4
+	//  |/      |/
+	//  v2------v3
+
+	// Obtenir color actual definit en OpenGL amb glColor();
+	//	GLdouble cColor[4];
+	//	glGetDoublev(GL_CURRENT_COLOR, cColor);
+
+	// Vertex coords array for glDrawArrays() =====================================
+	// A cube has 6 sides and each side has 1 square, therefore, a cube consists
+	// of 24 vertices (6 sides * 1 square * 4 vertices = 24 vertices). And, each
+	// vertex is 3 components (x,y,z) of floats, therefore, the size of vertex
+	// array is 72 floats (24 * 3 = 72). The size of each float is 4 bytes (72 * 4 = 288 bytes)
+		//GLdouble vertices[] = { 
+	std::vector<double> vertices = {															//				Y-Axis - Z-Axis
+		 size,  size,  size, -size,  size,  size, -size, -size,  size,  size, -size,  size,		// v0-v1-v2-v3 (front) - (top)
+		 size,  size,  size,  size, -size,  size,  size, -size, -size,  size,  size, -size,		// v0-v3-v4-v5 (right) - (front)
+		 size,  size,  size,  size,  size, -size, -size,  size, -size,  -size,  size,  size,	// v0-v5-v6-v1 (top) - (right)
+		-size,  size,  size, -size,  size, -size, -size, -size, -size,  -size, -size,  size,	// v1-v6-v7-v2 (left) - (back)
+		-size, -size, -size,  size, -size, -size,  size, -size,  size,  -size, -size,  size,	// v7-v4-v3-v2 (bottom) - (left)
+		 size, -size, -size, -size, -size, -size, -size,  size, -size,  size,  size, -size };	// v4-v7-v6-v5 (back) - (bottom)
+
+	// Normal array
+		//GLdouble normals[] = {
+	std::vector<double> normals = {													//				Y-Axis - Z-Axis
+		0.0,  0.0,  -1.0,  0.0,  0.0,  -1.0,  0.0,  0.0,  -1.0,  0.0,  0.0,  -1.0,		// v0-v1-v2-v3 (front) - (top)
+		-1.0,  0.0,  0.0,  -1.0,  0.0,  0.0,  -1.0,  0.0,  0.0,  -1.0,  0.0,  0.0,		// v0-v3-v4-v5 (right) - (front)
+		0.0,  -1.0,  0.0,  0.0,  -1.0,  0.0,  0.0,  -1.0,  0.0,  0.0,  -1.0,  0.0,		// v0-v5-v6-v1 (top) - (right)
+	    1.0,  0.0,  0.0, 1.0,  0.0,  0.0, 1.0,  0.0,  0.0, 1.0,  0.0,  0.0,		// v1-v6-v7-v2 (left) - (back)
+		0.0, 1.0,  0.0,  0.0, 1.0,  0.0,  0.0, 1.0,  0.0,  0.0, 1.0,  0.0,		// v7-v4-v3-v2 (bottom) - (left)
+		0.0,  0.0, 1.0,  0.0,  0.0, 1.0,  0.0,  0.0, 1.0,  0.0,  0.0, 1.0 };	// v4-v7-v6-v5 (back) - (bottom)
+
+	// Color array
+		//GLdouble colors[] = {
+	std::vector<double> colors = {
+		cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3], // v0-v1-v2-v3 (front)
+		cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3],	// v0-v3-v4-v5 (right)
+		cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3],	// v0-v5-v6-v1 (top)
+		cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3],	// v1-v6-v7-v2 (left)
+		cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3],	// v7-v4-v3-v2 (bottom)
+		cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3], cColor[0], cColor[1], cColor[2], cColor[3] };	// v4-v7-v6-v5 (back)
+
+	/* Texture Array Y Axis
+		//GLdouble textures[] = {
+		std::vector<double> textures = {
+			1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,     // v0-v1-v2-v3 (front)
+			1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0,     // v0-v3-v4-v5 (right)
+			0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,     // v0-v5-v6-v1 (top)
+			0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 0.0,     // v1-v6-v7-v2 (left)
+			1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0,     // v7-v4-v3-v2 (bottom)
+			0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0 };   // v4-v7-v6-v5 (back)
+
+	// Texture Array 3D Texture (paret)
+	//GLdouble textures[] = {
+		std::vector<double> textures = {
+			1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0,     // v0-v1-v2-v3 (top)
+			1.0, 1.0, 0.0, 1.0, 0.0, 1.0, 1.0, 1.0,     // v0-v3-v4-v5 (front)
+			1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0,     // v0-v5-v6-v1 (right)
+			1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,		// v1-v6-v7-v2 (back)
+			0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0,     // v7-v4-v3-v2 (left)
+			0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0 };   // v4-v7-v6-v5 (bottom)
+	*/
+
+	// Texture Array Z-Axis
+	//GLdouble textures[] = {
+	std::vector<double> textures = {
+		0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.0, 1.0,     // v0-v1-v2-v3 (top)
+		1.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0,     // v0-v3-v4-v5 (front)
+		1.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0,     // v0-v5-v6-v1 (right)
+		0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0,		// v1-v6-v7-v2 (back)
+		1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0,     // v7-v4-v3-v2 (left)
+		1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0 };    // v4-v7-v6-v5 (bottom)
+
+	// Indices Array
+		//GLuint indices[] = {
+	std::vector<uint> indices = {
+		2, 1, 0, 0, 3, 2,			// v0-v1-v2-v3 (front)
+		6, 5, 4, 4, 7, 6,			// v0-v3-v4-v5 (right)
+		10, 9, 8, 8, 11, 10,		// v0-v5-v6-v1 (top)
+		14, 13, 12, 12, 15, 14,		// v1-v6-v7-v2 (left)
+		18, 17, 16, 16, 19, 18,		// v7-v4-v3-v2 (bottom)
+		22, 21, 20, 20, 23, 22 };	// v4-v7-v6-v5 (back)
+
+	// Creació d'un VAO, VBO i EBO carregant-hi la geometria. Guardar identificadors VAO, VBO, EBO, vertex i indexs a struct CVAO.
+	auxVAO = load_TRIANGLES_EBO(vertices, normals, colors, textures, indices);
+
+	return auxVAO;
+}
+
+// ---------- FI CUBE REVERS ------------------------------------------------------------
+
 // ---------- CUBE RGB------------------------------------------------------------
 
 // Draws a solid cube with RGB color model. Code contributed by Andreas Umbach <marvin@dataway.ch>

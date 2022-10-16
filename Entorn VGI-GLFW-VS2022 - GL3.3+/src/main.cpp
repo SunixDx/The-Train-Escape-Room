@@ -1109,6 +1109,21 @@ void Teclat_Shift(int key, GLFWwindow* window)
 			Set_VAOList(GLUT_CUBE, loadglutSolidCube_EBO(1.0));		// Genera EBO de cub mida 1 i el guarda a la posició GLUT_CUBE.
 			break;
 
+			// Tecla Cub
+		case GLFW_KEY_L:
+			objecte = CUB_REVERS;
+			//  Modificar R per centrar la Vista a la mida de l'objecte (Perspectiva)
+			//	Canviar l'escala per a centrar la vista (Ortogràfica)
+			netejaVAOList();											// Neteja Llista VAO.
+
+			// Posar color objecte (col_obj) al vector de colors del VAO.
+			SetColor4d(col_obj.r, col_obj.g, col_obj.b, col_obj.a);
+
+			//if (Get_VAOId(GLUT_CUBE) != 0) deleteVAOList(GLUT_CUBE);	// Neteja VAO Cub
+			//Set_VAOList(GLUT_CUBE, loadglutSolidCube_VAO(1.0));	// Genera VAO de cub mida 1 i el guarda a la posició GLUT_CUBE.
+			Set_VAOList(GLUT_USER7, loadglutSolidCubeRevers_EBO(1.0));		// Genera EBO de cub mida 1 i el guarda a la posició GLUT_CUBE.
+			break;
+
 		// Tecla Cub RGB
 		case GLFW_KEY_D:
 			objecte = CUB_RGB;

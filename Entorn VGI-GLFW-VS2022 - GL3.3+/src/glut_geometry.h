@@ -161,6 +161,10 @@ void glutSolidCube(GLdouble dSize);		// Generates solid cube. Code contributed b
 CVAO loadglutSolidCube_VAO(GLdouble dSize);
 CVAO loadglutSolidCube_EBO(GLdouble dSize);
 
+// ---------- CUBE REVERS -----------------------------------------------------------
+void glutSolidCubeRevers(GLdouble dSize);
+CVAO loadglutSolidCubeRevers_EBO(GLdouble dSize);
+
 // ---------- CUBE RGB--------------------------------------------------------
 void glutSolidCubeRGB(GLdouble dSize);// Draws a solid cube coloured by RGB with VAO. Code contributed by Enric Marti <enric.marti@uab.cat>
 CVAO loadglutSolidCubeRGB_VAO(GLdouble dSize);// Draws a solid cube coloured by RGB with VAO. Code contributed by Enric Marti <enric.marti@uab.cat>
