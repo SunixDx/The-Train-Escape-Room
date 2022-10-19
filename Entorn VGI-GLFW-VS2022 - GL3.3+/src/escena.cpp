@@ -18,6 +18,8 @@
 #include "visualitzacio.h"
 #include "escena.h"
 
+#include "game/entities/Vago.h"
+
 // Dibuixa Eixos Coordenades Món i Reixes, activant un shader propi.
 void dibuixa_Eixos(GLuint ax_programID, bool eix, GLuint axis_Id, CMask3D reixa, CPunt3D hreixa, 
 	glm::mat4 MatriuProjeccio, glm::mat4 MatriuVista)
@@ -422,6 +424,13 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		break;
 
 	case CUB_REVERS:
+	{
+		Vago vago = Vago(vec3(0.0f, 0.0f, 0.0f), sh_programID);
+
+		vago.mostrar(MatriuVista, MatriuTG);
+	}
+
+		/*
 		//glPushMatrix();
   //glScaled(5.0,5.0,5.0);
 		ModelMatrix = glm::scale(MatriuTG, vec3(5.0f, 5.0f, 5.0f));
@@ -432,6 +441,7 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		glUniformMatrix4fv(glGetUniformLocation(sh_programID, "normalMatrix"), 1, GL_FALSE, &NormalMatrix[0][0]);
 		draw_TriEBO_Object(GLUT_USER7);	//draw_TriVAO_Object(GLUT_CUBE);  //glutSolidCube(1.0);
 		//glPopMatrix();
+		*/
 		break;
 
 	case CUB_RGB:

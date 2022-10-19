@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\escena.cpp" />
+    <ClCompile Include="..\src\game\entities\Vago.cpp" />
     <ClCompile Include="..\src\glut_geometry.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\material.cpp" />
@@ -30,6 +31,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\constants.h" />
     <ClInclude Include="..\src\escena.h" />
+    <ClInclude Include="..\src\game\entities\Vago.h" />
     <ClInclude Include="..\src\glut_geometry.h" />
     <ClInclude Include="..\src\main.h" />
     <ClInclude Include="..\src\material.h" />

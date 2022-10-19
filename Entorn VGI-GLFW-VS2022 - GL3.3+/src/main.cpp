@@ -1122,6 +1122,7 @@ void Teclat_Shift(int key, GLFWwindow* window)
 			//if (Get_VAOId(GLUT_CUBE) != 0) deleteVAOList(GLUT_CUBE);	// Neteja VAO Cub
 			//Set_VAOList(GLUT_CUBE, loadglutSolidCube_VAO(1.0));	// Genera VAO de cub mida 1 i el guarda a la posició GLUT_CUBE.
 			Set_VAOList(GLUT_USER7, loadglutSolidCubeRevers_EBO(1.0));		// Genera EBO de cub mida 1 i el guarda a la posició GLUT_CUBE.
+			Set_VAOList(GLUT_CUBE, loadglutSolidCube_EBO(1.0));		// Genera EBO de cub mida 1 i el guarda a la posició GLUT_CUBE.
 			break;
 
 		// Tecla Cub RGB
