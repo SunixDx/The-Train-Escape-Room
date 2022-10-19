@@ -54,6 +54,9 @@
     <ClCompile Include="..\src\game\entities\Seient.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\game\graphics\Transform.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\constants.h">
@@ -99,6 +102,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\src\game\entities\Seient.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\graphics\Transform.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

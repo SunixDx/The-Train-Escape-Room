@@ -25,6 +25,7 @@
     <ClCompile Include="..\src\game\entities\Vago.cpp" />
     <ClCompile Include="..\src\game\graphics\Mesh.cpp" />
     <ClCompile Include="..\src\game\graphics\Texture.cpp" />
+    <ClCompile Include="..\src\game\graphics\Transform.cpp" />
     <ClCompile Include="..\src\game\graphics\Vertex.cpp" />
     <ClCompile Include="..\src\glut_geometry.cpp" />
     <ClCompile Include="..\src\main.cpp" />
@@ -41,6 +42,7 @@
     <ClInclude Include="..\src\game\entities\Vago.h" />
     <ClInclude Include="..\src\game\graphics\Mesh.h" />
     <ClInclude Include="..\src\game\graphics\Texture.h" />
+    <ClInclude Include="..\src\game\graphics\Transform.h" />
     <ClInclude Include="..\src\game\graphics\Vertex.h" />
     <ClInclude Include="..\src\glut_geometry.h" />
     <ClInclude Include="..\src\main.h" />

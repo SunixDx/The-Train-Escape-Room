@@ -1,9 +1,9 @@
 #include "Vago.h"
 
 
-Vago::Vago(glm::vec3 position, GLuint shader_program_id)
+Vago::Vago(Transform transform, GLuint shader_program_id)
 {
-	my_position = position;
+	my_transform = transform;
 	my_shader_program_id = shader_program_id;
 
 	my_taules = {
@@ -25,21 +25,48 @@ Vago::Vago(glm::vec3 position, GLuint shader_program_id)
 	};
 
 	my_seients = {
-		Seient(vec3(9.0f, 1.0f, -0.7f), shader_program_id),
-		Seient(vec3(6.0f, 1.0f, -0.7f), shader_program_id),
-		Seient(vec3(3.0f, 1.0f, -0.7f), shader_program_id),
-		Seient(vec3(0.0f, 1.0f, -0.7f), shader_program_id),
-		Seient(vec3(-3.0f, 1.0f, -0.7f), shader_program_id),
-		Seient(vec3(-6.0f, 1.0f, -0.7f), shader_program_id),
-		Seient(vec3(-9.0f, 1.0f, -0.7f), shader_program_id),
+		Seient(vec3(10.0f, 1.0f, -1.2f), shader_program_id),
+		Seient(vec3(8.0f, 1.0f, -1.2f), shader_program_id),
 
-		Seient(vec3(9.0f, -1.0f, -0.7f), shader_program_id),
-		Seient(vec3(6.0f, -1.0f, -0.7f), shader_program_id),
-		Seient(vec3(3.0f, -1.0f, -0.7f), shader_program_id),
-		Seient(vec3(0.0f, -1.0f, -0.7f), shader_program_id),
-		Seient(vec3(-3.0f, -1.0f, -0.7f), shader_program_id),
-		Seient(vec3(-6.0f, -1.0f, -0.7f), shader_program_id),
-		Seient(vec3(-9.0f, -1.0f, -0.7f), shader_program_id),
+		Seient(vec3(7.0f, 1.0f, -1.2f), shader_program_id),
+		Seient(vec3(5.0f, 1.0f, -1.2f), shader_program_id),
+
+		Seient(vec3(4.0f, 1.0f, -1.2f), shader_program_id),
+		Seient(vec3(2.0f, 1.0f, -1.2f), shader_program_id),
+
+		Seient(vec3(1.0f, 1.0f, -1.2f), shader_program_id),
+		Seient(vec3(-1.0f, 1.0f, -1.2f), shader_program_id),
+
+		Seient(vec3(-2.0f, 1.0f, -1.2f), shader_program_id),
+		Seient(vec3(-4.0f, 1.0f, -1.2f), shader_program_id),
+
+		Seient(vec3(-5.0f, 1.0f, -1.2f), shader_program_id),
+		Seient(vec3(-7.0f, 1.0f, -1.2f), shader_program_id),
+
+		Seient(vec3(-8.0f, 1.0f, -1.2f), shader_program_id),
+		Seient(vec3(-10.0f, 1.0f, -1.2f), shader_program_id),
+
+
+		Seient(vec3(10.0f, -1.0f, -1.2f), shader_program_id),
+		Seient(vec3(8.0f, -1.0f, -1.2f), shader_program_id),
+
+		Seient(vec3(7.0f, -1.0f, -1.2f), shader_program_id),
+		Seient(vec3(5.0f, -1.0f, -1.2f), shader_program_id),
+
+		Seient(vec3(4.0f, -1.0f, -1.2f), shader_program_id),
+		Seient(vec3(2.0f, -1.0f, -1.2f), shader_program_id),
+
+		Seient(vec3(1.0f, -1.0f, -1.2f), shader_program_id),
+		Seient(vec3(-1.0f, -1.0f, -1.2f), shader_program_id),
+
+		Seient(vec3(-2.0f, -1.0f, -1.2f), shader_program_id),
+		Seient(vec3(-4.0f, -1.0f, -1.2f), shader_program_id),
+
+		Seient(vec3(-5.0f, -1.0f, -1.2f), shader_program_id),
+		Seient(vec3(-7.0f, -1.0f, -1.2f), shader_program_id),
+
+		Seient(vec3(-8.0f, -1.0f, -1.2f), shader_program_id),
+		Seient(vec3(-10.0f, -1.0f, -1.2f), shader_program_id),
 	};
 }
 
@@ -93,15 +120,19 @@ void mostrarSostre(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_prog
 
 void Vago::mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG)
 {
-	glm::mat4 matriu_transformacions_vago = glm::translate(MatriuTG, my_position);
+	MatriuTG = glm::translate(MatriuTG, my_transform.position);
+
+	mat4 rotation = glm::toMat4(my_transform.orientation);
+	MatriuTG = rotation * MatriuTG;
+	MatriuTG = glm::scale(MatriuTG, my_transform.scale);
+
+	glm::mat4 matriu_transformacions_vago = glm::translate(MatriuTG, my_transform.position);
 
 	mostrarPared(MatriuVista, matriu_transformacions_vago, my_shader_program_id, glm::vec3(0.0f, 1.5f, 0.0f));
 	mostrarPared(MatriuVista, matriu_transformacions_vago, my_shader_program_id, glm::vec3(0.0f, -1.5f, 0.0f));
 
 	mostrarTerra(MatriuVista, matriu_transformacions_vago, my_shader_program_id);
 	mostrarSostre(MatriuVista, matriu_transformacions_vago, my_shader_program_id);
-
-	
 
 	for (Taula& taula : my_taules)
 		taula.mostrar(MatriuVista, matriu_transformacions_vago);

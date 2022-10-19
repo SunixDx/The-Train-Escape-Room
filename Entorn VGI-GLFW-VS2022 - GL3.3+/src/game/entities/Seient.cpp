@@ -21,7 +21,7 @@ void mostrarRespatller(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_
 	glm::mat4 NormalMatrix(1.0);
 	glm::mat4 ModelMatrix(1.0);
 
-	ModelMatrix = glm::translate(MatriuTG, vec3(0.25f, 0.0f, 0.25f));
+	ModelMatrix = glm::translate(MatriuTG, vec3(0.25f, 0.0f, 0.5f));
 	ModelMatrix = glm::translate(ModelMatrix, displacement);
 	ModelMatrix = glm::scale(ModelMatrix, vec3(0.02f, 1.0f, 0.5f));
 

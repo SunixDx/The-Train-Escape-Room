@@ -425,7 +425,9 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 
 	case CUB_REVERS:
 	{
-		Vago vago = Vago(vec3(0.0f, 0.0f, 1.5f), sh_programID);
+		Transform tr = Transform::blank();
+		tr.position = vec3(0.0f, 0.0f, 0.75f);
+		Vago vago = Vago(tr, sh_programID);
 
 		vago.mostrar(MatriuVista, MatriuTG);
 	}
