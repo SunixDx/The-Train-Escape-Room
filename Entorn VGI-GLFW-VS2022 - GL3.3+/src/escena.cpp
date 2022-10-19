@@ -427,6 +427,9 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 	{
 		Transform tr = Transform::blank();
 		tr.position = vec3(0.0f, 0.0f, 0.75f);
+		/*float c = glm::cos(glm::pi<float>() / 8);
+		float s = glm::sin(glm::pi<float>() / 8);
+		tr.orientation = quat(c, s * 1.0f, s * 0.0f, s * 0.0f);*/
 		Vago vago = Vago(tr, sh_programID);
 
 		vago.mostrar(MatriuVista, MatriuTG);

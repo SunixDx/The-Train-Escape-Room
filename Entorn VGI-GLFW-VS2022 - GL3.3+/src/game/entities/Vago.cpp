@@ -79,7 +79,7 @@ void mostrarPared(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_progr
 	glm::mat4 ModelMatrix(1.0);
 
 	ModelMatrix = glm::translate(MatriuTG, displacement);
-	ModelMatrix = glm::scale(ModelMatrix, vec3(20.0f, 0.1f, 3.0f));
+	ModelMatrix = glm::scale(ModelMatrix, vec3(22.0f, 0.1f, 3.0f));
 
 	// Pas ModelView Matrix a shader
 	glUniformMatrix4fv(glGetUniformLocation(shader_program_id, "modelMatrix"), 1, GL_FALSE, &ModelMatrix[0][0]);
@@ -95,7 +95,7 @@ void mostrarTerra(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_progr
 	glm::mat4 ModelMatrix(1.0);
 
 	ModelMatrix = glm::translate(MatriuTG, vec3(0.0f, 0.0f, -1.5f));
-	ModelMatrix = glm::scale(ModelMatrix, vec3(20.0f, 3.0f, 0.1f));
+	ModelMatrix = glm::scale(ModelMatrix, vec3(22.0f, 3.0f, 0.1f));
 
 	// Pas ModelView Matrix a shader
 	glUniformMatrix4fv(glGetUniformLocation(shader_program_id, "modelMatrix"), 1, GL_FALSE, &ModelMatrix[0][0]);
@@ -111,7 +111,7 @@ void mostrarSostre(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_prog
 	glm::mat4 ModelMatrix(1.0);
 
 	ModelMatrix = glm::translate(MatriuTG, vec3(0.0f, 0.0f, 1.5f));
-	ModelMatrix = glm::scale(ModelMatrix, vec3(20.0f, 3.f, 0.1f));
+	ModelMatrix = glm::scale(ModelMatrix, vec3(22.0f, 3.f, 0.1f));
 
 	// Pas ModelView Matrix a shader
 	glUniformMatrix4fv(glGetUniformLocation(shader_program_id, "modelMatrix"), 1, GL_FALSE, &ModelMatrix[0][0]);
@@ -124,22 +124,19 @@ void mostrarSostre(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_prog
 void Vago::mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG)
 {
 	MatriuTG = glm::translate(MatriuTG, my_transform.position);
-
 	MatriuTG = glm::scale(MatriuTG, my_transform.scale);
 	mat4 rotation = glm::toMat4(my_transform.orientation);
 	MatriuTG = MatriuTG * rotation;
 
-	glm::mat4 matriu_transformacions_vago = glm::translate(MatriuTG, my_transform.position);
+	mostrarPared(MatriuVista, MatriuTG, my_shader_program_id, glm::vec3(0.0f, 1.5f, 0.0f));
+	mostrarPared(MatriuVista, MatriuTG, my_shader_program_id, glm::vec3(0.0f, -1.5f, 0.0f));
 
-	mostrarPared(MatriuVista, matriu_transformacions_vago, my_shader_program_id, glm::vec3(0.0f, 1.5f, 0.0f));
-	mostrarPared(MatriuVista, matriu_transformacions_vago, my_shader_program_id, glm::vec3(0.0f, -1.5f, 0.0f));
-
-	mostrarTerra(MatriuVista, matriu_transformacions_vago, my_shader_program_id);
-	mostrarSostre(MatriuVista, matriu_transformacions_vago, my_shader_program_id);
+	mostrarTerra(MatriuVista, MatriuTG, my_shader_program_id);
+	mostrarSostre(MatriuVista, MatriuTG, my_shader_program_id);
 
 	for (Taula& taula : my_taules)
-		taula.mostrar(MatriuVista, matriu_transformacions_vago);
+		taula.mostrar(MatriuVista, MatriuTG);
 
 	for (Seient& seient : my_seients)
-		seient.mostrar(MatriuVista, matriu_transformacions_vago);
+		seient.mostrar(MatriuVista, MatriuTG);
 }
