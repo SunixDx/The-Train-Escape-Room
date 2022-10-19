@@ -13,11 +13,13 @@
 #define CAM_ESFERICA 'E'
 #define CAM_GEODE 'G'
 #define CAM_NAVEGA 'N'
+#define CAM_PLAY 'P'
 
 //--------------- VGI: Tipus de Projecció
 #define AXONOM 'A'
 #define ORTO 'O'
 #define PERSPECT 'P'
+#define GAME 'G'
 #define IMA_PICK 3
 #define PASSEIG_V 4
 

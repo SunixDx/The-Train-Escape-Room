@@ -229,6 +229,7 @@
 	void Teclat_ColorObjecte(int key, int action);
 	void Teclat_ColorFons(int key, int action);
 	void Teclat_Navega(int key, int action);
+	void Teclat_Play(int key, int action);
 	void Teclat_Pan(int key, int action);
 	void Teclat_TransEscala(int key, int action);
 	void Teclat_TransRota(int key, int action);

@@ -426,7 +426,7 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 	case CUB_REVERS:
 	{
 		Transform tr = Transform::blank();
-		tr.position = vec3(0.0f, 0.0f, 0.75f);
+		tr.position = vec3(0.0f, 0.0f, 1.5f);
 		/*float c = glm::cos(glm::pi<float>() / 8);
 		float s = glm::sin(glm::pi<float>() / 8);
 		tr.orientation = quat(c, s * 1.0f, s * 0.0f, s * 0.0f);*/

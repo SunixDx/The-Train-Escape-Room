@@ -826,6 +826,7 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		}
 		if (pan) Teclat_Pan(key, action);
 		else if (camera == CAM_NAVEGA) Teclat_Navega(key, action);
+		else if (camera == CAM_PLAY) Teclat_Play(key, action);
 		else if (!sw_color) Teclat_ColorFons(key, action);
 		else Teclat_ColorObjecte(key, action);
 	}
@@ -931,7 +932,7 @@ void Teclat_Shift(int key, GLFWwindow* window)
 // ----------- POP UP Finestra
 		// Tecla Obrir nova finestra
 		case GLFW_KEY_W:
-
+			camera = CAM_PLAY;
 			break;
 
 // ----------- POP UP Vista
@@ -1078,7 +1079,8 @@ void Teclat_Shift(int key, GLFWwindow* window)
 		// Tecla Axonomètrica
 		case GLFW_KEY_A:
 			projeccio = AXONOM;
-			mobil = true;			zzoom = true;
+			mobil = true;
+			zzoom = true;
 			break;
 
 		// Tecla Ortogràfica
@@ -1830,6 +1832,97 @@ void Teclat_Navega(int key, int action)
 		default:
 			break;
 		}
+	}
+}
+
+void Teclat_Play(int key, int action)
+{
+	if (action != GLFW_PRESS)
+		return;
+
+	GLdouble vdir[3] = { 0, 0, 0 };
+	double modul = 0;
+
+	// Entorn VGI: Controls de moviment de navegació
+	vdir[0] = n[0] - opvN.x;
+	vdir[1] = n[1] - opvN.y;
+	vdir[2] = n[2] - opvN.z;
+	modul = sqrt(vdir[0] * vdir[0] + vdir[1] * vdir[1] + vdir[2] * vdir[2]);
+	vdir[0] = vdir[0] / modul;
+	vdir[1] = vdir[1] / modul;
+	vdir[2] = vdir[2] / modul;
+
+	switch (key)
+	{
+	case GLFW_KEY_W:
+		opvN.x += fact_pan * vdir[0];
+		opvN.y += fact_pan * vdir[1];
+		n[0] += fact_pan * vdir[0];
+		n[1] += fact_pan * vdir[1];
+		// Tecla cursor amunt
+	case GLFW_KEY_UP:
+		opvN.x += fact_pan * vdir[0];
+		opvN.y += fact_pan * vdir[1];
+		n[0] += fact_pan * vdir[0];
+		n[1] += fact_pan * vdir[1];
+		break;
+
+		// Tecla cursor avall
+	case GLFW_KEY_DOWN:
+		opvN.x -= fact_pan * vdir[0];
+		opvN.y -= fact_pan * vdir[1];
+		n[0] -= fact_pan * vdir[0];
+		n[1] -= fact_pan * vdir[1];
+		break;
+
+		// Tecla cursor esquerra
+	case GLFW_KEY_LEFT:
+		angleZ += fact_pan;
+		n[0] = n[0] - opvN.x;
+		n[1] = n[1] - opvN.y;
+		n[0] = n[0] * cos(angleZ * PI / 180) - n[1] * sin(angleZ * PI / 180);
+		n[1] = n[0] * sin(angleZ * PI / 180) + n[1] * cos(angleZ * PI / 180);
+		n[0] = n[0] + opvN.x;
+		n[1] = n[1] + opvN.y;
+		break;
+
+		// Tecla cursor dret
+	case GLFW_KEY_RIGHT:
+		angleZ = 360 - fact_pan;
+		n[0] = n[0] - opvN.x;
+		n[1] = n[1] - opvN.y;
+		n[0] = n[0] * cos(angleZ * PI / 180) - n[1] * sin(angleZ * PI / 180);
+		n[1] = n[0] * sin(angleZ * PI / 180) + n[1] * cos(angleZ * PI / 180);
+		n[0] = n[0] + opvN.x;
+		n[1] = n[1] + opvN.y;
+		break;
+
+		// Tecla Inicio
+	case GLFW_KEY_HOME:
+		opvN.z += fact_pan;
+		n[2] += fact_pan;
+		break;
+
+		// Tecla Fin
+	case GLFW_KEY_END:
+		opvN.z -= fact_pan;
+		n[2] -= fact_pan;
+		break;
+
+		// Tecla PgUp
+	case GLFW_KEY_PAGE_UP:
+		fact_pan /= 2;
+		if (fact_pan < 1) fact_pan = 1;
+		break;
+
+		// Tecla PgDown
+	case GLFW_KEY_PAGE_DOWN:
+		fact_pan *= 2;
+		if (fact_pan > 2048) fact_pan = 2048;
+		break;
+
+	default:
+		break;
 	}
 }
 
