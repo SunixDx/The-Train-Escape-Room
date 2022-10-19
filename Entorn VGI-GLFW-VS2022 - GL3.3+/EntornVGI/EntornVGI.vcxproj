@@ -20,7 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\escena.cpp" />
+    <ClCompile Include="..\src\game\entities\Seient.cpp" />
+    <ClCompile Include="..\src\game\entities\Taula.cpp" />
     <ClCompile Include="..\src\game\entities\Vago.cpp" />
+    <ClCompile Include="..\src\game\graphics\Mesh.cpp" />
+    <ClCompile Include="..\src\game\graphics\Texture.cpp" />
+    <ClCompile Include="..\src\game\graphics\Vertex.cpp" />
     <ClCompile Include="..\src\glut_geometry.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\material.cpp" />
@@ -31,7 +36,12 @@
   <ItemGroup>
     <ClInclude Include="..\src\constants.h" />
     <ClInclude Include="..\src\escena.h" />
+    <ClInclude Include="..\src\game\entities\Seient.h" />
+    <ClInclude Include="..\src\game\entities\Taula.h" />
     <ClInclude Include="..\src\game\entities\Vago.h" />
+    <ClInclude Include="..\src\game\graphics\Mesh.h" />
+    <ClInclude Include="..\src\game\graphics\Texture.h" />
+    <ClInclude Include="..\src\game\graphics\Vertex.h" />
     <ClInclude Include="..\src\glut_geometry.h" />
     <ClInclude Include="..\src\main.h" />
     <ClInclude Include="..\src\material.h" />
