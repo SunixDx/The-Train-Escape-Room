@@ -7,66 +7,69 @@ Vago::Vago(Transform transform, GLuint shader_program_id)
 	my_shader_program_id = shader_program_id;
 
 	my_taules = {
-		Taula(vec3(9.0f, 1.0f, -0.7f), shader_program_id),
-		Taula(vec3(6.0f, 1.0f, -0.7f), shader_program_id),
-		Taula(vec3(3.0f, 1.0f, -0.7f), shader_program_id),
-		Taula(vec3(0.0f, 1.0f, -0.7f), shader_program_id),
-		Taula(vec3(-3.0f, 1.0f, -0.7f), shader_program_id),
-		Taula(vec3(-6.0f, 1.0f, -0.7f), shader_program_id),
-		Taula(vec3(-9.0f, 1.0f, -0.7f), shader_program_id),
+		Taula(Transform(vec3(9.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), shader_program_id),
+		Taula(Transform(vec3(6.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), shader_program_id),
+		Taula(Transform(vec3(3.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), shader_program_id),
+		Taula(Transform(vec3(0.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), shader_program_id),
+		Taula(Transform(vec3(-3.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), shader_program_id),
+		Taula(Transform(vec3(-6.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), shader_program_id),
+		Taula(Transform(vec3(-9.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), shader_program_id),
 
-		Taula(vec3(9.0f, -1.0f, -0.7f), shader_program_id),
-		Taula(vec3(6.0f, -1.0f, -0.7f), shader_program_id),
-		Taula(vec3(3.0f, -1.0f, -0.7f), shader_program_id),
-		Taula(vec3(0.0f, -1.0f, -0.7f), shader_program_id),
-		Taula(vec3(-3.0f, -1.0f, -0.7f), shader_program_id),
-		Taula(vec3(-6.0f, -1.0f, -0.7f), shader_program_id),
-		Taula(vec3(-9.0f, -1.0f, -0.7f), shader_program_id),
+		Taula(Transform(vec3(9.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), shader_program_id),
+		Taula(Transform(vec3(6.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), shader_program_id),
+		Taula(Transform(vec3(3.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), shader_program_id),
+		Taula(Transform(vec3(0.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), shader_program_id),
+		Taula(Transform(vec3(-3.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), shader_program_id),
+		Taula(Transform(vec3(-6.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), shader_program_id),
+		Taula(Transform(vec3(-9.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), shader_program_id),
 	};
 
+	quat mirar_endevant = quat(0.0f, 0.0f, 0.0f, 0.0f);
+	quat mirar_enrere = quat(glm::cos(glm::pi<float>() / 2), glm::sin(glm::pi<float>() / 2) * 0.0f, glm::sin(glm::pi<float>() / 2) * 0.0f, glm::sin(glm::pi<float>() / 2) * 1.0f);
+
 	my_seients = {
-		Seient(vec3(10.0f, 1.0f, -1.2f), shader_program_id),
-		Seient(vec3(8.0f, 1.0f, -1.2f), shader_program_id),
+		Seient(Transform(vec3(10.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), shader_program_id),
+		Seient(Transform(vec3(8.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), shader_program_id),
 
-		Seient(vec3(7.0f, 1.0f, -1.2f), shader_program_id),
-		Seient(vec3(5.0f, 1.0f, -1.2f), shader_program_id),
+		Seient(Transform(vec3(7.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), shader_program_id),
+		Seient(Transform(vec3(5.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), shader_program_id),
 
-		Seient(vec3(4.0f, 1.0f, -1.2f), shader_program_id),
-		Seient(vec3(2.0f, 1.0f, -1.2f), shader_program_id),
+		Seient(Transform(vec3(4.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), shader_program_id),
+		Seient(Transform(vec3(2.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), shader_program_id),
 
-		Seient(vec3(1.0f, 1.0f, -1.2f), shader_program_id),
-		Seient(vec3(-1.0f, 1.0f, -1.2f), shader_program_id),
+		Seient(Transform(vec3(1.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), shader_program_id),
+		Seient(Transform(vec3(-1.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), shader_program_id),
 
-		Seient(vec3(-2.0f, 1.0f, -1.2f), shader_program_id),
-		Seient(vec3(-4.0f, 1.0f, -1.2f), shader_program_id),
+		Seient(Transform(vec3(-2.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), shader_program_id),
+		Seient(Transform(vec3(-4.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), shader_program_id),
 
-		Seient(vec3(-5.0f, 1.0f, -1.2f), shader_program_id),
-		Seient(vec3(-7.0f, 1.0f, -1.2f), shader_program_id),
+		Seient(Transform(vec3(-5.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), shader_program_id),
+		Seient(Transform(vec3(-7.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), shader_program_id),
 
-		Seient(vec3(-8.0f, 1.0f, -1.2f), shader_program_id),
-		Seient(vec3(-10.0f, 1.0f, -1.2f), shader_program_id),
+		Seient(Transform(vec3(-8.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), shader_program_id),
+		Seient(Transform(vec3(-10.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), shader_program_id),
 
 
-		Seient(vec3(10.0f, -1.0f, -1.2f), shader_program_id),
-		Seient(vec3(8.0f, -1.0f, -1.2f), shader_program_id),
+		Seient(Transform(vec3(10.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), shader_program_id),
+		Seient(Transform(vec3(8.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), shader_program_id),
 
-		Seient(vec3(7.0f, -1.0f, -1.2f), shader_program_id),
-		Seient(vec3(5.0f, -1.0f, -1.2f), shader_program_id),
+		Seient(Transform(vec3(7.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), shader_program_id),
+		Seient(Transform(vec3(5.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), shader_program_id),
 
-		Seient(vec3(4.0f, -1.0f, -1.2f), shader_program_id),
-		Seient(vec3(2.0f, -1.0f, -1.2f), shader_program_id),
+		Seient(Transform(vec3(4.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), shader_program_id),
+		Seient(Transform(vec3(2.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), shader_program_id),
 
-		Seient(vec3(1.0f, -1.0f, -1.2f), shader_program_id),
-		Seient(vec3(-1.0f, -1.0f, -1.2f), shader_program_id),
+		Seient(Transform(vec3(1.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), shader_program_id),
+		Seient(Transform(vec3(-1.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), shader_program_id),
 
-		Seient(vec3(-2.0f, -1.0f, -1.2f), shader_program_id),
-		Seient(vec3(-4.0f, -1.0f, -1.2f), shader_program_id),
+		Seient(Transform(vec3(-2.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), shader_program_id),
+		Seient(Transform(vec3(-4.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), shader_program_id),
 
-		Seient(vec3(-5.0f, -1.0f, -1.2f), shader_program_id),
-		Seient(vec3(-7.0f, -1.0f, -1.2f), shader_program_id),
+		Seient(Transform(vec3(-5.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), shader_program_id),
+		Seient(Transform(vec3(-7.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), shader_program_id),
 
-		Seient(vec3(-8.0f, -1.0f, -1.2f), shader_program_id),
-		Seient(vec3(-10.0f, -1.0f, -1.2f), shader_program_id),
+		Seient(Transform(vec3(-8.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), shader_program_id),
+		Seient(Transform(vec3(-10.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), shader_program_id),
 	};
 }
 
@@ -122,9 +125,9 @@ void Vago::mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG)
 {
 	MatriuTG = glm::translate(MatriuTG, my_transform.position);
 
-	mat4 rotation = glm::toMat4(my_transform.orientation);
-	MatriuTG = rotation * MatriuTG;
 	MatriuTG = glm::scale(MatriuTG, my_transform.scale);
+	mat4 rotation = glm::toMat4(my_transform.orientation);
+	MatriuTG = MatriuTG * rotation;
 
 	glm::mat4 matriu_transformacions_vago = glm::translate(MatriuTG, my_transform.position);
 

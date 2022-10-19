@@ -1,13 +1,14 @@
 #include "../src/stdafx.h"
+#include "../graphics/Transform.h"
 
 class Seient
 {
 public:
-	Seient(glm::vec3 position, GLuint shader_program_id) : my_position(position), my_shader_program_id(shader_program_id) {};
+	Seient(Transform transform, GLuint shader_program_id) : my_transform(transform), my_shader_program_id(shader_program_id) {};
 
 	void mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG);
 private:
 
-	glm::vec3 my_position;
+	Transform my_transform;
 	GLuint my_shader_program_id;
 };
