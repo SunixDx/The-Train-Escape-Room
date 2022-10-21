@@ -33,6 +33,7 @@
     <ClCompile Include="..\src\objLoader.cpp" />
     <ClCompile Include="..\src\shader.cpp" />
     <ClCompile Include="..\src\visualitzacio.cpp" />
+    <ClCompile Include="Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\constants.h" />
@@ -51,6 +52,7 @@
     <ClInclude Include="..\src\shader.h" />
     <ClInclude Include="..\src\stdafx.h" />
     <ClInclude Include="..\src\visualitzacio.h" />
+    <ClInclude Include="Camera.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -4,6 +4,7 @@
 // main.cpp : Definició de main
 
 //#include <GLFW/glfw3.h>
+#include <iostream>
 #include "stdafx.h"
 #include "shader.h"
 #include "visualitzacio.h"
@@ -486,24 +487,31 @@ void OnPaint(GLFWwindow* window)
 
 		// Definició de la càmera.
 		if (camera == CAM_ESFERICA) {
-				n[0] = 0;		n[1] = 0;		n[2] = 0;
-				ViewMatrix = Vista_Esferica(shader_programID, OPV, Vis_Polar, pan, tr_cpv, tr_cpvF, c_fons, col_obj, objecte, mida, pas,
-					front_faces, oculta, test_vis, back_line,
-					ilumina, llum_ambient, llumGL, ifixe, ilum2sides,
-					eixos, grid, hgrid);
-				}
+			n[0] = 0;		n[1] = 0;		n[2] = 0;
+			ViewMatrix = Vista_Esferica(shader_programID, OPV, Vis_Polar, pan, tr_cpv, tr_cpvF, c_fons, col_obj, objecte, mida, pas,
+				front_faces, oculta, test_vis, back_line,
+				ilumina, llum_ambient, llumGL, ifixe, ilum2sides,
+				eixos, grid, hgrid);
+		}
 		else if (camera == CAM_NAVEGA) {
-				ViewMatrix = Vista_Navega(shader_programID, opvN, false, n, vpv, pan, tr_cpv, tr_cpvF, c_fons, col_obj, objecte, true, pas,
-					front_faces, oculta, test_vis, back_line,
-					ilumina, llum_ambient, llumGL, ifixe, ilum2sides,
-					eixos, grid, hgrid);
-				}
+			ViewMatrix = Vista_Navega(shader_programID, opvN, false, n, vpv, pan, tr_cpv, tr_cpvF, c_fons, col_obj, objecte, true, pas,
+				front_faces, oculta, test_vis, back_line,
+				ilumina, llum_ambient, llumGL, ifixe, ilum2sides,
+				eixos, grid, hgrid);
+		}
 		else if (camera == CAM_GEODE) {
-				ViewMatrix = Vista_Geode(shader_programID, OPV_G, Vis_Polar, pan, tr_cpv, tr_cpvF, c_fons, col_obj, objecte, mida, pas,
-					front_faces, oculta, test_vis, back_line,
-					ilumina, llum_ambient, llumGL, ifixe, ilum2sides,
-					eixos, grid, hgrid);
-				}
+			ViewMatrix = Vista_Geode(shader_programID, OPV_G, Vis_Polar, pan, tr_cpv, tr_cpvF, c_fons, col_obj, objecte, mida, pas,
+				front_faces, oculta, test_vis, back_line,
+				ilumina, llum_ambient, llumGL, ifixe, ilum2sides,
+				eixos, grid, hgrid);
+		}
+		else if (camera == CAM_PERSONALITZADA)
+		{
+			ViewMatrix = Vista_Personalitzada(shader_programID, horizontal_angle, vertical_angle, position, c_fons, col_obj, objecte, true, pas,
+				front_faces, oculta, test_vis, back_line,
+				ilumina, llum_ambient, llumGL, ifixe, ilum2sides,
+				eixos, grid, hgrid);
+		}
 
 		// Dibuix de l'Objecte o l'Escena
 		configura_Escena();     // Aplicar Transformacions Geometriques segons persiana Transformacio i configurar objectes.
@@ -803,11 +811,51 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	double modul = 0;
 	GLdouble vdir[3] = { 0, 0, 0 };
 
+
 // EntornVGI: Si tecla pulsada és ESCAPE, tancar finestres i aplicació.
 	if (mods == 0 && key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) glfwSetWindowShouldClose(window, GL_TRUE);
+
 	else if (mods == 0 && key == GLFW_KEY_PRINT_SCREEN && action == GLFW_PRESS) statusB = !statusB;
 	else if ((mods == 1) && (action == GLFW_PRESS)) Teclat_Shift(key, window);	// Shorcuts Shift Key
 	else if ((mods == 2) && (action == GLFW_PRESS)) Teclat_Ctrl(key);	// Shortcuts Ctrl Key
+	else if (mods == 0 && key == GLFW_KEY_C && action == GLFW_PRESS)
+	{	
+		glfwSetCursorPos(window, w / 2, h / 2);
+		std::cout << "centering ..." << std::endl;
+	}
+	else if (mods == 0 && key == GLFW_KEY_P && action == GLFW_PRESS)
+	{
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		std::cout << "CAM PERSONALITZADA" << std::endl;
+		camera = CAM_PERSONALITZADA;
+		position = glm::vec3(0, 0, 1.5);
+	}
+	else if (camera == CAM_PERSONALITZADA)
+	{
+		glm::vec3 direction(
+			cos(vertical_angle) * cos(horizontal_angle),
+			sin(horizontal_angle),
+			sin(vertical_angle)
+		);
+
+		glm::vec3 left = glm::vec3(
+			cos(horizontal_angle + PI / 2),
+			sin(horizontal_angle + PI / 2),
+			0
+		);
+
+		if (key == GLFW_KEY_W) position += direction * move_speed;
+		if (key == GLFW_KEY_S) position -= direction * move_speed;
+		if (key == GLFW_KEY_A) position += left * move_speed;
+		if (key == GLFW_KEY_D) position -= left * move_speed;
+
+		if (key == GLFW_KEY_I) vertical_angle += turn_speed;
+		if (key == GLFW_KEY_K) vertical_angle -= turn_speed;
+		if (key == GLFW_KEY_J) horizontal_angle += turn_speed;
+		if (key == GLFW_KEY_L) horizontal_angle -= turn_speed;
+	}
+	else if (camera == CAM_NAVEGA) Teclat_Navega(key, action);
+
 	else if ((sw_grid) && ((grid.x) || (grid.y) || (grid.z))) Teclat_Grid(key, action);
 	else if (((key == GLFW_KEY_G) && (action == GLFW_PRESS)) && ((grid.x) || (grid.y) || (grid.z))) sw_grid = !sw_grid;
 	else if ((key == GLFW_KEY_O) && (action == GLFW_PRESS)) sw_color = true; // Activació color objecte
@@ -825,7 +873,6 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 			else if (escal) Teclat_TransEscala(key, action);
 		}
 		if (pan) Teclat_Pan(key, action);
-		else if (camera == CAM_NAVEGA) Teclat_Navega(key, action);
 		else if (camera == CAM_PLAY) Teclat_Play(key, action);
 		else if (!sw_color) Teclat_ColorFons(key, action);
 		else Teclat_ColorObjecte(key, action);
@@ -1122,8 +1169,7 @@ void Teclat_Shift(int key, GLFWwindow* window)
 			SetColor4d(col_obj.r, col_obj.g, col_obj.b, col_obj.a);
 
 			//if (Get_VAOId(GLUT_CUBE) != 0) deleteVAOList(GLUT_CUBE);	// Neteja VAO Cub
-			//Set_VAOList(GLUT_CUBE, loadglutSolidCube_VAO(1.0));	// Genera VAO de cub mida 1 i el guarda a la posició GLUT_CUBE.
-			Set_VAOList(GLUT_USER7, loadglutSolidCubeRevers_EBO(1.0));		// Genera EBO de cub mida 1 i el guarda a la posició GLUT_CUBE.
+			//Set_VAOList(GLUT_CUBE, loadglutSolidCube_VAO(1.0));	// Genera EBO de cub mida 1 i el guarda a la posició GLUT_CUBE.
 			Set_VAOList(GLUT_CUBE, loadglutSolidCube_EBO(1.0));		// Genera EBO de cub mida 1 i el guarda a la posició GLUT_CUBE.
 			break;
 
@@ -1754,6 +1800,8 @@ void Teclat_Navega(int key, int action)
 	GLdouble vdir[3] = { 0, 0, 0 };
 	double modul = 0;
 
+	opvN.z = 1.7f;
+
 	// Entorn VGI: Controls de moviment de navegació
 	vdir[0] = n[0] - opvN.x;
 	vdir[1] = n[1] - opvN.y;
@@ -1768,7 +1816,7 @@ void Teclat_Navega(int key, int action)
 		switch (key)
 		{
 		// Tecla cursor amunt
-		case GLFW_KEY_UP:
+		case GLFW_KEY_W:
 			opvN.x += fact_pan * vdir[0];
 			opvN.y += fact_pan * vdir[1];
 			n[0] += fact_pan * vdir[0];
@@ -1776,7 +1824,7 @@ void Teclat_Navega(int key, int action)
 			break;
 
 		// Tecla cursor avall
-		case GLFW_KEY_DOWN:
+		case GLFW_KEY_S:
 			opvN.x -= fact_pan * vdir[0];
 			opvN.y -= fact_pan * vdir[1];
 			n[0] -= fact_pan * vdir[0];
@@ -1784,7 +1832,7 @@ void Teclat_Navega(int key, int action)
 			break;
 
 		// Tecla cursor esquerra
-		case GLFW_KEY_LEFT:
+		case GLFW_KEY_D:
 			angleZ += fact_pan;
 			n[0] = n[0] - opvN.x;
 			n[1] = n[1] - opvN.y;
@@ -1795,7 +1843,7 @@ void Teclat_Navega(int key, int action)
 			break;
 
 		// Tecla cursor dret
-		case GLFW_KEY_RIGHT:
+		case GLFW_KEY_A:
 			angleZ = 360 - fact_pan;
 			n[0] = n[0] - opvN.x;
 			n[1] = n[1] - opvN.y;
@@ -2468,6 +2516,19 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 	double modul = 0;
 	GLdouble vdir[3] = { 0, 0, 0 };
 	CSize gir, girn, girT, zoomincr;
+
+	if (camera == CAM_PERSONALITZADA && m_ButoEAvall)
+	{
+		horizontal_angle += mouse_speed * float(m_PosEAvall.x - xpos);
+		vertical_angle += mouse_speed * float(m_PosEAvall.y - ypos);
+	}
+	else if (camera == CAM_PERSONALITZADA && m_ButoEAvall)
+	{
+		horizontal_angle += mouse_speed * float(w / 2 - xpos);
+		vertical_angle += mouse_speed * float(h / 2 - ypos);
+		glfwSetCursorPos(window, w / 2, h / 2);
+	}
+
 
 	// TODO: Add your message handler code here and/or call default
 	if (m_ButoEAvall && mobil && projeccio != CAP)
