@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 
 // Texture: Estructura amb atributs de textures de la malla.

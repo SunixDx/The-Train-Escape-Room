@@ -1,3 +1,4 @@
+#pragma once
 #include "../src/stdafx.h"
 #include "../graphics/Transform.h"
 #include "Taula.h"
