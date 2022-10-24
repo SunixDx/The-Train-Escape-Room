@@ -57,8 +57,12 @@
 	float turn_speed = PI / 20;
 	float mouse_speed = 0.001;
 	glm::vec3 position;
-	
 
+// Variables pel control del moviment
+	bool w_pressed = false;
+	bool s_pressed = false;
+	bool a_pressed = false;
+	bool d_pressed = false;
 
 // Entorn VGI: Variables de control per Menú Vista: fullsecreen, pan, dibuixar eixos i grid. 
 	bool fullscreen;	// Opció booleana per Pantalla Completal [0:NO,1:SI]

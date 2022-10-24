@@ -794,6 +794,29 @@ void Barra_Estat()
 		}
 }
 
+void move()
+{
+	glm::vec3 direction(
+		cos(vertical_angle) * cos(horizontal_angle),
+		sin(horizontal_angle),
+		0
+	);
+
+	glm::vec3 left = glm::vec3(
+		cos(horizontal_angle + PI / 2),
+		sin(horizontal_angle + PI / 2),
+		0
+	);
+
+	while (w_pressed || s_pressed || a_pressed || d_pressed)
+	{
+		if (w_pressed) position += direction * move_speed;
+		if (s_pressed) position -= direction * move_speed;
+		if (a_pressed) position += left * move_speed;
+		if (d_pressed) position -= left * move_speed;
+	}
+}
+
 /* ------------------------------------------------------------------------- */
 /*                           CONTROL DEL TECLAT                              */
 /* ------------------------------------------------------------------------- */
@@ -818,11 +841,7 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	else if (mods == 0 && key == GLFW_KEY_PRINT_SCREEN && action == GLFW_PRESS) statusB = !statusB;
 	else if ((mods == 1) && (action == GLFW_PRESS)) Teclat_Shift(key, window);	// Shorcuts Shift Key
 	else if ((mods == 2) && (action == GLFW_PRESS)) Teclat_Ctrl(key);	// Shortcuts Ctrl Key
-	else if (mods == 0 && key == GLFW_KEY_C && action == GLFW_PRESS)
-	{	
-		glfwSetCursorPos(window, w / 2, h / 2);
-		std::cout << "centering ..." << std::endl;
-	}
+
 	else if (mods == 0 && key == GLFW_KEY_P && action == GLFW_PRESS)
 	{
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -830,12 +849,22 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		camera = CAM_PERSONALITZADA;
 		position = glm::vec3(0, 0, 1.5);
 	}
-	else if (camera == CAM_PERSONALITZADA)
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS)
+	{
+		if (key == GLFW_KEY_W) w_pressed = true;
+		if (key == GLFW_KEY_S) s_pressed = true;
+		if (key == GLFW_KEY_A) a_pressed = true;
+		if (key == GLFW_KEY_D) d_pressed = true;
+		std::cout << "MOVING" << std::endl;
+		move();
+		std::cout << "NOT MOVING" << std::endl;
+	}
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_REPEAT)
 	{
 		glm::vec3 direction(
 			cos(vertical_angle) * cos(horizontal_angle),
 			sin(horizontal_angle),
-			sin(vertical_angle)
+			0
 		);
 
 		glm::vec3 left = glm::vec3(
@@ -848,11 +877,6 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		if (key == GLFW_KEY_S) position -= direction * move_speed;
 		if (key == GLFW_KEY_A) position += left * move_speed;
 		if (key == GLFW_KEY_D) position -= left * move_speed;
-
-		if (key == GLFW_KEY_I) vertical_angle += turn_speed;
-		if (key == GLFW_KEY_K) vertical_angle -= turn_speed;
-		if (key == GLFW_KEY_J) horizontal_angle += turn_speed;
-		if (key == GLFW_KEY_L) horizontal_angle -= turn_speed;
 	}
 	else if (camera == CAM_NAVEGA) Teclat_Navega(key, action);
 
@@ -891,6 +915,13 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 
 void OnKeyUp(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
+	if (camera == CAM_PERSONALITZADA && action == GLFW_RELEASE)
+	{
+		if (key == GLFW_KEY_W) w_pressed = false;
+		if (key == GLFW_KEY_S) s_pressed = false;
+		if (key == GLFW_KEY_A) a_pressed = false;
+		if (key == GLFW_KEY_D) d_pressed = false;
+	}
 }
 
 void OnTextDown(GLFWwindow* window, unsigned int codepoint)
@@ -1974,7 +2005,6 @@ void Teclat_Play(int key, int action)
 	}
 }
 
-
 // Teclat_Pan: Teclat pels moviments de Pan.
 void Teclat_Pan(int key, int action)
 {
@@ -2517,18 +2547,12 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 	GLdouble vdir[3] = { 0, 0, 0 };
 	CSize gir, girn, girT, zoomincr;
 
-	if (camera == CAM_PERSONALITZADA && m_ButoEAvall)
-	{
-		horizontal_angle += mouse_speed * float(m_PosEAvall.x - xpos);
-		vertical_angle += mouse_speed * float(m_PosEAvall.y - ypos);
-	}
-	else if (camera == CAM_PERSONALITZADA && m_ButoEAvall)
+	if (camera == CAM_PERSONALITZADA)
 	{
 		horizontal_angle += mouse_speed * float(w / 2 - xpos);
 		vertical_angle += mouse_speed * float(h / 2 - ypos);
 		glfwSetCursorPos(window, w / 2, h / 2);
 	}
-
 
 	// TODO: Add your message handler code here and/or call default
 	if (m_ButoEAvall && mobil && projeccio != CAP)
@@ -3128,6 +3152,7 @@ int main(void)
 
 // Crida a OnPaint() per redibuixar l'escena
 		OnPaint(window);
+
 
 // Intercanvia l'escena al front de la pantalla
 	//	glfwSwapBuffers(window);

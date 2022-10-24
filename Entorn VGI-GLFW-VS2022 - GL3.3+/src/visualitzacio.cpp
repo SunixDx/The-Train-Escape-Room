@@ -706,8 +706,6 @@ glm::mat4 Vista_Personalitzada(GLuint sh_programID, float horizontal_angle, floa
 
 	glm::mat4 MatriuVista(1.0);
 
-	// Especificació del punt de vista
-	   //gluLookAt(cam[0],cam[1],cam[2],0.,0.,0.,up[0],up[1],up[2]);
 	MatriuVista = glm::lookAt(
 		position, // Camera is here
 		position + direction, // and looks here
