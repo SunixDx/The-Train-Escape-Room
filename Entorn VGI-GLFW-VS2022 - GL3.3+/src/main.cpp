@@ -9,6 +9,7 @@
 #include "visualitzacio.h"
 #include "escena.h"
 #include "main.h"
+#include "game/graphics/Mesh.h"
 
 
 void InitGL()
@@ -3050,6 +3051,47 @@ int main(void)
 // Entorn VGI. Timer: Lectura temps
 	float previous = glfwGetTime();
 
+
+	std::vector<Vertex> cube_vertices = {
+		Vertex({0.5f,  0.5f,  0.5f,}, {0.0,  0.0,  1.0}, {0.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({-0.5f,  0.5f,  0.5f}, {0.0,  0.0,  1.0}, {1.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({-0.5f, -0.5f,  0.5f}, {0.0,  0.0,  1.0}, {1.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({0.5f, -0.5f,  0.5f}, {0.0,  0.0,  1.0}, {0.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({0.5f,  0.5f,  0.5f,}, {1.0,  0.0,  0.0}, {1.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({0.5f, -0.5f,  0.5f}, {1.0,  0.0,  0.0}, {0.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({0.5f, -0.5f, -0.5f}, {1.0,  0.0,  0.0}, {0.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({0.5f,  0.5f, -0.5f}, {1.0,  0.0,  0.0}, {1.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({0.5f,  0.5f,  0.5f,}, {0.0,  1.0,  0.0}, {1.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({0.5f,  0.5f, -0.5f}, {0.0,  1.0,  0.0}, {1.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({-0.5f,  0.5f, -0.5f}, {0.0,  1.0,  0.0}, {0.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({-0.5f,  0.5f,  0.5f}, {0.0,  1.0,  0.0}, {0.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({-0.5f,  0.5f,  0.5f,}, {-1.0,  0.0,  0.0}, {0.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({-0.5f,  0.5f, -0.5f}, {-1.0,  0.0,  0.0}, {0.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({-0.5f, -0.5f, -0.5f}, {-1.0,  0.0,  0.0}, {1.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({-0.5f, -0.5f,  0.5f}, {-1.0,  0.0,  0.0}, {1.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({-0.5f, -0.5f, -0.5f,}, {0.0, -1.0,  0.0}, {1.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({0.5f, -0.5f, -0.5f}, {0.0, -1.0,  0.0}, {0.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({0.5f, -0.5f,  0.5f}, {0.0, -1.0,  0.0}, {0.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({-0.5f, -0.5f,  0.5f}, {0.0, -1.0,  0.0}, {1.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({0.5f, -0.5f, -0.5f,}, {0.0,  0.0, -1.0}, {1.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({-0.5f, -0.5f, -0.5f}, {0.0,  0.0, -1.0}, {0.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({-0.5f,  0.5f, -0.5f}, {0.0,  0.0, -1.0}, {0.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({0.5f,  0.5f, -0.5}, {0.0,  0.0, -1.0}, {1.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+	};
+
+	std::vector<unsigned int> indices = {
+		0, 1, 2, 2, 3, 0,			// v0-v1-v2-v3 (front)
+		4, 5, 6, 6, 7, 4,			// v0-v3-v4-v5 (right)
+		8, 9, 10, 10, 11, 8,		// v0-v5-v6-v1 (top)
+		12, 13, 14, 14, 15, 12,		// v1-v6-v7-v2 (left)
+		16, 17, 18, 18, 19, 16,		// v7-v4-v3-v2 (bottom)
+		20, 21, 22, 22, 23, 20		// v4-v7-v6-v5 (back)
+	};
+
+	std::vector<Texture> textures;
+
+	Mesh::BASIC_CUBE_MESH = new Mesh(cube_vertices, indices, textures);
+
 // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))
     {  
@@ -3088,5 +3130,9 @@ int main(void)
 	if (shaderPhong.getProgramID() != -1) shaderPhong.DeleteProgram();
 	if (shaderFiles.getProgramID() != -1) shaderFiles.DeleteProgram();
 	if (shaderSkyBox.getProgramID() != -1) shaderSkyBox.DeleteProgram();
+
+
+	delete Mesh::BASIC_CUBE_MESH;
+
     return 0;
 }

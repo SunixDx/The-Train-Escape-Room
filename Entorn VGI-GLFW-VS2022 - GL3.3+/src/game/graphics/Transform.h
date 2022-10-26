@@ -16,6 +16,8 @@ public:
 		);
 	}
 
+	mat4 apply(mat4 matriu_transformacions);
+
 	glm::vec3 position;
 
 	glm::quat orientation;

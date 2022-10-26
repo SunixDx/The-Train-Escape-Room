@@ -19,6 +19,7 @@
 #include "escena.h"
 
 #include "game/entities/Vago.h"
+#include "game/graphics/Mesh.h"
 
 // Dibuixa Eixos Coordenades Món i Reixes, activant un shader propi.
 void dibuixa_Eixos(GLuint ax_programID, bool eix, GLuint axis_Id, CMask3D reixa, CPunt3D hreixa, 
@@ -432,7 +433,70 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		float s = glm::sin(glm::pi<float>() / 8);
 		tr.orientation = quat(c, s * 1.0f, s * 0.0f, s * 0.0f);
 		*/
-		Vago vago = Vago(tr, sh_programID);
+		Vago vago = Vago(tr, Mesh::BASIC_CUBE_MESH, sh_programID);
+
+		vago.afegirTaula(Taula(Transform(vec3(9.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(Taula(Transform(vec3(6.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(Taula(Transform(vec3(3.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(Taula(Transform(vec3(0.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(Taula(Transform(vec3(-3.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(Taula(Transform(vec3(-6.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(Taula(Transform(vec3(-9.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+
+		vago.afegirTaula(Taula(Transform(vec3(9.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(Taula(Transform(vec3(6.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(Taula(Transform(vec3(3.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(Taula(Transform(vec3(0.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(Taula(Transform(vec3(-3.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(Taula(Transform(vec3(-6.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(Taula(Transform(vec3(-9.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+
+
+		quat mirar_endevant = quat(0.0f, 0.0f, 0.0f, 0.0f);
+		quat mirar_enrere = quat(glm::cos(glm::pi<float>() / 2), glm::sin(glm::pi<float>() / 2) * 0.0f, glm::sin(glm::pi<float>() / 2) * 0.0f, glm::sin(glm::pi<float>() / 2) * 1.0f);
+
+		vago.afegirSeient(Seient(Transform(vec3(10.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(8.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+
+		vago.afegirSeient(Seient(Transform(vec3(7.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(5.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+
+		vago.afegirSeient(Seient(Transform(vec3(4.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(2.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+
+		vago.afegirSeient(Seient(Transform(vec3(1.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-1.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+
+		vago.afegirSeient(Seient(Transform(vec3(-2.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-4.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+
+		vago.afegirSeient(Seient(Transform(vec3(-5.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-7.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+
+		vago.afegirSeient(Seient(Transform(vec3(-8.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-10.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+
+
+		vago.afegirSeient(Seient(Transform(vec3(10.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(8.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+
+		vago.afegirSeient(Seient(Transform(vec3(7.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(5.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+
+		vago.afegirSeient(Seient(Transform(vec3(4.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(2.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+
+		vago.afegirSeient(Seient(Transform(vec3(1.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-1.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+
+		vago.afegirSeient(Seient(Transform(vec3(-2.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-4.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+
+		vago.afegirSeient(Seient(Transform(vec3(-5.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-7.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+
+		vago.afegirSeient(Seient(Transform(vec3(-8.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-10.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
 
 		vago.mostrar(MatriuVista, MatriuTG);
 	}

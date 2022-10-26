@@ -1,6 +1,13 @@
 #include "Taula.h"
 
 
+Taula::Taula(Transform transform, Mesh* mesh, GLuint shader_id)
+{
+	my_transform = transform;
+	my_mesh = mesh;
+	my_shader_program_id = shader_id;
+}
+
 void mostrarPlataforma(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_program_id)
 {
 	glm::mat4 NormalMatrix(1.0);
