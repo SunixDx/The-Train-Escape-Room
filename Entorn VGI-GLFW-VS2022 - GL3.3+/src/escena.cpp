@@ -455,48 +455,48 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		quat mirar_endevant = quat(0.0f, 0.0f, 0.0f, 0.0f);
 		quat mirar_enrere = quat(glm::cos(glm::pi<float>() / 2), glm::sin(glm::pi<float>() / 2) * 0.0f, glm::sin(glm::pi<float>() / 2) * 0.0f, glm::sin(glm::pi<float>() / 2) * 1.0f);
 
-		vago.afegirSeient(Seient(Transform(vec3(10.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
-		vago.afegirSeient(Seient(Transform(vec3(8.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(10.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(8.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
-		vago.afegirSeient(Seient(Transform(vec3(7.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
-		vago.afegirSeient(Seient(Transform(vec3(5.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(7.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(5.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
-		vago.afegirSeient(Seient(Transform(vec3(4.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
-		vago.afegirSeient(Seient(Transform(vec3(2.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(4.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(2.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
-		vago.afegirSeient(Seient(Transform(vec3(1.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
-		vago.afegirSeient(Seient(Transform(vec3(-1.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(1.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-1.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
-		vago.afegirSeient(Seient(Transform(vec3(-2.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
-		vago.afegirSeient(Seient(Transform(vec3(-4.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-2.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-4.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
-		vago.afegirSeient(Seient(Transform(vec3(-5.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
-		vago.afegirSeient(Seient(Transform(vec3(-7.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-5.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-7.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
-		vago.afegirSeient(Seient(Transform(vec3(-8.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
-		vago.afegirSeient(Seient(Transform(vec3(-10.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-8.0f, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-10.0f, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
 
-		vago.afegirSeient(Seient(Transform(vec3(10.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
-		vago.afegirSeient(Seient(Transform(vec3(8.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(10.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(8.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
-		vago.afegirSeient(Seient(Transform(vec3(7.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
-		vago.afegirSeient(Seient(Transform(vec3(5.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(7.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(5.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
-		vago.afegirSeient(Seient(Transform(vec3(4.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
-		vago.afegirSeient(Seient(Transform(vec3(2.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(4.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(2.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
-		vago.afegirSeient(Seient(Transform(vec3(1.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
-		vago.afegirSeient(Seient(Transform(vec3(-1.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(1.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-1.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
-		vago.afegirSeient(Seient(Transform(vec3(-2.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
-		vago.afegirSeient(Seient(Transform(vec3(-4.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-2.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-4.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
-		vago.afegirSeient(Seient(Transform(vec3(-5.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
-		vago.afegirSeient(Seient(Transform(vec3(-7.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-5.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-7.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
-		vago.afegirSeient(Seient(Transform(vec3(-8.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), sh_programID));
-		vago.afegirSeient(Seient(Transform(vec3(-10.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-8.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirSeient(Seient(Transform(vec3(-10.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
 		vago.mostrar(MatriuVista, MatriuTG);
 	}

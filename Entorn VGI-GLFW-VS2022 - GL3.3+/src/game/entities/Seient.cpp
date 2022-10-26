@@ -1,42 +1,43 @@
 #include "Seient.h"
 
-void mostrarBanc(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_program_id)
+Seient::Seient(Transform transform, Mesh* mesh, GLuint shader_id)
 {
-	glm::mat4 NormalMatrix(1.0);
-	glm::mat4 ModelMatrix(1.0);
-
-	ModelMatrix = glm::scale(MatriuTG, vec3(0.5f, 1.0f, 0.5f));
-
-	// Pas ModelView Matrix a shader
-	glUniformMatrix4fv(glGetUniformLocation(shader_program_id, "modelMatrix"), 1, GL_FALSE, &ModelMatrix[0][0]);
-	// Pas NormalMatrix a shader
-	NormalMatrix = glm::transpose(glm::inverse(MatriuVista * ModelMatrix));
-	glUniformMatrix4fv(glGetUniformLocation(shader_program_id, "normalMatrix"), 1, GL_FALSE, &NormalMatrix[0][0]);
-	draw_TriEBO_Object(GLUT_CUBE);	//draw_TriVAO_Object(GLUT_CUBE);  //glutSolidCube(1.0);
+	my_transform = transform;
+	my_mesh = mesh;
+	my_shader_program_id = shader_id;
 }
 
-void mostrarRespatller(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_program_id)
+void Seient::mostrarBanc(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_program_id)
 {
 	glm::mat4 NormalMatrix(1.0);
 	glm::mat4 ModelMatrix(1.0);
 
-	ModelMatrix = glm::translate(MatriuTG, vec3(0.25f, 0.0f, 0.5f));
-	ModelMatrix = glm::scale(ModelMatrix, vec3(0.02f, 1.0f, 0.5f));
+	Transform transform_sostre = Transform(
+		vec3(0.0f, 0.0f, 0.0f),
+		quat(0.0f, 0.0f, 0.0f, 0.0f),
+		vec3(0.5f, 1.0f, 0.5f)
+	);
 
-	// Pas ModelView Matrix a shader
-	glUniformMatrix4fv(glGetUniformLocation(shader_program_id, "modelMatrix"), 1, GL_FALSE, &ModelMatrix[0][0]);
-	// Pas NormalMatrix a shader
-	NormalMatrix = glm::transpose(glm::inverse(MatriuVista * ModelMatrix));
-	glUniformMatrix4fv(glGetUniformLocation(shader_program_id, "normalMatrix"), 1, GL_FALSE, &NormalMatrix[0][0]);
-	draw_TriEBO_Object(GLUT_CUBE);	//draw_TriVAO_Object(GLUT_CUBE);  //glutSolidCube(1.0);
+	my_mesh->Draw(MatriuVista, MatriuTG, transform_sostre, shader_program_id);
+}
+
+void Seient::mostrarRespatller(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_program_id)
+{
+	glm::mat4 NormalMatrix(1.0);
+	glm::mat4 ModelMatrix(1.0);
+
+	Transform transform_sostre = Transform(
+		vec3(0.25f, 0.0f, 0.5f),
+		quat(0.0f, 0.0f, 0.0f, 0.0f),
+		vec3(0.02f, 1.0f, 0.5f)
+	);
+
+	my_mesh->Draw(MatriuVista, MatriuTG, transform_sostre, shader_program_id);
 }
 
 void Seient::mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG)
 {
-	MatriuTG = glm::translate(MatriuTG, my_transform.position);
-	MatriuTG = glm::scale(MatriuTG, my_transform.scale);
-	mat4 rotation = glm::toMat4(my_transform.orientation);
-	MatriuTG = MatriuTG * rotation;
+	MatriuTG = my_transform.apply(MatriuTG);
 
 	mostrarBanc(MatriuVista, MatriuTG, my_shader_program_id);
 	mostrarRespatller(MatriuVista, MatriuTG, my_shader_program_id);
