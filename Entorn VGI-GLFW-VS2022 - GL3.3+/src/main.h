@@ -50,6 +50,17 @@
 // Entorn VGI: Variables de control de l'opci� C�mera->Geode?
 	CEsfe3D OPV_G;			// Par�metres camera en coord. esf�riques (R,alfa,beta) per a Vista Geode
 
+
+// Variables de control de l'opci� C�mera->Personalitzada?
+	float horizontal_angle = 0;
+	float vertical_angle = 0;
+	float move_speed = 0.5;
+	float turn_speed = PI / 20;
+	float mouse_speed = 0.001;
+	glm::vec3 position;
+	
+
+
 // Entorn VGI: Variables de control per Men� Vista: fullsecreen, pan, dibuixar eixos i grid. 
 	bool fullscreen;	// Opci� booleana per Pantalla Completal [0:NO,1:SI]
 	bool pan;			// Opcio Pan. Despla�ament del centre de l'esfera de Vista [0:NO,1:SI]

@@ -616,7 +616,7 @@ glm::mat4 Vista_Geode(GLuint sh_programID, CEsfe3D opv, char VPol, bool pant, CP
 	GLdouble cam[3], camN[3], up[3];
 	glm::mat4 MatriuVista(1.0);
 	// Matrius Traslació
-	glm::mat4 TransMatrix(1.0);
+	glm::mat4 TransMatrix(1.0);	
 
 	// Conversió angles radians -> graus
 	opv.alfa = opv.alfa * PI / 180;
@@ -671,6 +671,60 @@ glm::mat4 Vista_Geode(GLuint sh_programID, CEsfe3D opv, char VPol, bool pant, CP
 	else glDisable(GL_CULL_FACE);
 
 // Ocultacions (Z-buffer)
+	if (oculta) glEnable(GL_DEPTH_TEST);
+	else glDisable(GL_DEPTH_TEST);
+
+	return MatriuVista;
+}
+
+
+glm::mat4 Vista_Personalitzada(GLuint sh_programID, float horizontal_angle, float vertical_angle, glm::vec3 position,
+	CColor col_fons, CColor col_object, char objecte, double mida, int step,
+	bool frnt_fcs, bool oculta, bool testv, bool bck_ln,
+	char iluminacio, bool llum_amb, LLUM* lumi, bool ifix, bool il2sides,
+	bool eix, CMask3D reixa, CPunt3D hreixa)
+{
+	glm::vec3 direction(
+		cos(vertical_angle) * cos(horizontal_angle),
+		sin(horizontal_angle),
+		sin(vertical_angle)
+	);
+
+	glm::vec3 left = glm::vec3(
+		cos(horizontal_angle + PI/2),
+		sin(horizontal_angle + PI/2),
+		0
+	);
+
+	glm::vec3 up = glm::cross(direction, left);
+
+	// Neteja dels buffers de color i profunditat
+	Fons(col_fons);
+
+	// Iluminacio movent-se amb la camara (abans gluLookAt)
+	if (!ifix) Iluminacio(sh_programID, iluminacio, ifix, il2sides, llum_amb, lumi, objecte, frnt_fcs, bck_ln, step);
+
+	glm::mat4 MatriuVista(1.0);
+
+	// Especificació del punt de vista
+	   //gluLookAt(cam[0],cam[1],cam[2],0.,0.,0.,up[0],up[1],up[2]);
+	MatriuVista = glm::lookAt(
+		position, // Camera is here
+		position + direction, // and looks here
+		up  // Head is up (set to 0,-1,0 to look upside-down)
+	);
+
+	// Pas Matriu Vista a shader
+	glUniformMatrix4fv(glGetUniformLocation(sh_programID, "viewMatrix"), 1, GL_FALSE, &MatriuVista[0][0]);
+
+	// Iluminacio fixe respecte la camara (després gluLookAt)
+	if (ifix) Iluminacio(sh_programID, iluminacio, ifix, il2sides, llum_amb, lumi, objecte, frnt_fcs, bck_ln, step);
+
+	// Test de Visibilitat
+	if (testv) glEnable(GL_CULL_FACE);
+	else glDisable(GL_CULL_FACE);
+
+	// Ocultacions (Z-buffer)
 	if (oculta) glEnable(GL_DEPTH_TEST);
 	else glDisable(GL_DEPTH_TEST);
 
