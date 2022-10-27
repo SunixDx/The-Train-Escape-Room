@@ -555,14 +555,9 @@ void OnPaint(GLFWwindow* window)
 									};
 								cubemapTexture = loadCubemap(faces);
 							}
-<<<<<<< Updated upstream
-*/
-// Crida a la funciï¿½ Fons Blanc
-=======
 	*/
 
 // Crida a la funció Fons Blanc
->>>>>>> Stashed changes
 		FonsB();
 
 // Intercanvia l'escena al front de la pantalla
@@ -905,15 +900,10 @@ void OnTextDown(GLFWwindow* window, unsigned int codepoint)
 {
 }
 
-<<<<<<< Updated upstream
-// Teclat_Shift: Shortcuts per Pop Ups Fitxer, Finestra, Vista, Projecciï¿½ i Objecte
-=======
-
 
 
 
 // Teclat_Shift: Shortcuts per Pop Ups Fitxer, Finestra, Vista, Projecció i Objecte
->>>>>>> Stashed changes
 void Teclat_Shift(int key, GLFWwindow* window)
 {
 	const char* nomfitxer;
