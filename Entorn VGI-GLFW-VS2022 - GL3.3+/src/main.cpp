@@ -808,13 +808,13 @@ void move()
 		0
 	);
 
-	while (w_pressed || s_pressed || a_pressed || d_pressed)
-	{
-		if (w_pressed) position += direction * move_speed;
-		if (s_pressed) position -= direction * move_speed;
-		if (a_pressed) position += left * move_speed;
-		if (d_pressed) position -= left * move_speed;
-	}
+	if (w_pressed) position += direction * move_speed;
+	if (s_pressed) position -= direction * move_speed;
+	if (a_pressed) position += left * move_speed;
+	if (d_pressed) position -= left * move_speed;
+
+	// Crida a OnPaint() per redibuixar l'escena
+	OnPaint(window);
 }
 
 /* ------------------------------------------------------------------------- */
@@ -858,6 +858,13 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		std::cout << "MOVING" << std::endl;
 		move();
 		std::cout << "NOT MOVING" << std::endl;
+	}
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_RELEASE)
+	{
+		if (key == GLFW_KEY_W) w_pressed = false;
+		if (key == GLFW_KEY_S) s_pressed = false;
+		if (key == GLFW_KEY_A) a_pressed = false;
+		if (key == GLFW_KEY_D) d_pressed = false;
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_REPEAT)
 	{
@@ -915,13 +922,6 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 
 void OnKeyUp(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	if (camera == CAM_PERSONALITZADA && action == GLFW_RELEASE)
-	{
-		if (key == GLFW_KEY_W) w_pressed = false;
-		if (key == GLFW_KEY_S) s_pressed = false;
-		if (key == GLFW_KEY_A) a_pressed = false;
-		if (key == GLFW_KEY_D) d_pressed = false;
-	}
 }
 
 void OnTextDown(GLFWwindow* window, unsigned int codepoint)
