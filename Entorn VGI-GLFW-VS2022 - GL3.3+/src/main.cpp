@@ -260,6 +260,8 @@ void InitGL()
 }
 
 
+
+
 void InitAPI()
 {
 // Vendor, Renderer, Version, Shading Laguage Version i Extensions suportades per la placa grï¿½fica gravades en fitxer extensions.txt
@@ -540,7 +542,7 @@ void OnPaint(GLFWwindow* window)
 		if (skC_VAOID.vaoId == 0) skC_VAOID = loadCubeSkybox_VAO();
 		Set_VAOList(CUBE_SKYBOX, skC_VAOID);
 
-/*
+	/*
 		if (!cubemapTexture) {	// load Skybox textures
 								// -------------
 								std::vector<std::string> faces = 
@@ -553,8 +555,14 @@ void OnPaint(GLFWwindow* window)
 									};
 								cubemapTexture = loadCubemap(faces);
 							}
+<<<<<<< Updated upstream
 */
 // Crida a la funciï¿½ Fons Blanc
+=======
+	*/
+
+// Crida a la funció Fons Blanc
+>>>>>>> Stashed changes
 		FonsB();
 
 // Intercanvia l'escena al front de la pantalla
@@ -897,7 +905,15 @@ void OnTextDown(GLFWwindow* window, unsigned int codepoint)
 {
 }
 
+<<<<<<< Updated upstream
 // Teclat_Shift: Shortcuts per Pop Ups Fitxer, Finestra, Vista, Projecciï¿½ i Objecte
+=======
+
+
+
+
+// Teclat_Shift: Shortcuts per Pop Ups Fitxer, Finestra, Vista, Projecció i Objecte
+>>>>>>> Stashed changes
 void Teclat_Shift(int key, GLFWwindow* window)
 {
 	const char* nomfitxer;
@@ -1110,7 +1126,6 @@ void Teclat_Shift(int key, GLFWwindow* window)
 						// -------------
 						std::vector<std::string> faces =
 							{	".\\textures\\skybox\\right.jpg",
-								".\\textures\\skybox\\right.jpg",
 								".\\textures\\skybox\\left.jpg",
 								".\\textures\\skybox\\top.jpg",
 								".\\textures\\skybox\\bottom.jpg",
