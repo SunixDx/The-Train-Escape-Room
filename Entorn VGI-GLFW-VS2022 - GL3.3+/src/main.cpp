@@ -555,10 +555,15 @@ void OnPaint(GLFWwindow* window)
 									};
 								cubemapTexture = loadCubemap(faces);
 							}
+<<<<<<< Updated upstream
 	*/
 
 // Crida a la funció Fons Blanc
 		FonsB();
+
+
+// Crida a la funciï¿½ Fons Blanc
+
 
 // Intercanvia l'escena al front de la pantalla
 		glfwSwapBuffers(window);
@@ -901,9 +906,8 @@ void OnTextDown(GLFWwindow* window, unsigned int codepoint)
 }
 
 
-
-
 // Teclat_Shift: Shortcuts per Pop Ups Fitxer, Finestra, Vista, Projecció i Objecte
+
 void Teclat_Shift(int key, GLFWwindow* window)
 {
 	const char* nomfitxer;
@@ -1115,12 +1119,12 @@ void Teclat_Shift(int key, GLFWwindow* window)
 					{	// load Skybox textures
 						// -------------
 						std::vector<std::string> faces =
-							{	".\\textures\\skybox\\right.jpg",
-								".\\textures\\skybox\\left.jpg",
-								".\\textures\\skybox\\top.jpg",
-								".\\textures\\skybox\\bottom.jpg",
-								".\\textures\\skybox\\front.jpg",
-								".\\textures\\skybox\\back.jpg"
+							{	".\\textures\\skybox\\default\\right.jpg",
+								".\\textures\\skybox\\default\\left.jpg",
+								".\\textures\\skybox\\default\\top.jpg",
+								".\\textures\\skybox\\default\\bottom.jpg",
+								".\\textures\\skybox\\default\\front.jpg",
+								".\\textures\\skybox\\default\\back.jpg"
 							};
 						cubemapTexture = loadCubemap(faces);	
 					}
@@ -3001,6 +3005,7 @@ int main(void)
 	float time = elapsedTime;
 	float now;
 	float delta;
+
 
 // glfw: initialize and configure
 // ------------------------------
