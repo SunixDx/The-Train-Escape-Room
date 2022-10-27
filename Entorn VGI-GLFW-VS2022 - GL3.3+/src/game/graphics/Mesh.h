@@ -4,8 +4,6 @@
 #include "Texture.h"
 #include "../src/shader.h"
 #include "../graphics/Transform.h"
-#include "bt3/btBulletCollisionCommon.h"
-#include "bt3/btBulletDynamicsCommon.h"
 
 class Mesh
 {
