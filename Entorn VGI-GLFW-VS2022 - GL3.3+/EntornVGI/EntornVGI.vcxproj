@@ -24,6 +24,7 @@
     <ClCompile Include="..\src\game\entities\Taula.cpp" />
     <ClCompile Include="..\src\game\entities\Vago.cpp" />
     <ClCompile Include="..\src\game\graphics\Mesh.cpp" />
+    <ClCompile Include="..\src\game\graphics\Model.cpp" />
     <ClCompile Include="..\src\game\graphics\Texture.cpp" />
     <ClCompile Include="..\src\game\graphics\Transform.cpp" />
     <ClCompile Include="..\src\game\graphics\Vertex.cpp" />
@@ -42,6 +43,7 @@
     <ClInclude Include="..\src\game\entities\Taula.h" />
     <ClInclude Include="..\src\game\entities\Vago.h" />
     <ClInclude Include="..\src\game\graphics\Mesh.h" />
+    <ClInclude Include="..\src\game\graphics\Model.h" />
     <ClInclude Include="..\src\game\graphics\Texture.h" />
     <ClInclude Include="..\src\game\graphics\Transform.h" />
     <ClInclude Include="..\src\game\graphics\Vertex.h" />
