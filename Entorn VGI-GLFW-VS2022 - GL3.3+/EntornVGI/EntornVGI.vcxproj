@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\algo.cpp" />
     <ClCompile Include="..\src\escena.cpp" />
     <ClCompile Include="..\src\game\entities\Seient.cpp" />
     <ClCompile Include="..\src\game\entities\Taula.cpp" />
@@ -52,6 +53,7 @@
     <ClInclude Include="..\src\material.h" />
     <ClInclude Include="..\src\objLoader.h" />
     <ClInclude Include="..\src\shader.h" />
+    <ClInclude Include="..\src\stb_image.h" />
     <ClInclude Include="..\src\stdafx.h" />
     <ClInclude Include="..\src\visualitzacio.h" />
     <ClInclude Include="Camera.h" />

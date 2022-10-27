@@ -22,6 +22,7 @@ public:
 		setupMesh();
 	};
 	void Draw(mat4 MatriuVista, mat4 MatriuTG, Transform& transform, GLuint shader_id);
+	void Draw(Shader &shader);
 	
 		// Render data:
 		GLuint my_VAO, my_VBO, my_EBO; // de momento publico para hacer pruebas
