@@ -2104,6 +2104,7 @@ CVAO loadglutSolidTorus_VAO(GLdouble dInnerRadius, GLdouble dOuterRadius, GLint 
   }
 
   //glBegin( GL_QUADS );
+  
     for( i=0; i<nSides-1; i++ )
     { for( j=0; j<nRings-1; j++ )
       { int offset = 3 * ( j * nSides + i ) ;
@@ -2170,6 +2171,7 @@ CVAO loadglutSolidTorus_VAO(GLdouble dInnerRadius, GLdouble dOuterRadius, GLint 
       }
     }
   //glEnd();
+  
 
 // ------------------------ VAO
   std::vector <int>::size_type nv = vertices.size();	// Tamany del vector vertices en elements.
