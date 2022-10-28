@@ -20,6 +20,7 @@
 
 #include "game/entities/Vago.h"
 #include "game/graphics/Mesh.h"
+#include "game/graphics/Model.h"
 
 // Dibuixa Eixos Coordenades Món i Reixes, activant un shader propi.
 void dibuixa_Eixos(GLuint ax_programID, bool eix, GLuint axis_Id, CMask3D reixa, CPunt3D hreixa, 
@@ -428,12 +429,15 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 	{
 		Transform tr = Transform();
 		tr.position = vec3(0.0f, 0.0f, 1.5f);
+		
+		Model::BACKPACK->Draw(MatriuVista, MatriuTG, tr, sh_programID);
+
 		/*
 		float c = glm::cos(glm::pi<float>() / 8);
 		float s = glm::sin(glm::pi<float>() / 8);
 		tr.orientation = quat(c, s * 1.0f, s * 0.0f, s * 0.0f);
 		*/
-		Vago vago = Vago(tr, Mesh::BASIC_CUBE_MESH, sh_programID);
+		/*Vago vago = Vago(tr, Mesh::BASIC_CUBE_MESH, sh_programID);
 
 		vago.afegirTaula(Taula(Transform(vec3(9.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 		vago.afegirTaula(Taula(Transform(vec3(6.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
@@ -498,7 +502,7 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		vago.afegirSeient(Seient(Transform(vec3(-8.0f, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 		vago.afegirSeient(Seient(Transform(vec3(-10.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
-		vago.mostrar(MatriuVista, MatriuTG);
+		vago.mostrar(MatriuVista, MatriuTG);*/
 	}
 
 		/*

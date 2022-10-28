@@ -24,11 +24,13 @@ unsigned int TextureFromFile(const char* path, const string& directory, bool gam
 class Model
 {
 public:
-	Model(char* path)
+	static Model* BACKPACK;
+
+	Model(string path)
 	{
 		loadModel(path);
 	}
-	void Draw(Shader& shader);
+	void Draw(mat4 MatriuVista, mat4 MatriuTG, Transform& transform, GLuint shader_id);
 private:
 	// model data
 	std::vector<Mesh> meshes;

@@ -4,6 +4,31 @@ Mesh* Mesh::BASIC_CUBE_MESH = nullptr;
 
 void Mesh::Draw(mat4 MatriuVista, mat4 MatriuTG, Transform& transform, GLuint shader_id)
 {
+	unsigned int diffuseNr = 1;
+	unsigned int specularNr = 1;
+	if (!textures.empty()) {
+		glUniform1i(glGetUniformLocation(shader_id, "textur"), GL_TRUE); //glEnable(GL_TEXTURE_2D);
+		glUniform1i(glGetUniformLocation(shader_id, "modulate"), GL_TRUE); //glEnable(GL_MODULATE);
+	}
+	else {
+		glUniform1i(glGetUniformLocation(shader_id, "textur"), GL_FALSE); //glEnable(GL_TEXTURE_2D);
+		glUniform1i(glGetUniformLocation(shader_id, "modulate"), GL_FALSE); //glEnable(GL_MODULATE);
+	}
+	for (unsigned int i = 0; i < textures.size(); i++)
+	{
+		glActiveTexture(GL_TEXTURE0 + i); // activate texture unit first
+		// retrieve texture number (the N in diffuse_textureN)
+		std::string number;
+		std::string name = textures[i].type;
+		if (name == "texture_diffuse")
+			number = std::to_string(diffuseNr++);
+		else if (name == "texture_specular")
+			number = std::to_string(specularNr++);
+		//shader.setFloat(("material." + name + number).c_str(), i);
+		glBindTexture(GL_TEXTURE_2D, textures[i].id);
+	}
+	glActiveTexture(GL_TEXTURE0);
+
 	mat4 ModelMatrix(1.0f);
 	mat4 NormalMatrix(1.0f);
 
@@ -21,30 +46,6 @@ void Mesh::Draw(mat4 MatriuVista, mat4 MatriuTG, Transform& transform, GLuint sh
 	//glDrawElements(GL_TRIANGLES, VAOList[k].nVertexs, GL_UNSIGNED_INT, nullptr);
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, nullptr);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-}
-
-void Mesh::Draw(Shader &shader)
-{
-	unsigned int diffuseNr = 1;
-	unsigned int specularNr = 1;
-	for (unsigned int i = 0; i < textures.size(); i++)
-	{
-		glActiveTexture(GL_TEXTURE0 + i); // activate texture unit first
-		// retrieve texture number (the N in diffuse_textureN)
-		std::string number;
-		std::string name = textures[i].type;
-		if (name == "texture_diffuse")
-			number = std::to_string(diffuseNr++);
-		else if (name == "texture_specular")
-			number = std::to_string(specularNr++);
-		shader.setFloat(("material." + name + number).c_str(), i);
-		glBindTexture(GL_TEXTURE_2D, textures[i].id);
-	}
-	glActiveTexture(GL_TEXTURE0);
-	// draw mesh
-	glBindVertexArray(my_VAO);
-	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
 

@@ -1,5 +1,7 @@
 #include "Model.h"
 
+Model* Model::BACKPACK = nullptr;
+
 void Model::loadModel(string path) 
 {
 	Assimp::Importer import;
@@ -51,6 +53,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		vector.y = mesh->mNormals[i].y;
 		vector.z = mesh->mNormals[i].z;
 		vertex.Normal = vector;
+		vertex.Color = vec4(1, 1, 1, 1);
 		//texture
 		if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
 		{
@@ -117,7 +120,6 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType 
 		}
 	}
 	return textures;
-
 }
 
 
@@ -130,7 +132,7 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
     glGenTextures(1, &textureID);
 
     int width, height, nrComponents;
-    unsigned char *data = SOIL_load_image(filename.c_str(), &width, &height, &nrComponents, 0);
+    unsigned char *data = SOIL_load_image(filename.c_str(), &width, &height, &nrComponents, SOIL_LOAD_AUTO);
     if (data)
     {
         GLenum format;
@@ -155,14 +157,15 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
     else
     {
         std::cout << "Texture failed to load at path: " << path << std::endl;
+		std::cout << "error: " << SOIL_last_result() << std::endl;
 		SOIL_free_image_data(data);
     }
 
     return textureID;
 }
 
-void Model::Draw(Shader& shader) 
+void Model::Draw(mat4 MatriuVista, mat4 MatriuTG, Transform& transform, GLuint shader_id)
 {
 	for (unsigned int i = 0; i < meshes.size(); i++)
-		meshes[i].Draw(shader);
+		meshes[i].Draw(MatriuVista, MatriuTG, transform, shader_id);
 }
