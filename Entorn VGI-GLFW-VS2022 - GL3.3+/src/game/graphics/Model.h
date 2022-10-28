@@ -1,11 +1,10 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <gl/SOIL.h>
 
 #include <string>
 #include <fstream>
@@ -14,7 +13,6 @@
 #include <map>
 #include <vector>
 
-#include "../src/stb_image.h"
 #include "Mesh.h"
 #include "../src/shader.h"
 #include "Texture.h"

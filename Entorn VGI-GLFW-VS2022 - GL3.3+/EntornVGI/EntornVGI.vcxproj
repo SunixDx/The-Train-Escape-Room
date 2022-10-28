@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\algo.cpp" />
     <ClCompile Include="..\src\escena.cpp" />
     <ClCompile Include="..\src\game\entities\Seient.cpp" />
     <ClCompile Include="..\src\game\entities\Taula.cpp" />
@@ -53,7 +52,6 @@
     <ClInclude Include="..\src\material.h" />
     <ClInclude Include="..\src\objLoader.h" />
     <ClInclude Include="..\src\shader.h" />
-    <ClInclude Include="..\src\stb_image.h" />
     <ClInclude Include="..\src\stdafx.h" />
     <ClInclude Include="..\src\visualitzacio.h" />
     <ClInclude Include="Camera.h" />
@@ -149,7 +147,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;assimp-vc143-mtd.lib;glfw3dll.lib;opengl32.lib;glew32.lib;glew32s.lib;SOIL.lib;ILU.lib;ILUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;opengl32.lib;glew32.lib;glew32s.lib;SOIL.lib;ILU.lib;ILUT.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>

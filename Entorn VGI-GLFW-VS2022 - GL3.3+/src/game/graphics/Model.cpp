@@ -1,4 +1,4 @@
-/*#include "./Model.h"
+#include "Model.h"
 
 void Model::loadModel(string path) 
 {
@@ -87,6 +87,7 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	return Mesh(vertices, indices, textures);
 }
 
+
 std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
 {
 	vector<Texture> textures;
@@ -129,7 +130,7 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
     glGenTextures(1, &textureID);
 
     int width, height, nrComponents;
-    unsigned char *data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+    unsigned char *data = SOIL_load_image(filename.c_str(), &width, &height, &nrComponents, 0);
     if (data)
     {
         GLenum format;
@@ -149,12 +150,12 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-        stbi_image_free(data);
+        SOIL_free_image_data(data);
     }
     else
     {
         std::cout << "Texture failed to load at path: " << path << std::endl;
-        stbi_image_free(data);
+		SOIL_free_image_data(data);
     }
 
     return textureID;
@@ -165,5 +166,3 @@ void Model::Draw(Shader& shader)
 	for (unsigned int i = 0; i < meshes.size(); i++)
 		meshes[i].Draw(shader);
 }
-
-*/
