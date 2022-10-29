@@ -11,6 +11,7 @@
 #include "escena.h"
 #include "main.h"
 #include "game/graphics/Mesh.h"
+#include "game/graphics/Model.h"
 
 
 void InitGL()
@@ -3122,7 +3123,6 @@ int main(void)
 // Entorn VGI. Timer: Lectura temps
 	float previous = glfwGetTime();
 
-
 	std::vector<Vertex> cube_vertices = {
 		Vertex({0.5f,  0.5f,  0.5f,}, {0.0,  0.0,  1.0}, {0.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
 		Vertex({-0.5f,  0.5f,  0.5f}, {0.0,  0.0,  1.0}, {1.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
@@ -3162,6 +3162,8 @@ int main(void)
 	std::vector<Texture> textures;
 
 	Mesh::BASIC_CUBE_MESH = new Mesh(cube_vertices, indices, textures);
+	string path = "./textures/backpack/backpack.obj";
+	Model::BACKPACK = new Model(path);
 
 // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))

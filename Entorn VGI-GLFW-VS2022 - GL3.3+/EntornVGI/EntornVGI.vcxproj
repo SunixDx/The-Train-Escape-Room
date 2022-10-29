@@ -24,6 +24,7 @@
     <ClCompile Include="..\src\game\entities\Taula.cpp" />
     <ClCompile Include="..\src\game\entities\Vago.cpp" />
     <ClCompile Include="..\src\game\graphics\Mesh.cpp" />
+    <ClCompile Include="..\src\game\graphics\Model.cpp" />
     <ClCompile Include="..\src\game\graphics\Texture.cpp" />
     <ClCompile Include="..\src\game\graphics\Transform.cpp" />
     <ClCompile Include="..\src\game\graphics\Vertex.cpp" />
@@ -42,6 +43,7 @@
     <ClInclude Include="..\src\game\entities\Taula.h" />
     <ClInclude Include="..\src\game\entities\Vago.h" />
     <ClInclude Include="..\src\game\graphics\Mesh.h" />
+    <ClInclude Include="..\src\game\graphics\Model.h" />
     <ClInclude Include="..\src\game\graphics\Texture.h" />
     <ClInclude Include="..\src\game\graphics\Transform.h" />
     <ClInclude Include="..\src\game\graphics\Vertex.h" />
@@ -145,7 +147,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;opengl32.lib;glew32.lib;glew32s.lib;SOIL.lib;ILU.lib;ILUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;opengl32.lib;glew32.lib;glew32s.lib;SOIL.lib;ILU.lib;ILUT.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>

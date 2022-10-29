@@ -5,7 +5,8 @@
 // Vertex: Estructura amb atributs d�un vertex de la malla.
 struct Vertex {
 	Vertex(glm::vec3 position, glm::vec3 normal, glm::vec2 tex_coords, glm::vec4 color) :
-		Position(position), Normal(normal), TexCoords(tex_coords), Color(color) {	}
+		Position(position), Normal(normal), TexCoords(tex_coords), Color(color) {}
+	Vertex() : Position(), Normal(), TexCoords(), Color() {}
 
 	glm::vec3 Position; // Posici� (x,y,z) del vertex de la malla.
 	glm::vec3 Normal; // Vector normal (nx,ny,nz) del vertex de la malla.
