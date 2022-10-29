@@ -808,7 +808,7 @@ void Barra_Estat()
 void move()
 {
 	glm::vec3 direction(
-		cos(Camera::MAIN_CAMERA.vertical_angle) * cos(Camera::MAIN_CAMERA.horizontal_angle),
+		cos(Camera::MAIN_CAMERA.horizontal_angle),
 		sin(Camera::MAIN_CAMERA.horizontal_angle),
 		0
 	);
@@ -879,7 +879,7 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_REPEAT)
 	{
 		glm::vec3 direction(
-			cos(Camera::MAIN_CAMERA.vertical_angle) * cos(Camera::MAIN_CAMERA.horizontal_angle),
+			cos(Camera::MAIN_CAMERA.horizontal_angle),
 			sin(Camera::MAIN_CAMERA.horizontal_angle),
 			0
 		);
@@ -2561,6 +2561,9 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 	{
 		Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.mouse_speed * float(w / 2 - xpos);
 		Camera::MAIN_CAMERA.vertical_angle += Camera::MAIN_CAMERA.mouse_speed * float(h / 2 - ypos);
+
+		Camera::MAIN_CAMERA.vertical_angle = glm::clamp<float>(Camera::MAIN_CAMERA.vertical_angle, -PI / 2 + 0.01, PI / 2 - 0.01);
+
 		glfwSetCursorPos(window, w / 2, h / 2);
 	}
 
@@ -3364,7 +3367,7 @@ int main(void)
 	std::vector<Texture> textures;
 
 	Mesh::BASIC_CUBE_MESH = new Mesh(cube_vertices, indices, textures);
-	string path = "./textures/backpack/backpack.obj";
+	string path = "./textures/maya/maya.obj";
 	Model::BACKPACK = new Model(path);
 
 	cout << "shader ID:" << shaderGouraud.getProgramID() << endl;

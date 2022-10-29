@@ -9,7 +9,7 @@
 class Taula
 {
 public:
-	Taula(Transform transform, Mesh* mesh, GLuint shader_program_id);
+	Taula(Transform transform, Mesh* mesh, GLuint shader_program_id, bool collider = false);
 	~Taula() { 
 		BulletWorld::WORLD->my_dynamics_world->removeRigidBody(my_rigid_body);
 		delete my_rigid_body; }

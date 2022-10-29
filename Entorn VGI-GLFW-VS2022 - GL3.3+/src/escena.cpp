@@ -434,6 +434,14 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 
 	case CUB_REVERS:
 	{
+		Transform tr = Transform::blank();
+		tr.position = vec3(0, 0.2, 0);
+		float c = glm::cos(glm::pi<float>() / 4);
+		float s = glm::sin(glm::pi<float>() / 4);
+		tr.orientation = quat(c, s * 1.0f, s * 0.0f, s * 0.0f);
+
+		Model::BACKPACK->Draw(MatriuVista, MatriuTG, tr, sh_programID);
+
 		Level::CURRENT_LEVEL.my_vago->mostrar(MatriuVista, MatriuTG);
 
 		glm::vec3 out_origin(Camera::MAIN_CAMERA.position.x, Camera::MAIN_CAMERA.position.y, Camera::MAIN_CAMERA.position.z);
@@ -446,7 +454,9 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		Taula* taula = (Taula*)BulletWorld::WORLD->rayCast(out_origin, out_direction, 1000);
 		if (taula)
 			std::cout << "hit" << std::endl;
-		else std::cout << "miss" << std::endl;
+		else
+			std::cout << "miss" << std::endl;
+		
 	}
 
 		/*
