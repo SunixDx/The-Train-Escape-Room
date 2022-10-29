@@ -1,3 +1,5 @@
+#pragma once
+
 #include <bullet/btBulletDynamicsCommon.h>
 #include "../src/stdafx.h"
 

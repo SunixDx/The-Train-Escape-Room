@@ -14,6 +14,7 @@
 #include "game/physics/BulletWorld.h"
 #include "game/graphics/Model.h"
 #include "game/graphics/Camera.h"
+#include "game/Level.h"
 
 #include <bullet/btBulletDynamicsCommon.h>
 
@@ -202,6 +203,7 @@ void InitGL()
 	//shaderGouraud.loadFileShaders(".\\shaders\\gouraud_shdrML.vert", ".\\shaders\\gouraud_shdrML.frag");
 	fprintf(stderr, "Gouraud_shdrML: \n");
 	shader_programID = shaderGouraud.initializeShaders(".\\shaders\\gouraud_shdrML");
+
 	//shader_programID = shaderGouraud.getProgramID();
 	//shader_programID = initializeShaders(".\\shaders\\gouraud_shdrML");
 
@@ -3365,6 +3367,8 @@ int main(void)
 	string path = "./textures/backpack/backpack.obj";
 	Model::BACKPACK = new Model(path);
 
+	cout << "shader ID:" << shaderGouraud.getProgramID() << endl;
+	Level::buildFirstLevel(shaderGouraud.getProgramID());
 // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))
     {  
