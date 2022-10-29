@@ -24,6 +24,7 @@
     <ClCompile Include="..\src\game\entities\Taula.cpp" />
     <ClCompile Include="..\src\game\entities\Vago.cpp" />
     <ClCompile Include="..\src\game\graphics\Mesh.cpp" />
+    <ClCompile Include="..\src\game\graphics\Model.cpp" />
     <ClCompile Include="..\src\game\graphics\Texture.cpp" />
     <ClCompile Include="..\src\game\graphics\Transform.cpp" />
     <ClCompile Include="..\src\game\graphics\Vertex.cpp" />
@@ -43,6 +44,7 @@
     <ClInclude Include="..\src\game\entities\Taula.h" />
     <ClInclude Include="..\src\game\entities\Vago.h" />
     <ClInclude Include="..\src\game\graphics\Mesh.h" />
+    <ClInclude Include="..\src\game\graphics\Model.h" />
     <ClInclude Include="..\src\game\graphics\Texture.h" />
     <ClInclude Include="..\src\game\graphics\Transform.h" />
     <ClInclude Include="..\src\game\graphics\Vertex.h" />
@@ -147,7 +149,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;opengl32.lib;glew32.lib;glew32s.lib;SOIL.lib;ILU.lib;ILUT.lib;LinearMath_vs2010_x64_debug.lib;gwen_vs2010_x64_debug.lib;BulletExampleBrowserLib_vs2010_x64_debug.lib;BussIK_vs2010_x64_debug.lib;OpenGL_Window_vs2010_x64_debug.lib;Bullet3Common_vs2010_x64_debug.lib;Bullet3OpenCL_clew_vs2010_x64_debug.lib;Bullet3Geometry_vs2010_x64_debug.lib;Bullet3Collision_vs2010_x64_debug.lib;Bullet3Dynamics_vs2010_x64_debug.lib;BulletInverseDynamicsUtils_vs2010_x64_debug.lib;BulletCollision_vs2010_x64_debug.lib;BulletInverseDynamics_vs2010_x64_debug.lib;BulletSoftBody_vs2010_x64_debug.lib;BulletDynamics_vs2010_x64_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;opengl32.lib;glew32.lib;glew32s.lib;SOIL.lib;ILU.lib;ILUT.lib;assimp-vc143-mtd.lib;LinearMath_vs2010_x64_debug.lib;gwen_vs2010_x64_debug.lib;BulletExampleBrowserLib_vs2010_x64_debug.lib;BussIK_vs2010_x64_debug.lib;OpenGL_Window_vs2010_x64_debug.lib;Bullet3Common_vs2010_x64_debug.lib;Bullet3OpenCL_clew_vs2010_x64_debug.lib;Bullet3Geometry_vs2010_x64_debug.lib;Bullet3Collision_vs2010_x64_debug.lib;Bullet3Dynamics_vs2010_x64_debug.lib;BulletInverseDynamicsUtils_vs2010_x64_debug.lib;BulletCollision_vs2010_x64_debug.lib;BulletInverseDynamics_vs2010_x64_debug.lib;BulletSoftBody_vs2010_x64_debug.lib;BulletDynamics_vs2010_x64_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
