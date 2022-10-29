@@ -11,6 +11,7 @@
 #include "escena.h"
 #include "main.h"
 #include "game/graphics/Mesh.h"
+#include "game/physics/BulletWorld.h"
 
 #include <bullet/btBulletDynamicsCommon.h>
 
@@ -3163,7 +3164,7 @@ int main(void)
 	
 
 
-
+	BulletWorld::WORLD = new BulletWorld;
 
 
 

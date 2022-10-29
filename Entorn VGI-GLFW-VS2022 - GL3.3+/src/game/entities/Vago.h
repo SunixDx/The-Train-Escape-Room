@@ -10,9 +10,14 @@ class Vago
 {
 public:
 	Vago(Transform transform, Mesh* mesh, GLuint shader_id);
+	~Vago() {
+		for (Taula* t : my_taules)
+		{
+			delete t;
+		}
+	}
 
-
-	void afegirTaula(Taula taula);
+	void afegirTaula(Taula* taula);
 	void afegirSeient(Seient seient);
 	void mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG);
 private:
@@ -21,7 +26,7 @@ private:
 	Transform my_transform;
 	GLuint my_shader_id;
 
-	std::vector<Taula> my_taules;
+	std::vector<Taula*> my_taules;
 	std::vector<Seient> my_seients;
 
 

@@ -21,6 +21,8 @@
 #include "game/entities/Vago.h"
 #include "game/graphics/Mesh.h"
 
+#include <iostream>
+
 // Dibuixa Eixos Coordenades Món i Reixes, activant un shader propi.
 void dibuixa_Eixos(GLuint ax_programID, bool eix, GLuint axis_Id, CMask3D reixa, CPunt3D hreixa, 
 	glm::mat4 MatriuProjeccio, glm::mat4 MatriuVista)
@@ -435,21 +437,21 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		*/
 		Vago vago = Vago(tr, Mesh::BASIC_CUBE_MESH, sh_programID);
 
-		vago.afegirTaula(Taula(Transform(vec3(9.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		vago.afegirTaula(Taula(Transform(vec3(6.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		vago.afegirTaula(Taula(Transform(vec3(3.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		vago.afegirTaula(Taula(Transform(vec3(0.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		vago.afegirTaula(Taula(Transform(vec3(-3.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		vago.afegirTaula(Taula(Transform(vec3(-6.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		vago.afegirTaula(Taula(Transform(vec3(-9.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(new Taula(Transform(vec3(9.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(new Taula(Transform(vec3(6.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(new Taula(Transform(vec3(3.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(new Taula(Transform(vec3(0.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(new Taula(Transform(vec3(-3.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(new Taula(Transform(vec3(-6.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(new Taula(Transform(vec3(-9.0f, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
-		vago.afegirTaula(Taula(Transform(vec3(9.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		vago.afegirTaula(Taula(Transform(vec3(6.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		vago.afegirTaula(Taula(Transform(vec3(3.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		vago.afegirTaula(Taula(Transform(vec3(0.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		vago.afegirTaula(Taula(Transform(vec3(-3.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		vago.afegirTaula(Taula(Transform(vec3(-6.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		vago.afegirTaula(Taula(Transform(vec3(-9.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(new Taula(Transform(vec3(9.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(new Taula(Transform(vec3(6.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(new Taula(Transform(vec3(3.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(new Taula(Transform(vec3(0.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(new Taula(Transform(vec3(-3.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(new Taula(Transform(vec3(-6.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago.afegirTaula(new Taula(Transform(vec3(-9.0f, -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
 
 		quat mirar_endevant = quat(0.0f, 0.0f, 0.0f, 0.0f);
@@ -499,6 +501,27 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		vago.afegirSeient(Seient(Transform(vec3(-10.0f, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 
 		vago.mostrar(MatriuVista, MatriuTG);
+
+		glm::vec3 out_origin(0, 0, 0);
+		glm::vec3 out_direction(0, 0, 1);
+		glm::vec3 out_end = out_origin + out_direction * 1000.0f;
+
+		btCollisionWorld::ClosestRayResultCallback RayCallback(
+			btVector3(out_origin.x, out_origin.y, out_origin.z),
+			btVector3(out_end.x, out_end.y, out_end.z)
+		);
+		BulletWorld::WORLD->my_dynamics_world->rayTest(
+			btVector3(out_origin.x, out_origin.y, out_origin.z),
+			btVector3(out_end.x, out_end.y, out_end.z),
+			RayCallback
+		);
+
+		if (RayCallback.hasHit()) {
+			std::cout << "mesh " << (int)RayCallback.m_collisionObject->getUserPointer();
+		}
+		else {
+			std::cout << "background";
+		}
 	}
 
 		/*

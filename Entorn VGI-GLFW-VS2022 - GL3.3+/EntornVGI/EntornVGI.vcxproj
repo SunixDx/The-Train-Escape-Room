@@ -27,6 +27,7 @@
     <ClCompile Include="..\src\game\graphics\Texture.cpp" />
     <ClCompile Include="..\src\game\graphics\Transform.cpp" />
     <ClCompile Include="..\src\game\graphics\Vertex.cpp" />
+    <ClCompile Include="..\src\game\physics\BulletWorld.cpp" />
     <ClCompile Include="..\src\glut_geometry.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\material.cpp" />
@@ -45,6 +46,7 @@
     <ClInclude Include="..\src\game\graphics\Texture.h" />
     <ClInclude Include="..\src\game\graphics\Transform.h" />
     <ClInclude Include="..\src\game\graphics\Vertex.h" />
+    <ClInclude Include="..\src\game\physics\BulletWorld.h" />
     <ClInclude Include="..\src\glut_geometry.h" />
     <ClInclude Include="..\src\main.h" />
     <ClInclude Include="..\src\material.h" />
