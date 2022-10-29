@@ -1,5 +1,6 @@
 #include "Camera.h"
 
+Camera Camera::MAIN_CAMERA;
 /*
 void show_cam_vectors()
 {

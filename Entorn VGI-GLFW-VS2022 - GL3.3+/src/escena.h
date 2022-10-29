@@ -4,8 +4,12 @@
 // escena.h : interface de escena.cpp
 //
 
+#pragma once
+
 #ifndef GLSOURCE_H
 #define GLSOURCE_H
+
+
 
 /* ------------------------------------------------------------------------- */
 /*                            Funcions de les escenes                        */

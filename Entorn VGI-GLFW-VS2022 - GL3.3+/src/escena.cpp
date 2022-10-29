@@ -21,10 +21,14 @@
 #include "game/entities/Vago.h"
 #include "game/graphics/Mesh.h"
 #include "game/graphics/Model.h"
+#include "game/graphics/Camera.h"
 
 #include <iostream>
 
-// Dibuixa Eixos Coordenades Mï¿½n i Reixes, activant un shader propi.
+
+
+// Dibuixa Eixos Coordenades Món i Reixes, activant un shader propi.
+
 void dibuixa_Eixos(GLuint ax_programID, bool eix, GLuint axis_Id, CMask3D reixa, CPunt3D hreixa, 
 	glm::mat4 MatriuProjeccio, glm::mat4 MatriuVista)
 {
@@ -489,26 +493,20 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 
 		vago.mostrar(MatriuVista, MatriuTG);
 
-		glm::vec3 out_origin(0, 0, 0);
-		glm::vec3 out_direction(0.5, 0.5, 0.00001);
-		glm::vec3 out_end = out_origin + out_direction * 1000.0f;
-
-		btCollisionWorld::ClosestRayResultCallback RayCallback(
-			btVector3(out_origin.x, out_origin.y, out_origin.z),
-			btVector3(out_end.x, out_end.y, out_end.z)
+		glm::vec3 out_origin(Camera::MAIN_CAMERA.position.x, Camera::MAIN_CAMERA.position.y, Camera::MAIN_CAMERA.position.z);
+		glm::vec3 out_direction(
+			cos(Camera::MAIN_CAMERA.vertical_angle) * cos(Camera::MAIN_CAMERA.horizontal_angle),
+			sin(Camera::MAIN_CAMERA.horizontal_angle),
+			sin(Camera::MAIN_CAMERA.vertical_angle)
 		);
-		BulletWorld::WORLD->my_dynamics_world->rayTest(
-			btVector3(out_origin.x, out_origin.y, out_origin.z),
-			btVector3(out_end.x, out_end.y, out_end.z),
-			RayCallback
-		);
+		
+		Taula* taula = (Taula*)BulletWorld::WORLD->rayCast(out_origin, out_direction, 1000);
+		if (taula)
+			std::cout << "hit" << std::endl;
+		else std::cout << "miss" << std::endl;
 
-		if (RayCallback.hasHit()) {
-			std::cout << "mesh " << (int)RayCallback.m_collisionObject->getUserPointer();
-		}
-		else {
-			std::cout << "background";
-		}
+		
+
 	}
 
 		/*

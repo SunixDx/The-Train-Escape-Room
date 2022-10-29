@@ -13,6 +13,7 @@
 #include "game/graphics/Mesh.h"
 #include "game/physics/BulletWorld.h"
 #include "game/graphics/Model.h"
+#include "game/graphics/Camera.h"
 
 #include <bullet/btBulletDynamicsCommon.h>
 
@@ -513,7 +514,8 @@ void OnPaint(GLFWwindow* window)
 		}
 		else if (camera == CAM_PERSONALITZADA)
 		{
-			ViewMatrix = Vista_Personalitzada(shader_programID, horizontal_angle, vertical_angle, position, c_fons, col_obj, objecte, true, pas,
+			ViewMatrix = Vista_Personalitzada(shader_programID, Camera::MAIN_CAMERA.horizontal_angle, Camera::MAIN_CAMERA.vertical_angle, Camera::MAIN_CAMERA.position, 
+				c_fons, col_obj, objecte, true, pas,
 				front_faces, oculta, test_vis, back_line,
 				ilumina, llum_ambient, llumGL, ifixe, ilum2sides,
 				eixos, grid, hgrid);
@@ -804,21 +806,21 @@ void Barra_Estat()
 void move()
 {
 	glm::vec3 direction(
-		cos(vertical_angle) * cos(horizontal_angle),
-		sin(horizontal_angle),
+		cos(Camera::MAIN_CAMERA.vertical_angle) * cos(Camera::MAIN_CAMERA.horizontal_angle),
+		sin(Camera::MAIN_CAMERA.horizontal_angle),
 		0
 	);
 
 	glm::vec3 left = glm::vec3(
-		cos(horizontal_angle + PI / 2),
-		sin(horizontal_angle + PI / 2),
+		cos(Camera::MAIN_CAMERA.horizontal_angle + PI / 2),
+		sin(Camera::MAIN_CAMERA.horizontal_angle + PI / 2),
 		0
 	);
 
-	if (w_pressed) position += direction * move_speed;
-	if (s_pressed) position -= direction * move_speed;
-	if (a_pressed) position += left * move_speed;
-	if (d_pressed) position -= left * move_speed;
+	if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed;
+	if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed;
+	if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed;
+	if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed;
 
 	// Crida a OnPaint() per redibuixar l'escena
 	OnPaint(window);
@@ -853,7 +855,7 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		std::cout << "CAM PERSONALITZADA" << std::endl;
 		camera = CAM_PERSONALITZADA;
-		position = glm::vec3(0, 0, 1.5);
+		Camera::MAIN_CAMERA.position = glm::vec3(0, 0, 1.5);
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS)
 	{
@@ -875,21 +877,21 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_REPEAT)
 	{
 		glm::vec3 direction(
-			cos(vertical_angle) * cos(horizontal_angle),
-			sin(horizontal_angle),
+			cos(Camera::MAIN_CAMERA.vertical_angle) * cos(Camera::MAIN_CAMERA.horizontal_angle),
+			sin(Camera::MAIN_CAMERA.horizontal_angle),
 			0
 		);
 
 		glm::vec3 left = glm::vec3(
-			cos(horizontal_angle + PI / 2),
-			sin(horizontal_angle + PI / 2),
+			cos(Camera::MAIN_CAMERA.horizontal_angle + PI / 2),
+			sin(Camera::MAIN_CAMERA.horizontal_angle + PI / 2),
 			0
 		);
 
-		if (key == GLFW_KEY_W) position += direction * move_speed;
-		if (key == GLFW_KEY_S) position -= direction * move_speed;
-		if (key == GLFW_KEY_A) position += left * move_speed;
-		if (key == GLFW_KEY_D) position -= left * move_speed;
+		if (key == GLFW_KEY_W) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed;
+		if (key == GLFW_KEY_S) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed;
+		if (key == GLFW_KEY_A) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed;
+		if (key == GLFW_KEY_D) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed;
 	}
 	else if (camera == CAM_NAVEGA) Teclat_Navega(key, action);
 
@@ -2555,8 +2557,8 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 
 	if (camera == CAM_PERSONALITZADA)
 	{
-		horizontal_angle += mouse_speed * float(w / 2 - xpos);
-		vertical_angle += mouse_speed * float(h / 2 - ypos);
+		Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.mouse_speed * float(w / 2 - xpos);
+		Camera::MAIN_CAMERA.vertical_angle += Camera::MAIN_CAMERA.mouse_speed * float(h / 2 - ypos);
 		glfwSetCursorPos(window, w / 2, h / 2);
 	}
 

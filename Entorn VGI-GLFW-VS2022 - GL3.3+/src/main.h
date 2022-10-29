@@ -5,6 +5,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#pragma once
 
 // Entorn VGI: Llibreries i constants Constants de l'aplicaci� EntornVGI
 #include "stdafx.h"
@@ -51,15 +52,8 @@
 	CEsfe3D OPV_G;			// Par�metres camera en coord. esf�riques (R,alfa,beta) per a Vista Geode
 
 
-// Variables de control de l'opci� C�mera->Personalitzada?
-	float horizontal_angle = 0;
-	float vertical_angle = 0;
-	float move_speed = 0.5;
-	float turn_speed = PI / 20;
-	float mouse_speed = 0.001;
-	glm::vec3 position;
 
-// Variables pel control del moviment
+	// Variables pel control del moviment
 	bool w_pressed = false;
 	bool s_pressed = false;
 	bool a_pressed = false;

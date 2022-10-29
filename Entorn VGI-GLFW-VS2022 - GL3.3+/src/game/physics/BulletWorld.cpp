@@ -19,3 +19,25 @@ BulletWorld::BulletWorld()
 	my_dynamics_world = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
 
 }
+
+void* BulletWorld::rayCast(glm::vec3 origin, glm::vec3 direction, float distance)
+{
+	glm::vec3 end = origin + direction * distance;
+
+	btCollisionWorld::ClosestRayResultCallback RayCallback(
+		btVector3(origin.x, origin.y, origin.z),
+		btVector3(end.x, end.y, end.z)
+	);
+	BulletWorld::WORLD->my_dynamics_world->rayTest(
+		btVector3(origin.x, origin.y, origin.z),
+		btVector3(end.x, end.y, end.z),
+		RayCallback
+	);
+
+	if (RayCallback.hasHit()) {
+		return RayCallback.m_collisionObject->getUserPointer();
+	}
+	else {
+		return nullptr;
+	}
+}
