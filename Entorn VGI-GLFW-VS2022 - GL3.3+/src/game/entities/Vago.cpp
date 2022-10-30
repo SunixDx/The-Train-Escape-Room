@@ -14,7 +14,7 @@ void Vago::afegirTaula(Taula* taula)
 	my_taules.push_back(taula);
 }
 
-void Vago::afegirSeient(Seient seient)
+void Vago::afegirSeient(Seient* seient)
 {
 	my_seients.push_back(seient);
 }
@@ -74,6 +74,6 @@ void Vago::mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG)
 	for (Taula* taula : my_taules)
 		taula->mostrar(MatriuVista, MatriuTG);
 
-	for (Seient& seient : my_seients)
-		seient.mostrar(MatriuVista, MatriuTG);
+	for (Seient* seient : my_seients)
+		seient->mostrar(MatriuVista, MatriuTG);
 }

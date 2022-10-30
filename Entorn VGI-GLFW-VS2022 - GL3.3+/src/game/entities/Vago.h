@@ -16,10 +16,15 @@ public:
 		{
 			delete t;
 		}
+
+		for (Seient* s : my_seients)
+		{
+			delete s;
+		}
 	}
 
 	void afegirTaula(Taula* taula);
-	void afegirSeient(Seient seient);
+	void afegirSeient(Seient* seient);
 	void mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG);
 
 
@@ -31,7 +36,7 @@ private:
 	GLuint my_shader_id;
 
 	std::vector<Taula*> my_taules;
-	std::vector<Seient> my_seients;
+	std::vector<Seient*> my_seients;
 
 
 	void mostrarPared(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_program_id, glm::vec3 displacement);

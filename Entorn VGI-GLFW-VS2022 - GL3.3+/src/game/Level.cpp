@@ -33,7 +33,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	for (int i = 0; i < 7; i++)
 	{
 		xValorSeientEndavant -= 3;
-		vago->afegirSeient(Seient(Transform(vec3(xValorSeientEndavant, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago->afegirSeient(new Seient(Transform(vec3(xValorSeientEndavant, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 	}
 
 	xValorSeientEndavant = 13.0f;
@@ -41,7 +41,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	for (int i = 0; i < 7; i++)
 	{
 		xValorSeientEndavant -= 3;
-		vago->afegirSeient(Seient(Transform(vec3(xValorSeientEndavant, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago->afegirSeient(new Seient(Transform(vec3(xValorSeientEndavant, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 	}
 
 	int xValorSeientEndarrere = 11.0f;
@@ -49,7 +49,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	for (int i = 0; i < 7; i++)
 	{
 		xValorSeientEndarrere -= 3;
-		vago->afegirSeient(Seient(Transform(vec3(xValorSeientEndarrere, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago->afegirSeient(new Seient(Transform(vec3(xValorSeientEndarrere, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 	}
 
 	xValorSeientEndarrere = 11.0f;
@@ -57,7 +57,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	for (int i = 0; i < 7; i++)
 	{
 		xValorSeientEndarrere -= 3;
-		vago->afegirSeient(Seient(Transform(vec3(xValorSeientEndarrere, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
+		vago->afegirSeient(new Seient(Transform(vec3(xValorSeientEndarrere, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 	}
 
 	Level::CURRENT_LEVEL.my_vago = vago;
