@@ -878,25 +878,6 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		if (key == GLFW_KEY_A) a_pressed = false;
 		if (key == GLFW_KEY_D) d_pressed = false;
 	}
-	else if (camera == CAM_PERSONALITZADA && action == GLFW_REPEAT)
-	{
-		glm::vec3 direction(
-			cos(Camera::MAIN_CAMERA.horizontal_angle),
-			sin(Camera::MAIN_CAMERA.horizontal_angle),
-			0
-		);
-
-		glm::vec3 left = glm::vec3(
-			cos(Camera::MAIN_CAMERA.horizontal_angle + PI / 2),
-			sin(Camera::MAIN_CAMERA.horizontal_angle + PI / 2),
-			0
-		);
-
-		if (key == GLFW_KEY_W) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed;
-		if (key == GLFW_KEY_S) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed;
-		if (key == GLFW_KEY_A) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed;
-		if (key == GLFW_KEY_D) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed;
-	}
 	else if (camera == CAM_NAVEGA) Teclat_Navega(key, action);
 
 	else if ((sw_grid) && ((grid.x) || (grid.y) || (grid.z))) Teclat_Grid(key, action);
@@ -3392,6 +3373,24 @@ int main(void)
 // // Entorn VGI. Timer: for each timer do this
 		time -= delta;
 		if ((time <= 0.0) && (satelit || anima)) OnTimer();
+
+
+		glm::vec3 direction(
+			cos(Camera::MAIN_CAMERA.horizontal_angle),
+			sin(Camera::MAIN_CAMERA.horizontal_angle),
+			0
+		);
+
+		glm::vec3 left = glm::vec3(
+			cos(Camera::MAIN_CAMERA.horizontal_angle + PI / 2),
+			sin(Camera::MAIN_CAMERA.horizontal_angle + PI / 2),
+			0
+		);
+
+		if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed;
+		if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed;
+		if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed;
+		if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed;
 
 // Crida a OnPaint() per redibuixar l'escena
 		OnPaint(window);
