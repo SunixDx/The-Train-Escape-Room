@@ -2,6 +2,10 @@
 
 Mesh* Mesh::BASIC_CUBE_MESH = nullptr;
 
+Mesh* Mesh::BASIC_CUBE_MESH_BROWN = nullptr;
+
+Mesh* Mesh::BASIC_CUBE_MESH_SOFT_BROWN = nullptr;
+
 void Mesh::Draw(mat4 MatriuVista, mat4 MatriuTG, Transform& transform, GLuint shader_id)
 {
 	unsigned int diffuseNr = 1;
