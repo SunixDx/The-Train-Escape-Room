@@ -452,7 +452,7 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		);
 		
 		
-		InteractableEntity* interactable = (InteractableEntity*)BulletWorld::WORLD->rayCast(out_origin, out_direction, 1000);
+		InteractableEntity* interactable = (InteractableEntity*)BulletWorld::WORLD->rayCast(out_origin, out_direction, 0.8);
 
 		Level::CURRENT_LEVEL.my_entity_under_cursor = interactable;
 	}
