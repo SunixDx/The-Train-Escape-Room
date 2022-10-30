@@ -3315,6 +3315,8 @@ int main(void)
 // Entorn VGI. Timer: Lectura temps
 	float previous = glfwGetTime();
 
+	Camera::MAIN_CAMERA.setupColliders();
+
 	std::vector<Vertex> cube_vertices = {
 		Vertex({0.5f,  0.5f,  0.5f,}, {0.0,  0.0,  1.0}, {0.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
 		Vertex({-0.5f,  0.5f,  0.5f}, {0.0,  0.0,  1.0}, {1.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
@@ -3357,7 +3359,7 @@ int main(void)
 	string path = "./textures/maya/maya.obj";
 	Model::BACKPACK = new Model(path);
 
-	cout << "shader ID:" << shaderGouraud.getProgramID() << endl;
+	std::cout << "shader ID:" << shaderGouraud.getProgramID() << std::endl;
 	Level::buildFirstLevel(shaderGouraud.getProgramID());
 // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))
@@ -3391,6 +3393,19 @@ int main(void)
 		if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed;
 		if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed;
 		if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed;
+
+
+		Camera::MAIN_CAMERA.syncColliders();
+		BulletWorld::WORLD->performCollisionDetection();
+		bool collides = BulletWorld::WORLD->testCollision(Camera::MAIN_CAMERA.my_rigid_body);
+		if (collides)
+		{
+			w_pressed = false;
+			s_pressed = false;
+			a_pressed = false;
+			d_pressed = false;
+		}
+
 
 // Crida a OnPaint() per redibuixar l'escena
 		OnPaint(window);

@@ -1,6 +1,48 @@
 #include "Camera.h"
+#include "../physics/BulletWorld.h"
+#include <bullet/btBulletDynamicsCommon.h>
 
 Camera Camera::MAIN_CAMERA;
+
+void Camera::setupColliders()
+{
+	//btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.4), btScalar(.5), btScalar(.35)));
+	btCollisionShape* groundShape = new btCylinderShape(btVector3(btScalar(.05), btScalar(.05), btScalar(2)));
+
+	btTransform groundTransform;
+	groundTransform.setIdentity();
+	groundTransform.setOrigin(btVector3(position.x, position.y, position.z));
+
+	btScalar mass(0.);
+
+	//rigidbody is dynamic if and only if mass is non zero, otherwise static
+	bool isDynamic = (mass != 0.f);
+
+	btVector3 localInertia(0, 0, 0);
+	if (isDynamic)
+		groundShape->calculateLocalInertia(mass, localInertia);
+
+	//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
+	btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
+	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
+	btRigidBody* body = new btRigidBody(rbInfo);
+
+	body->setUserPointer(this);
+	my_rigid_body = body;
+
+	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape);
+	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body);
+}
+
+void Camera::syncColliders()
+{
+	btTransform groundTransform;
+	groundTransform.setIdentity();
+	groundTransform.setOrigin(btVector3(position.x, position.y, position.z));
+
+	my_rigid_body->setWorldTransform(groundTransform);
+	my_rigid_body->getMotionState()->setWorldTransform(groundTransform);
+}
 /*
 void show_cam_vectors()
 {

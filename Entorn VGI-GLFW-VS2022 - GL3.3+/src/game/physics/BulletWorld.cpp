@@ -1,5 +1,7 @@
 #include "BulletWorld.h"
 
+#include <iostream>
+
 BulletWorld* BulletWorld::WORLD = nullptr;
 
 BulletWorld::BulletWorld()
@@ -39,5 +41,38 @@ void* BulletWorld::rayCast(glm::vec3 origin, glm::vec3 direction, float distance
 	}
 	else {
 		return nullptr;
+	}
+}
+
+void BulletWorld::performCollisionDetection()
+{
+	my_dynamics_world->performDiscreteCollisionDetection();
+}
+
+bool BulletWorld::testCollision(btRigidBody* rigid_body)
+{
+	struct rCallBack : public btCollisionWorld::ContactResultCallback
+	{
+		virtual btScalar addSingleResult(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper* colObj1Wrap, int partId1, int index1)
+		{
+			btVector3 ptA = cp.getPositionWorldOnA();
+			btVector3 ptB = cp.getPositionWorldOnB();
+			std::cout << "COLISION" << std::endl;
+			return 0;
+		}
+	};
+
+	struct rCallBack resultCallback;
+
+	my_dynamics_world->contactTest(rigid_body, resultCallback);
+
+	int numManifolds = my_dynamics_world->getDispatcher()->getNumManifolds();
+	if (numManifolds > 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
