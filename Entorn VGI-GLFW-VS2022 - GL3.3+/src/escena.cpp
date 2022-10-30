@@ -445,14 +445,14 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		Level::CURRENT_LEVEL.my_vago->mostrar(MatriuVista, MatriuTG);
 
 		glm::vec3 out_origin(Camera::MAIN_CAMERA.position.x, Camera::MAIN_CAMERA.position.y, Camera::MAIN_CAMERA.position.z);
-		glm::vec3 out_direction(
-			cos(Camera::MAIN_CAMERA.vertical_angle) * cos(Camera::MAIN_CAMERA.horizontal_angle),
+		glm::vec3 out_direction = glm::normalize(glm::vec3(
+			cos(Camera::MAIN_CAMERA.horizontal_angle),
 			sin(Camera::MAIN_CAMERA.horizontal_angle),
-			sin(Camera::MAIN_CAMERA.vertical_angle)
-		);
+			sin(Camera::MAIN_CAMERA.vertical_angle) * 2
+		));
 		
 		
-		InteractableEntity* interactable = (InteractableEntity*)BulletWorld::WORLD->rayCast(out_origin, out_direction, 0.8);
+		InteractableEntity* interactable = (InteractableEntity*)BulletWorld::WORLD->rayCast(out_origin, out_direction, 1.8);
 
 		Level::CURRENT_LEVEL.my_entity_under_cursor = interactable;
 	}
