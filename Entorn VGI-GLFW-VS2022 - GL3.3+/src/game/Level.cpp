@@ -1,4 +1,5 @@
 #include "Level.h"
+#include "../src/game/graphics/Model.h"
 
 Level Level::CURRENT_LEVEL;
 
@@ -61,6 +62,14 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	}
 
 	Level::CURRENT_LEVEL.my_vago = vago;
+
+
+	Transform trLuisa = Transform();
+	trLuisa.position = vec3(0.1f, 0.9f, -0.3f);
+	trLuisa.scale = vec3(0.2f);
+	Cucaracha* luisa = new Cucaracha(trLuisa, new Model("./textures/cockroach/cockroach.3ds"), sh_programID);
+	Level::CURRENT_LEVEL.my_vago = vago;
+	Level::CURRENT_LEVEL.cucaracha = luisa;
 
 	Level::CURRENT_LEVEL.my_entity_under_cursor = nullptr;
 }

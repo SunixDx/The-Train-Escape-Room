@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\escena.cpp" />
     <ClCompile Include="..\src\game\entities\Crosshair.cpp" />
+    <ClCompile Include="..\src\game\entities\Cucaracha.cpp" />
     <ClCompile Include="..\src\game\entities\Seient.cpp" />
     <ClCompile Include="..\src\game\entities\Taula.cpp" />
     <ClCompile Include="..\src\game\entities\Vago.cpp" />
@@ -43,6 +44,7 @@
     <ClInclude Include="..\src\constants.h" />
     <ClInclude Include="..\src\escena.h" />
     <ClInclude Include="..\src\game\entities\Crosshair.h" />
+    <ClInclude Include="..\src\game\entities\Cucaracha.h" />
     <ClInclude Include="..\src\game\entities\InteractableEntity.h" />
     <ClInclude Include="..\src\game\entities\Seient.h" />
     <ClInclude Include="..\src\game\entities\Taula.h" />
