@@ -204,6 +204,8 @@ void InitGL()
 	fprintf(stderr, "Gouraud_shdrML: \n");
 	shader_programID = shaderGouraud.initializeShaders(".\\shaders\\gouraud_shdrML");
 
+	fprintf(stderr, "Crosshair_shdrML: \n");
+	shaderCrosshair.initializeShaders(".\\shaders\\crosshair_shdrML");
 	//shader_programID = shaderGouraud.getProgramID();
 	//shader_programID = initializeShaders(".\\shaders\\gouraud_shdrML");
 

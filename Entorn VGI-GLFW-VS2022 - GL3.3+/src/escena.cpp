@@ -28,7 +28,7 @@
 
 
 
-// Dibuixa Eixos Coordenades Món i Reixes, activant un shader propi.
+// Dibuixa Eixos Coordenades Mï¿½n i Reixes, activant un shader propi.
 
 void dibuixa_Eixos(GLuint ax_programID, bool eix, GLuint axis_Id, CMask3D reixa, CPunt3D hreixa, 
 	glm::mat4 MatriuProjeccio, glm::mat4 MatriuVista)

@@ -5,7 +5,7 @@ Level Level::CURRENT_LEVEL;
 void Level::buildFirstLevel(GLuint sh_programID)
 {
 	Transform tr = Transform();
-	tr.position = vec3(0.0f, 0.0f, 1.5f);
+	tr.position = vec3(0.0f, 0.0f, Vago::Z_OFFSET);
 
 	Vago* vago = new Vago(tr, Mesh::BASIC_CUBE_MESH, sh_programID);
 
@@ -14,7 +14,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	for (int i = 0; i < 7; i++)
 	{
 		xValorTaula -= 3;
-		vago->afegirTaula(new Taula(Transform(vec3(xValorTaula, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID, i == 0));
+		vago->afegirTaula(new Taula(Transform(vec3(xValorTaula, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
 	}
 
 	xValorTaula = 12.0f;

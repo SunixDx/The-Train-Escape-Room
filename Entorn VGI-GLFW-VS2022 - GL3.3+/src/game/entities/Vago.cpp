@@ -1,5 +1,6 @@
 #include "Vago.h"
 
+float Vago::Z_OFFSET = 1.5f;
 
 Vago::Vago(Transform transform, Mesh* mesh, GLuint shader_id)
 {

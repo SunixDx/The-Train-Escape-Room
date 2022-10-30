@@ -20,6 +20,9 @@ public:
 	void afegirTaula(Taula* taula);
 	void afegirSeient(Seient seient);
 	void mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG);
+
+
+	static float Z_OFFSET;
 private:
 
 	Mesh* my_mesh;

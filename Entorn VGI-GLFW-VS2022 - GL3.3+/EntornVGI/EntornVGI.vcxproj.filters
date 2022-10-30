@@ -69,6 +69,9 @@
     <ClCompile Include="..\src\game\Level.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\game\entities\Crosshair.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\constants.h">
@@ -129,6 +132,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\src\game\Level.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\entities\Crosshair.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
