@@ -5,6 +5,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#pragma once
 
 // Entorn VGI: Llibreries i constants Constants de l'aplicaci� EntornVGI
 #include "stdafx.h"
@@ -51,15 +52,8 @@
 	CEsfe3D OPV_G;			// Par�metres camera en coord. esf�riques (R,alfa,beta) per a Vista Geode
 
 
-// Variables de control de l'opci� C�mera->Personalitzada?
-	float horizontal_angle = 0;
-	float vertical_angle = 0;
-	float move_speed = 0.5;
-	float turn_speed = PI / 20;
-	float mouse_speed = 0.001;
-	glm::vec3 position;
 
-// Variables pel control del moviment
+	// Variables pel control del moviment
 	bool w_pressed = false;
 	bool s_pressed = false;
 	bool a_pressed = false;
@@ -146,6 +140,7 @@
 	GLuint shader_programID;	// Shader Program que cont� el Vertex i Fragment program.
 	Shader shaderLighting;		// Shader que implementa els codis GLSL d'il.luminaci�
 	Shader shaderGouraud, shaderPhong, shaderFiles;	// Shaders programs de les iluminacions plana, de Gouraud i de Phong.
+	Shader shaderCrosshair;
 
 // Entorn VGI: Variables butons de mouse 
 	CPoint m_PosEAvall, m_PosDAvall;	// Coordenades del cursor quan el boto esquerre(E) o dret(D) del 

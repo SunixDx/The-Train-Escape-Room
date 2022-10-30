@@ -21,8 +21,15 @@
 #include "game/entities/Vago.h"
 #include "game/graphics/Mesh.h"
 #include "game/graphics/Model.h"
+#include "game/graphics/Camera.h"
+#include "game/Level.h"
+
+#include <iostream>
+
+
 
 // Dibuixa Eixos Coordenades M�n i Reixes, activant un shader propi.
+
 void dibuixa_Eixos(GLuint ax_programID, bool eix, GLuint axis_Id, CMask3D reixa, CPunt3D hreixa, 
 	glm::mat4 MatriuProjeccio, glm::mat4 MatriuVista)
 {
@@ -427,65 +434,27 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 
 	case CUB_REVERS:
 	{
-		Transform tr = Transform();
-		tr.position = vec3(0.0f, 0.0f, 1.5f);
+		Transform tr = Transform::blank();
+		tr.position = vec3(0, 0.2, 0);
+		float c = glm::cos(glm::pi<float>() / 4);
+		float s = glm::sin(glm::pi<float>() / 4);
+		tr.orientation = quat(c, s * 1.0f, s * 0.0f, s * 0.0f);
+
+		Model::BACKPACK->Draw(MatriuVista, MatriuTG, tr, sh_programID);
+
+		Level::CURRENT_LEVEL.my_vago->mostrar(MatriuVista, MatriuTG);
+
+		glm::vec3 out_origin(Camera::MAIN_CAMERA.position.x, Camera::MAIN_CAMERA.position.y, Camera::MAIN_CAMERA.position.z);
+		glm::vec3 out_direction = glm::normalize(glm::vec3(
+			cos(Camera::MAIN_CAMERA.horizontal_angle),
+			sin(Camera::MAIN_CAMERA.horizontal_angle),
+			sin(Camera::MAIN_CAMERA.vertical_angle) * 2
+		));
 		
-		//Model::BACKPACK->Draw(MatriuVista, MatriuTG, tr, sh_programID);
-
-		Vago vago = Vago(tr, Mesh::BASIC_CUBE_MESH, sh_programID);
 		
-		int xValorTaula = 12.0f;
+		InteractableEntity* interactable = (InteractableEntity*)BulletWorld::WORLD->rayCast(out_origin, out_direction, 1.8);
 
-		for (int i = 0; i < 7; i++)
-		{
-			xValorTaula -= 3;
-			vago.afegirTaula(Taula(Transform(vec3(xValorTaula, 1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		}
-
-		xValorTaula = 12.0f;
-
-		for (int i = 0; i < 7; i++)
-		{
-			xValorTaula -= 3;
-			vago.afegirTaula(Taula(Transform(vec3(xValorTaula , -1.0f, -0.7f), quat(0.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		}
-
-		quat mirar_endevant = quat(0.0f, 0.0f, 0.0f, 0.0f);
-		quat mirar_enrere = quat(glm::cos(glm::pi<float>() / 2), glm::sin(glm::pi<float>() / 2) * 0.0f, glm::sin(glm::pi<float>() / 2) * 0.0f, glm::sin(glm::pi<float>() / 2) * 1.0f);
-
-		int xValorSeientEndavant = 13.0f;
-
-		for (int i = 0; i < 7; i++)
-		{
-			xValorSeientEndavant -= 3;
-			vago.afegirSeient(Seient(Transform(vec3(xValorSeientEndavant, 1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		}
-
-		xValorSeientEndavant = 13.0f;
-
-		for (int i = 0; i < 7; i++)
-		{
-			xValorSeientEndavant -= 3;
-			vago.afegirSeient(Seient(Transform(vec3(xValorSeientEndavant, -1.0f, -1.2f), mirar_endevant, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		}
-
-		int xValorSeientEndarrere = 11.0f;
-
-		for (int i = 0; i < 7; i++)
-		{
-			xValorSeientEndarrere -= 3;
-			vago.afegirSeient(Seient(Transform(vec3(xValorSeientEndarrere, 1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		}
-
-		xValorSeientEndarrere = 11.0f;
-
-		for (int i = 0; i < 7; i++)
-		{
-			xValorSeientEndarrere -= 3;
-			vago.afegirSeient(Seient(Transform(vec3(xValorSeientEndarrere, -1.0f, -1.2f), mirar_enrere, vec3(1.0f)), Mesh::BASIC_CUBE_MESH, sh_programID));
-		}
-
-		vago.mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.my_entity_under_cursor = interactable;
 	}
 
 		/*

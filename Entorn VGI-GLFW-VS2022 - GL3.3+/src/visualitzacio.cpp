@@ -13,6 +13,7 @@
 //				- Inicialitzar imatges textura per l'objecte Truck (Init_Textures())
 //
 
+#include <iostream>
 #include "stdafx.h"
 
 // Entorn V3D. QUATERNIONS: Include per a la definició del tipus GL_QUAT i crida a les funcions de quatern.
@@ -684,17 +685,21 @@ glm::mat4 Vista_Personalitzada(GLuint sh_programID, float horizontal_angle, floa
 	char iluminacio, bool llum_amb, LLUM* lumi, bool ifix, bool il2sides,
 	bool eix, CMask3D reixa, CPunt3D hreixa)
 {
-	glm::vec3 direction(
-		cos(vertical_angle) * cos(horizontal_angle),
-		sin(horizontal_angle),
-		sin(vertical_angle)
-	);
 
-	glm::vec3 left = glm::vec3(
+	//std::cout << "\rhorizontal_angle = " << horizontal_angle << "                          " << std::endl;
+	//std::cout << "\rvertical_angle = " << vertical_angle << "                          " << std::endl;
+
+	glm::vec3 direction = glm::normalize(glm::vec3(
+		cos(horizontal_angle),
+		sin(horizontal_angle),
+		sin(vertical_angle) * 2
+	));
+
+	glm::vec3 left = glm::normalize(glm::vec3(
 		cos(horizontal_angle + PI/2),
 		sin(horizontal_angle + PI/2),
 		0
-	);
+	));
 
 	glm::vec3 up = glm::cross(direction, left);
 

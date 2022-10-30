@@ -1,5 +1,6 @@
 #include "Vago.h"
 
+float Vago::Z_OFFSET = 1.5f;
 
 Vago::Vago(Transform transform, Mesh* mesh, GLuint shader_id)
 {
@@ -8,12 +9,12 @@ Vago::Vago(Transform transform, Mesh* mesh, GLuint shader_id)
 	my_shader_id = shader_id;
 }
 
-void Vago::afegirTaula(Taula taula)
+void Vago::afegirTaula(Taula* taula)
 {
 	my_taules.push_back(taula);
 }
 
-void Vago::afegirSeient(Seient seient)
+void Vago::afegirSeient(Seient* seient)
 {
 	my_seients.push_back(seient);
 }
@@ -70,9 +71,9 @@ void Vago::mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG)
 	mostrarTerra(MatriuVista, MatriuTG, my_shader_id);
 	mostrarSostre(MatriuVista, MatriuTG, my_shader_id);
 
-	for (Taula& taula : my_taules)
-		taula.mostrar(MatriuVista, MatriuTG);
+	for (Taula* taula : my_taules)
+		taula->mostrar(MatriuVista, MatriuTG);
 
-	for (Seient& seient : my_seients)
-		seient.mostrar(MatriuVista, MatriuTG);
+	for (Seient* seient : my_seients)
+		seient->mostrar(MatriuVista, MatriuTG);
 }

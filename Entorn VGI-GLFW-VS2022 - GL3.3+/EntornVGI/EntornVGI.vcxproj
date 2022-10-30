@@ -20,33 +20,41 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\escena.cpp" />
+    <ClCompile Include="..\src\game\entities\Crosshair.cpp" />
     <ClCompile Include="..\src\game\entities\Seient.cpp" />
     <ClCompile Include="..\src\game\entities\Taula.cpp" />
     <ClCompile Include="..\src\game\entities\Vago.cpp" />
+    <ClCompile Include="..\src\game\graphics\Camera.cpp" />
     <ClCompile Include="..\src\game\graphics\Mesh.cpp" />
     <ClCompile Include="..\src\game\graphics\Model.cpp" />
     <ClCompile Include="..\src\game\graphics\Texture.cpp" />
     <ClCompile Include="..\src\game\graphics\Transform.cpp" />
     <ClCompile Include="..\src\game\graphics\Vertex.cpp" />
+    <ClCompile Include="..\src\game\Level.cpp" />
+    <ClCompile Include="..\src\game\physics\BulletWorld.cpp" />
     <ClCompile Include="..\src\glut_geometry.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\material.cpp" />
     <ClCompile Include="..\src\objLoader.cpp" />
     <ClCompile Include="..\src\shader.cpp" />
     <ClCompile Include="..\src\visualitzacio.cpp" />
-    <ClCompile Include="Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\constants.h" />
     <ClInclude Include="..\src\escena.h" />
+    <ClInclude Include="..\src\game\entities\Crosshair.h" />
+    <ClInclude Include="..\src\game\entities\InteractableEntity.h" />
     <ClInclude Include="..\src\game\entities\Seient.h" />
     <ClInclude Include="..\src\game\entities\Taula.h" />
     <ClInclude Include="..\src\game\entities\Vago.h" />
+    <ClInclude Include="..\src\game\graphics\Camera.h" />
     <ClInclude Include="..\src\game\graphics\Mesh.h" />
     <ClInclude Include="..\src\game\graphics\Model.h" />
     <ClInclude Include="..\src\game\graphics\Texture.h" />
     <ClInclude Include="..\src\game\graphics\Transform.h" />
     <ClInclude Include="..\src\game\graphics\Vertex.h" />
+    <ClInclude Include="..\src\game\Level.h" />
+    <ClInclude Include="..\src\game\physics\BulletWorld.h" />
     <ClInclude Include="..\src\glut_geometry.h" />
     <ClInclude Include="..\src\main.h" />
     <ClInclude Include="..\src\material.h" />
@@ -54,7 +62,6 @@
     <ClInclude Include="..\src\shader.h" />
     <ClInclude Include="..\src\stdafx.h" />
     <ClInclude Include="..\src\visualitzacio.h" />
-    <ClInclude Include="Camera.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -131,7 +138,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\lib\Win32</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;opengl32.lib;glew32.lib;glew32s.lib;SOIL.lib;ILU.lib;ILUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;opengl32.lib;glew32.lib;glew32s.lib;SOIL.lib;ILU.lib;ILUT.lib;ConvexDecomposition.lib;HACD.lib;LinearMath.lib;Bullet3Common.lib;BulletCollision.lib;BulletDynamics.lib;BulletFileLoader.lib;BulletInverseDynamics.lib;BulletInverseDynamicsUtils.lib;BulletSoftBody.lib;BulletWorldImporter.lib;BulletXmlWorldImporter.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
@@ -147,7 +154,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;opengl32.lib;glew32.lib;glew32s.lib;SOIL.lib;ILU.lib;ILUT.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;opengl32.lib;glew32.lib;glew32s.lib;SOIL.lib;ILU.lib;ILUT.lib;assimp-vc143-mtd.lib;LinearMath_vs2010_x64_debug.lib;gwen_vs2010_x64_debug.lib;BulletExampleBrowserLib_vs2010_x64_debug.lib;BussIK_vs2010_x64_debug.lib;OpenGL_Window_vs2010_x64_debug.lib;Bullet3Common_vs2010_x64_debug.lib;Bullet3OpenCL_clew_vs2010_x64_debug.lib;Bullet3Geometry_vs2010_x64_debug.lib;Bullet3Collision_vs2010_x64_debug.lib;Bullet3Dynamics_vs2010_x64_debug.lib;BulletInverseDynamicsUtils_vs2010_x64_debug.lib;BulletCollision_vs2010_x64_debug.lib;BulletInverseDynamics_vs2010_x64_debug.lib;BulletSoftBody_vs2010_x64_debug.lib;BulletDynamics_vs2010_x64_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
@@ -187,7 +194,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;opengl32.lib;glew32.lib;glew32s.lib;SOIL.lib;ILU.lib;ILUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;glfw3dll.lib;opengl32.lib;glew32.lib;glew32s.lib;SOIL.lib;ILU.lib;ILUT.lib;App_BulletExampleBrowser_vs2010_x64_release.lib;gwen_vs2010_x64_release.lib;BulletExampleBrowserLib_vs2010_x64_release.lib;Bullet3OpenCL_clew_vs2010_x64_release.lib;BussIK_vs2010_x64_release.lib;Bullet3Common_vs2010_x64_release.lib;Bullet3Geometry_vs2010_x64_release.lib;Bullet3Collision_vs2010_x64_release.lib;Bullet3Dynamics_vs2010_x64_release.lib;BulletSoftBody_vs2010_x64_release.lib;BulletInverseDynamicsUtils_vs2010_x64_release.lib;BulletCollision_vs2010_x64_release.lib;BulletInverseDynamics_vs2010_x64_release.lib;BulletDynamics_vs2010_x64_release.lib;LinearMath_vs2010_x64_release.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT;LIBCMT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
