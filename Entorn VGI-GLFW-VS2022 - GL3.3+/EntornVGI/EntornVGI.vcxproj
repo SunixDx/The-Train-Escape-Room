@@ -43,6 +43,7 @@
     <ClInclude Include="..\src\constants.h" />
     <ClInclude Include="..\src\escena.h" />
     <ClInclude Include="..\src\game\entities\Crosshair.h" />
+    <ClInclude Include="..\src\game\entities\InteractableEntity.h" />
     <ClInclude Include="..\src\game\entities\Seient.h" />
     <ClInclude Include="..\src\game\entities\Taula.h" />
     <ClInclude Include="..\src\game\entities\Vago.h" />

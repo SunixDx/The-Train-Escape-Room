@@ -4,9 +4,10 @@
 #include "../graphics/Mesh.h"
 #include "Taula.h"
 #include "Seient.h"
+#include "InteractableEntity.h"
 
 
-class Vago
+class Vago : public InteractableEntity
 {
 public:
 	Vago(Transform transform, Mesh* mesh, GLuint shader_id);

@@ -451,12 +451,10 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 			sin(Camera::MAIN_CAMERA.vertical_angle)
 		);
 		
-		Taula* taula = (Taula*)BulletWorld::WORLD->rayCast(out_origin, out_direction, 1000);
-		if (taula)
-			std::cout << "hit" << std::endl;
-		else
-			std::cout << "miss" << std::endl;
 		
+		InteractableEntity* interactable = (InteractableEntity*)BulletWorld::WORLD->rayCast(out_origin, out_direction, 1000);
+
+		Level::CURRENT_LEVEL.my_entity_under_cursor = interactable;
 	}
 
 		/*

@@ -61,4 +61,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	}
 
 	Level::CURRENT_LEVEL.my_vago = vago;
+
+	Level::CURRENT_LEVEL.my_entity_under_cursor = nullptr;
 }

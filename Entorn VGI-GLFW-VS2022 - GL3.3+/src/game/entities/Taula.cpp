@@ -1,6 +1,8 @@
 #include "Taula.h"
 #include "Vago.h"
 
+#include <iostream>
+
 Taula::Taula(Transform transform, Mesh* mesh, GLuint shader_id)
 {
 	my_transform = transform;
@@ -68,4 +70,11 @@ void Taula::mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG)
 
 	mostrarPlataforma(MatriuVista, MatriuTG, my_shader_program_id);
 	mostrarPota(MatriuVista, MatriuTG, my_shader_program_id);
+}
+
+void Taula::interact()
+{
+	std::cout << "HAS INTERACTUADO CON MESA, ¡¡¡FELICIDADES!!!" << std::endl;
+
+	my_transform.position.z += 0.1f;
 }

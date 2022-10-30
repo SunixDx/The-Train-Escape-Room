@@ -4,9 +4,10 @@
 #include "../graphics/Mesh.h"
 #include  <bullet/btBulletDynamicsCommon.h>
 #include "../physics/BulletWorld.h"
+#include "InteractableEntity.h"
 
 
-class Taula
+class Taula : public InteractableEntity
 {
 public:
 	Taula(Transform transform, Mesh* mesh, GLuint shader_program_id);
@@ -15,6 +16,7 @@ public:
 		delete my_rigid_body; }
 
 	void mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG);
+	void interact();
 private:
 
 	Transform my_transform;

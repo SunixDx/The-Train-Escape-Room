@@ -2509,6 +2509,10 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			//m_PosEAvall = point;
 			m_PosEAvall.x = xpos;	m_PosEAvall.y = ypos;
 			m_EsfeEAvall = OPV;
+
+			InteractableEntity* euc = Level::CURRENT_LEVEL.my_entity_under_cursor;
+			if (euc)
+				euc->interact();
 		}
 // OnLButtonUp: Funciï¿½ que es crida quan deixem d'apretar el botï¿½ esquerra del mouse.
 	else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)

@@ -137,5 +137,8 @@
     <ClInclude Include="..\src\game\entities\Crosshair.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\game\entities\InteractableEntity.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
