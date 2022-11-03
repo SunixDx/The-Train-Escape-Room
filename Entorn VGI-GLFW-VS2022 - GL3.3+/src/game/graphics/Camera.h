@@ -15,7 +15,7 @@ public:
 	// Variables de control de l'opci� C�mera->Personalitzada?
 	float horizontal_angle = 0;
 	float vertical_angle = 0;
-	float move_speed = 0.075;
+	float move_speed = 0.035;
 	float turn_speed = PI / 20;
 	float mouse_speed = 0.001;
 	glm::vec3 position;
