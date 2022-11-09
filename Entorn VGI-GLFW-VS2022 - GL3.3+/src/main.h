@@ -58,6 +58,7 @@
 	bool s_pressed = false;
 	bool a_pressed = false;
 	bool d_pressed = false;
+	bool c_pressed = false;
 
 // Entorn VGI: Variables de control per Men� Vista: fullsecreen, pan, dibuixar eixos i grid. 
 	bool fullscreen;	// Opci� booleana per Pantalla Completal [0:NO,1:SI]

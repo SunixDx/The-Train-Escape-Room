@@ -2,6 +2,7 @@
 #include <iostream>
 #include "../src/stdafx.h"
 #include <bullet/btBulletDynamicsCommon.h>
+#include "../entities/Seient.h"
 
 using namespace std;
 
@@ -10,7 +11,8 @@ public:
 
 	void setupColliders();
 	void syncColliders();
-	
+	void sitDown(const Seient* seient);
+	void standUp();
 
 	// Variables de control de l'opci� C�mera->Personalitzada?
 	float horizontal_angle = 0;
@@ -22,5 +24,8 @@ public:
 
 	btRigidBody* my_rigid_body;
 
+	bool sit = false;
+
 	static Camera MAIN_CAMERA;
+	static Camera SAVE_CAMERA;
 };

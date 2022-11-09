@@ -859,17 +859,24 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		std::cout << "CAM PERSONALITZADA" << std::endl;
 		camera = CAM_PERSONALITZADA;
-		Camera::MAIN_CAMERA.position = glm::vec3(0, 0, 1.5);
+		Camera::MAIN_CAMERA.position = glm::vec3(0, 0, 1.8);
 	}
-	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS)
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && !Camera::MAIN_CAMERA.sit)
 	{
 		if (key == GLFW_KEY_W) w_pressed = true;
 		if (key == GLFW_KEY_S) s_pressed = true;
 		if (key == GLFW_KEY_A) a_pressed = true;
 		if (key == GLFW_KEY_D) d_pressed = true;
+		 
 		std::cout << "MOVING" << std::endl;
 		move();
 		std::cout << "NOT MOVING" << std::endl;
+
+		if (key == GLFW_KEY_C) c_pressed = true;
+	}
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.sit)
+	{
+		if (key == GLFW_KEY_C) Camera::MAIN_CAMERA.standUp();
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_RELEASE)
 	{
@@ -877,6 +884,7 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		if (key == GLFW_KEY_S) s_pressed = false;
 		if (key == GLFW_KEY_A) a_pressed = false;
 		if (key == GLFW_KEY_D) d_pressed = false;
+		if (key == GLFW_KEY_C) c_pressed = false;
 	}
 	else if (camera == CAM_NAVEGA) Teclat_Navega(key, action);
 
@@ -3389,12 +3397,17 @@ int main(void)
 			0
 		);
 
-		if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed;
-		if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed;
-		if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed;
-		if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed;
+		if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed;//* delta;
+		if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed;//* delta;
+		if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed;//* delta;
+		if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed;//* delta;
 
-
+		if (c_pressed)
+		{
+			if (Camera::MAIN_CAMERA.position.z > 1) Camera::MAIN_CAMERA.position.z -= 0.05;
+		}
+		else if (Camera::MAIN_CAMERA.position.z < 1.8 && !Camera::MAIN_CAMERA.sit) Camera::MAIN_CAMERA.position.z += 0.1;
+		
 		Camera::MAIN_CAMERA.syncColliders();
 		BulletWorld::WORLD->performCollisionDetection();
 		bool collides = BulletWorld::WORLD->testCollision(Camera::MAIN_CAMERA.my_rigid_body);

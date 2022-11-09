@@ -1,6 +1,6 @@
 #include "Seient.h"
 #include "Vago.h"
-
+#include "../graphics/Camera.h"
 #include <iostream>
 
 Seient::Seient(Transform transform, Mesh* mesh, GLuint shader_id)
@@ -92,5 +92,5 @@ void Seient::mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG)
 
 void Seient::interact()
 {
-	std::cout << "seient click" << std::endl;
+	Camera::MAIN_CAMERA.sitDown(this);
 }
