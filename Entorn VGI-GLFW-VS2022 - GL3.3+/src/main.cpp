@@ -807,28 +807,6 @@ void Barra_Estat()
 		}
 }
 
-void move()
-{
-	glm::vec3 direction(
-		cos(Camera::MAIN_CAMERA.horizontal_angle),
-		sin(Camera::MAIN_CAMERA.horizontal_angle),
-		0
-	);
-
-	glm::vec3 left = glm::vec3(
-		cos(Camera::MAIN_CAMERA.horizontal_angle + PI / 2),
-		sin(Camera::MAIN_CAMERA.horizontal_angle + PI / 2),
-		0
-	);
-
-	if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed;
-	if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed;
-	if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed;
-	if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed;
-
-	// Crida a OnPaint() per redibuixar l'escena
-	OnPaint(window);
-}
 
 /* ------------------------------------------------------------------------- */
 /*                           CONTROL DEL TECLAT                              */
@@ -867,10 +845,6 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		if (key == GLFW_KEY_S) s_pressed = true;
 		if (key == GLFW_KEY_A) a_pressed = true;
 		if (key == GLFW_KEY_D) d_pressed = true;
-		 
-		std::cout << "MOVING" << std::endl;
-		move();
-		std::cout << "NOT MOVING" << std::endl;
 
 		if (key == GLFW_KEY_C) c_pressed = true;
 	}
@@ -3397,10 +3371,10 @@ int main(void)
 			0
 		);
 
-		if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed;//* delta;
-		if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed;//* delta;
-		if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed;//* delta;
-		if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed;//* delta;
+		if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed * delta;
+		if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed * delta;
+		if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed * delta;
+		if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed * delta;
 
 		if (c_pressed)
 		{
