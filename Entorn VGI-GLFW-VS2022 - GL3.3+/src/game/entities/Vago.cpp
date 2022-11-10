@@ -41,7 +41,7 @@ void Vago::mostrarTerra(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader
 	Transform transform_terra = Transform(
 		vec3(0.0f, 0.0f, -1.5f),
 		quat(0.0f, 0.0f, 0.0f, 0.0f),
-		vec3(22.0f, 3.0f, 0.1f)
+		vec3(22.0f, 6.0f, 0.1f)
 	);
 
 	my_mesh->Draw(MatriuVista, MatriuTG, transform_terra, shader_program_id);
@@ -55,7 +55,7 @@ void Vago::mostrarSostre(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shade
 	Transform transform_sostre = Transform(
 		vec3(0.0f, 0.0f, 1.5f),
 		quat(0.0f, 0.0f, 0.0f, 0.0f),
-		vec3(22.0f, 3.f, 0.1f)
+		vec3(22.0f, 6.f, 0.1f)
 	);
 
 	my_mesh->Draw(MatriuVista, MatriuTG, transform_sostre, shader_program_id);
@@ -65,8 +65,8 @@ void Vago::mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG)
 {
 	MatriuTG = my_transform.apply(MatriuTG); //para que se muestre relativo al vagon
 
-	mostrarPared(MatriuVista, MatriuTG, my_shader_id, glm::vec3(0.0f, 1.5f, 0.0f));
-	mostrarPared(MatriuVista, MatriuTG, my_shader_id, glm::vec3(0.0f, -1.5f, 0.0f));
+	mostrarPared(MatriuVista, MatriuTG, my_shader_id, glm::vec3(0.0f, 3.0f, 0.0f));
+	mostrarPared(MatriuVista, MatriuTG, my_shader_id, glm::vec3(0.0f, -3.0f, 0.0f));
 
 	mostrarTerra(MatriuVista, MatriuTG, my_shader_id);
 	mostrarSostre(MatriuVista, MatriuTG, my_shader_id);

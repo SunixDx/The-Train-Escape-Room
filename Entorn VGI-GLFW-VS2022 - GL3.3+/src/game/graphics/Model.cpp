@@ -38,6 +38,9 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 	vector<unsigned int> indices;
 	vector<Texture> textures;
 
+	bool teNormals = true;
+	if (!mesh->HasNormals()) teNormals = false;
+
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++)
 	{
 		Vertex vertex;
@@ -49,9 +52,18 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 		vector.z = mesh->mVertices[i].z;
 		vertex.Position = vector;
 		//normals
-		vector.x = mesh->mNormals[i].x;
-		vector.y = mesh->mNormals[i].y;
-		vector.z = mesh->mNormals[i].z;
+		if (teNormals)
+		{
+			vector.x = mesh->mNormals[i].x;
+			vector.y = mesh->mNormals[i].y;
+			vector.z = mesh->mNormals[i].z;
+		}
+		else
+		{
+			vector.x = 0;
+			vector.y = 0;
+			vector.z = 0;
+		}
 		vertex.Normal = vector;
 		vertex.Color = vec4(1, 1, 1, 1);
 		//texture
