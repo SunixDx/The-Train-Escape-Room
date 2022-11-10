@@ -30,6 +30,12 @@ public:
 	{
 		loadModel(path);
 	}
+
+	Model(std::vector<Mesh> meshes): meshes(meshes)
+	{
+
+	}
+
 	void Draw(mat4 MatriuVista, mat4 MatriuTG, Transform& transform, GLuint shader_id);
 private:
 	// model data

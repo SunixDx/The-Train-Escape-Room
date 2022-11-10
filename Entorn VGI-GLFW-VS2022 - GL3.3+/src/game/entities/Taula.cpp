@@ -3,12 +3,8 @@
 
 #include <iostream>
 
-Taula::Taula(Transform transform, Mesh* mesh, GLuint shader_id)
+Taula::Taula(Transform transform, Model* model, GLuint shader_id): GameEntity(transform, nullptr, shader_id)
 {
-	my_transform = transform;
-	my_mesh = mesh;
-	my_shader_program_id = shader_id;
-
 	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.4), btScalar(.5), btScalar(.35)));
 
 	btTransform groundTransform;
@@ -34,42 +30,18 @@ Taula::Taula(Transform transform, Mesh* mesh, GLuint shader_id)
 
 	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape);
 	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body);
-}
 
-void Taula::mostrarPlataforma(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_program_id)
-{
-	glm::mat4 NormalMatrix(1.0);
-	glm::mat4 ModelMatrix(1.0);
-
-	Transform transform_sostre = Transform(
+	my_children.push_back(new GameEntity(Transform(
 		vec3(0.0f, 0.0f, 0.0f),
 		quat(0.0f, 0.0f, 0.0f, 0.0f),
 		vec3(0.8f, 1.0f, 0.02f)
-	);
+	), model, shader_id));
 
-	my_mesh->Draw(MatriuVista, MatriuTG, transform_sostre, shader_program_id);
-}
-
-void Taula::mostrarPota(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_program_id)
-{
-	glm::mat4 NormalMatrix(1.0);
-	glm::mat4 ModelMatrix(1.0);
-
-	Transform transform_sostre = Transform(
+	my_children.push_back(new GameEntity(Transform(
 		vec3(0.0f, 0.0f, -0.35f),
 		quat(0.0f, 0.0f, 0.0f, 0.0f),
 		vec3(0.02f, 0.02f, 0.7f)
-	);
-
-	my_mesh->Draw(MatriuVista, MatriuTG, transform_sostre, shader_program_id);
-}
-
-void Taula::mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG)
-{
-	MatriuTG = my_transform.apply(MatriuTG);
-
-	mostrarPlataforma(MatriuVista, MatriuTG, my_shader_program_id);
-	mostrarPota(MatriuVista, MatriuTG, my_shader_program_id);
+	), model, shader_id));
 }
 
 void Taula::interact()
