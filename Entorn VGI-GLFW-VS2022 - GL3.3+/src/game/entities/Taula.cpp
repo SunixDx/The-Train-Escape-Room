@@ -9,7 +9,7 @@ Taula::Taula(Transform transform, Model* model, GLuint shader_id): GameEntity(tr
 
 	btTransform groundTransform;
 	groundTransform.setIdentity();
-	groundTransform.setOrigin(btVector3(my_transform.position.x, my_transform.position.y, my_transform.position.z + Vago::Z_OFFSET));
+	groundTransform.setOrigin(btVector3(my_transform.position().x, my_transform.position().y, my_transform.position().z + Vago::Z_OFFSET));
 
 	btScalar mass(0.);
 
@@ -33,13 +33,13 @@ Taula::Taula(Transform transform, Model* model, GLuint shader_id): GameEntity(tr
 
 	my_children.push_back(new GameEntity(Transform(
 		vec3(0.0f, 0.0f, 0.0f),
-		quat(0.0f, 0.0f, 0.0f, 0.0f),
+		quat(1.0f, 0.0f, 0.0f, 0.0f),
 		vec3(0.8f, 1.0f, 0.02f)
 	), model, shader_id));
 
 	my_children.push_back(new GameEntity(Transform(
 		vec3(0.0f, 0.0f, -0.35f),
-		quat(0.0f, 0.0f, 0.0f, 0.0f),
+		quat(1.0f, 0.0f, 0.0f, 0.0f),
 		vec3(0.02f, 0.02f, 0.7f)
 	), model, shader_id));
 }
@@ -48,5 +48,7 @@ void Taula::interact()
 {
 	std::cout << "HAS INTERACTUADO CON MESA, ¡¡¡FELICIDADES!!!" << std::endl;
 
-	my_transform.position.z += 0.1f;
+	//my_transform.position().z += 0.1f;
+	my_transform.rotate(PI / 6, vec3(1, 0, 0));
+	my_transform.rotate(PI / 6, vec3(0, 1, 0));
 }

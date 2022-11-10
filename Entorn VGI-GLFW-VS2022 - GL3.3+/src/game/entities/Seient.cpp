@@ -10,11 +10,11 @@ Seient::Seient(Transform transform, Model* model, GLuint shader_id): GameEntity(
 
 	btTransform groundTransform_banc;
 	groundTransform_banc.setIdentity();
-	groundTransform_banc.setOrigin(btVector3(my_transform.position.x, my_transform.position.y, my_transform.position.z + Vago::Z_OFFSET));
+	groundTransform_banc.setOrigin(btVector3(my_transform.position().x, my_transform.position().y, my_transform.position().z + Vago::Z_OFFSET));
 
 	btTransform groundTransform_respatller;
 	groundTransform_respatller.setIdentity();
-	groundTransform_respatller.setOrigin(btVector3(my_transform.position.x, my_transform.position.y, my_transform.position.z + Vago::Z_OFFSET + 0.25));
+	groundTransform_respatller.setOrigin(btVector3(my_transform.position().x, my_transform.position().y, my_transform.position().z + Vago::Z_OFFSET + 0.25));
 
 	btScalar mass_banc(0.);
 	btScalar mass_respatller(0.);
@@ -51,14 +51,14 @@ Seient::Seient(Transform transform, Model* model, GLuint shader_id): GameEntity(
 
 	my_children.push_back(new GameEntity(Transform(
 		vec3(0.0f, 0.0f, 0.0f),
-		quat(0.0f, 0.0f, 0.0f, 0.0f),
+		quat(1.0f, 0.0f, 0.0f, 0.0f),
 		vec3(0.5f, 1.0f, 0.5f)
 	), model, my_shader_id));
 
 
 	my_children.push_back(new GameEntity(Transform(
 		vec3(0.25f, 0.0f, 0.5f),
-		quat(0.0f, 0.0f, 0.0f, 0.0f),
+		quat(1.0f, 0.0f, 0.0f, 0.0f),
 		vec3(0.02f, 1.0f, 0.5f)
 	), model, my_shader_id));
 }
