@@ -3,6 +3,7 @@
 #include <bullet/btBulletDynamicsCommon.h>
 
 Camera Camera::MAIN_CAMERA;
+Camera Camera::SAVE_CAMERA;
 
 void Camera::setupColliders()
 {
@@ -43,6 +44,24 @@ void Camera::syncColliders()
 	my_rigid_body->setWorldTransform(groundTransform);
 	my_rigid_body->getMotionState()->setWorldTransform(groundTransform);
 }
+void Camera::sitDown(const Seient* seient)
+{
+	SAVE_CAMERA = MAIN_CAMERA;
+	MAIN_CAMERA.sit = true;
+	MAIN_CAMERA.position.x = seient->my_transform.position.x;
+	MAIN_CAMERA.position.y = seient->my_transform.position.y;
+	MAIN_CAMERA.position.z = 1.25;
+	//TODO angle things
+}
+
+void Camera::standUp()
+{
+	SAVE_CAMERA.horizontal_angle = MAIN_CAMERA.horizontal_angle;
+	SAVE_CAMERA.vertical_angle = MAIN_CAMERA.vertical_angle;
+	MAIN_CAMERA = SAVE_CAMERA;
+	
+}
+
 /*
 void show_cam_vectors()
 {

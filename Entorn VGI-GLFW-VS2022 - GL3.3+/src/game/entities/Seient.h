@@ -14,7 +14,6 @@ public:
 
 	void interact();
 
-private:
 
 	Transform my_transform;
 	Mesh* my_mesh;
