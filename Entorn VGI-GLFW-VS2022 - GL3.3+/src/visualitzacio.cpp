@@ -13,6 +13,7 @@
 //				- Inicialitzar imatges textura per l'objecte Truck (Init_Textures())
 //
 
+#include <iostream>
 #include "stdafx.h"
 
 // Entorn V3D. QUATERNIONS: Include per a la definició del tipus GL_QUAT i crida a les funcions de quatern.
@@ -616,7 +617,7 @@ glm::mat4 Vista_Geode(GLuint sh_programID, CEsfe3D opv, char VPol, bool pant, CP
 	GLdouble cam[3], camN[3], up[3];
 	glm::mat4 MatriuVista(1.0);
 	// Matrius Traslació
-	glm::mat4 TransMatrix(1.0);
+	glm::mat4 TransMatrix(1.0);	
 
 	// Conversió angles radians -> graus
 	opv.alfa = opv.alfa * PI / 180;
@@ -671,6 +672,62 @@ glm::mat4 Vista_Geode(GLuint sh_programID, CEsfe3D opv, char VPol, bool pant, CP
 	else glDisable(GL_CULL_FACE);
 
 // Ocultacions (Z-buffer)
+	if (oculta) glEnable(GL_DEPTH_TEST);
+	else glDisable(GL_DEPTH_TEST);
+
+	return MatriuVista;
+}
+
+
+glm::mat4 Vista_Personalitzada(GLuint sh_programID, float horizontal_angle, float vertical_angle, glm::vec3 position,
+	CColor col_fons, CColor col_object, char objecte, double mida, int step,
+	bool frnt_fcs, bool oculta, bool testv, bool bck_ln,
+	char iluminacio, bool llum_amb, LLUM* lumi, bool ifix, bool il2sides,
+	bool eix, CMask3D reixa, CPunt3D hreixa)
+{
+
+	//std::cout << "\rhorizontal_angle = " << horizontal_angle << "                          " << std::endl;
+	//std::cout << "\rvertical_angle = " << vertical_angle << "                          " << std::endl;
+
+	glm::vec3 direction = glm::normalize(glm::vec3(
+		cos(horizontal_angle),
+		sin(horizontal_angle),
+		sin(vertical_angle) * 2
+	));
+
+	glm::vec3 left = glm::normalize(glm::vec3(
+		cos(horizontal_angle + PI/2),
+		sin(horizontal_angle + PI/2),
+		0
+	));
+
+	glm::vec3 up = glm::cross(direction, left);
+
+	// Neteja dels buffers de color i profunditat
+	Fons(col_fons);
+
+	// Iluminacio movent-se amb la camara (abans gluLookAt)
+	if (!ifix) Iluminacio(sh_programID, iluminacio, ifix, il2sides, llum_amb, lumi, objecte, frnt_fcs, bck_ln, step);
+
+	glm::mat4 MatriuVista(1.0);
+
+	MatriuVista = glm::lookAt(
+		position, // Camera is here
+		position + direction, // and looks here
+		up  // Head is up (set to 0,-1,0 to look upside-down)
+	);
+
+	// Pas Matriu Vista a shader
+	glUniformMatrix4fv(glGetUniformLocation(sh_programID, "viewMatrix"), 1, GL_FALSE, &MatriuVista[0][0]);
+
+	// Iluminacio fixe respecte la camara (després gluLookAt)
+	if (ifix) Iluminacio(sh_programID, iluminacio, ifix, il2sides, llum_amb, lumi, objecte, frnt_fcs, bck_ln, step);
+
+	// Test de Visibilitat
+	if (testv) glEnable(GL_CULL_FACE);
+	else glDisable(GL_CULL_FACE);
+
+	// Ocultacions (Z-buffer)
 	if (oculta) glEnable(GL_DEPTH_TEST);
 	else glDisable(GL_DEPTH_TEST);
 

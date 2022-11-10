@@ -1,6 +1,7 @@
-//******** PRACTICA VISUALITZACIÓ GRÀFICA INTERACTIVA (Escola Enginyeria - UAB)
-//******** Entorn bàsic VS2019 MULTIFINESTRA amb OpenGL, interfície GLFW
-//******** Enric Martí (Setembre 2020)
+#pragma once
+//******** PRACTICA VISUALITZACIï¿½ GRï¿½FICA INTERACTIVA (Escola Enginyeria - UAB)
+//******** Entorn bï¿½sic VS2019 MULTIFINESTRA amb OpenGL, interfï¿½cie GLFW
+//******** Enric Martï¿½ (Setembre 2020)
 // shader.h : interface of the Shader class
 //
 /////////////////////////////////////////////////////////////////////////////
@@ -9,7 +10,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-// Entorn VGI: Constants i tipus de l'aplicació entorn VGI
+// Entorn VGI: Constants i tipus de l'aplicaciï¿½ entorn VGI
 #include "stdafx.h"
 
 /*
@@ -28,7 +29,7 @@ public:
 	unsigned int programID;	// the program ID
 //-------------- Entorn VGI: Fi De Variables globals de la classe Shader 
 
-//-------------- Entorn VGI: Funcions (mètodes) de de la classe Shader 
+//-------------- Entorn VGI: Funcions (mï¿½todes) de de la classe Shader 
 // Constructor reads and builds the Vertex Shader (VS) and Fragment Shader (FS) into a Program (programID)
 //	Shader(std::string file_Vert, std::string file_Frag);
 	Shader();
@@ -77,6 +78,6 @@ public:
 
 	void DeleteProgram();
 
-//-------------- Entorn VGI: Fi Funcions (mètodes) de de la classe Shader 
+//-------------- Entorn VGI: Fi Funcions (mï¿½todes) de de la classe Shader 
 };
 #endif
