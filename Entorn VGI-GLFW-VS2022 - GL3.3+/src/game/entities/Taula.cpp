@@ -1,6 +1,5 @@
 #include "Taula.h"
 #include "Vago.h"
-
 #include <iostream>
 
 Taula::Taula(Transform transform, Mesh* mesh, GLuint shader_id)
@@ -9,11 +8,11 @@ Taula::Taula(Transform transform, Mesh* mesh, GLuint shader_id)
 	my_mesh = mesh;
 	my_shader_program_id = shader_id;
 
-	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.4), btScalar(.5), btScalar(.35)));
+	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.4), btScalar(.5), btScalar(.35))); //definir collider
 
 	btTransform groundTransform;
 	groundTransform.setIdentity();
-	groundTransform.setOrigin(btVector3(my_transform.position.x, my_transform.position.y, my_transform.position.z + Vago::Z_OFFSET));
+	groundTransform.setOrigin(btVector3(my_transform.position.x, my_transform.position.y, my_transform.position.z + Vago::Z_OFFSET)); //posicion donde va el objeto
 
 	btScalar mass(0.);
 
@@ -24,12 +23,13 @@ Taula::Taula(Transform transform, Mesh* mesh, GLuint shader_id)
 	if (isDynamic)
 		groundShape->calculateLocalInertia(mass, localInertia);
 
+	//rigidbody
 	//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
 	btRigidBody* body = new btRigidBody(rbInfo);
 
-	body->setUserPointer(this);
+	body->setUserPointer(this); //cogemos el body
 	my_rigid_body = body;
 
 	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape);
@@ -76,5 +76,5 @@ void Taula::interact()
 {
 	std::cout << "HAS INTERACTUADO CON MESA, ¡¡¡FELICIDADES!!!" << std::endl;
 
-	my_transform.position.z += 0.1f;
+	my_transform.position.z += 0.1f; //movemos la mesa
 }

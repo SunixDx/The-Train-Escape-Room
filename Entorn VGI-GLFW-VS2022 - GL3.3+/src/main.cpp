@@ -2482,7 +2482,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 // TODO: Agregue aquï¿½ su cï¿½digo de controlador de mensajes o llame al valor predeterminado
 
 // OnLButtonDown
-	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) //pulsar click
 		{
 		// Entorn VGI: Detectem en quina posiciï¿½ s'ha apretat el botï¿½ esquerra del
 		//				mouse i ho guardem a la variable m_PosEAvall i activem flag m_ButoEAvall
@@ -2491,9 +2491,9 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			m_PosEAvall.x = xpos;	m_PosEAvall.y = ypos;
 			m_EsfeEAvall = OPV;
 
-			InteractableEntity* euc = Level::CURRENT_LEVEL.my_entity_under_cursor;
-			if (euc)
-				euc->interact();
+			InteractableEntity* euc = Level::CURRENT_LEVEL.my_entity_under_cursor; 
+			if (euc) //si hay algo bajo el cursor
+				euc->interact(); //ejecutamos interact
 		}
 // OnLButtonUp: Funciï¿½ que es crida quan deixem d'apretar el botï¿½ esquerra del mouse.
 	else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
@@ -3413,8 +3413,8 @@ int main(void)
 	Mesh::BASIC_CUBE_MESH_BROWN = new Mesh(cube_vertices_brown, indices, textures);
 	Mesh::BASIC_CUBE_MESH_SOFT_BROWN = new Mesh(cube_vertices_soft_brown, indices, textures);
 
-	string path = "./textures/maya/maya.obj";
-	Model::BACKPACK = new Model(path);
+	string path = "./textures/maya/maya.obj"; //ruta del objeto
+	Model::BACKPACK = new Model(path); //crear nuevo modelo
 
 	std::cout << "shader ID:" << shaderGouraud.getProgramID() << std::endl;
 	Level::buildFirstLevel(shaderGouraud.getProgramID());

@@ -26,8 +26,6 @@
 
 #include <iostream>
 
-
-
 // Dibuixa Eixos Coordenades M�n i Reixes, activant un shader propi.
 
 void dibuixa_Eixos(GLuint ax_programID, bool eix, GLuint axis_Id, CMask3D reixa, CPunt3D hreixa, 
@@ -85,7 +83,6 @@ void dibuixa_Skybox(GLuint sk_programID, GLuint cmTexture, char eix_Polar, glm::
 
 	glDepthFunc(GL_LESS); // set depth function back to default
 }
-
 
 // dibuixa_EscenaGL: Dibuix de l'escena amb comandes GL
 void dibuixa_EscenaGL(GLuint sh_programID, bool eix, GLuint axis_Id, CMask3D reixa, CPunt3D hreixa, char objecte, 
@@ -444,18 +441,20 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 
 		Level::CURRENT_LEVEL.my_vago->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.cucaracha->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.maleta->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.libro1->mostrar(MatriuVista, MatriuTG);
 
-		glm::vec3 out_origin(Camera::MAIN_CAMERA.position.x, Camera::MAIN_CAMERA.position.y, Camera::MAIN_CAMERA.position.z);
+		glm::vec3 out_origin(Camera::MAIN_CAMERA.position.x, Camera::MAIN_CAMERA.position.y, Camera::MAIN_CAMERA.position.z); //desde donde sale el raycast
+		//direccion del raycast
 		glm::vec3 out_direction = glm::normalize(glm::vec3(
 			cos(Camera::MAIN_CAMERA.horizontal_angle),
 			sin(Camera::MAIN_CAMERA.horizontal_angle),
 			sin(Camera::MAIN_CAMERA.vertical_angle) * 2
 		));
 		
-		
-		InteractableEntity* interactable = (InteractableEntity*)BulletWorld::WORLD->rayCast(out_origin, out_direction, 1.8);
+		InteractableEntity* interactable = (InteractableEntity*)BulletWorld::WORLD->rayCast(out_origin, out_direction, 1.8); //lanza el rayo y devuelve el objeto que ha tocado, si no hay objeto devuelve NULL
 
-		Level::CURRENT_LEVEL.my_entity_under_cursor = interactable;
+		Level::CURRENT_LEVEL.my_entity_under_cursor = interactable; //lo guardamos
 	}
 
 		/*

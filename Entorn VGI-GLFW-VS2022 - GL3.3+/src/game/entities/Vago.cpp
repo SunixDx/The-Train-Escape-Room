@@ -63,7 +63,7 @@ void Vago::mostrarSostre(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shade
 
 void Vago::mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG)
 {
-	MatriuTG = my_transform.apply(MatriuTG);
+	MatriuTG = my_transform.apply(MatriuTG); //para que se muestre relativo al vagon
 
 	mostrarPared(MatriuVista, MatriuTG, my_shader_id, glm::vec3(0.0f, 1.5f, 0.0f));
 	mostrarPared(MatriuVista, MatriuTG, my_shader_id, glm::vec3(0.0f, -1.5f, 0.0f));

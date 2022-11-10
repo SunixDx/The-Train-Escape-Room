@@ -6,7 +6,6 @@
 #include "../physics/BulletWorld.h"
 #include "InteractableEntity.h"
 
-
 class Taula : public InteractableEntity
 {
 public:

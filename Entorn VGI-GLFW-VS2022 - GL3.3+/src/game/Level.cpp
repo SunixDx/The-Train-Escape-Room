@@ -6,7 +6,7 @@ Level Level::CURRENT_LEVEL;
 void Level::buildFirstLevel(GLuint sh_programID)
 {
 	Transform tr = Transform();
-	tr.position = vec3(0.0f, 0.0f, Vago::Z_OFFSET);
+	tr.position = vec3(0.0f, 0.0f, Vago::Z_OFFSET); //posicionamos objeto
 
 	Vago* vago = new Vago(tr, Mesh::BASIC_CUBE_MESH, sh_programID);
 
@@ -63,13 +63,27 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	Level::CURRENT_LEVEL.my_vago = vago;
 
-
 	Transform trLuisa = Transform();
 	trLuisa.position = vec3(0.1f, 0.9f, -0.3f);
 	trLuisa.scale = vec3(0.2f);
 	Cucaracha* luisa = new Cucaracha(trLuisa, new Model("./textures/cockroach/cockroach.3ds"), sh_programID);
+
+	Transform trMaleta = Transform();
+	trMaleta.position = vec3(0.7f, 0.2f, 0.4f);
+	trMaleta.scale = vec3(0.05f);
+
+	Maleta* maleta = new Maleta(trMaleta, new Model("./textures/maleta/SA_LD_Steel_Case.3ds"), sh_programID);
+
+	Transform trLibro1 = Transform();
+	trLibro1.position = vec3(0.05f, 0.2f, 0.8f);
+	trLibro1.scale = vec3(0.2f);
+
+	Libro1* libro1 = new Libro1(trLibro1, new Model("./textures/libro1/uploads_files_2794075_book.blend"), sh_programID);
+
 	Level::CURRENT_LEVEL.my_vago = vago;
 	Level::CURRENT_LEVEL.cucaracha = luisa;
+	Level::CURRENT_LEVEL.maleta = maleta;
+	Level::CURRENT_LEVEL.libro1 = libro1;
 
 	Level::CURRENT_LEVEL.my_entity_under_cursor = nullptr;
 }
