@@ -48,8 +48,8 @@ void Camera::sitDown(const Seient* seient)
 {
 	SAVE_CAMERA = MAIN_CAMERA;
 	MAIN_CAMERA.sit = true;
-	MAIN_CAMERA.position.x = seient->my_transform.position.x;
-	MAIN_CAMERA.position.y = seient->my_transform.position.y;
+	MAIN_CAMERA.position.x = seient->my_transform.position().x;
+	MAIN_CAMERA.position.y = seient->my_transform.position().y;
 	MAIN_CAMERA.position.z = 1.25;
 	//TODO angle things
 }
