@@ -10,7 +10,7 @@ Maleta::Maleta(Transform transform, Model* model, GLuint shader_program_id)
 
 	btTransform groundTransform;
 	groundTransform.setIdentity();
-	groundTransform.setOrigin(btVector3(my_transform.position.x, my_transform.position.y, my_transform.position.z)); //posicion donde va el objeto
+	groundTransform.setOrigin(btVector3(my_transform.position().x, my_transform.position().y, my_transform.position().z)); //posicion donde va el objeto
 
 	btScalar mass(0.);
 
@@ -38,5 +38,5 @@ void Maleta::interact()
 {
 	std::cout << "HAS INTERACTUADO CON LA MALETA, ¡¡¡FELICIDADES!!!" << std::endl;
 
-	my_transform.orientation.x += 0.5f; //movemos la mesa
+	my_transform.orientation().x += 0.5f; //movemos la mesa
 }

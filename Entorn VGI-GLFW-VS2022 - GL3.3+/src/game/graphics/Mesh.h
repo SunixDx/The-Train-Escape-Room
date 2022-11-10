@@ -32,24 +32,3 @@ private:
 		// Functions:
 		void setupMesh();
 };
-
-
-class BakedMesh
-{
-public:
-	// Mesh data
-	std::vector<Vertex> vertices; // Vector amb atributs als v�rtexs de la malla.
-	std::vector<unsigned int> indices; // Vector �ndexs a v�rtexs de cares de la malla per a objecte EBO.
-	std::vector<Texture> textures; // vector d�atributs de textures de la malla.
-	// Functions:
-	BakedMesh(unsigned int VAO, unsigned int VBO, unsigned int EBO) : my_VAO(VAO), indices(indices), textures(textures) { };
-	void Draw(mat4 MatriuVista, mat4 MatriuTG, Transform& transform, Shader shader);
-private:
-	// Render data:
-	unsigned int my_VAO, my_VBO, my_EBO;
-	// Functions:
-	void setupMesh();
-};
-
-
-
