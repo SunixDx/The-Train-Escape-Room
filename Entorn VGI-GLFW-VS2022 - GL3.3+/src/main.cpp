@@ -3428,6 +3428,8 @@ int main(void)
 			0
 		);
 
+		vec3 old_position = Camera::MAIN_CAMERA.position;
+
 		if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed * delta;
 		if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed * delta;
 		if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed * delta;
@@ -3444,10 +3446,7 @@ int main(void)
 		bool collides = BulletWorld::WORLD->testCollision(Camera::MAIN_CAMERA.my_rigid_body);
 		if (collides)
 		{
-			w_pressed = false;
-			s_pressed = false;
-			a_pressed = false;
-			d_pressed = false;
+			Camera::MAIN_CAMERA.position = old_position;
 		}
 
 

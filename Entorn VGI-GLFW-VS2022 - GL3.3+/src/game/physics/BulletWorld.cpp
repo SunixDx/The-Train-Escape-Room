@@ -1,6 +1,11 @@
 #include "BulletWorld.h"
 
 #include <iostream>
+#include <random>
+
+std::default_random_engine generator;
+std::uniform_int_distribution<int> distribution(1, 20);
+
 
 BulletWorld* BulletWorld::WORLD = nullptr;
 
@@ -51,28 +56,31 @@ void BulletWorld::performCollisionDetection()
 
 bool BulletWorld::testCollision(btRigidBody* rigid_body)
 {
+	bool colision = false;
 	struct rCallBack : public btCollisionWorld::ContactResultCallback
 	{
+		bool* has_colided;
+
+		rCallBack(bool* colision)
+		{
+			has_colided = colision;
+		}
+
 		virtual btScalar addSingleResult(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper* colObj1Wrap, int partId1, int index1)
 		{
 			btVector3 ptA = cp.getPositionWorldOnA();
 			btVector3 ptB = cp.getPositionWorldOnB();
-			std::cout << "COLISION" << std::endl;
-			return 0;
+
+			int d20_roll = distribution(generator);
+			std::cout << "COLISION" << d20_roll << std::endl;
+			*has_colided = true;
+			return 1;
 		}
 	};
 
-	struct rCallBack resultCallback;
+	struct rCallBack resultCallback(&colision);
 
 	my_dynamics_world->contactTest(rigid_body, resultCallback);
 
-	int numManifolds = my_dynamics_world->getDispatcher()->getNumManifolds();
-	if (numManifolds > 0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return colision;
 }
