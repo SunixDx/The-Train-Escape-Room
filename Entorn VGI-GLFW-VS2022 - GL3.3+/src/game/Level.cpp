@@ -92,11 +92,21 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	Libro1* libro1 = new Libro1(trLibro1, new Model("./textures/libro1/uploads_files_2794075_book.blend"), sh_programID);
 
+
+	c = glm::cos(glm::pi<float>() / 4);
+	s = glm::sin(glm::pi<float>() / 4);
+	Transform trRail = Transform();
+	trRail.position = vec3(0.0f, 0.0f, 0.0f);
+
+	//trRail.rotation(matriu, radiants(angle en graus),vec3(0.0f,0.0f,1.0f))
+	trRail.scale = vec3(0.003);
+	//trRail.orientation = quat(c, s * 1.0f, s * 0.0f, s * 0.0f);
+	Cucaracha* rail = new Cucaracha(trRail, new Model("./textures/rail/scene.gltf"), sh_programID);
+
 	Level::CURRENT_LEVEL.my_vago = vago;
-	Level::CURRENT_LEVEL.cucaracha = luisa;
+	Level::CURRENT_LEVEL.cucaracha = rail;
 	Level::CURRENT_LEVEL.maleta = maleta;
 	Level::CURRENT_LEVEL.libro1 = libro1;
-
-
 	Level::CURRENT_LEVEL.my_entity_under_cursor = nullptr;
+	
 }

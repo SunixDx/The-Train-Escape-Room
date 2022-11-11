@@ -1,6 +1,7 @@
 #include "Model.h"
 
 Model* Model::BACKPACK = nullptr;
+Model* Model::RAIL = nullptr;
 
 void Model::loadModel(string path) 
 {

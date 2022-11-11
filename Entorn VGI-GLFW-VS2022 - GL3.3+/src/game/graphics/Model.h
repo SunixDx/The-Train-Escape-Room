@@ -25,6 +25,7 @@ class Model
 {
 public:
 	static Model* BACKPACK;
+	static Model* RAIL;
 
 	Model(string path)
 	{

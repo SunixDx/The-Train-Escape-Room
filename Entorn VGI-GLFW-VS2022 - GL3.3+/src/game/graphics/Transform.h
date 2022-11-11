@@ -53,5 +53,10 @@ private:
 
 	glm::quat my_orientation;
 
+<<<<<<< Updated upstream
 	glm::vec3 my_scale;
+=======
+	glm::vec3 scale;
+
+>>>>>>> Stashed changes
 };
