@@ -73,12 +73,18 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	float c = glm::cos(glm::pi<float>() / 4);
 	float s = glm::sin(glm::pi<float>() / 4);
 
-
+	/*
 	Transform trLuisa = Transform();
 	trLuisa.position() = vec3(0.1f, 2.2f, 1.0f);
 	trLuisa.scale() = vec3(0.04f);
 	trLuisa.orientation() = quat(c, s * 1.0f, s * 0.0f, s * 0.0f);
 	Cucaracha* luisa = new Cucaracha(trLuisa, new Model("./textures/locker/padlock.obj"), sh_programID);
+	*/
+	Transform trLuisa = Transform();
+	trLuisa.position() = vec3(0.1f, 2.2f, 1.0f);
+	trLuisa.scale() = vec3(0.003f);
+	//trLuisa.orientation() = quat(c, s * 1.0f, s * 0.0f, s * 0.0f);
+	Cucaracha* luisa = new Cucaracha(trLuisa, new Model("./textures/rails/scene.gltf"), sh_programID);
 
 	Transform trMaleta = Transform();
 	trMaleta.translate(vec3(0.7f, 0.2f, 0.4f));
@@ -92,11 +98,14 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	Libro1* libro1 = new Libro1(trLibro1, new Model("./textures/libro1/uploads_files_2794075_book.blend"), sh_programID);
 
+
+
+
+
+
 	Level::CURRENT_LEVEL.my_vago = vago;
 	Level::CURRENT_LEVEL.cucaracha = luisa;
 	Level::CURRENT_LEVEL.maleta = maleta;
 	Level::CURRENT_LEVEL.libro1 = libro1;
-
-
 	Level::CURRENT_LEVEL.my_entity_under_cursor = nullptr;
 }
