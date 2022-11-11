@@ -73,18 +73,22 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	float c = glm::cos(glm::pi<float>() / 4);
 	float s = glm::sin(glm::pi<float>() / 4);
 
-	/*
+	
 	Transform trLuisa = Transform();
 	trLuisa.position() = vec3(0.1f, 2.2f, 1.0f);
 	trLuisa.scale() = vec3(0.04f);
 	trLuisa.orientation() = quat(c, s * 1.0f, s * 0.0f, s * 0.0f);
 	Cucaracha* luisa = new Cucaracha(trLuisa, new Model("./textures/locker/padlock.obj"), sh_programID);
-	*/
-	Transform trLuisa = Transform();
-	trLuisa.position() = vec3(0.1f, 2.2f, 1.0f);
-	trLuisa.scale() = vec3(0.003f);
-	//trLuisa.orientation() = quat(c, s * 1.0f, s * 0.0f, s * 0.0f);
-	Cucaracha* luisa = new Cucaracha(trLuisa, new Model("./textures/rails/scene.gltf"), sh_programID);
+	Level::CURRENT_LEVEL.cucaracha = luisa;
+
+
+	Transform trRail = Transform();
+	trRail.position() = vec3(0.1f, 2.2f, 1.0f);
+	trRail.scale() = vec3(0.04f);
+	//trRail.rotate(0, vec3((0.0f, 1.0f, -1.0f)));
+	Rail* railes = new Rail(trRail, new Model("./textures/vagon/scene.gltf"), sh_programID);
+	Level::CURRENT_LEVEL.rail = railes;
+
 
 	Transform trMaleta = Transform();
 	trMaleta.translate(vec3(0.7f, 0.2f, 0.4f));
@@ -104,7 +108,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 
 	Level::CURRENT_LEVEL.my_vago = vago;
-	Level::CURRENT_LEVEL.cucaracha = luisa;
+	
 	Level::CURRENT_LEVEL.maleta = maleta;
 	Level::CURRENT_LEVEL.libro1 = libro1;
 	Level::CURRENT_LEVEL.my_entity_under_cursor = nullptr;

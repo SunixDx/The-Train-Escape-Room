@@ -24,6 +24,7 @@
     <ClCompile Include="..\src\game\entities\Cucaracha.cpp" />
     <ClCompile Include="..\src\game\entities\Maleta.cpp" />
     <ClCompile Include="..\src\game\entities\GameEntity.cpp" />
+    <ClCompile Include="..\src\game\entities\Rail.cpp" />
     <ClCompile Include="..\src\game\entities\Seient.cpp" />
     <ClCompile Include="..\src\game\entities\Taula.cpp" />
     <ClCompile Include="..\src\game\entities\Vago.cpp" />
@@ -50,6 +51,7 @@
     <ClInclude Include="..\src\game\entities\GameEntity.h" />
     <ClInclude Include="..\src\game\entities\InteractableEntity.h" />
     <ClInclude Include="..\src\game\entities\Maleta.h" />
+    <ClInclude Include="..\src\game\entities\Rail.h" />
     <ClInclude Include="..\src\game\entities\Seient.h" />
     <ClInclude Include="..\src\game\entities\Taula.h" />
     <ClInclude Include="..\src\game\entities\Vago.h" />
