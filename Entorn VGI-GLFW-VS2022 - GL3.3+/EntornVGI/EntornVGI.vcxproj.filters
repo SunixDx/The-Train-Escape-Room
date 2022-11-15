@@ -81,6 +81,9 @@
     <ClCompile Include="..\src\game\entities\GameEntity.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\game\ui\Transform2D.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\constants.h">
@@ -156,6 +159,12 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\src\game\entities\GameEntity.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\ui\UIElement.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\ui\Transform2D.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
