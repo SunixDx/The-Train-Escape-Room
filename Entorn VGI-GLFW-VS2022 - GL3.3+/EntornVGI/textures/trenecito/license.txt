@@ -1,0 +1,11 @@
+Model Information:
+* title:	VR train wagon
+* source:	https://sketchfab.com/3d-models/vr-train-wagon-2166fbecc064479fa5a3e07c36a36af1
+* author:	FDU_oficial (https://sketchfab.com/FDU_oficial)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "VR train wagon" (https://sketchfab.com/3d-models/vr-train-wagon-2166fbecc064479fa5a3e07c36a36af1) by FDU_oficial (https://sketchfab.com/FDU_oficial) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

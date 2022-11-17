@@ -81,12 +81,22 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Cucaracha* luisa = new Cucaracha(trLuisa, new Model("./textures/locker/padlock.obj"), sh_programID);
 	Level::CURRENT_LEVEL.cucaracha = luisa;
 
+	//el vagon
+	//Transform trRail = Transform();
+	//trRail.position() = vec3(0.0f, 0.0f, -2.35f);
+	//trRail.scale() = vec3(0.020f);
 
+	//trRail.rotate(glm::pi<float>()/2, vec3(1.0f, 0.0f, 0.0f));
+	//Rail* railes = new Rail(trRail, new Model("./textures/vagon/scene.gltf"), sh_programID);
+
+	//tren cartoon
 	Transform trRail = Transform();
-	trRail.position() = vec3(0.1f, 2.2f, 1.0f);
-	trRail.scale() = vec3(0.04f);
-	//trRail.rotate(0, vec3((0.0f, 1.0f, -1.0f)));
-	Rail* railes = new Rail(trRail, new Model("./textures/vagon/scene.gltf"), sh_programID);
+	trRail.position() = vec3(0.0f, 0.0f, -0.1f);
+	trRail.scale() = vec3(1.0f);
+
+	trRail.rotate(glm::pi<float>()/2, vec3(1.0f, 0.0f, 0.0f));
+
+	Rail* railes = new Rail(trRail, new Model("./textures/trenecito/scene.gltf"), sh_programID);
 	Level::CURRENT_LEVEL.rail = railes;
 
 
@@ -97,10 +107,10 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Maleta* maleta = new Maleta(trMaleta, new Model("./textures/maleta/SA_LD_Steel_Case.3ds"), sh_programID);
 
 	Transform trLibro1 = Transform();
-	trLibro1.translate(vec3(0.05f, 0.2f, 0.8f));
+	trLibro1.translate(vec3(0.7f, 0.2f, 0.8f));
 	trLibro1.scale(vec3(0.2f));
 
-	Libro1* libro1 = new Libro1(trLibro1, new Model("./textures/libro1/uploads_files_2794075_book.blend"), sh_programID);
+	Libro1* libro1 = new Libro1(trLibro1, new Model("./textures/Book/ChurchBookClosedV2/ChurchBookClosedV2-DAE/ChurchBookClosedV2.dae"), sh_programID);
 
 
 
