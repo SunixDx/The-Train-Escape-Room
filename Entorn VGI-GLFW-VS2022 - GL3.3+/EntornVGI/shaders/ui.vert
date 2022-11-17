@@ -25,22 +25,21 @@ uniform mat4 modelMatrix;	// Model Matrix
 uniform sampler2D texture0;	// Imatge textura
 
 // --- L60- Variables out
-out vec2 vertexPV;
+out vec3 vertexPV;
 out vec2 vertexTexCoord;
 out vec4 vertexColor;
 
 void main()	// --- L66-
 {
 // --- L68- Calcul variables out.
-    vertexPV = vec3(viewMatrix * modelMatrix * vec4(in_Vertex,1.0));
+    vertexPV = vec3(viewMatrix * modelMatrix * vec4(in_Vertex.x, in_Vertex.y, 0.0,1.0));
 
 // --- L75- Textura
-    if (flag_invert_y) vertexTexCoord = vec2(in_TexCoord.x,1.0-in_TexCoord.y); // SOIL_FLAG_INVERT_Y
-     else vertexTexCoord = vec2(in_TexCoord.x,in_TexCoord.y);
+    vertexTexCoord = vec2(in_TexCoord.x,in_TexCoord.y);
     
 // --- L79- Pas color del vertex al Fragent Shader
     vertexColor = in_Color;
 
 // --- L82- Transformacio de Visualitzacio amb Matriu Projeccio (PMatrix), Matriu C�mera (VMatrix) i Matriu TG (MMatrix)
-    gl_Position = vec4(projectionMatrix * viewMatrix * modelMatrix * vec4(in_Vertex,1.0));
+    gl_Position = vec4(projectionMatrix * viewMatrix * modelMatrix * vec4(in_Vertex, 0.0 ,1.0));
 }

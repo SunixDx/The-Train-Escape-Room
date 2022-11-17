@@ -25,13 +25,18 @@ out vec4 FragColor;		// Color fragment (r,g,b,a)
 
 void main ()
 {
-if (textur) {	// Intensitat amb textura
-		vec4 colorT = texture(texture0,VertexTexCoord);
-		// Textura modulada amb intensitat llum
-	    	if (modulate) FragColor = colorT * VertexColor;
-       			else FragColor=colorT; // textura sense modular intensitat llum
-    	    }
-    else { // Intensitat sense textura
-           FragColor = VertexColor;   
-         }
+	vec4 colorT = texture(texture0,VertexTexCoord);
+	FragColor = colorT * VertexColor;
+
+	//if (textur) {	// Intensitat amb textura
+	//	
+	//	// Textura modulada amb intensitat llum
+	//	if (modulate) {
+	//		
+	//	} else {
+	//		FragColor = colorT; // textura sense modular intensitat llum
+	//	}
+    //} else { // Intensitat sense textura
+    //    FragColor = VertexColor;   
+	//}
 }

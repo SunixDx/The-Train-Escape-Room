@@ -141,7 +141,7 @@
 	GLuint shader_programID;	// Shader Program que cont� el Vertex i Fragment program.
 	Shader shaderLighting;		// Shader que implementa els codis GLSL d'il.luminaci�
 	Shader shaderGouraud, shaderPhong, shaderFiles;	// Shaders programs de les iluminacions plana, de Gouraud i de Phong.
-	Shader shaderCrosshair;
+	Shader shaderUI;
 
 // Entorn VGI: Variables butons de mouse 
 	CPoint m_PosEAvall, m_PosDAvall;	// Coordenades del cursor quan el boto esquerre(E) o dret(D) del 

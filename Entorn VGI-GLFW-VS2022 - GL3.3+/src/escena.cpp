@@ -431,6 +431,8 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 
 	case CUB_REVERS:
 	{
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND);
 		Transform tr = Transform::blank();
 		tr.translate(vec3(0, 0.2, 0));
 		float c = glm::cos(glm::pi<float>() / 4);
@@ -444,6 +446,30 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		Level::CURRENT_LEVEL.maleta->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.libro1->mostrar(MatriuVista, MatriuTG);
 
+
+
+		Transform trc = Transform::blank();
+		trc.scale(0.01f);
+		trc.translate(Camera::MAIN_CAMERA.position);
+		glm::vec3 direction = glm::normalize(glm::vec3(
+			cos(Camera::MAIN_CAMERA.horizontal_angle),
+			sin(Camera::MAIN_CAMERA.horizontal_angle),
+			sin(Camera::MAIN_CAMERA.vertical_angle) * 2
+		));
+		trc.translate(direction * 0.1f);
+		
+		
+		//trc.rotate(Camera::MAIN_CAMERA.vertical_angle - PI / 2, vec3(1, 0, 0));
+		trc.rotate(Camera::MAIN_CAMERA.vertical_angle - PI / 2, vec3(0, 1, 0));
+		trc.rotate(Camera::MAIN_CAMERA.horizontal_angle + PI / 2, vec3(1, 0, 0));
+
+		//trc.rotate(Camera::MAIN_CAMERA.horizontal_angle + PI / 2, direction);
+		
+
+
+		Mesh::CROSSHAIR->Draw(MatriuVista, MatriuTG, trc, sh_programID);
+
+
 		glm::vec3 out_origin(Camera::MAIN_CAMERA.position.x, Camera::MAIN_CAMERA.position.y, Camera::MAIN_CAMERA.position.z); //desde donde sale el raycast
 		//direccion del raycast
 		glm::vec3 out_direction = glm::normalize(glm::vec3(
@@ -455,6 +481,8 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		InteractableEntity* interactable = (InteractableEntity*)BulletWorld::WORLD->rayCast(out_origin, out_direction, 1.8); //lanza el rayo y devuelve el objeto que ha tocado, si no hay objeto devuelve NULL
 
 		Level::CURRENT_LEVEL.my_entity_under_cursor = interactable; //lo guardamos
+
+		glDisable(GL_BLEND);
 	}
 
 		/*

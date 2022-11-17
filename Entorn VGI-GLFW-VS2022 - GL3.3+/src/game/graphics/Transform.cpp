@@ -3,9 +3,10 @@
 mat4 Transform::apply(mat4 matriu_transformacions)
 {
 	matriu_transformacions = glm::translate(matriu_transformacions, my_position);
-	matriu_transformacions = glm::scale(matriu_transformacions, my_scale);
 	mat4 rotation = glm::toMat4(my_orientation);
 	matriu_transformacions = matriu_transformacions * rotation;
+
+	matriu_transformacions = glm::scale(matriu_transformacions, my_scale);
 
 	return matriu_transformacions;
 }

@@ -8,7 +8,7 @@ Camera Camera::SAVE_CAMERA;
 void Camera::setupColliders()
 {
 	//btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.4), btScalar(.5), btScalar(.35)));
-	btCollisionShape* groundShape = new btCylinderShapeZ(btVector3(btScalar(.05), btScalar(.05), btScalar(4)));
+	btCollisionShape* groundShape = new btCylinderShapeZ(btVector3(btScalar(.1), btScalar(.1), btScalar(4)));
 
 	btTransform groundTransform;
 	groundTransform.setIdentity();
