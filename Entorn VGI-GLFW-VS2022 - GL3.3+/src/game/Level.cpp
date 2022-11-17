@@ -14,20 +14,37 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	Model* model_taula = new Model({ *Mesh::BASIC_CUBE_MESH_BROWN });
 
-	int xValorTaula = 12.0f;
+	float xValorTaula = -0.98f;
 
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		xValorTaula -= 3;
-		vago->addChild(new Taula(Transform(vec3(xValorTaula, 2.3f, -0.7f), quat(1.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), model_taula, sh_programID));
+		if (i == 2)
+		{
+			xValorTaula += 4.53f;
+			//tercera mesa ha de llegar a 5,69
+		}
+		else if (i > 0)
+		{
+			xValorTaula += 2.06f;
+
+		}
+		vago->addChild(new Taula(Transform(vec3(xValorTaula, 1.2f, -0.7f), quat(1.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), model_taula, sh_programID));
 	}
 
-	xValorTaula = 12.0f;
+	xValorTaula = -0.98f;
 
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		xValorTaula -= 3;
-		vago->addChild(new Taula(Transform(vec3(xValorTaula, -2.3f, -0.7f), quat(1.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), model_taula, sh_programID));
+		if (i == 2)
+		{
+			xValorTaula += 4.53f;
+		}
+		else if (i > 0)
+		{
+			xValorTaula += 2.06f;
+
+		}
+		vago->addChild(new Taula(Transform(vec3(xValorTaula, -1.2f, -0.7f), quat(1.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), model_taula, sh_programID));
 	}
 
 
@@ -36,37 +53,74 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	quat mirar_endevant = quat(1.0f, 0.0f, 0.0f, 0.0f);
 	quat mirar_enrere = quat(glm::cos(glm::pi<float>() / 2), glm::sin(glm::pi<float>() / 2) * 0.0f, glm::sin(glm::pi<float>() / 2) * 0.0f, glm::sin(glm::pi<float>() / 2) * 1.0f);
 
-	int xValorSeientEndavant = 13.0f;
+	float xValorSeientEndavant = -0.31f;
 
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		xValorSeientEndavant -= 3;
-		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, 2.3f, -1.2f), mirar_endevant, vec3(1.0f)), model_seient, sh_programID));
+		if (i == 2)
+		{
+			xValorSeientEndavant += 4.58f;
+			//6,34 - i=3
+		}
+		else if (i > 0)
+		{
+			xValorSeientEndavant += 2.02f;
+			//1,69
+		}
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, 1.2f, -1.2f), mirar_endevant, vec3(1.0f)), model_seient, sh_programID));
 	}
 
-	xValorSeientEndavant = 13.0f;
+	xValorSeientEndavant = -0.31f;
 
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		xValorSeientEndavant -= 3;
-		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, -2.3f, -1.2f), mirar_endevant, vec3(1.0f)), model_seient, sh_programID));
+		if (i == 2)
+		{
+			xValorSeientEndavant += 4.58f;
+		}
+		else if (i > 0)
+		{
+			xValorSeientEndavant += 2.02f;
+
+		}
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, -1.2f, -1.2f), mirar_endevant, vec3(1.0f)), model_seient, sh_programID));
 	}
 
-	int xValorSeientEndarrere = 11.0f;
+	float xValorSeientEndarrere = -1.63f;
 
-	for (int i = 0; i < 7; i++)
+	
+	for (int i = 0; i < 4; i++)
 	{
-		xValorSeientEndarrere -= 3;
-		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, 2.3f, -1.2f), mirar_enrere, vec3(1.0f)), model_seient, sh_programID));
+		if (i == 2)
+		{
+			xValorSeientEndarrere += 4.55f;
+			//5,04 - i=3
+		}
+		else if (i > 0)
+		{
+			xValorSeientEndarrere += 2.02f;
+			//0.39
+
+		}
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, 1.2f, -1.2f), mirar_enrere, vec3(1.0f)), model_seient, sh_programID));
 	}
 
-	xValorSeientEndarrere = 11.0f;
+	xValorSeientEndarrere = -1.63f;
 
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		xValorSeientEndarrere -= 3;
-		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, -2.3f, -1.2f), mirar_enrere, vec3(1.0f)), model_seient, sh_programID));
+		if (i == 2)
+		{
+			xValorSeientEndarrere += 4.55f;
+		}
+		else if (i > 0)
+		{
+			xValorSeientEndarrere += 2.02f;
+
+		}
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, -1.2f, -1.2f), mirar_enrere, vec3(1.0f)), model_seient, sh_programID));
 	}
+	
 
 	Level::CURRENT_LEVEL.my_vago = vago;
 
@@ -96,11 +150,11 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	trRail.rotate(glm::pi<float>()/2, vec3(1.0f, 0.0f, 0.0f));
 
-	Rail* railes = new Rail(trRail, new Model("./textures/trenecito/scene.gltf"), sh_programID);
+	Rail* railes = new Rail(trRail, new Model("./textures/tren_final/scene.gltf"), sh_programID);
 	Level::CURRENT_LEVEL.rail = railes;
 
-
-	Transform trMaleta = Transform();
+	/*
+	Tra nsform trMaleta = Transform();
 	trMaleta.translate(vec3(0.7f, 0.2f, 0.4f));
 	trMaleta.scale(vec3(0.05f));
 
@@ -111,6 +165,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	trLibro1.scale(vec3(0.2f));
 
 	Libro1* libro1 = new Libro1(trLibro1, new Model("./textures/Book/ChurchBookClosedV2/ChurchBookClosedV2-DAE/ChurchBookClosedV2.dae"), sh_programID);
+	*/
 
 
 
@@ -118,8 +173,9 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 
 	Level::CURRENT_LEVEL.my_vago = vago;
-	
+	/*
 	Level::CURRENT_LEVEL.maleta = maleta;
 	Level::CURRENT_LEVEL.libro1 = libro1;
+	*/
 	Level::CURRENT_LEVEL.my_entity_under_cursor = nullptr;
 }

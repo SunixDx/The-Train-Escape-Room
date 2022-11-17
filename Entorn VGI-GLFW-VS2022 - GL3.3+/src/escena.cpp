@@ -437,13 +437,13 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		float s = glm::sin(glm::pi<float>() / 4);
 		tr.rotate(quat(c, s * 1.0f, s * 0.0f, s * 0.0f));
 
-		Model::BACKPACK->Draw(MatriuVista, MatriuTG, tr, sh_programID);
+		//Model::BACKPACK->Draw(MatriuVista, MatriuTG, tr, sh_programID);
 
-		//Level::CURRENT_LEVEL.my_vago->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.my_vago->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.cucaracha->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.rail->mostrar(MatriuVista, MatriuTG);
-		Level::CURRENT_LEVEL.maleta->mostrar(MatriuVista, MatriuTG);
-		Level::CURRENT_LEVEL.libro1->mostrar(MatriuVista, MatriuTG);
+		//Level::CURRENT_LEVEL.maleta->mostrar(MatriuVista, MatriuTG);
+		//Level::CURRENT_LEVEL.libro1->mostrar(MatriuVista, MatriuTG);
 
 		glm::vec3 out_origin(Camera::MAIN_CAMERA.position.x, Camera::MAIN_CAMERA.position.y, Camera::MAIN_CAMERA.position.z); //desde donde sale el raycast
 		//direccion del raycast
