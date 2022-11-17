@@ -25,6 +25,9 @@
 *      Loads custom shader by specifying filename (expects frag/vert pair)
 *****************************************************************************/
 //Shader::Shader(std::string file_Vert, std::string file_Frag)
+
+Shader Shader::UI;
+
 Shader::Shader()
 {
 // Inicialitzar programID

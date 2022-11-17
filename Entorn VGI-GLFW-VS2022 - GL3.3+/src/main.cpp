@@ -205,7 +205,7 @@ void InitGL()
 	shader_programID = shaderGouraud.initializeShaders(".\\shaders\\gouraud_shdrML");
 
 	fprintf(stderr, "ui: \n");
-	shaderUI.initializeShaders(".\\shaders\\ui");
+	Shader::UI.initializeShaders(".\\shaders\\ui");
 	//shader_programID = shaderGouraud.getProgramID();
 	//shader_programID = initializeShaders(".\\shaders\\gouraud_shdrML");
 

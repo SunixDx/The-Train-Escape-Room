@@ -25,6 +25,9 @@ class Shader
 
 // Atributos
 public:
+	static Shader UI;
+
+
 //-------------- Entorn VGI: Variables globals de la classe Shader
 	unsigned int programID;	// the program ID
 //-------------- Entorn VGI: Fi De Variables globals de la classe Shader 
