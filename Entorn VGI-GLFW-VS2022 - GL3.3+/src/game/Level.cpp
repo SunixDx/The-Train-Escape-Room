@@ -13,10 +13,10 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Vago* vago = new Vago(tr, model_vago, sh_programID);
 
 	Model* model_taula = new Model({ *Mesh::BASIC_CUBE_MESH_BROWN });
-
+	
 	float xValorTaula = -0.98f;
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 0; i++)
 	{
 		if (i == 2)
 		{
@@ -33,7 +33,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	xValorTaula = -0.98f;
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 0; i++)
 	{
 		if (i == 2)
 		{
@@ -46,6 +46,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 		}
 		vago->addChild(new Taula(Transform(vec3(xValorTaula, -1.2f, -0.7f), quat(1.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), model_taula, sh_programID));
 	}
+	
 
 
 	Model* model_seient = new Model({ *Mesh::BASIC_CUBE_MESH_SOFT_BROWN });
@@ -67,7 +68,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 			xValorSeientEndavant += 2.02f;
 			//1,69
 		}
-		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, 1.2f, -1.2f), mirar_endevant, vec3(1.0f)), model_seient, sh_programID));
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, 1.2f, -1.2f), mirar_endevant, vec3(1.0f)), model_seient, NULL));
 	}
 
 	xValorSeientEndavant = -0.31f;
@@ -83,7 +84,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 			xValorSeientEndavant += 2.02f;
 
 		}
-		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, -1.2f, -1.2f), mirar_endevant, vec3(1.0f)), model_seient, sh_programID));
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, -1.2f, -1.2f), mirar_endevant, vec3(1.0f)), model_seient, NULL));
 	}
 
 	float xValorSeientEndarrere = -1.63f;
@@ -102,7 +103,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 			//0.39
 
 		}
-		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, 1.2f, -1.2f), mirar_enrere, vec3(1.0f)), model_seient, sh_programID));
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, 1.2f, -1.2f), mirar_enrere, vec3(1.0f)), model_seient, NULL));
 	}
 
 	xValorSeientEndarrere = -1.63f;
@@ -118,7 +119,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 			xValorSeientEndarrere += 2.02f;
 
 		}
-		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, -1.2f, -1.2f), mirar_enrere, vec3(1.0f)), model_seient, sh_programID));
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, -1.2f, -1.2f), mirar_enrere, vec3(1.0f)), model_seient, NULL));
 	}
 	
 

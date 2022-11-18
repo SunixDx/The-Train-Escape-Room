@@ -9,12 +9,14 @@
 class Taula : public GameEntity
 {
 public:
+	
 	Taula(Transform transform, Model* model, GLuint shader_program_id);
 	~Taula()
 	{
 		BulletWorld::WORLD->my_dynamics_world->removeRigidBody(my_rigid_body);
 		delete my_rigid_body;
 	}
+	
 
 	void interact();
 private:
