@@ -14,9 +14,9 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	Model* model_taula = new Model({ *Mesh::BASIC_CUBE_MESH_BROWN });
 	
-	float xValorTaula = -0.98f;
+	float xValorTaula = -110.98f;
 
-	for (int i = 0; i < 0; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		if (i == 2)
 		{
@@ -31,9 +31,9 @@ void Level::buildFirstLevel(GLuint sh_programID)
 		vago->addChild(new Taula(Transform(vec3(xValorTaula, 1.2f, -0.7f), quat(1.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), model_taula, sh_programID));
 	}
 
-	xValorTaula = -0.98f;
+	xValorTaula = -110.98f;
 
-	for (int i = 0; i < 0; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		if (i == 2)
 		{
@@ -168,8 +168,15 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Libro1* libro1 = new Libro1(trLibro1, new Model("./textures/Book/ChurchBookClosedV2/ChurchBookClosedV2-DAE/ChurchBookClosedV2.dae"), sh_programID);
 	*/
 
+	//slenderman
+	Transform trPadlock = Transform();
+	trPadlock.position() = vec3(7.0f, 0.0f, -0.1f);
+	trPadlock.scale() = vec3(0.5f);
 
+	trPadlock.rotate(-(glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
 
+	Rail* padlock = new Rail(trPadlock, new Model("./textures/slenderman/scene.gltf"), sh_programID);
+	Level::CURRENT_LEVEL.padlock = padlock;
 
 
 

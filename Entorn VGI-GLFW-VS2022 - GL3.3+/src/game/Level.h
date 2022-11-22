@@ -14,6 +14,7 @@ public:
 	Maleta* maleta;
 	Libro1* libro1;
 	Rail* rail;
+	Rail* padlock;
 
 	InteractableEntity* my_entity_under_cursor;
 
