@@ -348,7 +348,7 @@ void Iluminacio(GLint sh_programID, char ilumin, bool ifix, bool ilu2sides, bool
 // PRÀCTICA 3: Crida a la funció pel càlcul dels vectors normals normals a les cares si l'objecte és un fractal
    
 // Il.luminació per cares planes
-		//glShadeModel(GL_FLAT); 
+		//glShadeModel(GL_FLAT); // REMOVED: parece deprecado en versiones modernas de opengl
 		break;
 
 	case GOURAUD:
@@ -356,14 +356,14 @@ void Iluminacio(GLint sh_programID, char ilumin, bool ifix, bool ilu2sides, bool
 // PRÀCTICA 3: Crida a la funció pel càlcul dels vectors normals normals a les cares si l'objecte és un fractal
 
 // Il.luminació suau 
-        //glShadeModel(GL_SMOOTH); 
+        //glShadeModel(GL_SMOOTH); // REMOVED: parece deprecado en versiones modernas de opengl
 		break;
 
 	case PHONG:
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 		// Il.luminació suau 
-		//glShadeModel(GL_SMOOTH);
+		//glShadeModel(GL_SMOOTH); // REMOVED: parece deprecado en versiones modernas de opengl
 		break;
 	}
 }

@@ -3475,9 +3475,9 @@ int main(void)
 
 		if (c_pressed)
 		{
-			if (Camera::MAIN_CAMERA.position.z > 1) Camera::MAIN_CAMERA.position.z -= 0.05;
+			if (Camera::MAIN_CAMERA.position.z > 1) Camera::MAIN_CAMERA.position.z -= delta;
 		}
-		else if (Camera::MAIN_CAMERA.position.z < 1.8 && !Camera::MAIN_CAMERA.sit) Camera::MAIN_CAMERA.position.z += 0.1;
+		else if (Camera::MAIN_CAMERA.position.z < 1.8 && !Camera::MAIN_CAMERA.sit) Camera::MAIN_CAMERA.position.z += 2 * delta;
 		
 		Camera::MAIN_CAMERA.syncColliders();
 		BulletWorld::WORLD->performCollisionDetection();
