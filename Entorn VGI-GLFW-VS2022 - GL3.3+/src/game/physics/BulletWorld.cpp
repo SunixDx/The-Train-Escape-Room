@@ -54,16 +54,19 @@ void BulletWorld::performCollisionDetection()
 	my_dynamics_world->performDiscreteCollisionDetection();
 }
 
-bool BulletWorld::testCollision(btRigidBody* rigid_body)
+std::tuple<bool, btVector3> BulletWorld::testCollision(btRigidBody* rigid_body)
 {
 	bool colision = false;
+	btVector3 direction(0.0f, 0.0f, 0.0f);
 	struct rCallBack : public btCollisionWorld::ContactResultCallback
 	{
 		bool* has_colided;
+		btVector3* colision_direction;
 
-		rCallBack(bool* colision)
+		rCallBack(bool* colision, btVector3* direction)
 		{
 			has_colided = colision;
+			colision_direction = direction;
 		}
 
 		virtual btScalar addSingleResult(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper* colObj1Wrap, int partId1, int index1)
@@ -72,15 +75,18 @@ bool BulletWorld::testCollision(btRigidBody* rigid_body)
 			btVector3 ptB = cp.getPositionWorldOnB();
 
 			int d20_roll = distribution(generator);
-			std::cout << "COLISION" << d20_roll << std::endl;
+			std::cout << "COLISION " << d20_roll << std::endl;
+			std::cout << "ptA (" << ptA.x() << ", " << ptA.y() << ", " << ptA.z()  <<")" << std::endl;
+			std::cout << "ptB (" << ptB.x() << ", " << ptB.y() << ", " << ptB.z() << ")" << std::endl;
 			*has_colided = true;
+			*colision_direction = ptB - ptA;
 			return 1;
 		}
 	};
 
-	struct rCallBack resultCallback(&colision);
+	struct rCallBack resultCallback(&colision, &direction);
 
 	my_dynamics_world->contactTest(rigid_body, resultCallback);
 
-	return colision;
+	return std::make_tuple(colision, direction);
 }

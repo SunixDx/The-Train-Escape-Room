@@ -14,6 +14,7 @@ public:
 	static Mesh* BASIC_CUBE_MESH;
 	static Mesh* BASIC_CUBE_MESH_BROWN;
 	static Mesh* BASIC_CUBE_MESH_SOFT_BROWN;
+	static Mesh* CROSSHAIR;
 
 	// Mesh data
 	std::vector<Vertex> vertices; // Vector amb atributs als v�rtexs de la malla.

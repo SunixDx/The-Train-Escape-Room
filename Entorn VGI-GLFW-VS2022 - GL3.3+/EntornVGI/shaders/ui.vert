@@ -66,19 +66,14 @@ out vec4 vertexColor;
 void main()	// --- L66-
 {
 // --- L68- Calcul variables out.
-    vertexPV = vec3(viewMatrix * modelMatrix * vec4(in_Vertex,1.0));
-
-    //mat4 NormalMatrix = transpose(inverse(viewMatrix * modelMatrix));
-    vec3 N = vec3(normalMatrix * vec4(in_Normal,1.0));
-    vertexNormalPV = normalize(N);
+    vertexPV = vec3(modelMatrix * vec4(in_Vertex,1.0));
 
 // --- L75- Textura
-    if (flag_invert_y) vertexTexCoord = vec2(in_TexCoord.x,1.0-in_TexCoord.y); // SOIL_FLAG_INVERT_Y
-     else vertexTexCoord = vec2(in_TexCoord.x,in_TexCoord.y);
+    vertexTexCoord = vec2(in_TexCoord.x,in_TexCoord.y);
     
 // --- L79- Pas color del vertex al Fragent Shader
     vertexColor = in_Color;
 
 // --- L82- Transformacio de Visualitzacio amb Matriu Projeccio (PMatrix), Matriu C�mera (VMatrix) i Matriu TG (MMatrix)
-    gl_Position = vec4(projectionMatrix * viewMatrix * modelMatrix * vec4(in_Vertex,1.0));
+    gl_Position = vec4(modelMatrix * vec4(in_Vertex,1.0));
 }

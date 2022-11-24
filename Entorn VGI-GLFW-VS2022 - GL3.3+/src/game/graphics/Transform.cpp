@@ -3,7 +3,6 @@
 mat4 Transform::apply(mat4 matriu_transformacions)
 {
 	matriu_transformacions = glm::translate(matriu_transformacions, my_position);
-	
 	mat4 rotation = glm::toMat4(my_orientation);
 	matriu_transformacions = matriu_transformacions * rotation;
 

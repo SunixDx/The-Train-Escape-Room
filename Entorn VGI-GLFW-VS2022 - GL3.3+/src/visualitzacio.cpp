@@ -21,6 +21,7 @@
 
 #include "visualitzacio.h"
 #include "escena.h"
+#include "shader.h"
 
 // Iluminació: Configurar iluminació de l'escena
 void Iluminacio(GLint sh_programID, char ilumin, bool ifix, bool ilu2sides, bool ll_amb, LLUM* lumin, char obj, bool frnt_fcs,
@@ -452,6 +453,7 @@ glm::mat4 Projeccio_Perspectiva(GLuint sh_programID, int minx,int miny,GLsizei w
 
 // Pas Matriu a shader
 	glUniformMatrix4fv(glGetUniformLocation(sh_programID, "projectionMatrix"), 1, GL_FALSE, &MatriuProjeccio[0][0]);
+	Shader::UI.setMatrix4fv("projectionMatrix", MatriuProjeccio);
 
 // Activació matriu MODELVIEW (tancar matriu PROJECTION)
 	//glMatrixMode(GL_MODELVIEW);

@@ -204,8 +204,8 @@ void InitGL()
 	fprintf(stderr, "Gouraud_shdrML: \n");
 	shader_programID = shaderGouraud.initializeShaders(".\\shaders\\gouraud_shdrML");
 
-	fprintf(stderr, "Crosshair_shdrML: \n");
-	shaderCrosshair.initializeShaders(".\\shaders\\crosshair_shdrML");
+	fprintf(stderr, "ui: \n");
+	Shader::UI.initializeShaders(".\\shaders\\ui");
 	//shader_programID = shaderGouraud.getProgramID();
 	//shader_programID = initializeShaders(".\\shaders\\gouraud_shdrML");
 
@@ -3395,6 +3395,28 @@ int main(void)
 	Mesh::BASIC_CUBE_MESH_BROWN = new Mesh(cube_vertices_brown, indices, textures);
 	Mesh::BASIC_CUBE_MESH_SOFT_BROWN = new Mesh(cube_vertices_soft_brown, indices, textures);
 
+
+	std::vector<Vertex> plane_vertices = {
+		Vertex({0.5f,  0.5f,  0.0f}, {0.0,  0.0,  1.0}, {0.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({-0.5f,  0.5f,  0.0f}, {0.0,  0.0,  1.0}, {1.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({-0.5f, -0.5f,  0.0f}, {0.0,  0.0,  1.0}, {1.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+		Vertex({0.5f, -0.5f,  0.0f}, {0.0,  0.0,  1.0}, {0.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+	};
+	
+	std::vector<unsigned int> plane_indices = {
+		0, 1, 2, 2, 3, 0,			// v0-v1-v2-v3 (front)
+	};
+
+	Texture texture;
+	texture.id = TextureFromFile("crosshair.png", "./textures", false);
+	texture.type = "texture_diffuse";
+	texture.path = "./textures/crosshair.png";
+	std::vector<Texture> plane_textures = {
+		texture,
+	};
+
+	Mesh::CROSSHAIR = new Mesh(plane_vertices, plane_indices, plane_textures);
+
 	string path = "./textures/maya/maya.obj"; //ruta del objeto
 	Model::BACKPACK = new Model(path); //crear nuevo modelo
 
@@ -3416,17 +3438,17 @@ int main(void)
 		if ((time <= 0.0) && (satelit || anima)) OnTimer();
 
 
-		glm::vec3 direction(
+		glm::vec3 direction = glm::normalize(glm::vec3(
 			cos(Camera::MAIN_CAMERA.horizontal_angle),
 			sin(Camera::MAIN_CAMERA.horizontal_angle),
 			0
-		);
+		));
 
-		glm::vec3 left = glm::vec3(
+		glm::vec3 left = glm::normalize(glm::vec3(
 			cos(Camera::MAIN_CAMERA.horizontal_angle + PI / 2),
 			sin(Camera::MAIN_CAMERA.horizontal_angle + PI / 2),
 			0
-		);
+		));
 
 		vec3 old_position = Camera::MAIN_CAMERA.position;
 
@@ -3443,10 +3465,25 @@ int main(void)
 		
 		Camera::MAIN_CAMERA.syncColliders();
 		BulletWorld::WORLD->performCollisionDetection();
-		bool collides = BulletWorld::WORLD->testCollision(Camera::MAIN_CAMERA.my_rigid_body);
+		auto collision = BulletWorld::WORLD->testCollision(Camera::MAIN_CAMERA.my_rigid_body);
+		bool collides = get<0>(collision);
 		if (collides)
 		{
+			btVector3 bt_direction = get<1>(collision);
+
+			std::cout << "bt_direction (" << bt_direction.x() << ", " << bt_direction.y() << ", " << bt_direction.z() << ")" << std::endl;
+
+			glm::vec3 col_direction = glm::normalize(glm::vec3(bt_direction.x(), bt_direction.y(), 0));
+			
+			direction = direction - col_direction;
+			left = left - direction;
+
 			Camera::MAIN_CAMERA.position = old_position;
+
+			if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed * delta;
+			if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed * delta;
+			if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed * delta;
+			if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed * delta;
 		}
 
 

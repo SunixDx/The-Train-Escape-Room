@@ -1,8 +1,8 @@
 //******** PRACTICA VISUALITZACI� GR�FICA INTERACTIVA (EE-UAB)
-//******** Entorn basic VS2019 amb interf�cie MFC i Status Bar
+//******** Entorn basic amb interf�cie MFC/GLFW i Status Bar
 //******** Enric Marti (Maig 2022)
-// phong_shdrML.vert: Vertex Program en GLSL en versi� OpenGL 3.3 o 4.00 per a implementar:
-//     a) Iluminaci� de Gouraud
+// flat_shdrML.frag: Fragment Program en GLSL per en versi� OpenGL 3.3 o 4.00 per a implementar:
+//     a) Iluminaci� plana
 //     b) Fonts de llum puntuals o direccionals
 //     c) Fonts de llum restringides
 //     d) Atenuaci� de fonts de llum
@@ -35,13 +35,13 @@ struct Material
 	float shininess;	// Exponent per al coeficient de reflectivitat especular del material (1,500).
 };
 
-// --- L38- Variables in
-layout (location = 0) in vec3 in_Vertex; 	// Coordenades (x,y,z) posicio Vertex
-layout (location = 1) in vec3 in_Normal; 	// Coordenades (x,y,z) Vector Normal
-layout (location = 2) in vec2 in_TexCoord; 	// Coordenades (s,t) Coordenada textura
-layout (location = 3) in vec4 in_Color; 	// Coordenades (r,g,b,a) Color
+// ---- L38- Variables in
+in vec3 vertexPV;		// V�rtex en coordenades c�mera (Punt de Vista).
+in vec3 vertexNormalPV;		// Normal en coordenades c�mera (Punt de Vista).
+in vec2 vertexTexCoord;		// Coordenades textura.
+in vec4 vertexColor;		// Color (r,g,b,a) del v�rtex.
 
-// --- L44- Variables uniform
+// ---- L44- Variables uniform
 uniform mat4 normalMatrix;	// �the transpose of the inverse of the gl_ModelViewMatrix.� 
 uniform mat4 projectionMatrix;	// Projection Matrix
 uniform mat4 viewMatrix; 	// View Matrix
@@ -50,35 +50,30 @@ uniform mat4 modelMatrix;	// Model Matrix
 uniform sampler2D texture0;	// Imatge textura
 uniform bool textur;		// Booleana d�activaci� (TRUE) de textures o no (FALSE).
 uniform bool flag_invert_y;	// Booleana que activa la inversi� coordenada textura t (o Y) a 1.0-cty segons llibreria SOIL (TRUE) o no (FALSE).
+uniform bool modulate;		// Booleana d'activaci� de barreja color textura- color intensitat llum (TRUE) o nom�s color textura (FALSE)
 uniform bool fixedLight;	// Booleana que defineix la font de llum fixe en Coordenades M�n (TRUE) o no (FALSE).
 uniform bool sw_material;	// Booleana que indica si el color del v�rtex ve del Material emission, ambient, diffuse, specular (TRUE) o del vector de color del v�rtex in_Color (FALSE)
 uniform bvec4 sw_intensity;	// Filtre per a cada tipus de reflexi�: Emissiva (sw_intensity[0]), Ambient (sw_intensity[1]), Difusa (sw_intensity[2]) o Especular (sw_intensity[2]).
-uniform vec4 LightModelAmbient;	// Intensitat de llum ambient (r,g,b,a).
+uniform vec4 LightModelAmbient;	// Intensitat de llum ambient (r,g,b,a)-
 uniform Light LightSource[MaxLights];	// Vector de fonts de llum.
 uniform Material material;	// Vector de coeficients reflectivitat de materials.
 
-// --- L60- Variables out
-out vec3 vertexPV;
-out vec3 vertexNormalPV;
-out vec2 vertexTexCoord;
-out vec4 vertexColor;
-
-void main()	// --- L66-
+// ---- L61- Variables out
+out vec4 FragColor; 		// Color fragment (r,g,b,a)
+void main ()
 {
-// --- L68- Calcul variables out.
-    vertexPV = vec3(viewMatrix * modelMatrix * vec4(in_Vertex,1.0));
+	vec4 colorT = texture(texture0,vertexTexCoord);
+	FragColor = colorT * vertexColor;
 
-    //mat4 NormalMatrix = transpose(inverse(viewMatrix * modelMatrix));
-    vec3 N = vec3(normalMatrix * vec4(in_Normal,1.0));
-    vertexNormalPV = normalize(N);
-
-// --- L75- Textura
-    if (flag_invert_y) vertexTexCoord = vec2(in_TexCoord.x,1.0-in_TexCoord.y); // SOIL_FLAG_INVERT_Y
-     else vertexTexCoord = vec2(in_TexCoord.x,in_TexCoord.y);
-    
-// --- L79- Pas color del vertex al Fragent Shader
-    vertexColor = in_Color;
-
-// --- L82- Transformacio de Visualitzacio amb Matriu Projeccio (PMatrix), Matriu C�mera (VMatrix) i Matriu TG (MMatrix)
-    gl_Position = vec4(projectionMatrix * viewMatrix * modelMatrix * vec4(in_Vertex,1.0));
+	//if (textur) {	// Intensitat amb textura
+	//	
+	//	// Textura modulada amb intensitat llum
+	//	if (modulate) {
+	//		
+	//	} else {
+	//		FragColor = colorT; // textura sense modular intensitat llum
+	//	}
+    //} else { // Intensitat sense textura
+    //    FragColor = VertexColor;   
+	//}
 }
