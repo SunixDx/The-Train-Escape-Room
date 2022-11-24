@@ -11,6 +11,8 @@ public:
 		my_model->Draw(MatriuVista, MatriuTG, my_transform, my_shader_program_id);
 	}
 
+	void interact();
+
 private:
 
 	Transform my_transform;

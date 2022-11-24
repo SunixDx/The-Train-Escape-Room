@@ -812,28 +812,6 @@ void Barra_Estat()
 		}
 }
 
-void move()
-{
-	glm::vec3 direction(
-		cos(Camera::MAIN_CAMERA.horizontal_angle),
-		sin(Camera::MAIN_CAMERA.horizontal_angle),
-		0
-	);
-
-	glm::vec3 left = glm::vec3(
-		cos(Camera::MAIN_CAMERA.horizontal_angle + PI / 2),
-		sin(Camera::MAIN_CAMERA.horizontal_angle + PI / 2),
-		0
-	);
-
-	if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed;
-	if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed;
-	if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed;
-	if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed;
-
-	// Crida a OnPaint() per redibuixar l'escena
-	OnPaint(window);
-}
 
 /* ------------------------------------------------------------------------- */
 /*                           CONTROL DEL TECLAT                              */
@@ -864,18 +842,24 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		std::cout << "CAM PERSONALITZADA" << std::endl;
 		camera = CAM_PERSONALITZADA;
-		Camera::MAIN_CAMERA.position = glm::vec3(0, 0, 1.5);
+		Camera::MAIN_CAMERA.position = glm::vec3(0, 0, 1.8);
 	}
-	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS)
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && !Camera::MAIN_CAMERA.sit)
 	{
 		if (key == GLFW_KEY_W) w_pressed = true;
 		if (key == GLFW_KEY_S) s_pressed = true;
 		if (key == GLFW_KEY_A) a_pressed = true;
 		if (key == GLFW_KEY_D) d_pressed = true;
+
 		std::cout << "MOVING" << std::endl;
 		soundEngine->play2D("../EntornVGI/media/Footsteps.mp3");
-		move();
 		std::cout << "NOT MOVING" << std::endl;
+
+		if (key == GLFW_KEY_C) c_pressed = true;
+	}
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.sit)
+	{
+		if (key == GLFW_KEY_C) Camera::MAIN_CAMERA.standUp();
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_RELEASE)
 	{
@@ -884,6 +868,7 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		if (key == GLFW_KEY_S) s_pressed = false;
 		if (key == GLFW_KEY_A) a_pressed = false;
 		if (key == GLFW_KEY_D) d_pressed = false;
+		if (key == GLFW_KEY_C) c_pressed = false;
 	}
 	else if (camera == CAM_NAVEGA) Teclat_Navega(key, action);
 
@@ -2489,7 +2474,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 // TODO: Agregue aquï¿½ su cï¿½digo de controlador de mensajes o llame al valor predeterminado
 
 // OnLButtonDown
-	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) //pulsar click
 		{
 		// Entorn VGI: Detectem en quina posiciï¿½ s'ha apretat el botï¿½ esquerra del
 		//				mouse i ho guardem a la variable m_PosEAvall i activem flag m_ButoEAvall
@@ -2498,9 +2483,9 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			m_PosEAvall.x = xpos;	m_PosEAvall.y = ypos;
 			m_EsfeEAvall = OPV;
 
-			InteractableEntity* euc = Level::CURRENT_LEVEL.my_entity_under_cursor;
-			if (euc)
-				euc->interact();
+			InteractableEntity* euc = Level::CURRENT_LEVEL.my_entity_under_cursor; 
+			if (euc) //si hay algo bajo el cursor
+				euc->interact(); //ejecutamos interact
 		}
 // OnLButtonUp: Funciï¿½ que es crida quan deixem d'apretar el botï¿½ esquerra del mouse.
 	else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
@@ -3016,6 +3001,9 @@ void APIENTRY glDebugOutput(GLenum source, GLenum type, GLuint id, GLenum severi
 	} //std::cout << std::endl;
 	//std::cout << std::endl;
 	fprintf(stderr, "\n");
+
+
+	//exit(0);
 }
 
 int main(void)
@@ -3027,12 +3015,10 @@ int main(void)
 	if(soundEngine) {
 		// To play a sound, we only to call play2D(). The second parameter
 		// tells the engine to play it looped.
-
 		// play some sound stream, looped
 		soundEngine->play2D("../EntornVGI/media/movingTrain.mp3", true);
 		//soundEngine->setSoundVolume(irrklang::ik_f32(0.02)); //cambiar volumen
 	}	
-
 
 	///-----includes_end-----
 
@@ -3191,7 +3177,7 @@ int main(void)
 	//next line is optional: it will be cleared by the destructor when the array goes out of scope
 	collisionShapes.clear();
 
-
+	
 
 
 	
@@ -3425,8 +3411,8 @@ int main(void)
 	Mesh::BASIC_CUBE_MESH_BROWN = new Mesh(cube_vertices_brown, indices, textures);
 	Mesh::BASIC_CUBE_MESH_SOFT_BROWN = new Mesh(cube_vertices_soft_brown, indices, textures);
 
-	string path = "./textures/maya/maya.obj";
-	Model::BACKPACK = new Model(path);
+	string path = "./textures/maya/maya.obj"; //ruta del objeto
+	Model::BACKPACK = new Model(path); //crear nuevo modelo
 
 	std::cout << "shader ID:" << shaderGouraud.getProgramID() << std::endl;
 	Level::buildFirstLevel(shaderGouraud.getProgramID());
@@ -3458,21 +3444,25 @@ int main(void)
 			0
 		);
 
-		if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed;
-		if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed;
-		if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed;
-		if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed;
+		vec3 old_position = Camera::MAIN_CAMERA.position;
 
+		if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed * delta;
+		if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed * delta;
+		if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed * delta;
+		if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed * delta;
 
+		if (c_pressed)
+		{
+			if (Camera::MAIN_CAMERA.position.z > 1) Camera::MAIN_CAMERA.position.z -= 0.05;
+		}
+		else if (Camera::MAIN_CAMERA.position.z < 1.8 && !Camera::MAIN_CAMERA.sit) Camera::MAIN_CAMERA.position.z += 0.1;
+		
 		Camera::MAIN_CAMERA.syncColliders();
 		BulletWorld::WORLD->performCollisionDetection();
 		bool collides = BulletWorld::WORLD->testCollision(Camera::MAIN_CAMERA.my_rigid_body);
 		if (collides)
 		{
-			w_pressed = false;
-			s_pressed = false;
-			a_pressed = false;
-			d_pressed = false;
+			Camera::MAIN_CAMERA.position = old_position;
 		}
 
 

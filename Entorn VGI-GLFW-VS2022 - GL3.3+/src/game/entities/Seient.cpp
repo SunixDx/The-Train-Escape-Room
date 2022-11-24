@@ -1,24 +1,20 @@
 #include "Seient.h"
 #include "Vago.h"
-
+#include "../graphics/Camera.h"
 #include <iostream>
 
-Seient::Seient(Transform transform, Mesh* mesh, GLuint shader_id)
+Seient::Seient(Transform transform, Model* model, GLuint shader_id): GameEntity(transform, nullptr, shader_id)
 {
-	my_transform = transform;
-	my_mesh = mesh;
-	my_shader_program_id = shader_id;
-
 	btCollisionShape* groundShape_banc = new btBoxShape(btVector3(btScalar(.25), btScalar(.5), btScalar(.25)));
 	btCollisionShape* groundShape_respatller = new btBoxShape(btVector3(btScalar(.001), btScalar(.5), btScalar(.25)));
 
 	btTransform groundTransform_banc;
 	groundTransform_banc.setIdentity();
-	groundTransform_banc.setOrigin(btVector3(my_transform.position.x, my_transform.position.y, my_transform.position.z + Vago::Z_OFFSET));
+	groundTransform_banc.setOrigin(btVector3(my_transform.position().x, my_transform.position().y, my_transform.position().z + Vago::Z_OFFSET));
 
 	btTransform groundTransform_respatller;
 	groundTransform_respatller.setIdentity();
-	groundTransform_respatller.setOrigin(btVector3(my_transform.position.x, my_transform.position.y, my_transform.position.z + Vago::Z_OFFSET + 0.25));
+	groundTransform_respatller.setOrigin(btVector3(my_transform.position().x, my_transform.position().y, my_transform.position().z + Vago::Z_OFFSET + 0.25));
 
 	btScalar mass_banc(0.);
 	btScalar mass_respatller(0.);
@@ -52,45 +48,22 @@ Seient::Seient(Transform transform, Mesh* mesh, GLuint shader_id)
 
 	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape_respatller);
 	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body_respatller);
-}
 
-void Seient::mostrarBanc(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_program_id)
-{
-	glm::mat4 NormalMatrix(1.0);
-	glm::mat4 ModelMatrix(1.0);
-
-	Transform transform_sostre = Transform(
+	my_children.push_back(new GameEntity(Transform(
 		vec3(0.0f, 0.0f, 0.0f),
-		quat(0.0f, 0.0f, 0.0f, 0.0f),
+		quat(1.0f, 0.0f, 0.0f, 0.0f),
 		vec3(0.5f, 1.0f, 0.5f)
-	);
+	), model, my_shader_id));
 
-	my_mesh->Draw(MatriuVista, MatriuTG, transform_sostre, shader_program_id);
-}
 
-void Seient::mostrarRespatller(glm::mat4 MatriuVista, glm::mat4 MatriuTG, GLuint shader_program_id)
-{
-	glm::mat4 NormalMatrix(1.0);
-	glm::mat4 ModelMatrix(1.0);
-
-	Transform transform_sostre = Transform(
+	my_children.push_back(new GameEntity(Transform(
 		vec3(0.25f, 0.0f, 0.5f),
-		quat(0.0f, 0.0f, 0.0f, 0.0f),
+		quat(1.0f, 0.0f, 0.0f, 0.0f),
 		vec3(0.02f, 1.0f, 0.5f)
-	);
-
-	my_mesh->Draw(MatriuVista, MatriuTG, transform_sostre, shader_program_id);
-}
-
-void Seient::mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG)
-{
-	MatriuTG = my_transform.apply(MatriuTG);
-
-	mostrarBanc(MatriuVista, MatriuTG, my_shader_program_id);
-	mostrarRespatller(MatriuVista, MatriuTG, my_shader_program_id);
+	), model, my_shader_id));
 }
 
 void Seient::interact()
 {
-	std::cout << "seient click" << std::endl;
+	Camera::MAIN_CAMERA.sitDown(this);
 }
