@@ -4,6 +4,7 @@
 #include "entities/Cucaracha.h"
 #include "entities/Maleta.h"
 #include "entities/Libro1.h"
+#include "entities/Rail.h"
 
 class Level {
 public:
@@ -12,6 +13,8 @@ public:
 	Cucaracha* cucaracha;
 	Maleta* maleta;
 	Libro1* libro1;
+	Rail* rail;
+	Rail* padlock;
 
 	InteractableEntity* my_entity_under_cursor;
 
