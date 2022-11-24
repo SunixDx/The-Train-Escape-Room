@@ -18,6 +18,11 @@
 
 #include <bullet/btBulletDynamicsCommon.h>
 
+#include <irrKlang/irrKlang.h>
+
+// start the sound engine with default parameters
+irrklang::ISoundEngine* soundEngine = irrklang::createIrrKlangDevice();
+
 void InitGL()
 {
 // TODO: agregar aquï¿½ el cï¿½digo de construcciï¿½n
@@ -846,6 +851,10 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		if (key == GLFW_KEY_A) a_pressed = true;
 		if (key == GLFW_KEY_D) d_pressed = true;
 
+		std::cout << "MOVING" << std::endl;
+		soundEngine->play2D("../EntornVGI/media/Footsteps.mp3");
+		std::cout << "NOT MOVING" << std::endl;
+
 		if (key == GLFW_KEY_C) c_pressed = true;
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.sit)
@@ -854,6 +863,7 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_RELEASE)
 	{
+		soundEngine->removeSoundSource("../EntornVGI/media/Footsteps.mp3");
 		if (key == GLFW_KEY_W) w_pressed = false;
 		if (key == GLFW_KEY_S) s_pressed = false;
 		if (key == GLFW_KEY_A) a_pressed = false;
@@ -2991,18 +3001,24 @@ void APIENTRY glDebugOutput(GLenum source, GLenum type, GLuint id, GLenum severi
 	} //std::cout << std::endl;
 	//std::cout << std::endl;
 	fprintf(stderr, "\n");
-}
 
+
+	//exit(0);
+}
 
 int main(void)
 {
-
-
-
-
-
-	
-	
+	if (!soundEngine)
+	{
+		cout << "Could not startup irrKlang engine" << endl;
+	}
+	if(soundEngine) {
+		// To play a sound, we only to call play2D(). The second parameter
+		// tells the engine to play it looped.
+		// play some sound stream, looped
+		soundEngine->play2D("../EntornVGI/media/movingTrain.mp3", true);
+		//soundEngine->setSoundVolume(irrklang::ik_f32(0.02)); //cambiar volumen
+	}	
 
 	///-----includes_end-----
 
@@ -3514,6 +3530,15 @@ int main(void)
 
 
 	delete Mesh::BASIC_CUBE_MESH;
+
+	// After we are finished, we have to delete the irrKlang Device created earlier
+	// with createIrrKlangDevice(). Use ::drop() to do that. In irrKlang, you should
+	// delete all objects you created with a method or function that starts with 'create'.
+	// (an exception is the play2D()- or play3D()-method, see the documentation or the
+	// next example for an explanation)
+	// The object is deleted simply by calling ->drop().
+
+	soundEngine->drop(); // delete engine
 
     return 0;
 }

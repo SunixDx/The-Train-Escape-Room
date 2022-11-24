@@ -68,7 +68,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 			xValorSeientEndavant += 2.02f;
 			//1,69
 		}
-		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, 1.2f, -1.2f), mirar_endevant, vec3(1.0f)), model_seient, NULL));
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, 1.2f, -1.2f), mirar_endevant, vec3(1.0f)), nullptr, sh_programID));
 	}
 
 	xValorSeientEndavant = -0.31f;
@@ -84,7 +84,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 			xValorSeientEndavant += 2.02f;
 
 		}
-		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, -1.2f, -1.2f), mirar_endevant, vec3(1.0f)), model_seient, NULL));
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, -1.2f, -1.2f), mirar_endevant, vec3(1.0f)), nullptr, sh_programID));
 	}
 
 	float xValorSeientEndarrere = -1.63f;
@@ -103,7 +103,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 			//0.39
 
 		}
-		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, 1.2f, -1.2f), mirar_enrere, vec3(1.0f)), model_seient, NULL));
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, 1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
 	}
 
 	xValorSeientEndarrere = -1.63f;
@@ -119,7 +119,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 			xValorSeientEndarrere += 2.02f;
 
 		}
-		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, -1.2f, -1.2f), mirar_enrere, vec3(1.0f)), model_seient, NULL));
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, -1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
 	}
 	
 
