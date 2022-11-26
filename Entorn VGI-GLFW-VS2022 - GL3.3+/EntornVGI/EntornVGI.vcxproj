@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\escena.cpp" />
+    <ClCompile Include="..\src\game\audio\AudioFunctions.cpp" />
     <ClCompile Include="..\src\game\entities\Crosshair.cpp" />
     <ClCompile Include="..\src\game\entities\Cucaracha.cpp" />
     <ClCompile Include="..\src\game\entities\Maleta.cpp" />
@@ -48,6 +49,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\constants.h" />
     <ClInclude Include="..\src\escena.h" />
+    <ClInclude Include="..\src\game\audio\AudioFunctions.h" />
     <ClInclude Include="..\src\game\entities\Crosshair.h" />
     <ClInclude Include="..\src\game\entities\Cucaracha.h" />
     <ClInclude Include="..\src\game\entities\GameEntity.h" />

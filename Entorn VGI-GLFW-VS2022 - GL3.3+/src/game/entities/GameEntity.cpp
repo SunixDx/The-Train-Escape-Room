@@ -2,6 +2,9 @@
 
 void GameEntity::mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG)
 {
+	if (!my_enabled)
+		return;
+
 	if (my_model != nullptr)
 		my_model->Draw(MatriuVista, MatriuTG, my_transform, my_shader_id);
 
