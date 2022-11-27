@@ -154,7 +154,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Rail* railes = new Rail(trRail, new Model("./textures/tren_final/scene.gltf"), sh_programID);
 	Level::CURRENT_LEVEL.rail = railes;
 
-	
 	Transform trMaleta = Transform();
 	trMaleta.translate(vec3(0.7f, 0.2f, 0.4f));
 	trMaleta.scale(vec3(0.05f));
@@ -162,14 +161,14 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Maleta* maleta = new Maleta(trMaleta, new Model("./textures/baul_cuerpo/untitled.obj"), sh_programID);
 	
 	Transform trLibro1 = Transform();
-	trLibro1.translate(vec3(0.7f, 0.2f, 0.8f));
+	trLibro1.translate(vec3(0.5, -1.5f, 0.5f));
 	trLibro1.scale(vec3(0.2f));
+	trLibro1.rotate(PI / -12, vec3(1.0f,0.0f,0.0f));
 
 	Model* llibre_tancat = new Model("./textures/Book/ChurchBookClosedV2/ChurchBookClosedV2-DAE/ChurchBookClosedV2.dae");
 	Model* llibre_obert = new Model("./textures/libro1/ChurchBookOpenV2/ChurchBookOpenV2-OBJ/libro_abierto.obj");
 	Libro1* libro1 = new Libro1(trLibro1, llibre_tancat, llibre_obert, sh_programID);
 	
-
 	//slenderman
 	Transform trPadlock = Transform();
 	trPadlock.position() = vec3(7.0f, 0.0f, -0.1f);
@@ -179,8 +178,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	Rail* padlock = new Rail(trPadlock, new Model("./textures/slenderman/scene.gltf"), sh_programID);
 	Level::CURRENT_LEVEL.padlock = padlock;
-
-
 
 	Level::CURRENT_LEVEL.my_vago = vago;
 	Level::CURRENT_LEVEL.maleta = maleta;

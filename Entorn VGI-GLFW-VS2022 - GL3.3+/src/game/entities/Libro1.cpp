@@ -39,12 +39,14 @@ void Libro1::interact()
 	{
 		my_model = my_model_obert;
 		abierto = true;
+		my_transform.rotate((PI / 6) * 3, vec3(1.0f, 0.0f, 0.0f));
 		std::cout << "HAS ABIERTO EL LIBRO" << std::endl;
 	}
 	else
 	{
 		my_model = my_model_tancat;
 		abierto = false;
+		my_transform.rotate((PI / 6) * -3, vec3(1.0f, 0.0f, 0.0f));
 		std::cout << "HAS CERRADO EL LIBRO" << std::endl;
 	}
 }
