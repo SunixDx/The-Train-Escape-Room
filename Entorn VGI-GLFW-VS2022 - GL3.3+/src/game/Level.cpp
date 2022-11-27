@@ -160,13 +160,15 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	trMaleta.scale(vec3(0.05f));
 
 	Maleta* maleta = new Maleta(trMaleta, new Model("./textures/baul_cuerpo/untitled.obj"), sh_programID);
-	/*
+	
 	Transform trLibro1 = Transform();
 	trLibro1.translate(vec3(0.7f, 0.2f, 0.8f));
 	trLibro1.scale(vec3(0.2f));
 
-	Libro1* libro1 = new Libro1(trLibro1, new Model("./textures/Book/ChurchBookClosedV2/ChurchBookClosedV2-DAE/ChurchBookClosedV2.dae"), sh_programID);
-	*/
+	Model* llibre_tancat = new Model("./textures/Book/ChurchBookClosedV2/ChurchBookClosedV2-DAE/ChurchBookClosedV2.dae");
+	Model* llibre_obert = new Model("./textures/libro1/ChurchBookOpenV2/ChurchBookOpenV2-OBJ/libro_abierto.obj");
+	Libro1* libro1 = new Libro1(trLibro1, llibre_tancat, llibre_obert, sh_programID);
+	
 
 	//slenderman
 	Transform trPadlock = Transform();
@@ -182,8 +184,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	Level::CURRENT_LEVEL.my_vago = vago;
 	Level::CURRENT_LEVEL.maleta = maleta;
-	/*
 	Level::CURRENT_LEVEL.libro1 = libro1;
-	*/
 	Level::CURRENT_LEVEL.my_entity_under_cursor = nullptr;
 }

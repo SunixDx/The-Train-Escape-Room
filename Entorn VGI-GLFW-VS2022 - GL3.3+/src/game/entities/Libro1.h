@@ -6,24 +6,21 @@
 #include  <bullet/btBulletDynamicsCommon.h>
 #include "../physics/BulletWorld.h"
 #include "InteractableEntity.h"
+#include "GameEntity.h"
 
-class Libro1
+class Libro1: public GameEntity
 {
 public:
-	Libro1(Transform transform, Model* model, GLuint shader_program_id): my_model(model), my_transform(transform), 
-		my_shader_program_id(shader_program_id) {}
-
-	void mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG) {
-		my_model->Draw(MatriuVista, MatriuTG, my_transform, my_shader_program_id);
-	}
+	Libro1(Transform transform, Model* model_tancat, Model* model_obert, GLuint shader_id);
 
 	void interact();
 
 private:
-
-	Transform my_transform;
-	Model* my_model;
-	GLuint my_shader_program_id;
 	btRigidBody* my_rigid_body;
+
+	Model* my_model_obert;
+	Model* my_model_tancat;
+
+	bool abierto  = false;
 };
 
