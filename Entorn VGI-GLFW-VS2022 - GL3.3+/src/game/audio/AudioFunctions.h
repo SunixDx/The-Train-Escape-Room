@@ -16,6 +16,7 @@ public:
 
 	irrklang::ISound* play2D(const char* path, bool looped, bool startPaused);
 
+	static Audio AUDIO_FUNCTIONS;
 private:
 	irrklang::ISoundEngine* engine;
 };

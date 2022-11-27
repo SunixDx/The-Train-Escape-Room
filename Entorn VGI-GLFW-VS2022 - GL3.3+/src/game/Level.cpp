@@ -1,5 +1,6 @@
 #include "Level.h"
 #include "../src/game/graphics/Model.h"
+#include "audio/AudioFunctions.h"
 
 Level Level::CURRENT_LEVEL;
 
@@ -202,13 +203,15 @@ void Level::MaybeSpawnSlender()
 	iSecret = 5;
 	if (iSecret == 5)
 	{
-		// spooky lighting
+		// Activar spooky lighting
 		*llumAmbient = false;
 		*iFixe = true;
 
-		/*audio audio2;
-		audio2.play2D("./media/light_flickering.wav", false, false);
-		audio2.play2D("./media/spooky_sound.wav", false, false);*/
+		// Reproduir audio
+		//audio2.play2D("./media/light_flickering.wav", false, false);
+		Audio::AUDIO_FUNCTIONS.play2D("./media/spooky_sound.wav", false, false);
+
+		// Mostrar slenderman
 		padlock->my_enabled = true;
 	}
 }
@@ -219,9 +222,6 @@ void Level::despawnSlender()
 	*llumAmbient = true;
 	*iFixe = false;
 
-	/*audio audio2;
-	//audio2.play2D("./media/light_flickering.wav", false, false);
-	audio2.play2D("./media/spooky_sound.wav", false, false);*/
 	padlock->my_enabled = false;
 }
 

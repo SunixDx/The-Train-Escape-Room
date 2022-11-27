@@ -3424,8 +3424,8 @@ int main(void)
 	Level::CURRENT_LEVEL.llumAmbient = &llum_ambient;
 	Level::CURRENT_LEVEL.iFixe = &ifixe;
 
-	Audio* audioFunctions = new Audio();
-	irrklang::ISound* backgroundSound = audioFunctions->play2D("./media/movingTrain.mp3", true, true);
+	Audio::Audio();
+	irrklang::ISound* backgroundSound = Audio::AUDIO_FUNCTIONS.play2D("./media/movingTrain.mp3", true, true);
 	if (!backgroundSound)
 	{
 		std::cout << "Could not play sound" << std::endl;
