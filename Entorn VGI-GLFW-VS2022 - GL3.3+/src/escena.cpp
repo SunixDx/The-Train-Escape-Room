@@ -448,6 +448,7 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		Level::CURRENT_LEVEL.padlock->mostrar(MatriuVista, MatriuTG); //slenderman
 		
 		Level::CURRENT_LEVEL.maleta->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.maletaTapa->mostrar(MatriuVista, MatriuTG);
 		//Level::CURRENT_LEVEL.libro1->mostrar(MatriuVista, MatriuTG);
 
 		

@@ -7,6 +7,7 @@
 class GameEntity : public InteractableEntity
 {
 public:
+	GameEntity() {}
 	GameEntity(Transform transform, Model* model, GLuint shader_id): my_transform(transform), my_model(model), my_shader_id(shader_id) { };
 	void virtual mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG);
 	void addChild(GameEntity* child);
