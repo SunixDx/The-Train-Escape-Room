@@ -168,9 +168,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	Maleta* maleta = new Maleta(trMaleta, new Model("./textures/baul_cuerpo/untitled.obj"), sh_programID, maletaTapa);
 
-
-	Maleta* maleta = new Maleta(trMaleta, new Model("./textures/baul_cuerpo/untitled.obj"), sh_programID);
-	
 	Transform trLibro1 = Transform();
 	trLibro1.translate(vec3(0.5, -1.5f, 0.5f));
 	trLibro1.scale(vec3(0.2f));
@@ -192,6 +189,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	Level::CURRENT_LEVEL.my_vago = vago;
 	Level::CURRENT_LEVEL.maleta = maleta;
+	Level::CURRENT_LEVEL.maletaTapa = maletaTapa;
 	Level::CURRENT_LEVEL.libro1 = libro1;
 	Level::CURRENT_LEVEL.my_entity_under_cursor = nullptr;
 }
