@@ -90,6 +90,9 @@
     <ClCompile Include="..\src\game\entities\Rail.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\game\audio\AudioFunctions.cpp">
+          <Filter>Archivos de origen</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\game\entities\Libro1.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -187,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="..\src\game\entities\Rail.h">
       <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\audio\AudioFunctions.h">
+          <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\src\game\entities\Libro1.h">
       <Filter>Archivos de encabezado</Filter>

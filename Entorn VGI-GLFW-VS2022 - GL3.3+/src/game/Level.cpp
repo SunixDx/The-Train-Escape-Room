@@ -1,5 +1,6 @@
 #include "Level.h"
 #include "../src/game/graphics/Model.h"
+#include "audio/AudioFunctions.h"
 
 Level Level::CURRENT_LEVEL;
 
@@ -198,6 +199,8 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	trPadlock.rotate(-(glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
 
 	Rail* padlock = new Rail(trPadlock, new Model("./textures/slenderman/scene.gltf"), sh_programID);
+	padlock->my_enabled = false;
+
 	Level::CURRENT_LEVEL.padlock = padlock;
 
 	Level::CURRENT_LEVEL.my_vago = vago;
@@ -208,3 +211,40 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Level::CURRENT_LEVEL.panel = panel;
 	Level::CURRENT_LEVEL.my_entity_under_cursor = nullptr;
 }
+
+void Level::MaybeSpawnSlender()
+{
+	/* initialize random seed: */
+	srand(time(NULL));
+
+	/* generate random number between 1 and 10: */
+	int iSecret = rand() % 10 + 1;
+
+	std::cout << "isecret = " << iSecret << std::endl;
+	iSecret = 5;
+	if (iSecret == 5)
+	{
+		// Activar spooky lighting
+		*llumAmbient = false;
+		*iFixe = true;
+
+		// Reproduir audio
+		//audio2.play2D("./media/light_flickering.wav", false, false);
+		Audio::AUDIO_FUNCTIONS.play2D("./media/spooky_sound.wav", false, false);
+
+		// Mostrar slenderman
+		padlock->my_enabled = true;
+	}
+}
+
+void Level::despawnSlender()
+{
+	// return to normal lighting
+	*llumAmbient = true;
+	*iFixe = false;
+
+	padlock->my_enabled = false;
+}
+
+
+

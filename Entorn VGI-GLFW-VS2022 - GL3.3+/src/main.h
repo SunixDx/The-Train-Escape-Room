@@ -6,6 +6,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "game/audio/AudioFunctions.h"
 
 // Entorn VGI: Llibreries i constants Constants de l'aplicaci� EntornVGI
 #include "stdafx.h"

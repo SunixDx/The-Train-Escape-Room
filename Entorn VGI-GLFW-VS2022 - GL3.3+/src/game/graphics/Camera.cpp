@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "../physics/BulletWorld.h"
+#include "../Level.h"
 #include <bullet/btBulletDynamicsCommon.h>
 
 Camera Camera::MAIN_CAMERA;
@@ -59,6 +60,8 @@ void Camera::standUp()
 	SAVE_CAMERA.horizontal_angle = MAIN_CAMERA.horizontal_angle;
 	SAVE_CAMERA.vertical_angle = MAIN_CAMERA.vertical_angle;
 	MAIN_CAMERA = SAVE_CAMERA;
+	MAIN_CAMERA.sit = false;
+	Level::CURRENT_LEVEL.despawnSlender();
 	
 }
 

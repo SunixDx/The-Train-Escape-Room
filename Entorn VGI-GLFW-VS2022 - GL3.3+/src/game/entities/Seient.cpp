@@ -1,5 +1,6 @@
 #include "Seient.h"
 #include "Vago.h"
+#include "../Level.h"
 #include "../graphics/Camera.h"
 #include <iostream>
 
@@ -66,4 +67,5 @@ Seient::Seient(Transform transform, Model* model, GLuint shader_id): GameEntity(
 void Seient::interact()
 {
 	Camera::MAIN_CAMERA.sitDown(this);
+	Level::CURRENT_LEVEL.MaybeSpawnSlender();
 }

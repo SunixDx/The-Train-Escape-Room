@@ -21,7 +21,15 @@ public:
 	Crypt* crypt;
 	Panel* panel;
 
+	//llums
+	bool* llumAmbient;
+	bool* iFixe;
+
 	InteractableEntity* my_entity_under_cursor;
 
 	static Level CURRENT_LEVEL;
+
+
+	void MaybeSpawnSlender();
+	void despawnSlender();
 };
