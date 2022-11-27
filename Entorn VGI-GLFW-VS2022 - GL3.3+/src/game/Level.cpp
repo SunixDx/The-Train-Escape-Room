@@ -154,13 +154,13 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Rail* railes = new Rail(trRail, new Model("./textures/tren_final/scene.gltf"), sh_programID);
 	Level::CURRENT_LEVEL.rail = railes;
 
-	/*
-	Tra nsform trMaleta = Transform();
+	
+	Transform trMaleta = Transform();
 	trMaleta.translate(vec3(0.7f, 0.2f, 0.4f));
 	trMaleta.scale(vec3(0.05f));
 
-	Maleta* maleta = new Maleta(trMaleta, new Model("./textures/maleta/SA_LD_Steel_Case.3ds"), sh_programID);
-
+	Maleta* maleta = new Maleta(trMaleta, new Model("./textures/baul_cuerpo/untitled.obj"), sh_programID);
+	/*
 	Transform trLibro1 = Transform();
 	trLibro1.translate(vec3(0.7f, 0.2f, 0.8f));
 	trLibro1.scale(vec3(0.2f));
@@ -181,8 +181,8 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 
 	Level::CURRENT_LEVEL.my_vago = vago;
-	/*
 	Level::CURRENT_LEVEL.maleta = maleta;
+	/*
 	Level::CURRENT_LEVEL.libro1 = libro1;
 	*/
 	Level::CURRENT_LEVEL.my_entity_under_cursor = nullptr;
