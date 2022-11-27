@@ -12,6 +12,7 @@ public:
 	Vago* my_vago;
 	Cucaracha* cucaracha;
 	Maleta* maleta;
+	GameEntity* maletaTapa;
 	Libro1* libro1;
 	Rail* rail;
 	Rail* padlock;

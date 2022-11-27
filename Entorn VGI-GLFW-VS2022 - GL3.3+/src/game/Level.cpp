@@ -154,9 +154,20 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Rail* railes = new Rail(trRail, new Model("./textures/tren_final/scene.gltf"), sh_programID);
 	Level::CURRENT_LEVEL.rail = railes;
 
+	Transform trMaletaTapa = Transform();
+	trMaletaTapa.position() = vec3(3.5f, 1.0f, 0);
+	trMaletaTapa.translate(vec3(0.7f, 0.2f, 0.1f));
+	trMaletaTapa.scale(vec3(0.02f));
+
+	GameEntity* maletaTapa = new GameEntity(trMaletaTapa, new Model("./textures/baul_tapa/untitled.obj"), sh_programID);
+
 	Transform trMaleta = Transform();
-	trMaleta.translate(vec3(0.7f, 0.2f, 0.4f));
-	trMaleta.scale(vec3(0.05f));
+	trMaleta.position() = vec3(3.5f, 1.0f, 0);
+	trMaleta.translate(vec3(0.7f, 0.2f, 0.1f));
+	trMaleta.scale(vec3(0.02f));
+
+	Maleta* maleta = new Maleta(trMaleta, new Model("./textures/baul_cuerpo/untitled.obj"), sh_programID, maletaTapa);
+
 
 	Maleta* maleta = new Maleta(trMaleta, new Model("./textures/baul_cuerpo/untitled.obj"), sh_programID);
 	

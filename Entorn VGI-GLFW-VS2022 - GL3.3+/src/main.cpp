@@ -3475,7 +3475,7 @@ int main(void)
 
 		if (c_pressed)
 		{
-			if (Camera::MAIN_CAMERA.position.z > 1) Camera::MAIN_CAMERA.position.z -= delta;
+			if (Camera::MAIN_CAMERA.position.z > 1) Camera::MAIN_CAMERA.position.z -= 2 * delta;
 		}
 		else if (Camera::MAIN_CAMERA.position.z < 1.8 && !Camera::MAIN_CAMERA.sit) Camera::MAIN_CAMERA.position.z += 2 * delta;
 		
