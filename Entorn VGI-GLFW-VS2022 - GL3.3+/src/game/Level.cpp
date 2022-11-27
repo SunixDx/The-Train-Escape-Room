@@ -213,5 +213,17 @@ void Level::MaybeSpawnSlender()
 	}
 }
 
+void Level::despawnSlender()
+{
+	// return to normal lighting
+	*llumAmbient = true;
+	*iFixe = false;
+
+	/*audio audio2;
+	//audio2.play2D("./media/light_flickering.wav", false, false);
+	audio2.play2D("./media/spooky_sound.wav", false, false);*/
+	padlock->my_enabled = false;
+}
+
 
 

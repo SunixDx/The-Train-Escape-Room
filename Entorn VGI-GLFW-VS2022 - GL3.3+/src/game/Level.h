@@ -26,4 +26,5 @@ public:
 
 
 	void MaybeSpawnSlender();
+	void despawnSlender();
 };
