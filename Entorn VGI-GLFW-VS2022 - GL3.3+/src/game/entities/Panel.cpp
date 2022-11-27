@@ -1,15 +1,14 @@
-#include "Maleta.h"
+#include "Panel.h"
 
-Maleta::Maleta(Transform transform, Model* model, GLuint shader_program_id, GameEntity* tapa) : GameEntity(transform, model, shader_program_id), my_aixecada(false)
+Panel::Panel(Transform transform, Model* model, GLuint shader_id) : GameEntity(transform, model, shader_id)
 {
-	my_tapa = tapa;
-	addChild(tapa);
+	my_model = model;
 
 	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.5), btScalar(.5), btScalar(.35))); //definir collider
 
 	btTransform groundTransform;
 	groundTransform.setIdentity();
-	groundTransform.setOrigin(btVector3(my_transform.position().x, my_transform.position().y, my_transform.position().z)); //posicion donde va el objeto
+	groundTransform.setOrigin(btVector3(my_transform.position().x, my_transform.position().y, my_transform.position().z));// + Vago::Z_OFFSET)); //posicion donde va el objeto
 
 	btScalar mass(0.);
 
@@ -33,14 +32,20 @@ Maleta::Maleta(Transform transform, Model* model, GLuint shader_program_id, Game
 	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body);
 }
 
-void Maleta::interact()
+void Panel::interact()
 {
-	std::cout << "HAS INTERACTUADO CON LA MALETA, ¡¡¡FELICIDADES!!!" << std::endl;
+	int contra;
 
-	if (my_aixecada)
-		my_tapa->my_transform.orientation().y -= 0.5f;
-	else 
-		my_tapa->my_transform.orientation().y += 0.5f;
+	std::cout << "INTRODUCE LA CONTRASEÑA:" << std::endl;
 
-	my_aixecada = !my_aixecada;
+	std::cin >> contra;
+
+	if (contra == 578)
+	{
+		std::cout << "CORRECTO!!" << std::endl;
+	}
+	else
+	{
+		std::cout << "ERROR, VUELVE A INTENTARLO" << std::endl;
+	}
 }

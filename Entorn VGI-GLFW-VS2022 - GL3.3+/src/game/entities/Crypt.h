@@ -8,10 +8,10 @@
 #include "InteractableEntity.h"
 #include "GameEntity.h"
 
-class Libro1: public GameEntity
+class Crypt: public GameEntity
 {
 public:
-	Libro1(Transform transform, Model* model_tancat, Model* model_obert, GLuint shader_id);
+	Crypt(Transform transform, Model* model, GLuint shader_id);
 
 	void interact();
 
@@ -20,7 +20,5 @@ private:
 
 	Model* my_model_obert;
 	Model* my_model_tancat;
-
-	bool abierto  = false;
 };
 

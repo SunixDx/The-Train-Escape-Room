@@ -1,15 +1,14 @@
-#include "Maleta.h"
+#include "Crypt.h"
 
-Maleta::Maleta(Transform transform, Model* model, GLuint shader_program_id, GameEntity* tapa) : GameEntity(transform, model, shader_program_id), my_aixecada(false)
+Crypt::Crypt(Transform transform, Model* model, GLuint shader_id) : GameEntity(transform, model, shader_id)
 {
-	my_tapa = tapa;
-	addChild(tapa);
+	my_model = model;
 
 	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.5), btScalar(.5), btScalar(.35))); //definir collider
 
 	btTransform groundTransform;
 	groundTransform.setIdentity();
-	groundTransform.setOrigin(btVector3(my_transform.position().x, my_transform.position().y, my_transform.position().z)); //posicion donde va el objeto
+	groundTransform.setOrigin(btVector3(my_transform.position().x, my_transform.position().y, my_transform.position().z));// + Vago::Z_OFFSET)); //posicion donde va el objeto
 
 	btScalar mass(0.);
 
@@ -33,14 +32,7 @@ Maleta::Maleta(Transform transform, Model* model, GLuint shader_program_id, Game
 	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body);
 }
 
-void Maleta::interact()
+void Crypt::interact()
 {
-	std::cout << "HAS INTERACTUADO CON LA MALETA, ¡¡¡FELICIDADES!!!" << std::endl;
 
-	if (my_aixecada)
-		my_tapa->my_transform.orientation().y -= 0.5f;
-	else 
-		my_tapa->my_transform.orientation().y += 0.5f;
-
-	my_aixecada = !my_aixecada;
 }

@@ -1,16 +1,15 @@
 #include "Libro1.h"
 
-Libro1::Libro1(Transform transform, Model* model, GLuint shader_program_id)
+Libro1::Libro1(Transform transform, Model* model_tancat, Model* model_obert, GLuint shader_id) : GameEntity(transform, model_tancat, shader_id)
 {
-	my_model = model;
-	my_transform = transform;
-	my_shader_program_id = shader_program_id;
+	my_model_obert = model_obert;
+	my_model_tancat = model_tancat;
 
 	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.5), btScalar(.5), btScalar(.35))); //definir collider
 
 	btTransform groundTransform;
 	groundTransform.setIdentity();
-	groundTransform.setOrigin(btVector3(my_transform.position.x, my_transform.position.y, my_transform.position.z));// + Vago::Z_OFFSET)); //posicion donde va el objeto
+	groundTransform.setOrigin(btVector3(my_transform.position().x, my_transform.position().y, my_transform.position().z));// + Vago::Z_OFFSET)); //posicion donde va el objeto
 
 	btScalar mass(0.);
 
@@ -36,7 +35,18 @@ Libro1::Libro1(Transform transform, Model* model, GLuint shader_program_id)
 
 void Libro1::interact()
 {
-	std::cout << "HAS INTERACTUADO CON LIBRO1, ¡¡¡FELICIDADES!!!" << std::endl;
-
-	my_transform.position.x += 0.5f; //movemos la mesa
+	if (!abierto)
+	{
+		my_model = my_model_obert;
+		abierto = true;
+		my_transform.rotate((PI / 6) * 3, vec3(1.0f, 0.0f, 0.0f));
+		std::cout << "HAS ABIERTO EL LIBRO" << std::endl;
+	}
+	else
+	{
+		my_model = my_model_tancat;
+		abierto = false;
+		my_transform.rotate((PI / 6) * -3, vec3(1.0f, 0.0f, 0.0f));
+		std::cout << "HAS CERRADO EL LIBRO" << std::endl;
+	}
 }
