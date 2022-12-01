@@ -54,22 +54,28 @@ void Camera::syncColliders()
 }
 void Camera::sitDown(const Seient* seient)
 {
-	SAVE_CAMERA = MAIN_CAMERA;
+	if (!sit)
+		SAVE_CAMERA = MAIN_CAMERA;
+
 	MAIN_CAMERA.sit = true;
 	MAIN_CAMERA.position.x = seient->my_transform.position().x;
 	MAIN_CAMERA.position.y = seient->my_transform.position().y;
 	MAIN_CAMERA.position.z = 1.25;
 	//TODO angle things
+
+	my_rigid_body->setCollisionFlags(my_rigid_body->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
 }
 
 void Camera::standUp()
 {
 	SAVE_CAMERA.horizontal_angle = MAIN_CAMERA.horizontal_angle;
 	SAVE_CAMERA.vertical_angle = MAIN_CAMERA.vertical_angle;
+
 	MAIN_CAMERA = SAVE_CAMERA;
 	MAIN_CAMERA.sit = false;
 	Level::CURRENT_LEVEL.despawnSlender();
 	
+	my_rigid_body->setCollisionFlags(my_rigid_body->getCollisionFlags() & ~btCollisionObject::CF_NO_CONTACT_RESPONSE);
 }
 
 /*

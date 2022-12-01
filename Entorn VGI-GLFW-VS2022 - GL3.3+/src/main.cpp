@@ -3541,9 +3541,13 @@ int main(void)
 		btTransform trans;
 		Camera::MAIN_CAMERA.my_rigid_body->getMotionState()->getWorldTransform(trans);
 
-		Camera::MAIN_CAMERA.position.x = trans.getOrigin().getX();
-		Camera::MAIN_CAMERA.position.y = trans.getOrigin().getY();
-		//Camera::MAIN_CAMERA.position.z = trans.getOrigin().getZ();
+		if (!Camera::MAIN_CAMERA.sit)
+		{
+			Camera::MAIN_CAMERA.position.x = trans.getOrigin().getX();
+			Camera::MAIN_CAMERA.position.y = trans.getOrigin().getY();
+			//Camera::MAIN_CAMERA.position.z = trans.getOrigin().getZ();
+		}
+
 
 
 
