@@ -15,19 +15,26 @@ void Camera::setupColliders()
 	groundTransform.setIdentity();
 	groundTransform.setOrigin(btVector3(position.x, position.y, position.z));
 
-	btScalar mass(0.);
+	btScalar mass(1.);
 
 	//rigidbody is dynamic if and only if mass is non zero, otherwise static
+	
+	/*
 	bool isDynamic = (mass != 0.f);
 
 	btVector3 localInertia(0, 0, 0);
 	if (isDynamic)
 		groundShape->calculateLocalInertia(mass, localInertia);
+	*/
+
+	btVector3 localInertia(0, 0, 0);
+	//groundShape->calculateLocalInertia(mass, localInertia);
 
 	//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
 	btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
 	btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
 	btRigidBody* body = new btRigidBody(rbInfo);
+	body->setGravity(btVector3(0, 0, 0));
 
 	body->setUserPointer(this);
 	my_rigid_body = body;

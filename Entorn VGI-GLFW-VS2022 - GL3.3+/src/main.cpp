@@ -3004,6 +3004,8 @@ void APIENTRY glDebugOutput(GLenum source, GLenum type, GLuint id, GLenum severi
 
 int main(void)
 {
+	irrklang::ISoundEngine* soundEngine = irrklang::createIrrKlangDevice();;
+
 	if (!soundEngine)
 	{
 		cout << "Could not startup irrKlang engine" << endl;
@@ -3496,39 +3498,53 @@ int main(void)
 			steps->setIsPaused(true);
 		}
 
-		if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed * delta;
-		if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed * delta;
-		if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed * delta;
-		if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed * delta;
+		btVector3 velocity(0, 0, 0);
+		
+		if (w_pressed)
+		{
+			velocity.setX(velocity.x() + direction.x * Camera::MAIN_CAMERA.move_speed);
+			velocity.setY(velocity.y() + direction.y * Camera::MAIN_CAMERA.move_speed);
+		}
+		if (s_pressed)
+		{
+			velocity.setX(velocity.x() - direction.x * Camera::MAIN_CAMERA.move_speed);
+			velocity.setY(velocity.y() - direction.y * Camera::MAIN_CAMERA.move_speed);
+		}
 
+		if (a_pressed)
+		{
+			velocity.setX(velocity.x() + left.x * Camera::MAIN_CAMERA.move_speed);
+			velocity.setY(velocity.y() + left.y * Camera::MAIN_CAMERA.move_speed);
+		}
+		if (d_pressed)
+		{
+			velocity.setX(velocity.x() - left.x * Camera::MAIN_CAMERA.move_speed);
+			velocity.setY(velocity.y() - left.y * Camera::MAIN_CAMERA.move_speed);
+		}
+		
 		if (c_pressed)
 		{
 			if (Camera::MAIN_CAMERA.position.z > 1) Camera::MAIN_CAMERA.position.z -= 2 * delta;
 		}
-		else if (Camera::MAIN_CAMERA.position.z < 1.8 && !Camera::MAIN_CAMERA.sit) Camera::MAIN_CAMERA.position.z += 0.1;
-		
-		Camera::MAIN_CAMERA.syncColliders();
-		BulletWorld::WORLD->performCollisionDetection();
-		auto collision = BulletWorld::WORLD->testCollision(Camera::MAIN_CAMERA.my_rigid_body);
-		bool collides = get<0>(collision);
-		if (collides)
+		else if (Camera::MAIN_CAMERA.position.z < 1.8 && !Camera::MAIN_CAMERA.sit)
 		{
-			btVector3 bt_direction = get<1>(collision);
-
-			std::cout << "bt_direction (" << bt_direction.x() << ", " << bt_direction.y() << ", " << bt_direction.z() << ")" << std::endl;
-
-			glm::vec3 col_direction = glm::normalize(glm::vec3(bt_direction.x(), bt_direction.y(), 0));
-			
-			direction = direction - col_direction;
-			left = left - direction;
-
-			Camera::MAIN_CAMERA.position = old_position;
-
-			if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed * delta;
-			if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed * delta;
-			if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed * delta;
-			if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed * delta;
+			Camera::MAIN_CAMERA.position.z += 2 * delta;
 		}
+
+		Camera::MAIN_CAMERA.my_rigid_body->activate();
+		Camera::MAIN_CAMERA.my_rigid_body->setGravity({0, 0, 0});
+		Camera::MAIN_CAMERA.my_rigid_body->setLinearVelocity(velocity);
+
+		Camera::MAIN_CAMERA.syncColliders();
+		BulletWorld::WORLD->simulate(delta);
+		
+		btTransform trans;
+		Camera::MAIN_CAMERA.my_rigid_body->getMotionState()->getWorldTransform(trans);
+
+		Camera::MAIN_CAMERA.position.x = trans.getOrigin().getX();
+		Camera::MAIN_CAMERA.position.y = trans.getOrigin().getY();
+		//Camera::MAIN_CAMERA.position.z = trans.getOrigin().getZ();
+
 
 
 // Crida a OnPaint() per redibuixar l'escena

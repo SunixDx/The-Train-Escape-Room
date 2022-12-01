@@ -49,6 +49,11 @@ void* BulletWorld::rayCast(glm::vec3 origin, glm::vec3 direction, float distance
 	}
 }
 
+void BulletWorld::simulate(btScalar timeStep)
+{
+	my_dynamics_world->stepSimulation(timeStep);
+}
+
 void BulletWorld::performCollisionDetection()
 {
 	my_dynamics_world->performDiscreteCollisionDetection();
