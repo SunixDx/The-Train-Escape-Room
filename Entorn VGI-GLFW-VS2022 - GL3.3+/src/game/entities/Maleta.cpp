@@ -1,10 +1,9 @@
 #include "Maleta.h"
 
-Maleta::Maleta(Transform transform, Model* model, GLuint shader_program_id)
+Maleta::Maleta(Transform transform, Model* model, GLuint shader_program_id, GameEntity* tapa) : GameEntity(transform, model, shader_program_id), my_aixecada(false)
 {
-	my_model = model;
-	my_transform = transform;
-	my_shader_program_id = shader_program_id;
+	my_tapa = tapa;
+	addChild(tapa);
 
 	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.5), btScalar(.5), btScalar(.35))); //definir collider
 
@@ -38,5 +37,10 @@ void Maleta::interact()
 {
 	std::cout << "HAS INTERACTUADO CON LA MALETA, ¡¡¡FELICIDADES!!!" << std::endl;
 
-	my_transform.orientation().x += 0.5f; //movemos la mesa
+	if (my_aixecada)
+		my_tapa->my_transform.orientation().y -= 0.5f;
+	else 
+		my_tapa->my_transform.orientation().y += 0.5f;
+
+	my_aixecada = !my_aixecada;
 }

@@ -20,10 +20,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\escena.cpp" />
+    <ClCompile Include="..\src\game\audio\AudioFunctions.cpp" />
     <ClCompile Include="..\src\game\entities\Crosshair.cpp" />
+    <ClCompile Include="..\src\game\entities\Crypt.cpp" />
     <ClCompile Include="..\src\game\entities\Cucaracha.cpp" />
+    <ClCompile Include="..\src\game\entities\Libro1.cpp" />
     <ClCompile Include="..\src\game\entities\Maleta.cpp" />
     <ClCompile Include="..\src\game\entities\GameEntity.cpp" />
+    <ClCompile Include="..\src\game\entities\Panel.cpp" />
     <ClCompile Include="..\src\game\entities\Rail.cpp" />
     <ClCompile Include="..\src\game\entities\Seient.cpp" />
     <ClCompile Include="..\src\game\entities\Taula.cpp" />
@@ -48,11 +52,15 @@
   <ItemGroup>
     <ClInclude Include="..\src\constants.h" />
     <ClInclude Include="..\src\escena.h" />
+    <ClInclude Include="..\src\game\audio\AudioFunctions.h" />
     <ClInclude Include="..\src\game\entities\Crosshair.h" />
+    <ClInclude Include="..\src\game\entities\Crypt.h" />
     <ClInclude Include="..\src\game\entities\Cucaracha.h" />
     <ClInclude Include="..\src\game\entities\GameEntity.h" />
     <ClInclude Include="..\src\game\entities\InteractableEntity.h" />
+    <ClInclude Include="..\src\game\entities\Libro1.h" />
     <ClInclude Include="..\src\game\entities\Maleta.h" />
+    <ClInclude Include="..\src\game\entities\Panel.h" />
     <ClInclude Include="..\src\game\entities\Rail.h" />
     <ClInclude Include="..\src\game\entities\Seient.h" />
     <ClInclude Include="..\src\game\entities\Taula.h" />

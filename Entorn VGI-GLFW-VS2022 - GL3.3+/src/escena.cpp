@@ -447,20 +447,23 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		
 		Level::CURRENT_LEVEL.padlock->mostrar(MatriuVista, MatriuTG); //slenderman
 		
-		//Level::CURRENT_LEVEL.maleta->mostrar(MatriuVista, MatriuTG);
-		//Level::CURRENT_LEVEL.libro1->mostrar(MatriuVista, MatriuTG);
-
+		Level::CURRENT_LEVEL.maleta->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.maletaTapa->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.libro1->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.crypt->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.panel->mostrar(MatriuVista, MatriuTG);
 		
+		Shader::UI.Use();
+
 		Shader::UI.setMatrix4fv("normalMatrix", mat4(1.0f));
 		Shader::UI.setMatrix4fv("viewMatrix", mat4(1.0f));
 		Shader::UI.setMatrix4fv("modelMatrix", mat4(1.0f));
 		
 
-		Shader::UI.Use();
 		
 
 		Transform trc = Transform::blank();
-		trc.scale(0.025f);
+		trc.scale(0.04f);
 
 
 		Mesh::CROSSHAIR->Draw(MatriuVista, MatriuTG, trc, Shader::UI.programID);

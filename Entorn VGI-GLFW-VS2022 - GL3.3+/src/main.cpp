@@ -17,11 +17,7 @@
 #include "game/Level.h"
 
 #include <bullet/btBulletDynamicsCommon.h>
-
 #include <irrKlang/irrKlang.h>
-
-// start the sound engine with default parameters
-irrklang::ISoundEngine* soundEngine = irrklang::createIrrKlangDevice();
 
 void InitGL()
 {
@@ -3018,7 +3014,7 @@ int main(void)
 		// play some sound stream, looped
 		irrklang::ISound* snd = soundEngine->play2D("../EntornVGI/media/movingTrain.mp3", true);
 		//soundEngine->setSoundVolume(irrklang::ik_f32(0.02)); //cambiar volumen
-	}	
+	}
 
 	///-----includes_end-----
 
@@ -3437,7 +3433,25 @@ int main(void)
 	Model::BACKPACK = new Model(path); //crear nuevo modelo
 
 	std::cout << "shader ID:" << shaderGouraud.getProgramID() << std::endl;
+	
 	Level::buildFirstLevel(shaderGouraud.getProgramID());
+	Level::CURRENT_LEVEL.llumAmbient = &llum_ambient;
+	Level::CURRENT_LEVEL.iFixe = &ifixe;
+
+	Audio::Audio();
+	irrklang::ISound* backgroundSound = Audio::AUDIO_FUNCTIONS.play2D("./media/movingTrain.mp3", true, true);
+	if (!backgroundSound)
+	{
+		std::cout << "Could not play sound" << std::endl;
+	}
+	else
+	{
+		if (backgroundSound->getIsPaused()) {
+			backgroundSound->setVolume(0.25f);
+			backgroundSound->setIsPaused(false);
+		}
+	}
+
 // Loop until the user closes the window
 
 	irrklang::ISound* steps = soundEngine->play2D("../EntornVGI/media/Footsteps.mp3", true, true, true);
@@ -3489,7 +3503,7 @@ int main(void)
 
 		if (c_pressed)
 		{
-			if (Camera::MAIN_CAMERA.position.z > 1) Camera::MAIN_CAMERA.position.z -= 0.05;
+			if (Camera::MAIN_CAMERA.position.z > 1) Camera::MAIN_CAMERA.position.z -= 2 * delta;
 		}
 		else if (Camera::MAIN_CAMERA.position.z < 1.8 && !Camera::MAIN_CAMERA.sit) Camera::MAIN_CAMERA.position.z += 0.1;
 		
@@ -3552,7 +3566,11 @@ int main(void)
 	// next example for an explanation)
 	// The object is deleted simply by calling ->drop().
 
-	soundEngine->drop(); // delete engine
+	if (backgroundSound) {
+		backgroundSound->drop();
+	}
+	
+	//audio.~audio();
 
     return 0;
 }
