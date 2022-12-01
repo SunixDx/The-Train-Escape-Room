@@ -1,6 +1,5 @@
 #include "Level.h"
 #include "../src/game/graphics/Model.h"
-#include "audio/AudioFunctions.h"
 
 Level Level::CURRENT_LEVEL;
 
@@ -229,7 +228,6 @@ void Level::MaybeSpawnSlender()
 		*iFixe = true;
 
 		// Reproduir audio
-		//audio2.play2D("./media/light_flickering.wav", false, false);
 		Audio::AUDIO_FUNCTIONS.play2D("./media/spooky_sound.wav", false, false);
 
 		// Mostrar slenderman

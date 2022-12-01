@@ -7,6 +7,7 @@
 #include "entities/Crypt.h"
 #include "entities/Panel.h"
 #include "entities/Rail.h"
+#include "audio/AudioFunctions.h"
 
 class Level {
 public:

@@ -3425,7 +3425,7 @@ int main(void)
 	Level::CURRENT_LEVEL.iFixe = &ifixe;
 
 	Audio::Audio();
-	irrklang::ISound* backgroundSound = Audio::AUDIO_FUNCTIONS.play2D("./media/movingTrain.mp3", true, true);
+	/*irrklang::ISound* backgroundSound = Audio::AUDIO_FUNCTIONS.play2D("./media/movingTrain.mp3", true, true);
 	if (!backgroundSound)
 	{
 		std::cout << "Could not play sound" << std::endl;
@@ -3436,7 +3436,7 @@ int main(void)
 			backgroundSound->setVolume(0.25f);
 			backgroundSound->setIsPaused(false);
 		}
-	}
+	}*/
 
 // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))
@@ -3459,6 +3459,8 @@ int main(void)
 			sin(Camera::MAIN_CAMERA.horizontal_angle),
 			0
 		));
+		
+		Audio::AUDIO_FUNCTIONS.UpdateListenerConfig(direction);
 
 		glm::vec3 left = glm::normalize(glm::vec3(
 			cos(Camera::MAIN_CAMERA.horizontal_angle + PI / 2),
@@ -3538,9 +3540,9 @@ int main(void)
 	// next example for an explanation)
 	// The object is deleted simply by calling ->drop().
 
-	if (backgroundSound) {
+	/*if (backgroundSound) {
 		backgroundSound->drop();
-	}
+	}*/
 	
 	//audio.~audio();
 

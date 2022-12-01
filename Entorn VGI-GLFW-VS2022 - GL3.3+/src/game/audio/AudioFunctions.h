@@ -1,5 +1,8 @@
+#pragma once
 #include <irrKlang/irrKlang.h>
 #include <iostream>
+
+#include "../graphics/Camera.h"
 
 class Audio
 {
@@ -15,6 +18,9 @@ public:
 	}
 
 	irrklang::ISound* play2D(const char* path, bool looped, bool startPaused);
+	irrklang::ISound* play3D(const char* path, irrklang::vec3df position, bool looped, bool startPaused);
+
+	void UpdateListenerConfig(vec3 direction);
 
 	static Audio AUDIO_FUNCTIONS;
 private:
