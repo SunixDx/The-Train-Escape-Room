@@ -852,7 +852,7 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		if (key == GLFW_KEY_D) d_pressed = true;
 
 		std::cout << "MOVING" << std::endl;
-		soundEngine->play2D("../EntornVGI/media/Footsteps.mp3");
+		//soundEngine->play2D("../EntornVGI/media/Footsteps.mp3");
 		std::cout << "NOT MOVING" << std::endl;
 
 		if (key == GLFW_KEY_C) c_pressed = true;
@@ -863,7 +863,7 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_RELEASE)
 	{
-		soundEngine->removeSoundSource("../EntornVGI/media/Footsteps.mp3");
+		//soundEngine->removeSoundSource("../EntornVGI/media/Footsteps.mp3");
 		if (key == GLFW_KEY_W) w_pressed = false;
 		if (key == GLFW_KEY_S) s_pressed = false;
 		if (key == GLFW_KEY_A) a_pressed = false;
@@ -3016,7 +3016,7 @@ int main(void)
 		// To play a sound, we only to call play2D(). The second parameter
 		// tells the engine to play it looped.
 		// play some sound stream, looped
-		soundEngine->play2D("../EntornVGI/media/movingTrain.mp3", true);
+		irrklang::ISound* snd = soundEngine->play2D("../EntornVGI/media/movingTrain.mp3", true);
 		//soundEngine->setSoundVolume(irrklang::ik_f32(0.02)); //cambiar volumen
 	}	
 
@@ -3439,6 +3439,11 @@ int main(void)
 	std::cout << "shader ID:" << shaderGouraud.getProgramID() << std::endl;
 	Level::buildFirstLevel(shaderGouraud.getProgramID());
 // Loop until the user closes the window
+
+	irrklang::ISound* steps = soundEngine->play2D("../EntornVGI/media/Footsteps.mp3", true, true, true);
+	if (!steps)
+		cout << "Error al crear el so" << endl;
+
     while (!glfwWindowShouldClose(window))
     {  
 // Poll for and process events */
@@ -3467,6 +3472,15 @@ int main(void)
 		));
 
 		vec3 old_position = Camera::MAIN_CAMERA.position;
+
+		if (w_pressed || s_pressed || d_pressed || a_pressed)
+		{
+			steps->setIsPaused(false);
+		}
+		else
+		{
+			steps->setIsPaused(true);
+		}
 
 		if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed * delta;
 		if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed * delta;
