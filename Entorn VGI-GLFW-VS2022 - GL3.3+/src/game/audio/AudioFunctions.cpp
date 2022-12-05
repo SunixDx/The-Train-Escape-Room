@@ -12,6 +12,21 @@ irrklang::ISound* Audio::play3D(const char* path, irrklang::vec3df position, boo
 	return engine->play3D(path, position, looped, startPaused, true);
 }
 
+void Audio::setVolume(irrklang::ISound* snd, irrklang::ik_f32 volume)
+{
+	snd->setVolume(volume);
+}
+
+void Audio::pause_or_unpause(irrklang::ISound* snd)
+{
+	if (snd->getIsPaused()) {
+		snd->setIsPaused(false);
+	}
+	else {
+		snd->setIsPaused(true);
+	}
+}
+
 void Audio::UpdateListenerConfig(vec3 direction)
 {
 	// position of the listener

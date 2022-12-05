@@ -7,6 +7,7 @@
 #include "../physics/BulletWorld.h"
 #include "InteractableEntity.h"
 #include "GameEntity.h"
+#include "../audio/AudioFunctions.h"
 
 class Maleta : public GameEntity
 {

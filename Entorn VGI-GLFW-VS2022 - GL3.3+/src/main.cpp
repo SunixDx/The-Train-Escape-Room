@@ -3424,7 +3424,6 @@ int main(void)
 	Level::CURRENT_LEVEL.llumAmbient = &llum_ambient;
 	Level::CURRENT_LEVEL.iFixe = &ifixe;
 
-	Audio::Audio();
 	/*irrklang::ISound* backgroundSound = Audio::AUDIO_FUNCTIONS.play2D("./media/movingTrain.mp3", true, true);
 	if (!backgroundSound)
 	{
@@ -3437,6 +3436,9 @@ int main(void)
 			backgroundSound->setIsPaused(false);
 		}
 	}*/
+
+	irrklang::ISound* footsteps = Audio::AUDIO_FUNCTIONS.play2D("./media/footsteps.mp3", true, true);
+	footsteps->setVolume(5.0f);
 
 // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))
@@ -3475,6 +3477,20 @@ int main(void)
 		if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed * delta;
 		if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed * delta;
 
+		if (w_pressed || s_pressed || a_pressed || d_pressed) {
+			if (footsteps) {
+				if (footsteps->getIsPaused())
+					footsteps->setIsPaused(false);
+			}
+		}
+		else {
+			if (footsteps) {
+				if (!footsteps->getIsPaused()) {
+					footsteps->setIsPaused(true);
+				}
+			}
+		}
+
 		if (c_pressed)
 		{
 			if (Camera::MAIN_CAMERA.position.z > 1) Camera::MAIN_CAMERA.position.z -= 2 * delta;
@@ -3503,7 +3519,6 @@ int main(void)
 			if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed * delta;
 			if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed * delta;
 		}
-
 
 // Crida a OnPaint() per redibuixar l'escena
 		OnPaint(window);
@@ -3544,7 +3559,7 @@ int main(void)
 		backgroundSound->drop();
 	}*/
 	
-	//audio.~audio();
+	Audio::AUDIO_FUNCTIONS.~Audio();
 
     return 0;
 }

@@ -228,7 +228,9 @@ void Level::MaybeSpawnSlender()
 		*iFixe = true;
 
 		// Reproduir audio
-		Audio::AUDIO_FUNCTIONS.play2D("./media/spooky_sound.wav", false, false);
+		irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play2D("./media/spooky_sound.wav", false, true);
+		Audio::AUDIO_FUNCTIONS.setVolume(snd, 0.1f);
+		Audio::AUDIO_FUNCTIONS.pause_or_unpause(snd);
 
 		// Mostrar slenderman
 		padlock->my_enabled = true;

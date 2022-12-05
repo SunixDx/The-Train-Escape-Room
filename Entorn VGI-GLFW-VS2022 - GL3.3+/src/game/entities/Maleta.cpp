@@ -37,6 +37,11 @@ void Maleta::interact()
 {
 	std::cout << "HAS INTERACTUADO CON LA MALETA, ¡¡¡FELICIDADES!!!" << std::endl;
 
+	irrklang::vec3df position(my_transform.position().x, my_transform.position().y, my_transform.position().z);
+	irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/briefcase.wav", position, false, true);
+	Audio::AUDIO_FUNCTIONS.setVolume(snd, 2.0f);
+	Audio::AUDIO_FUNCTIONS.pause_or_unpause(snd);
+
 	if (my_aixecada)
 		my_tapa->my_transform.orientation().y -= 0.5f;
 	else 
