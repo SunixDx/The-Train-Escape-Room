@@ -74,7 +74,7 @@ void Camera::standUp()
 	MAIN_CAMERA = SAVE_CAMERA;
 	MAIN_CAMERA.sit = false;
 	Level::CURRENT_LEVEL.despawnSlender();
-	
+
 	my_rigid_body->setCollisionFlags(my_rigid_body->getCollisionFlags() & ~btCollisionObject::CF_NO_CONTACT_RESPONSE);
 }
 

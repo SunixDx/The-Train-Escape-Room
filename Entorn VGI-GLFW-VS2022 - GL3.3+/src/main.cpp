@@ -2481,7 +2481,10 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 
 			InteractableEntity* euc = Level::CURRENT_LEVEL.my_entity_under_cursor; 
 			if (euc) //si hay algo bajo el cursor
-				euc->interact(); //ejecutamos interact
+			{
+				if (euc->is_interactable())
+					euc->interact(); //ejecutamos interact
+			}	
 		}
 // OnLButtonUp: Funciï¿½ que es crida quan deixem d'apretar el botï¿½ esquerra del mouse.
 	else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
@@ -3440,7 +3443,6 @@ int main(void)
 	Level::CURRENT_LEVEL.llumAmbient = &llum_ambient;
 	Level::CURRENT_LEVEL.iFixe = &ifixe;
 
-	Audio::Audio();
 	irrklang::ISound* backgroundSound = Audio::AUDIO_FUNCTIONS.play2D("./media/movingTrain.mp3", true, true);
 	if (!backgroundSound)
 	{

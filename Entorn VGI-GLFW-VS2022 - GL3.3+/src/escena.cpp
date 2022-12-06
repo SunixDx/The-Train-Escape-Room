@@ -481,6 +481,11 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 
 		Level::CURRENT_LEVEL.my_entity_under_cursor = interactable; //lo guardamos
 
+		if (Level::CURRENT_LEVEL.my_entity_under_cursor)
+		{
+			// TODO: cambiar cursor
+		}
+
 		glDisable(GL_BLEND);
 	}
 

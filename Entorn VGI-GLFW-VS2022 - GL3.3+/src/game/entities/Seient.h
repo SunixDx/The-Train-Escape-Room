@@ -2,10 +2,10 @@
 #include "../src/stdafx.h"
 #include "../graphics/Transform.h"
 #include "../graphics/Mesh.h"
-#include "GameEntity.h"
+#include "InteractableEntity.h"
 #include <bullet/btBulletDynamicsCommon.h>
 
-class Seient : public GameEntity
+class Seient : public InteractableEntity
 {
 public:
 	Seient(Transform transform, Model* model, GLuint shader_program_id);
