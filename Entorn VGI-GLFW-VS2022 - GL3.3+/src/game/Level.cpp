@@ -201,6 +201,33 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Rail* padlock = new Rail(trPadlock, new Model("./textures/slenderman/scene.gltf"), sh_programID);
 	padlock->my_enabled = false;
 
+
+	//exterior tren
+	Transform trExterior = Transform();
+	trExterior.position() = vec3(0.0f, 0.0f, 50.0f);
+	trExterior.scale() = vec3(0.2f);
+
+	trExterior.rotate(glm::pi<float>()/2, vec3(0.0f, 0.0f, 1.0f));
+	trExterior.rotate(glm::pi<float>() /2, vec3(1.0f, 0.0f, 0.0f));
+
+	Rail* exterior = new Rail(trExterior, new Model("./textures/tren_exterior/scene.gltf"), sh_programID);
+
+	//megafono
+	Transform trMegafono = Transform();
+	trMegafono.position() = vec3(9.08f, 0.0f, 2.5f);
+	trMegafono.scale() = vec3(1.6f);
+
+	trMegafono.rotate(glm::pi<float>() / 2, vec3(0.0f, 0.0f, 1.0f));
+	//trMegafono.rotate((3*glm::pi<float>() / 4), vec3(1.0f, 0.0f, 0.0f));
+	trMegafono.rotate((glm::pi<float>() / 5), vec3(0.0f, -1.0f, 0.0f));
+	//trMegafono.rotate(-(3*glm::pi<float>() / 4), vec3(1.0f, 0.0f, 0.0f));
+	//trMegafono.rotate(-(3 * glm::pi<float>() / 4), vec3(0.0f, 0.0f, 1.0f));
+	Rail* megafono = new Rail(trMegafono, new Model("./textures/megafono/scene.gltf"), sh_programID);
+
+
+
+
+
 	Level::CURRENT_LEVEL.padlock = padlock;
 
 	Level::CURRENT_LEVEL.my_vago = vago;
@@ -210,6 +237,8 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Level::CURRENT_LEVEL.crypt = crypt;
 	Level::CURRENT_LEVEL.panel = panel;
 	Level::CURRENT_LEVEL.my_entity_under_cursor = nullptr;
+	Level::CURRENT_LEVEL.megaphone = megafono;
+	Level::CURRENT_LEVEL.exterior_tren = exterior;
 }
 
 void Level::MaybeSpawnSlender()

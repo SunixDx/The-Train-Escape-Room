@@ -20,6 +20,8 @@ public:
 	Rail* padlock;
 	Crypt* crypt;
 	Panel* panel;
+	Rail* exterior_tren;
+	Rail* megaphone;
 
 	//llums
 	bool* llumAmbient;
