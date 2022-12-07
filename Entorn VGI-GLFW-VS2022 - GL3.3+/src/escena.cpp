@@ -23,6 +23,7 @@
 #include "game/graphics/Model.h"
 #include "game/graphics/Camera.h"
 #include "game/Level.h"
+#include "game/ui/UI.h"
 
 #include <iostream>
 
@@ -462,14 +463,13 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		Shader::UI.setMatrix4fv("modelMatrix", mat4(1.0f));
 		
 
-		
+		UI::instance.mostrar(Shader::UI);
 
+		/*
 		Transform trc = Transform::blank();
 		trc.scale(0.04f);
-
-
 		Mesh::CROSSHAIR->Draw(MatriuVista, MatriuTG, trc, Shader::UI.programID);
-
+		*/
 
 		glm::vec3 out_origin(Camera::MAIN_CAMERA.position.x, Camera::MAIN_CAMERA.position.y, Camera::MAIN_CAMERA.position.z); //desde donde sale el raycast
 		//direccion del raycast

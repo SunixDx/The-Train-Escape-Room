@@ -15,6 +15,7 @@
 #include "game/graphics/Model.h"
 #include "game/graphics/Camera.h"
 #include "game/Level.h"
+#include "game/ui/UI.h"
 
 #include <bullet/btBulletDynamicsCommon.h>
 #include <irrKlang/irrKlang.h>
@@ -3425,14 +3426,16 @@ int main(void)
 	};
 
 	Texture texture;
-	texture.id = TextureFromFile("crosshair.png", "./textures", false);
+	texture.id = TextureFromFile("circle.png", "./textures", false);
 	texture.type = "texture_diffuse";
-	texture.path = "./textures/crosshair.png";
-	std::vector<Texture> plane_textures = {
-		texture,
-	};
+	texture.path = "./textures/circle.png";
 
-	Mesh::CROSSHAIR = new Mesh(plane_vertices, plane_indices, plane_textures);
+	Transform crosshair_transform = Transform::blank();
+	crosshair_transform.scale(0.025);
+
+	UI::instance.elements.push_back(new UIElement(crosshair_transform, texture));
+
+	//Mesh::CROSSHAIR = new Mesh(plane_vertices, plane_indices, plane_textures);
 
 	string path = "./textures/maya/maya.obj"; //ruta del objeto
 	Model::BACKPACK = new Model(path); //crear nuevo modelo

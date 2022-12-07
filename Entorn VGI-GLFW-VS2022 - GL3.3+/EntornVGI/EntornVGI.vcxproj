@@ -40,8 +40,10 @@
     <ClCompile Include="..\src\game\graphics\Vertex.cpp" />
     <ClCompile Include="..\src\game\Level.cpp" />
     <ClCompile Include="..\src\game\physics\BulletWorld.cpp" />
+    <ClCompile Include="..\src\game\ui\InteractionIndicator.cpp" />
     <ClCompile Include="..\src\game\ui\Transform2D.cpp" />
     <ClCompile Include="..\src\game\ui\UI.cpp" />
+    <ClCompile Include="..\src\game\ui\UIElement.cpp" />
     <ClCompile Include="..\src\glut_geometry.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\material.cpp" />
@@ -73,6 +75,7 @@
     <ClInclude Include="..\src\game\graphics\Vertex.h" />
     <ClInclude Include="..\src\game\Level.h" />
     <ClInclude Include="..\src\game\physics\BulletWorld.h" />
+    <ClInclude Include="..\src\game\ui\InteractionIndicator.h" />
     <ClInclude Include="..\src\game\ui\Transform2D.h" />
     <ClInclude Include="..\src\game\ui\UI.h" />
     <ClInclude Include="..\src\game\ui\UIElement.h" />
