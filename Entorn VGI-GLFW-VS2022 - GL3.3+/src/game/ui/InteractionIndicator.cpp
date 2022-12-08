@@ -22,6 +22,11 @@ void InteractionIndicator::change_indicator(InteractionType type)
 	}
 }
 
+void InteractionIndicator::remove_indicator()
+{
+	my_children.clear();
+}
+
 InteractionIndicator& InteractionIndicator::set_sit_indicator(UIElement* indicator)
 {
 	sit_indicator = indicator;

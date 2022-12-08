@@ -13,6 +13,7 @@ public:
 	}
 
 	void change_indicator(InteractionType type);
+	void remove_indicator();
 
 	InteractionIndicator& set_sit_indicator(UIElement* indicator);
 	InteractionIndicator& set_open_close_indicator(UIElement* indicator);

@@ -3436,11 +3436,11 @@ int main(void)
 	Texture texture_close_up = LoadTexture("./textures/ui_assets", "aproparse.png", "texture_diffuse");
 
 	Transform transform_sit = Transform();
-	transform_sit.scale({1, 0.5, 1});
+	transform_sit.scale({0.4, 0.05, 1});
 	Transform transform_open_close = Transform();
-	transform_open_close.scale({ 1, 0.5, 1 });
+	transform_open_close.scale({ 0.4, 0.05, 1 });
 	Transform transform_close_up = Transform();
-	transform_close_up.scale({ 1, 0.5, 1 });
+	transform_close_up.scale({ 0.4, 0.05, 1 });
 
 	Transform indicator_transform = Transform::blank();
 	indicator_transform.scale(1);

@@ -24,6 +24,7 @@
 #include "game/graphics/Camera.h"
 #include "game/Level.h"
 #include "game/ui/UI.h"
+#include "game/ui/InteractionIndicator.h"
 
 #include <iostream>
 
@@ -481,11 +482,16 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		
 		InteractableEntity* interactable = (InteractableEntity*)BulletWorld::WORLD->rayCast(out_origin, out_direction, 1.8); //lanza el rayo y devuelve el objeto que ha tocado, si no hay objeto devuelve NULL
 
-		Level::CURRENT_LEVEL.my_entity_under_cursor = interactable; //lo guardamos
-
-		if (Level::CURRENT_LEVEL.my_entity_under_cursor)
+		if (Level::CURRENT_LEVEL.my_entity_under_cursor != interactable)
 		{
-			// TODO: cambiar cursor
+			Level::CURRENT_LEVEL.my_entity_under_cursor = interactable; //lo guardamos
+			if (interactable != nullptr)
+			{
+				if (interactable->is_interactable())
+					InteractionIndicator::instance.change_indicator(interactable->interaction_type());
+			}
+			else
+				InteractionIndicator::instance.remove_indicator();
 		}
 
 		glDisable(GL_BLEND);

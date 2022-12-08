@@ -25,7 +25,7 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="4.2179991"
-     inkscape:cx="375.53351"
+     inkscape:cx="347.20254"
      inkscape:cy="163.58467"
      inkscape:window-width="1920"
      inkscape:window-height="1017"
@@ -44,7 +44,10 @@
        style="font-size:5.57162px;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
        x="85.469948"
        y="40.160141"
-       id="text113"><tspan
+       id="text113"
+       inkscape:export-filename="obrir_tancar.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
          id="tspan111"
          style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
@@ -55,7 +58,10 @@
        style="font-size:5.57162px;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
        x="89.681038"
        y="48.974541"
-       id="text113-9"><tspan
+       id="text113-9"
+       inkscape:export-filename="aproparse.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
          id="tspan111-5"
          style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
@@ -75,7 +81,10 @@
        style="font-size:5.57162px;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
        x="96.103172"
        y="57.254528"
-       id="text113-9-3"><tspan
+       id="text113-9-3"
+       inkscape:export-filename="seure.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
          id="tspan111-5-1"
          style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.265;stroke-dasharray:none;stroke-opacity:1"
