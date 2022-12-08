@@ -124,7 +124,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType 
 		if (!skip)
 		{ // if texture hasn’t been loaded already, load it
 			Texture texture;
-			texture.id = TextureFromFile(str.C_Str(), directory);
+			texture.id = LoadTextureFromFile(str.C_Str(), directory);
 			texture.type = typeName;
 			texture.path = str.C_Str();
 			textures.push_back(texture);
@@ -135,7 +135,7 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType 
 }
 
 
-unsigned int TextureFromFile(const char *path, const string &directory, bool gamma)
+unsigned int LoadTextureFromFile(const char *path, const string &directory, bool gamma)
 {
     string filename = string(path);
     filename = directory + '/' + filename;
@@ -177,6 +177,15 @@ unsigned int TextureFromFile(const char *path, const string &directory, bool gam
     }
 
     return textureID;
+}
+
+Texture LoadTexture(std::string directory, std::string filename, std::string type)
+{
+	Texture texture;
+	texture.id = LoadTextureFromFile(filename.c_str(), directory.c_str(), false);
+	texture.path = directory + '/' + filename;
+	texture.type = type;
+	return texture;
 }
 
 void Model::Draw(mat4 MatriuVista, mat4 MatriuTG, Transform& transform, GLuint shader_id)

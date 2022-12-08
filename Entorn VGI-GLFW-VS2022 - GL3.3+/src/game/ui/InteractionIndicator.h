@@ -5,12 +5,18 @@
 class InteractionIndicator : public UIElement
 {
 public:
+	static InteractionIndicator instance;
+
 	InteractionIndicator(Transform transform) : UIElement(transform)
 	{
 
 	}
 
 	void change_indicator(InteractionType type);
+
+	InteractionIndicator& set_sit_indicator(UIElement* indicator);
+	InteractionIndicator& set_open_close_indicator(UIElement* indicator);
+	InteractionIndicator& set_close_up_indicator(UIElement* indicator);
 
 private:
 	UIElement* sit_indicator = nullptr;

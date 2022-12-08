@@ -19,7 +19,8 @@
 
 using namespace std;
 
-unsigned int TextureFromFile(const char* path, const string& directory, bool gamma = false);
+unsigned int LoadTextureFromFile(const char* path, const string& directory, bool gamma = false);
+Texture LoadTexture(std::string directory, std::string filename, std::string type);
 
 class Model
 {
