@@ -224,9 +224,19 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	//trMegafono.rotate(-(3 * glm::pi<float>() / 4), vec3(0.0f, 0.0f, 1.0f));
 	Rail* megafono = new Rail(trMegafono, new Model("./textures/megafono/scene.gltf"), sh_programID);
 
+	Transform tr_clock = Transform();
+	tr_clock.position() = vec3(0, 0.0f, .2f);
+	tr_clock.scale() = vec3(0.1f);
+	GameEntity* clock = new GameEntity(tr_clock, new Model("./textures/clock/clock1.obj"), sh_programID);
 
+	vago->addChild(clock);
 
+	Transform tr_placa = Transform();
+	tr_placa.position() = vec3(1, 0.0f, .2f);
+	tr_placa.scale() = vec3(0.1f);
+	GameEntity* placa = new GameEntity(tr_placa, new Model("./textures/placa_codi/placa_codi.obj"), sh_programID);
 
+	vago->addChild(placa);
 
 	Level::CURRENT_LEVEL.padlock = padlock;
 
