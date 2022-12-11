@@ -179,11 +179,11 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Libro1* libro1 = new Libro1(trLibro1, llibre_tancat, llibre_obert, sh_programID);
 
 	Transform trCrypt = Transform();
-	trCrypt.translate(vec3(0.9f, -2.05f, 0.7f));
+	trCrypt.translate(vec3(1.05f, -1.98f, 0.65f));
 	trCrypt.scale(vec3(0.2f));
-	trCrypt.rotate((PI / -12) * 6, vec3(0.0f, 1.0f, 0.0f));
+	trCrypt.rotate((PI / -6) * 9, vec3(0.0f, 0.0f, 1.0f));
 
-	Crypt* crypt = new Crypt(trCrypt, new Model("./textures/crypt/crypt.obj"), sh_programID);
+	Crypt* crypt = new Crypt(trCrypt, new Model("./textures/placa_codi/placa_codi.obj"), sh_programID);
 
 	Transform trPanel = Transform();
 	trPanel.translate(vec3(0.1f, -2.05f, 1.2f));
@@ -200,7 +200,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	Rail* padlock = new Rail(trPadlock, new Model("./textures/slenderman/scene.gltf"), sh_programID);
 	padlock->my_enabled = false;
-
 
 	//exterior tren
 	Transform trExterior = Transform();
@@ -230,13 +229,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	GameEntity* clock = new GameEntity(tr_clock, new Model("./textures/clock/clock1.obj"), sh_programID);
 
 	vago->addChild(clock);
-
-	Transform tr_placa = Transform();
-	tr_placa.position() = vec3(1, 0.0f, .2f);
-	tr_placa.scale() = vec3(0.1f);
-	GameEntity* placa = new GameEntity(tr_placa, new Model("./textures/placa_codi/placa_codi.obj"), sh_programID);
-
-	vago->addChild(placa);
 
 	Level::CURRENT_LEVEL.padlock = padlock;
 
