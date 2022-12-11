@@ -1,4 +1,4 @@
-# Blender 3.3.1 MTL File: 'clock1.blend'
+# Blender 3.3.1 MTL File: 'clock2.blend'
 # www.blender.org
 
 newmtl Material
@@ -29,7 +29,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd main_texture1.png
+map_Kd main_texture2.png
 
 newmtl Material.003
 Ns 140.004669
