@@ -26,6 +26,9 @@ public:
 	bool* llumAmbient;
 	bool* iFixe;
 
+	//sons
+	vector<irrklang::ISound*> sonsSlenderman;
+
 	InteractableEntity* my_entity_under_cursor;
 
 	static Level CURRENT_LEVEL;

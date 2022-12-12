@@ -9,6 +9,7 @@
 #include "GameEntity.h"
 #include "../audio/AudioFunctions.h"
 
+
 class Maleta : public GameEntity
 {
 public:
@@ -19,6 +20,7 @@ public:
 	static float Z_OFFSET;
 
 private:
+	bool firstInteraction = true;
 
 	btRigidBody* my_rigid_body;
 	GameEntity* my_tapa;

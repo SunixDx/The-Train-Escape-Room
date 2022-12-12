@@ -1,4 +1,5 @@
 #include "Maleta.h"
+#include "../Level.h"
 
 Maleta::Maleta(Transform transform, Model* model, GLuint shader_program_id, GameEntity* tapa) : GameEntity(transform, model, shader_program_id), my_aixecada(false)
 {
@@ -43,9 +44,19 @@ void Maleta::interact()
 	Audio::AUDIO_FUNCTIONS.pause_or_unpause(snd);
 
 	if (my_aixecada)
+	{
 		my_tapa->my_transform.orientation().y -= 0.5f;
+		Level::CURRENT_LEVEL.despawnSlender();
+	}
 	else 
+	{
 		my_tapa->my_transform.orientation().y += 0.5f;
+		if(firstInteraction)
+		{
+			Level::CURRENT_LEVEL.MaybeSpawnSlender();
+			firstInteraction = false;
+		}
+	}
 
 	my_aixecada = !my_aixecada;
 }

@@ -213,28 +213,20 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 void Level::MaybeSpawnSlender()
 {
-	/* initialize random seed: */
-	srand(time(NULL));
+	// Activar spooky lighting
+	*llumAmbient = false;
+	*iFixe = true;
 
-	/* generate random number between 1 and 10: */
-	int iSecret = rand() % 10 + 1;
+	// Reproduir audio
+	irrklang::vec3df position(padlock->my_transform.position().x, padlock->my_transform.position().y, padlock->my_transform.position().z);
+	irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/spooky_sound.wav", position, false, true);
+	Audio::AUDIO_FUNCTIONS.setVolume(snd, 0.5f);
+	Audio::AUDIO_FUNCTIONS.pause_or_unpause(snd);
 
-	std::cout << "isecret = " << iSecret << std::endl;
-	iSecret = 5;
-	if (iSecret == 5)
-	{
-		// Activar spooky lighting
-		*llumAmbient = false;
-		*iFixe = true;
+	sonsSlenderman.push_back(snd);
 
-		// Reproduir audio
-		irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play2D("./media/spooky_sound.wav", false, true);
-		Audio::AUDIO_FUNCTIONS.setVolume(snd, 0.1f);
-		Audio::AUDIO_FUNCTIONS.pause_or_unpause(snd);
-
-		// Mostrar slenderman
-		padlock->my_enabled = true;
-	}
+	// Mostrar slenderman
+	padlock->my_enabled = true;
 }
 
 void Level::despawnSlender()
@@ -242,6 +234,11 @@ void Level::despawnSlender()
 	// return to normal lighting
 	*llumAmbient = true;
 	*iFixe = false;
+
+	for (irrklang::ISound* snd : sonsSlenderman)
+	{
+		snd->setIsPaused(true);
+	}
 
 	padlock->my_enabled = false;
 }
