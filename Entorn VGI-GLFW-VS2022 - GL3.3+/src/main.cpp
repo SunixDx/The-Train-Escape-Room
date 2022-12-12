@@ -3424,7 +3424,7 @@ int main(void)
 	Level::CURRENT_LEVEL.llumAmbient = &llum_ambient;
 	Level::CURRENT_LEVEL.iFixe = &ifixe;
 
-	/*irrklang::ISound* backgroundSound = Audio::AUDIO_FUNCTIONS.play2D("./media/movingTrain.mp3", true, true);
+	irrklang::ISound* backgroundSound = Audio::AUDIO_FUNCTIONS.play2D("./media/movingTrain.mp3", true, true);
 	if (!backgroundSound)
 	{
 		std::cout << "Could not play sound" << std::endl;
@@ -3432,13 +3432,14 @@ int main(void)
 	else
 	{
 		if (backgroundSound->getIsPaused()) {
-			backgroundSound->setVolume(0.25f);
+			backgroundSound->setVolume(0.1f);
 			backgroundSound->setIsPaused(false);
 		}
-	}*/
+	}
 
 	irrklang::ISound* footsteps = Audio::AUDIO_FUNCTIONS.play2D("./media/footsteps.mp3", true, true);
-	footsteps->setVolume(5.0f);
+	footsteps->setVolume(0.25);
+	footsteps->setPlaybackSpeed(1.5);
 
 // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))
@@ -3555,9 +3556,9 @@ int main(void)
 	// next example for an explanation)
 	// The object is deleted simply by calling ->drop().
 
-	/*if (backgroundSound) {
+	if (backgroundSound) {
 		backgroundSound->drop();
-	}*/
+	}
 	
 	Audio::AUDIO_FUNCTIONS.~Audio();
 
