@@ -23,6 +23,9 @@ public:
 	Rail* exterior_tren;
 	Rail* megaphone;
 	GameEntity* clock;
+	GameEntity* clock2;
+	GameEntity* clock3;
+	GameEntity* biblia;
 
 	//llums
 	bool* llumAmbient;

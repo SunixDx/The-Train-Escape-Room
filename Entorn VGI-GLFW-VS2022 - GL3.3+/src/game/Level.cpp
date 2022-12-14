@@ -219,22 +219,29 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Rail* megafono = new Rail(trMegafono, new Model("./textures/megafono/scene.gltf"), sh_programID);
 
 	Transform trClock = Transform();
-	trClock.translate(vec3(0.5, 0.3f, 0.5f));
-	trClock.scale(vec3(0.2f));
-	trClock.rotate((PI / -6), vec3(1.0f, 0.0f, 0.0f));
+	trClock.translate(vec3(-1.5, 1.45f, 0.5f));
+	trClock.scale(vec3(0.15f));
+	trClock.rotate((PI / 6) * 3, vec3(0.0f, 0.0f, 1.0f));
+	trClock.rotate((PI / -12) * 3, vec3(1.0f, 0.0f, 0.0f));
 	GameEntity* clock = new GameEntity(trClock, new Model("./textures/clock/clock1.obj"), sh_programID);
 
-	/*Transform trClock2 = Transform();
-	trClock2.translate(vec3(0.5, 0.5f, 0.5f));
+	Transform trClock2 = Transform();
+	trClock2.translate(vec3(4.7f, -1.9f, 1.5f));
 	trClock2.scale(vec3(0.2f));
-	trClock2.rotate((PI / -6), vec3(1.0f, 0.0f, 0.0f));
+	trClock2.rotate((PI / -6), vec3(.0f, .0f, 0.0f));
 	GameEntity* clock2 = new GameEntity(trClock2, new Model("./textures/clock/clock2.obj"), sh_programID);
 
 	Transform trClock3 = Transform();
-	trClock3.translate(vec3(0.5, 0.5f, 0.5f));
+	trClock3.translate(vec3(7.6, -1.6f, 0.0f));
 	trClock3.scale(vec3(0.2f));
 	trClock3.rotate((PI / -6), vec3(1.0f, 0.0f, 0.0f));
-	GameEntity* clock3 = new GameEntity(trClock3, new Model("./textures/clock/clock3.obj"), sh_programID);*/
+	GameEntity* clock3 = new GameEntity(trClock3, new Model("./textures/clock/clock3.obj"), sh_programID);
+
+	Transform trBiblia = Transform();
+	trBiblia.translate(vec3(7.6, -1.6f, 0.0f));
+	trBiblia.scale(vec3(0.2f));
+	trBiblia.rotate((PI / -6), vec3(1.0f, 0.0f, 0.0f));
+	GameEntity* biblia = new GameEntity(trBiblia, new Model("./textures/biblia/biblia.obj"), sh_programID);
 
 	Level::CURRENT_LEVEL.padlock = padlock;
 	Level::CURRENT_LEVEL.my_vago = vago;
@@ -247,8 +254,9 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Level::CURRENT_LEVEL.megaphone = megafono;
 	Level::CURRENT_LEVEL.exterior_tren = exterior;
 	Level::CURRENT_LEVEL.clock = clock;
-	//Level::CURRENT_LEVEL.clock = clock2;
-	//Level::CURRENT_LEVEL.clock = clock3;
+	Level::CURRENT_LEVEL.clock2 = clock2;
+	Level::CURRENT_LEVEL.clock3 = clock3;
+	Level::CURRENT_LEVEL.biblia = biblia;
 }
 
 void Level::MaybeSpawnSlender()
