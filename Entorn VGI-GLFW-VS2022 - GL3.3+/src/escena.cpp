@@ -456,6 +456,7 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		Level::CURRENT_LEVEL.panel->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.exterior_tren->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.megaphone->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.clock->mostrar(MatriuVista, MatriuTG);
 		
 		Shader::UI.Use();
 

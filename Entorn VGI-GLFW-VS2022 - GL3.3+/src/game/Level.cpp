@@ -47,8 +47,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 		}
 		vago->addChild(new Taula(Transform(vec3(xValorTaula, -1.2f, -0.7f), quat(1.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), model_taula, sh_programID));
 	}
-	
-
 
 	Model* model_seient = new Model({ *Mesh::BASIC_CUBE_MESH_SOFT_BROWN });
 
@@ -89,7 +87,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	}
 
 	float xValorSeientEndarrere = -1.63f;
-
 	
 	for (int i = 0; i < 4; i++)
 	{
@@ -123,12 +120,10 @@ void Level::buildFirstLevel(GLuint sh_programID)
 		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, -1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
 	}
 	
-
 	Level::CURRENT_LEVEL.my_vago = vago;
 
 	float c = glm::cos(glm::pi<float>() / 4);
 	float s = glm::sin(glm::pi<float>() / 4);
-
 	
 	Transform trLuisa = Transform();
 	trLuisa.position() = vec3(0.1f, 2.2f, 1.0f);
@@ -223,15 +218,25 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	//trMegafono.rotate(-(3 * glm::pi<float>() / 4), vec3(0.0f, 0.0f, 1.0f));
 	Rail* megafono = new Rail(trMegafono, new Model("./textures/megafono/scene.gltf"), sh_programID);
 
-	Transform tr_clock = Transform();
-	tr_clock.position() = vec3(0, 0.0f, .2f);
-	tr_clock.scale() = vec3(0.1f);
-	GameEntity* clock = new GameEntity(tr_clock, new Model("./textures/clock/clock1.obj"), sh_programID);
+	Transform trClock = Transform();
+	trClock.translate(vec3(0.5, 0.3f, 0.5f));
+	trClock.scale(vec3(0.2f));
+	trClock.rotate((PI / -6), vec3(1.0f, 0.0f, 0.0f));
+	GameEntity* clock = new GameEntity(trClock, new Model("./textures/clock/clock1.obj"), sh_programID);
 
-	vago->addChild(clock);
+	/*Transform trClock2 = Transform();
+	trClock2.translate(vec3(0.5, 0.5f, 0.5f));
+	trClock2.scale(vec3(0.2f));
+	trClock2.rotate((PI / -6), vec3(1.0f, 0.0f, 0.0f));
+	GameEntity* clock2 = new GameEntity(trClock2, new Model("./textures/clock/clock2.obj"), sh_programID);
+
+	Transform trClock3 = Transform();
+	trClock3.translate(vec3(0.5, 0.5f, 0.5f));
+	trClock3.scale(vec3(0.2f));
+	trClock3.rotate((PI / -6), vec3(1.0f, 0.0f, 0.0f));
+	GameEntity* clock3 = new GameEntity(trClock3, new Model("./textures/clock/clock3.obj"), sh_programID);*/
 
 	Level::CURRENT_LEVEL.padlock = padlock;
-
 	Level::CURRENT_LEVEL.my_vago = vago;
 	Level::CURRENT_LEVEL.maleta = maleta;
 	Level::CURRENT_LEVEL.maletaTapa = maletaTapa;
@@ -241,6 +246,9 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Level::CURRENT_LEVEL.my_entity_under_cursor = nullptr;
 	Level::CURRENT_LEVEL.megaphone = megafono;
 	Level::CURRENT_LEVEL.exterior_tren = exterior;
+	Level::CURRENT_LEVEL.clock = clock;
+	//Level::CURRENT_LEVEL.clock = clock2;
+	//Level::CURRENT_LEVEL.clock = clock3;
 }
 
 void Level::MaybeSpawnSlender()

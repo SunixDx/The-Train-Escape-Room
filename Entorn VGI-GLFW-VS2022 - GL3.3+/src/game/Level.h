@@ -22,6 +22,7 @@ public:
 	Panel* panel;
 	Rail* exterior_tren;
 	Rail* megaphone;
+	GameEntity* clock;
 
 	//llums
 	bool* llumAmbient;
