@@ -50,7 +50,7 @@ void dibuixa_Eixos(GLuint ax_programID, bool eix, GLuint axis_Id, CMask3D reixa,
 }
 
 // Dibuixa Skybox en forma de Cub, activant un shader propi.
-void dibuixa_Skybox(GLuint sk_programID, GLuint cmTexture, char eix_Polar, glm::mat4 MatriuProjeccio, glm::mat4 MatriuVista)
+void dibuixa_Skybox(GLuint sk_programID, GLuint cmTexture, char eix_Polar, glm::mat4 MatriuProjeccio, glm::mat4 MatriuVista, glm::vec3 offset)
 {
 	glm::mat4 ModelMatrix(1.0);
 
@@ -68,6 +68,7 @@ void dibuixa_Skybox(GLuint sk_programID, GLuint cmTexture, char eix_Polar, glm::
 	else if (eix_Polar == POLARX) ModelMatrix = glm::rotate(ModelMatrix, radians(-90.0f), vec3(0.0f, 0.0f, 1.0f));
 
 // Escalar Cub Skybox a 5000 per encabir objectes escena a l'interior
+	ModelMatrix = glm::translate(ModelMatrix, offset);
 	ModelMatrix = glm::scale(ModelMatrix, vec3(5000.0f, 5000.0f, 5000.0f));		//glScaled(5000.0, 5000.0, 5000.0);
 	glUniformMatrix4fv(glGetUniformLocation(sk_programID, "modelMatrix"), 1, GL_FALSE, &ModelMatrix[0][0]);
 

@@ -216,7 +216,7 @@
 
 	void OnPaint(GLFWwindow* window);
 	void configura_Escena();
-	void dibuixa_Escena();
+	void dibuixa_Escena(glm::vec3 skybox_offset);
 	void Barra_Estat();
 
 /*

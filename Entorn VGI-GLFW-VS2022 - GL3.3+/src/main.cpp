@@ -19,6 +19,8 @@
 #include <bullet/btBulletDynamicsCommon.h>
 #include <irrKlang/irrKlang.h>
 
+glm::vec3 skybox_offset = {0, 0, 0};
+
 void InitGL()
 {
 // TODO: agregar aquï¿½ el cï¿½digo de construcciï¿½n
@@ -417,7 +419,7 @@ void OnPaint(GLFWwindow* window)
 // Aquï¿½ farem les cridesper a definir Viewport, Projecciï¿½ i Cï¿½mara:: FI -------------------------
 		// Dibuixar Model (escena)
 		configura_Escena();     // Aplicar Transformacions Geometriques segons persiana Transformacio i configurar objectes
-		dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+		dibuixa_Escena(glm::vec3(0));		// Dibuix geometria de l'escena amb comandes GL.
 
 	// Intercanvia l'escena al front de la pantalla
 		glfwSwapBuffers(window);
@@ -449,7 +451,7 @@ void OnPaint(GLFWwindow* window)
 			eixos, grid, hgrid);
 		// Dibuix de l'Objecte o l'Escena
 		configura_Escena();     // Aplicar Transformacions Geometriques segons persiana Transformacio i configurar objectes
-		dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+		dibuixa_Escena(glm::vec3(0));		// Dibuix geometria de l'escena amb comandes GL.
 
 // ISOMï¿½TRICA (Inferior Dreta)
 		// Definiciï¿½ de Viewport, Projecciï¿½ i Cï¿½mara
@@ -459,7 +461,7 @@ void OnPaint(GLFWwindow* window)
 			eixos, grid, hgrid);
 		// Dibuix de l'Objecte o l'Escena
 		configura_Escena();     // Aplicar Transformacions Geometriques segons persiana Transformacio i configurar objectes
-		dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+		dibuixa_Escena(glm::vec3(0));		// Dibuix geometria de l'escena amb comandes GL.
 
 // ALï¿½AT (Superior Esquerra)
 		// Definiciï¿½ de Viewport, Projecciï¿½ i Cï¿½mara
@@ -469,7 +471,7 @@ void OnPaint(GLFWwindow* window)
 			eixos, grid, hgrid);
 		// Dibuix de l'Objecte o l'Escena
 		  configura_Escena();     // Aplicar Transformacions Geom?triques segons persiana Transformacio i configurar objectes
-	 	  dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+	 	  dibuixa_Escena(glm::vec3(0));		// Dibuix geometria de l'escena amb comandes GL.
 
 // PERFIL (Superior Dreta)
 		// Definiciï¿½ de Viewport, Projecciï¿½ i Cï¿½mara
@@ -480,7 +482,7 @@ void OnPaint(GLFWwindow* window)
 		// Dibuix de l'Objecte o l'Escena
 		configura_Escena();     // Aplicar Transformacions Geom?triques segons persiana Transformacio i configurar objectes
 		  // glScalef();			// Escalat d'objectes, per adequar-los a les vistes ortogrï¿½fiques (Prï¿½ctica 2)
-		dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+		dibuixa_Escena(glm::vec3(0));		// Dibuix geometria de l'escena amb comandes GL.
 
 		// Intercanvia l'escena al front de la pantalla
 		glfwSwapBuffers(window);
@@ -528,7 +530,7 @@ void OnPaint(GLFWwindow* window)
 
 		// Dibuix de l'Objecte o l'Escena
 		configura_Escena();     // Aplicar Transformacions Geometriques segons persiana Transformacio i configurar objectes.
-		dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+		dibuixa_Escena(skybox_offset);		// Dibuix geometria de l'escena amb comandes GL.
 
 		// Intercanvia l'escena al front de la pantalla
 		glfwSwapBuffers(window);
@@ -588,12 +590,11 @@ void configura_Escena() {
 }
 
 // dibuixa_Escena: Funcio que crida al dibuix dels diferents elements de l'escana
-void dibuixa_Escena() {
+void dibuixa_Escena(glm::vec3 skybox_offset) {
 
 	//glUseProgram(shader_programID);
-
 //	Dibuix SkyBox Cï¿½bic.
-	if (SkyBoxCube) dibuixa_Skybox(skC_programID, cubemapTexture, Vis_Polar, ProjectionMatrix, ViewMatrix);
+	if (SkyBoxCube) dibuixa_Skybox(skC_programID, cubemapTexture, Vis_Polar, ProjectionMatrix, ViewMatrix, skybox_offset);
 
 //	Dibuix Coordenades Mï¿½n i Reixes.
 	dibuixa_Eixos(eixos_programID, eixos, eixos_Id, grid, hgrid, ProjectionMatrix, ViewMatrix);
@@ -1121,12 +1122,12 @@ void Teclat_Shift(int key, GLFWwindow* window)
 					{	// load Skybox textures
 						// -------------
 						std::vector<std::string> faces =
-							{	".\\textures\\skybox\\powerlines\\right.jpg",
-								".\\textures\\skybox\\powerlines\\left.jpg",
-								".\\textures\\skybox\\powerlines\\top.jpg",
-								".\\textures\\skybox\\powerlines\\bottom.jpg",
-								".\\textures\\skybox\\powerlines\\front.jpg",
-								".\\textures\\skybox\\powerlines\\back.jpg"
+							{	".\\textures\\skybox\\final\\left.png", //girado
+								".\\textures\\skybox\\final\\right.png", //girado
+								".\\textures\\skybox\\final\\top.png",
+								".\\textures\\skybox\\final\\bottom.png",
+								".\\textures\\skybox\\final\\front.png",
+								".\\textures\\skybox\\final\\back.png"
 							};
 						cubemapTexture = loadCubemap(faces);	
 					}
@@ -3460,8 +3461,11 @@ int main(void)
 	if (!steps)
 		cout << "Error al crear el so" << endl;
 
+	float trasX = 0;
     while (!glfwWindowShouldClose(window))
     {  
+		
+
 // Poll for and process events */
 //        glfwPollEvents();
 
@@ -3473,6 +3477,7 @@ int main(void)
 // // Entorn VGI. Timer: for each timer do this
 		time -= delta;
 		if ((time <= 0.0) && (satelit || anima)) OnTimer();
+
 
 
 		glm::vec3 direction = glm::normalize(glm::vec3(
@@ -3548,6 +3553,9 @@ int main(void)
 			//Camera::MAIN_CAMERA.position.z = trans.getOrigin().getZ();
 		}
 
+		skybox_offset.x -= delta * 450;
+		if (skybox_offset.x <= -2200)
+			skybox_offset.x = 2200;
 
 
 
