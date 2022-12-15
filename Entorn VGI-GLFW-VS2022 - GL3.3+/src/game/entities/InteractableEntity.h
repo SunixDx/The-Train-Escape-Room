@@ -6,6 +6,7 @@ enum class InteractionType
 {
 	OPEN_CLOSE,
 	SIT,
+	MALETA,
 	CLOSE_UP,
 };
 

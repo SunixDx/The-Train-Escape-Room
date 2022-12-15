@@ -17,10 +17,12 @@ public:
 
 	InteractionIndicator& set_sit_indicator(UIElement* indicator);
 	InteractionIndicator& set_open_close_indicator(UIElement* indicator);
+	InteractionIndicator& set_maleta(UIElement* indicador);
 	InteractionIndicator& set_close_up_indicator(UIElement* indicator);
 
 private:
 	UIElement* sit_indicator = nullptr;
+	UIElement* maleta_indicator = nullptr;
 	UIElement* open_close_indicator = nullptr;
 	UIElement* close_up_indicator = nullptr;
 };

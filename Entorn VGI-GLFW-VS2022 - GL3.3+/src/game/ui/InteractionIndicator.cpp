@@ -14,6 +14,9 @@ void InteractionIndicator::change_indicator(InteractionType type)
 	case InteractionType::SIT:
 		my_children.push_back(sit_indicator);
 		break;
+	case InteractionType::MALETA:
+		my_children.push_back(maleta_indicator);
+		break;
 	case InteractionType::CLOSE_UP:
 		my_children.push_back(close_up_indicator);
 		break;
@@ -30,6 +33,12 @@ void InteractionIndicator::remove_indicator()
 InteractionIndicator& InteractionIndicator::set_sit_indicator(UIElement* indicator)
 {
 	sit_indicator = indicator;
+	return *this;
+}
+
+InteractionIndicator& InteractionIndicator::set_maleta(UIElement* indicator)
+{
+	maleta_indicator = indicator;
 	return *this;
 }
 

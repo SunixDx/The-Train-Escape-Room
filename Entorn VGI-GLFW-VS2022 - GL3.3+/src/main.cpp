@@ -3431,26 +3431,29 @@ int main(void)
 	Transform crosshair_transform = Transform::blank();
 	crosshair_transform.scale(0.025);
 
-	Texture texture_sit_down = LoadTexture("./textures/ui_assets", "seure.png", "texture_diffuse");
-	Texture texture_obrir_tancar = LoadTexture("./textures/ui_assets", "obrir_tancar.png", "texture_diffuse");
-	Texture texture_close_up = LoadTexture("./textures/ui_assets", "aproparse.png", "texture_diffuse");
+	Texture texture_sit_down = LoadTexture("./textures/ui_assets", "seure_img.png", "texture_diffuse");
+	Texture texture_obrir_tancar = LoadTexture("./textures/ui_assets", "obrir_tancar_img.png", "texture_diffuse");
+	Texture texture_maleta = LoadTexture("./textures/ui_assets", "maleta_img.png", "texture_diffuse");
+	Texture texture_close_up = LoadTexture("./textures/ui_assets", "aproparse_img.png", "texture_diffuse");
 
 	Transform transform_sit = Transform();
-	transform_sit.scale({0.4, 0.05, 1});
+	transform_sit.scale(0.2);
 	Transform transform_open_close = Transform();
-	transform_open_close.scale({ 0.4, 0.05, 1 });
+	transform_open_close.scale(0.2);
+	Transform transform_maleta = Transform();
+	transform_maleta.scale(0.2);
 	Transform transform_close_up = Transform();
-	transform_close_up.scale({ 0.4, 0.05, 1 });
+	transform_close_up.scale(0.2);
 
 	Transform indicator_transform = Transform::blank();
 	indicator_transform.scale(1);
-	indicator_transform.translate({ 0, -0.5, 0 });
+	indicator_transform.translate({ 0, -0.2, 0 });
 	InteractionIndicator::instance = InteractionIndicator(indicator_transform);
 	InteractionIndicator::instance
 		.set_sit_indicator(new UIElement(transform_sit, texture_sit_down))
+		.set_maleta(new UIElement(transform_maleta, texture_maleta))
 		.set_open_close_indicator(new UIElement(transform_open_close, texture_obrir_tancar))
-		.set_close_up_indicator(new UIElement(transform_close_up, texture_close_up))
-		.change_indicator(InteractionType::CLOSE_UP);
+		.set_close_up_indicator(new UIElement(transform_close_up, texture_close_up));
 
 	UI::instance.elements.push_back(new UIElement(crosshair_transform, texture));
 	UI::instance.elements.push_back(&InteractionIndicator::instance);
