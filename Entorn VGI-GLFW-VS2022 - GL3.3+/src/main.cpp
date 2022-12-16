@@ -17,6 +17,7 @@
 #include "game/Level.h"
 #include "game/ui/UI.h"
 #include "game/ui/InteractionIndicator.h"
+#include "game/ui/menu.h"
 
 #include <bullet/btBulletDynamicsCommon.h>
 #include <irrKlang/irrKlang.h>
@@ -842,7 +843,14 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		camera = CAM_PERSONALITZADA;
 		Camera::MAIN_CAMERA.position = glm::vec3(0, 0, 1.8);
 	}
-	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && !Camera::MAIN_CAMERA.sit)
+	else if (mods == 0 && key == GLFW_KEY_F && action == GLFW_PRESS)
+	{
+		if (!Camera::MAIN_CAMERA.flying)
+			Camera::MAIN_CAMERA.fly();
+		else
+			Camera::MAIN_CAMERA.enterTrain();
+	}
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && !Camera::MAIN_CAMERA.sit && !Camera::MAIN_CAMERA.flying)
 	{
 		if (key == GLFW_KEY_W) w_pressed = true;
 		if (key == GLFW_KEY_S) s_pressed = true;
@@ -855,7 +863,7 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 
 		if (key == GLFW_KEY_C) c_pressed = true;
 	}
-	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.sit)
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.sit && !Camera::MAIN_CAMERA.flying)
 	{
 		if (key == GLFW_KEY_C) Camera::MAIN_CAMERA.standUp();
 	}
@@ -2537,7 +2545,7 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 	GLdouble vdir[3] = { 0, 0, 0 };
 	CSize gir, girn, girT, zoomincr;
 
-	if (camera == CAM_PERSONALITZADA)
+	if (camera == CAM_PERSONALITZADA && !Camera::MAIN_CAMERA.flying)
 	{
 		Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.mouse_speed * float(w / 2 - xpos);
 		Camera::MAIN_CAMERA.vertical_angle += Camera::MAIN_CAMERA.mouse_speed * float(h / 2 - ypos);
@@ -3426,11 +3434,34 @@ int main(void)
 		0, 1, 2, 2, 3, 0,			// v0-v1-v2-v3 (front)
 	};
 
+	// crosshair
 	Texture texture = LoadTexture("./textures", "circle.png", "texture_diffuse");
 
 	Transform crosshair_transform = Transform::blank();
 	crosshair_transform.scale(0.025);
 
+	// menu
+	Texture texture_menu = LoadTexture("./textures/menu", "Menu DEFAULT.png", "texture_diffuse");
+	Texture texture_exit = LoadTexture("./textures/menu", "Menu Exit Rojo.png", "texture_diffuse");
+	Texture texture_start = LoadTexture("./textures/menu", "Menu Start Pressed.png", "texture_diffuse");
+
+	Transform menu_transform = Transform();
+	menu_transform.scale(2);
+	Transform exit_transform = Transform();
+	menu_transform.scale(2);
+	Transform start_transform = Transform();
+	menu_transform.scale(2);
+
+	Transform menu_indicator_transform = Transform::blank();
+	menu_indicator_transform.scale(1);
+	menu_indicator_transform.translate({ 0, -0.2, 0 });
+	Menu::instance = Menu(menu_indicator_transform);
+	Menu::instance
+		.set_menu_default(new UIElement(menu_transform, texture_menu))
+		.set_menu_exit(new UIElement(exit_transform, texture_exit))
+		.set_menu_start(new UIElement(start_transform, texture_start));
+
+	// interacteable
 	Texture texture_sit_down = LoadTexture("./textures/ui_assets", "seure_img.png", "texture_diffuse");
 	Texture texture_obrir_tancar = LoadTexture("./textures/ui_assets", "obrir_tancar_img.png", "texture_diffuse");
 	Texture texture_maleta = LoadTexture("./textures/ui_assets", "maleta_img.png", "texture_diffuse");
@@ -3457,6 +3488,7 @@ int main(void)
 
 	UI::instance.elements.push_back(new UIElement(crosshair_transform, texture));
 	UI::instance.elements.push_back(&InteractionIndicator::instance);
+	UI::instance.elements.push_back(&Menu::instance);
 
 	//Mesh::CROSSHAIR = new Mesh(plane_vertices, plane_indices, plane_textures);
 
@@ -3557,6 +3589,12 @@ int main(void)
 		else if (Camera::MAIN_CAMERA.position.z < 1.8 && !Camera::MAIN_CAMERA.sit)
 		{
 			Camera::MAIN_CAMERA.position.z += 2 * delta;
+		}
+
+		if (Camera::MAIN_CAMERA.flying)
+		{
+			Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.angular_speed;
+			Camera::MAIN_CAMERA.fly_arround(glm::vec3(0, 0, 0));
 		}
 
 		Camera::MAIN_CAMERA.my_rigid_body->activate();

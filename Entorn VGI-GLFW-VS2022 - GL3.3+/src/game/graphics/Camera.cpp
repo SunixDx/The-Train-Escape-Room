@@ -83,6 +83,36 @@ void Camera::standUp()
 	my_rigid_body->setCollisionFlags(my_rigid_body->getCollisionFlags() & ~btCollisionObject::CF_NO_CONTACT_RESPONSE);
 }
 
+void Camera::fly()
+{
+	if (!flying)
+	{
+		SAVE_CAMERA = MAIN_CAMERA;
+
+		MAIN_CAMERA.flying = true;
+		MAIN_CAMERA.horizontal_angle = 0;
+		MAIN_CAMERA.vertical_angle = 0-(PI/4);
+		MAIN_CAMERA.position.x = 0-MAIN_CAMERA.flying_radius;
+		MAIN_CAMERA.position.y = 0;
+		MAIN_CAMERA.position.z = MAIN_CAMERA.flying_radius;
+	}
+}
+
+void Camera::enterTrain()
+{
+	if (flying)
+	{
+		MAIN_CAMERA = SAVE_CAMERA;
+		MAIN_CAMERA.flying = false;
+	}
+}
+
+void Camera::fly_arround(glm::vec3 center)
+{
+	MAIN_CAMERA.position.x = 0 - (cos(MAIN_CAMERA.horizontal_angle) * MAIN_CAMERA.flying_radius) + center.x;
+	MAIN_CAMERA.position.y = 0 - (sin(MAIN_CAMERA.horizontal_angle) * MAIN_CAMERA.flying_radius) + center.y;
+}
+
 /*
 void show_cam_vectors()
 {
