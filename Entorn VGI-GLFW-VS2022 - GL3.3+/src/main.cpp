@@ -1740,7 +1740,7 @@ void Teclat_ColorObjecte(int key, int action)
 
 
 // Teclat_ColorFons: Teclat pels canvis del color de fons.
-	void Teclat_ColorFons(int key, int action)
+void Teclat_ColorFons(int key, int action)
 {		const double incr = 0.025f;
 
 		if (action == GLFW_PRESS)
@@ -2289,7 +2289,6 @@ void Teclat_TransRota(int key, int action)
 	}
 }
 
-
 // Teclat_TransTraslada: Teclat pels canvis del valor de traslaciï¿½ per X,Y,Z.
 void Teclat_TransTraslada(int key, int action)
 {
@@ -2412,7 +2411,6 @@ void Teclat_TransTraslada(int key, int action)
 	}
 }
 
-
 // Teclat_Grid: Teclat pels desplaï¿½aments dels gridXY, gridXZ i gridYZ.
 void Teclat_Grid(int key, int action)
 {
@@ -2485,6 +2483,11 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 	glfwGetCursorPos(window, &xpos, &ypos);
 
 // TODO: Agregue aquï¿½ su cï¿½digo de controlador de mensajes o llame al valor predeterminado
+
+	if (Camera::MAIN_CAMERA.flying)
+	{
+		cout << "X: " << xpos << " , Y: " << ypos << endl;
+	}
 
 // OnLButtonDown
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) //pulsar click
