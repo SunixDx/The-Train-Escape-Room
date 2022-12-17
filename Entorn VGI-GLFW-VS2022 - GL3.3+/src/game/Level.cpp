@@ -211,15 +211,25 @@ void Level::buildFirstLevel(GLuint sh_programID)
 		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, -1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
 	}
 
+	Model* porta = new Model("./textures/tren sin puertas y puerta/puerta.gltf");
+
 	Transform tr_porta_fixa;
-	GameEntity* porta_fixa = new GameEntity(tr_porta_fixa, new Model("./textures/tren sin puertas y puerta/puerta.gltf"), sh_programID);
+	GameEntity* porta_fixa = new GameEntity(tr_porta_fixa, porta, sh_programID);
 	vago->addChild(porta_fixa);
 
 	Transform tr_porta_mobil;
+
 	tr_porta_mobil.rotate(PI / 2, {1, 0, 0});
 	tr_porta_mobil.scale(10);
 	GameEntity* porta_mobil = new GameEntity(tr_porta_mobil, new Model("./textures/tren sin puertas y puerta/puerta.gltf"), sh_programID);
 	vago->addChild(porta_mobil);
+
+	tr_porta_mobil.rotate(PI * 2, {0, 0, 1});
+	tr_porta_mobil.scale(1);
+	tr_porta_mobil.translate({0, -6.41, 0});
+	GameEntity* porta_mobil = new GameEntity(tr_porta_mobil, porta, sh_programID);
+	vago->afegir_porta(porta_mobil, vec3(1, 0, 0));
+
 	Level::CURRENT_LEVEL.my_vago = vago;
 
 
