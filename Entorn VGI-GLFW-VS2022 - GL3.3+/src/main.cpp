@@ -846,9 +846,16 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	else if (mods == 0 && key == GLFW_KEY_F && action == GLFW_PRESS)
 	{
 		if (!Camera::MAIN_CAMERA.flying)
+		{
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 			Camera::MAIN_CAMERA.fly();
+		}
 		else
+		{
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 			Camera::MAIN_CAMERA.enterTrain();
+		}
+			
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && !Camera::MAIN_CAMERA.sit && !Camera::MAIN_CAMERA.flying)
 	{
