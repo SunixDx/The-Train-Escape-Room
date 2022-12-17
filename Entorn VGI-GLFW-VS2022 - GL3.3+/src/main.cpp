@@ -849,11 +849,15 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 			Camera::MAIN_CAMERA.fly();
+			Menu::instance
+				.change_indicator(MenuType::MENU);
 		}
 		else
 		{
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 			Camera::MAIN_CAMERA.enterTrain();
+			Menu::instance
+				.remove_indicator();
 		}
 			
 	}
@@ -2491,13 +2495,11 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			if (h / ypos < 2.1 && h / ypos > 1.8)
 			{
 				cout << "START BUTTON" << endl;
-				Menu::instance
-					.change_indicator(4);
 				OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 0);
 			}
 			if (h / ypos < 1.58 && h / ypos > 1.4)
 			{
-
+				OnKeyDown(window, GLFW_KEY_ESCAPE, 1, GLFW_PRESS, 0);
 			}
 		}
 	}
