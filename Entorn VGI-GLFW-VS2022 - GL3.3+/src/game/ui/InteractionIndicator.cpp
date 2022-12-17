@@ -20,6 +20,9 @@ void InteractionIndicator::change_indicator(InteractionType type)
 	case InteractionType::CLOSE_UP:
 		my_children.push_back(close_up_indicator);
 		break;
+	case InteractionType::LEVER:
+		my_children.push_back(lever_inidicator);
+		break;
 	default:
 		break;
 	}
@@ -51,5 +54,11 @@ InteractionIndicator& InteractionIndicator::set_open_close_indicator(UIElement* 
 InteractionIndicator& InteractionIndicator::set_close_up_indicator(UIElement* indicator)
 {
 	close_up_indicator = indicator;
+	return *this;
+}
+
+InteractionIndicator& InteractionIndicator::set_lever(UIElement* indicator)
+{
+	lever_inidicator = indicator;
 	return *this;
 }

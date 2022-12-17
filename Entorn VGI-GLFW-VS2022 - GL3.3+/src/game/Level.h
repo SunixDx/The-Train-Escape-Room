@@ -7,6 +7,7 @@
 #include "entities/Crypt.h"
 #include "entities/Panel.h"
 #include "entities/Rail.h"
+#include "entities/Lever.h"
 
 class Level {
 public:
@@ -26,6 +27,7 @@ public:
 	GameEntity* clock2;
 	GameEntity* clock3;
 	GameEntity* biblia;
+	Lever* lever;
 
 	//llums
 	bool* llumAmbient;

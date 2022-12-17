@@ -460,6 +460,7 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		Level::CURRENT_LEVEL.clock2->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.clock3->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.biblia->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.lever->mostrar(MatriuVista, MatriuTG);
 		
 		Shader::UI.Use();
 

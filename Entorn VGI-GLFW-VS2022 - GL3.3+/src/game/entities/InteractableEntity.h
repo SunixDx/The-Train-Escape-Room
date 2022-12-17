@@ -7,7 +7,8 @@ enum class InteractionType
 	OPEN_CLOSE,
 	SIT,
 	MALETA,
-	CLOSE_UP
+	CLOSE_UP,
+	LEVER
 };
 
 enum class MenuType
