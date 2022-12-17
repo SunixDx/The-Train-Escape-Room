@@ -31,7 +31,6 @@ public:
 	Lever* lever;
 
 	//llums
-	bool* flicker;
 	bool* llumAmbient;
 	bool* iFixe;
 
