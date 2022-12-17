@@ -8,6 +8,8 @@
 #include "entities/Panel.h"
 #include "entities/Rail.h"
 #include "entities/Lever.h"
+#include "entities/Via.h"
+
 
 class Level {
 public:
@@ -27,6 +29,7 @@ public:
 
 	
 
+	Via* via;
 	//railes
 	Rail* rail1;
 	Rail* rail2;

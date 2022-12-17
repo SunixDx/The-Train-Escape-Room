@@ -3619,62 +3619,8 @@ int main(void)
 		}
 
 		//railes
-		/*
-		if (Level::CURRENT_LEVEL.rail6->my_transform.position().x > 12)
-		{
-			Level::CURRENT_LEVEL.rail6->my_transform.translate(vec3(v, 0, 0));
-		}
-		else
-		{
-			Level::CURRENT_LEVEL.rail6->my_transform.translate(vec3(42.5f, 0, 0));
-		}
-
-		if (Level::CURRENT_LEVEL.rail5->my_transform.position().x > 12)
-		{
-			Level::CURRENT_LEVEL.rail5->my_transform.translate(vec3(v, 0, 0));
-		}
-		else
-		{
-			Level::CURRENT_LEVEL.rail5->my_transform.translate(vec3(34.0f, 0, 0));
-		}
-		*/
-
-		if (Level::CURRENT_LEVEL.rail4->my_transform.position().x > 12)
-		{
-			Level::CURRENT_LEVEL.rail4->my_transform.translate(vec3(v, 0, 0));
-		}
-		else
-		{
-			Level::CURRENT_LEVEL.rail4->my_transform.translate(vec3(17.0f, 0, 0));
-		}
-
-		if (Level::CURRENT_LEVEL.rail3->my_transform.position().x > 12)
-		{
-			Level::CURRENT_LEVEL.rail3->my_transform.translate(vec3(v, 0, 0));
-		}
-		else
-		{
-			Level::CURRENT_LEVEL.rail3->my_transform.translate(vec3(8.5f, 0, 0));
-		}
-		if (Level::CURRENT_LEVEL.rail2->my_transform.position().x > 6)
-		{
-			Level::CURRENT_LEVEL.rail2->my_transform.translate(vec3(v, 0, 0));
-		}
-		else
-		{
-			Level::CURRENT_LEVEL.rail2->my_transform.translate(vec3(0.0f, 0, 0));
-		}
-
-		if (Level::CURRENT_LEVEL.rail1->my_transform.position().x > 6)
-		{
-			Level::CURRENT_LEVEL.rail1->my_transform.translate(vec3(v, 0, 0));
-		}
-		else
-		{
-			Level::CURRENT_LEVEL.rail1->my_transform.translate(vec3(-8.0f, 0, 0));
-		}
 		
-		
+		Level::CURRENT_LEVEL.via->update(delta);
 
 // // Entorn VGI. Timer: for each timer do this
 		time -= delta;

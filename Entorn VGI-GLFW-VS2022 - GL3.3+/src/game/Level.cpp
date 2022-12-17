@@ -13,18 +13,20 @@ void imp_railes(GLuint sh_programID)
 	
 	float distance = 6;
 
+	Model* model_rail = new Model("./textures/rails/rail1/scene.gltf");
+
 	Transform trRail1 = Transform();
 	trRail1.position() = vec3(-8.5f, -1.736f, -1.35f);
 	trRail1.scale() = vec3(0.002175f);
 	trRail1.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
-	Rail* rail1 = new Rail(trRail1, new Model("./textures/rails/rail1/scene.gltf"), sh_programID);
+	Rail* rail1 = new Rail(trRail1, model_rail, sh_programID);
 	Level::CURRENT_LEVEL.rail1 = rail1;
 	
 	Transform trRail2 = Transform();
 	trRail2.position() = vec3(0.0f, -1.736f, -1.35f);
 	trRail2.scale() = vec3(0.002175f);
 	trRail2.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
-	Rail* rail2 = new Rail(trRail2, new Model("./textures/rails/rail2/scene.gltf"), sh_programID);
+	Rail* rail2 = new Rail(trRail2, model_rail, sh_programID);
 	Level::CURRENT_LEVEL.rail2 = rail2;
 
 
@@ -32,7 +34,7 @@ void imp_railes(GLuint sh_programID)
 	trRail3.position() = vec3(8.5f, -1.736f, -1.35f);
 	trRail3.scale() = vec3(0.002175f);
 	trRail3.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
-	Rail* rail3 = new Rail(trRail3, new Model("./textures/rails/rail3/scene.gltf"), sh_programID);
+	Rail* rail3 = new Rail(trRail3, model_rail, sh_programID);
 	Level::CURRENT_LEVEL.rail3 = rail3;
 
 	
@@ -40,21 +42,21 @@ void imp_railes(GLuint sh_programID)
 	trRail4.position() = vec3(17.0f, -1.736f, -1.35f);
 	trRail4.scale() = vec3(0.002175f);
 	trRail4.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
-	Rail* rail4 = new Rail(trRail4, new Model("./textures/rails/rail3/scene.gltf"), sh_programID);
+	Rail* rail4 = new Rail(trRail4, model_rail, sh_programID);
 	Level::CURRENT_LEVEL.rail4 = rail4;
 
 	Transform trRail5 = Transform();
 	trRail5.position() = vec3(25.5f, -1.736f, -1.35f);
 	trRail5.scale() = vec3(0.002175f);
 	trRail5.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
-	Rail* rail5 = new Rail(trRail5, new Model("./textures/rails/rail3/scene.gltf"), sh_programID);
+	Rail* rail5 = new Rail(trRail5, model_rail, sh_programID);
 	Level::CURRENT_LEVEL.rail5 = rail5;
 
 	Transform trRail6 = Transform();
 	trRail6.position() = vec3(34.0f, -1.736f, -1.35f);
 	trRail6.scale() = vec3(0.002175f);
 	trRail6.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
-	Rail* rail6 = new Rail(trRail6, new Model("./textures/rails/rail3/scene.gltf"), sh_programID);
+	Rail* rail6 = new Rail(trRail6, model_rail, sh_programID);
 	Level::CURRENT_LEVEL.rail6 = rail6;
 	
 }
@@ -121,8 +123,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	tr_2.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
 	tr_2.rotate(glm::pi<float>()*2, vec3(1.0f, 0.0f, 0.0f));
 
-	Model* model_vago_2 = new Model("./textures/tren_sin_puertas_y_puerta_pegado/tren_sin_puertas.gltf");
-	Vago* vago_2 = new Vago(tr_2, model_vago_2, sh_programID);
+	Vago* vago_2 = new Vago(tr_2, model_vago, sh_programID);
 	Level::CURRENT_LEVEL.my_vago_2 = vago_2;
 
 
@@ -219,11 +220,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	Transform tr_porta_mobil;
 
-	tr_porta_mobil.rotate(PI / 2, {1, 0, 0});
-	tr_porta_mobil.scale(10);
-	GameEntity* porta_mobil = new GameEntity(tr_porta_mobil, new Model("./textures/tren sin puertas y puerta/puerta.gltf"), sh_programID);
-	vago->addChild(porta_mobil);
-
 	tr_porta_mobil.rotate(PI * 2, {0, 0, 1});
 	tr_porta_mobil.scale(1);
 	tr_porta_mobil.translate({0, -6.41, 0});
@@ -318,6 +314,13 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Transform trExterior = Transform();
 	trExterior.position() = vec3(0.0f, 0.0f, 50.0f);
 	trExterior.scale() = vec3(0.2f);
+
+	Model* model_rail = new Model("./textures/rails/rail1/scene.gltf");
+	Transform via_tr;
+	via_tr.translate({ 17.0f, -1.736f, -1.35f });
+	Via* via = new Via(via_tr, model_rail, sh_programID);
+	Level::CURRENT_LEVEL.via = via;
+
 
 	//-------------------------------------SLENDERMANS----------------------------------------------
 	imp_railes(sh_programID);
