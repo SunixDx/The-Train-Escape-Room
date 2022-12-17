@@ -446,6 +446,7 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 
 		
 		Level::CURRENT_LEVEL.my_vago->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.my_vago_2->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.cucaracha->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.rail->mostrar(MatriuVista, MatriuTG);
 		//Level::CURRENT_LEVEL.exterior_tren->mostrar(MatriuVista, MatriuTG);
@@ -463,8 +464,9 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		Level::CURRENT_LEVEL.biblia->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.lever->mostrar(MatriuVista, MatriuTG);
 
-		/*
+		
 		//railes
+		
 		Level::CURRENT_LEVEL.rail1->mostrar(MatriuVista, MatriuTG);
 		//Level::CURRENT_LEVEL.rail_1->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.rail2->mostrar(MatriuVista, MatriuTG);
@@ -473,11 +475,12 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		//Level::CURRENT_LEVEL.rail_3->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.rail4->mostrar(MatriuVista, MatriuTG);
 		//Level::CURRENT_LEVEL.rail_4->mostrar(MatriuVista, MatriuTG);
-		Level::CURRENT_LEVEL.rail5->mostrar(MatriuVista, MatriuTG);
+		Le//vel::CURRENT_LEVEL.rail5->mostrar(MatriuVista, MatriuTG);
 		//Level::CURRENT_LEVEL.rail_5->mostrar(MatriuVista, MatriuTG);
-		Level::CURRENT_LEVEL.rail6->mostrar(MatriuVista, MatriuTG);
+		
+		//Level::CURRENT_LEVEL.rail6->mostrar(MatriuVista, MatriuTG);
 		//Level::CURRENT_LEVEL.rail_6->mostrar(MatriuVista, MatriuTG);
-		*/
+		
 		
 		Level::CURRENT_LEVEL.slenderman->mostrar(MatriuVista, MatriuTG); //slenderman
 		//Level::CURRENT_LEVEL.billy->mostrar(MatriuVista, MatriuTG); //billy

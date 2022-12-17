@@ -10,20 +10,18 @@ Level Level::CURRENT_LEVEL;
 // Funcion para imprimir todos los railes
 void imp_railes(GLuint sh_programID)
 {
-	/*
+	
 	float distance = 6;
 
 	Transform trRail1 = Transform();
-	trRail1.position() = vec3(6.0f, -1.736f, -1.35f);
+	trRail1.position() = vec3(-8.5f, -1.736f, -1.35f);
 	trRail1.scale() = vec3(0.002175f);
 	trRail1.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
 	Rail* rail1 = new Rail(trRail1, new Model("./textures/rails/rail1/scene.gltf"), sh_programID);
 	Level::CURRENT_LEVEL.rail1 = rail1;
-
-
-
+	
 	Transform trRail2 = Transform();
-	trRail2.position() = vec3(14.5f, -1.736f, -1.35f);
+	trRail2.position() = vec3(0.0f, -1.736f, -1.35f);
 	trRail2.scale() = vec3(0.002175f);
 	trRail2.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
 	Rail* rail2 = new Rail(trRail2, new Model("./textures/rails/rail2/scene.gltf"), sh_programID);
@@ -31,33 +29,34 @@ void imp_railes(GLuint sh_programID)
 
 
 	Transform trRail3 = Transform();
-	trRail3.position() = vec3(23.0f, -1.736f, -1.35f);
+	trRail3.position() = vec3(8.5f, -1.736f, -1.35f);
 	trRail3.scale() = vec3(0.002175f);
 	trRail3.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
 	Rail* rail3 = new Rail(trRail3, new Model("./textures/rails/rail3/scene.gltf"), sh_programID);
 	Level::CURRENT_LEVEL.rail3 = rail3;
 
+	
 	Transform trRail4 = Transform();
-	trRail4.position() = vec3(31.5f, -1.736f, -1.35f);
+	trRail4.position() = vec3(17.0f, -1.736f, -1.35f);
 	trRail4.scale() = vec3(0.002175f);
 	trRail4.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
 	Rail* rail4 = new Rail(trRail4, new Model("./textures/rails/rail3/scene.gltf"), sh_programID);
 	Level::CURRENT_LEVEL.rail4 = rail4;
 
 	Transform trRail5 = Transform();
-	trRail5.position() = vec3(40.0f, -1.736f, -1.35f);
+	trRail5.position() = vec3(25.5f, -1.736f, -1.35f);
 	trRail5.scale() = vec3(0.002175f);
 	trRail5.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
 	Rail* rail5 = new Rail(trRail5, new Model("./textures/rails/rail3/scene.gltf"), sh_programID);
 	Level::CURRENT_LEVEL.rail5 = rail5;
 
 	Transform trRail6 = Transform();
-	trRail6.position() = vec3(48.5f, -1.736f, -1.35f);
+	trRail6.position() = vec3(34.0f, -1.736f, -1.35f);
 	trRail6.scale() = vec3(0.002175f);
 	trRail6.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
 	Rail* rail6 = new Rail(trRail6, new Model("./textures/rails/rail3/scene.gltf"), sh_programID);
 	Level::CURRENT_LEVEL.rail6 = rail6;
-	*/
+	
 }
 //-------------------------------------------------------------------------------------------------
 
@@ -65,11 +64,11 @@ void Level::exterior_train_offset(GLuint sh_programID, glm::vec3 exterior_offset
 {
 	//exterior tren
 	Transform trExterior = Transform();
-	trExterior.position() = vec3(0.0f, -15.0f, 0.0f);
-	trExterior.scale() = vec3(0.2f);
+	trExterior.position() = vec3(0.0f, 0.0f, -3.0f);
+	trExterior.scale() = vec3(0.016f);
 
-	trExterior.rotate(glm::pi<float>() / 2, vec3(0.0f, 0.0f, 1.0f));
-	trExterior.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
+	trExterior.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f,0.0f));
+	//trExterior.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
 
 	Rail* exterior = new Rail(trExterior, new Model("./textures/tren_exterior/scene.gltf"), sh_programID);
 	Level::CURRENT_LEVEL.exterior_tren = exterior;
@@ -83,7 +82,7 @@ void Level::slender_offset(GLuint sh_programID, glm::vec3 offset_slenderman)
 	if (posicio == 1) {
 		trPadlock.position() = offset_slenderman;
 		trPadlock.scale() = vec3(0.5f);
-		trPadlock.rotate(-(glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
+		trPadlock.rotate((glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
 	}
 	else if (posicio == 2) {
 		trPadlock.position() = vec3(-1.0f, 0.0f, -0.1f);
@@ -113,8 +112,25 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	tr.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
 
 	Model* model_vago = new Model("./textures/tren sin puertas y puerta/tren_sin_puertas.gltf");
-
 	Vago* vago = new Vago(tr, model_vago, sh_programID);
+
+
+	Transform tr_2 = Transform();
+	tr_2.position() = vec3(19.5f, 0.0f, -0.1f);
+	tr_2.scale() = vec3(1.0f);
+	tr_2.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
+	tr_2.rotate(glm::pi<float>()*2, vec3(1.0f, 0.0f, 0.0f));
+
+	Model* model_vago_2 = new Model("./textures/tren_sin_puertas_y_puerta_pegado/tren_sin_puertas.gltf");
+	Vago* vago_2 = new Vago(tr_2, model_vago_2, sh_programID);
+	Level::CURRENT_LEVEL.my_vago_2 = vago_2;
+
+
+	
+
+
+
+
 
 	Model* model_taula = new Model({ *Mesh::BASIC_CUBE_MESH_BROWN });
 	
@@ -204,8 +220,9 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	tr_porta_mobil.scale(10);
 	GameEntity* porta_mobil = new GameEntity(tr_porta_mobil, new Model("./textures/tren sin puertas y puerta/puerta.gltf"), sh_programID);
 	vago->addChild(porta_mobil);
-
 	Level::CURRENT_LEVEL.my_vago = vago;
+
+
 
 	float c = glm::cos(glm::pi<float>() / 4);
 	float s = glm::sin(glm::pi<float>() / 4);

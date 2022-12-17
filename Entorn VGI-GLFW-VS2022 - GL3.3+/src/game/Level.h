@@ -15,6 +15,7 @@ public:
 	static void slender_offset(GLuint sh_programID, glm::vec3 offset_slenderman);
 	static void exterior_train_offset(GLuint sh_programID, glm::vec3 offset_exterior);
 	Vago* my_vago;
+	Vago* my_vago_2;
 	Cucaracha* cucaracha;
 	Maleta* maleta;
 	GameEntity* maletaTapa;
@@ -22,6 +23,9 @@ public:
 	
 	//tren exterior
 	Rail* rail;
+
+
+	
 
 	//railes
 	Rail* rail1;

@@ -23,8 +23,8 @@
 #include <irrKlang/irrKlang.h>
 
 glm::vec3 skybox_offset = {0, 0, 0};
-glm::vec3 slenderman_offset = vec3(7.0f, 0.0f, -0.1f);
-glm::vec3 slenderman_offset_inicial = vec3(7.0f, 0.0f, -0.1f);
+glm::vec3 slenderman_offset = vec3(-1.8f, 0.0f, -0.1f);
+glm::vec3 slenderman_offset_inicial = vec3(-1.8f, 0.0f, -0.1f);
 
 glm::vec3 exterior_offset = vec3(7.0f, 0.0f, -0.1f);
 glm::vec3 exterior_offset_inicial = vec3(0.0f, -15.0f, 0.0f);
@@ -3605,10 +3605,70 @@ int main(void)
 		delta = now - previous;
 		previous = now;
 
-		if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x > -2)
+		float v = -30;
+
+		if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 10)
 		{
-			Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(-0.5, 0, 0) * delta);
+			Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(0.5,0, 0));
 		}
+
+		//railes
+		/*
+		if (Level::CURRENT_LEVEL.rail6->my_transform.position().x > 12)
+		{
+			Level::CURRENT_LEVEL.rail6->my_transform.translate(vec3(v, 0, 0));
+		}
+		else
+		{
+			Level::CURRENT_LEVEL.rail6->my_transform.translate(vec3(42.5f, 0, 0));
+		}
+
+		if (Level::CURRENT_LEVEL.rail5->my_transform.position().x > 12)
+		{
+			Level::CURRENT_LEVEL.rail5->my_transform.translate(vec3(v, 0, 0));
+		}
+		else
+		{
+			Level::CURRENT_LEVEL.rail5->my_transform.translate(vec3(34.0f, 0, 0));
+		}
+		*/
+
+		if (Level::CURRENT_LEVEL.rail4->my_transform.position().x > 12)
+		{
+			Level::CURRENT_LEVEL.rail4->my_transform.translate(vec3(v, 0, 0));
+		}
+		else
+		{
+			Level::CURRENT_LEVEL.rail4->my_transform.translate(vec3(17.0f, 0, 0));
+		}
+
+		if (Level::CURRENT_LEVEL.rail3->my_transform.position().x > 12)
+		{
+			Level::CURRENT_LEVEL.rail3->my_transform.translate(vec3(v, 0, 0));
+		}
+		else
+		{
+			Level::CURRENT_LEVEL.rail3->my_transform.translate(vec3(8.5f, 0, 0));
+		}
+		if (Level::CURRENT_LEVEL.rail2->my_transform.position().x > 6)
+		{
+			Level::CURRENT_LEVEL.rail2->my_transform.translate(vec3(v, 0, 0));
+		}
+		else
+		{
+			Level::CURRENT_LEVEL.rail2->my_transform.translate(vec3(0.0f, 0, 0));
+		}
+
+		if (Level::CURRENT_LEVEL.rail1->my_transform.position().x > 6)
+		{
+			Level::CURRENT_LEVEL.rail1->my_transform.translate(vec3(v, 0, 0));
+		}
+		else
+		{
+			Level::CURRENT_LEVEL.rail1->my_transform.translate(vec3(-8.0f, 0, 0));
+		}
+		
+		
 
 // // Entorn VGI. Timer: for each timer do this
 		time -= delta;
