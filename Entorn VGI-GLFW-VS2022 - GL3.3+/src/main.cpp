@@ -3508,6 +3508,7 @@ int main(void)
 	Texture texture_obrir_tancar = LoadTexture("./textures/ui_assets", "obrir_tancar_img.png", "texture_diffuse");
 	Texture texture_maleta = LoadTexture("./textures/ui_assets", "maleta_img.png", "texture_diffuse");
 	Texture texture_close_up = LoadTexture("./textures/ui_assets", "aproparse_img.png", "texture_diffuse");
+	Texture texture_lever = LoadTexture("./textures/ui_assets", "lever_img.png", "texture_diffuse");
 
 	Transform transform_sit = Transform();
 	transform_sit.scale(0.15);
@@ -3517,6 +3518,8 @@ int main(void)
 	transform_maleta.scale(0.2);
 	Transform transform_close_up = Transform();
 	transform_close_up.scale(0.15);
+	Transform transform_lever = Transform();
+	transform_lever.scale(0.18);
 
 	Transform indicator_transform = Transform::blank();
 	indicator_transform.scale(1);
@@ -3526,7 +3529,8 @@ int main(void)
 		.set_sit_indicator(new UIElement(transform_sit, texture_sit_down))
 		.set_maleta(new UIElement(transform_maleta, texture_maleta))
 		.set_open_close_indicator(new UIElement(transform_open_close, texture_obrir_tancar))
-		.set_close_up_indicator(new UIElement(transform_close_up, texture_close_up));
+		.set_close_up_indicator(new UIElement(transform_close_up, texture_close_up))
+		.set_lever(new UIElement(transform_lever, texture_lever));
 
 	UI::instance.elements.push_back(new UIElement(crosshair_transform, texture));
 	UI::instance.elements.push_back(&InteractionIndicator::instance);

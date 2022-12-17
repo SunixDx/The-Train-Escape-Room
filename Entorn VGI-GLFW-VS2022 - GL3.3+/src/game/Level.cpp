@@ -243,6 +243,10 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	trBiblia.rotate((PI / -6), vec3(1.0f, 0.0f, 0.0f));
 	GameEntity* biblia = new GameEntity(trBiblia, new Model("./textures/biblia/biblia.obj"), sh_programID);
 
+	// palanca
+	Transform trLever = Transform();
+	Lever* lever = new Lever(trLever, new Model("./textures/lever/lever.obj"), sh_programID);
+
 	Level::CURRENT_LEVEL.padlock = padlock;
 	Level::CURRENT_LEVEL.my_vago = vago;
 	Level::CURRENT_LEVEL.maleta = maleta;
@@ -257,6 +261,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Level::CURRENT_LEVEL.clock2 = clock2;
 	Level::CURRENT_LEVEL.clock3 = clock3;
 	Level::CURRENT_LEVEL.biblia = biblia;
+	Level::CURRENT_LEVEL.lever = lever;
 }
 
 void Level::MaybeSpawnSlender()
