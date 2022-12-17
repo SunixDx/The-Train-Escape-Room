@@ -40,8 +40,11 @@ void Maleta::interact()
 
 	irrklang::vec3df position(my_transform.position().x, my_transform.position().y, my_transform.position().z);
 	irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/briefcase.wav", position, false, true);
-	Audio::AUDIO_FUNCTIONS.setVolume(snd, 2.0f);
-	Audio::AUDIO_FUNCTIONS.pause_or_unpause(snd);
+	if (snd)
+	{
+		snd->setVolume(2.0f);
+		snd->setIsPaused(false);
+	}
 
 	if (my_aixecada)
 	{

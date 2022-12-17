@@ -5,6 +5,7 @@
 
 //#include <GLFW/glfw3.h>
 #include <iostream>
+#include <chrono>
 #include "stdafx.h"
 #include "shader.h"
 #include "visualitzacio.h"
@@ -28,6 +29,8 @@ void InitGL()
 
 //------ Entorn VGI: Inicialitzaciï¿½ de les variables globals de CEntornVGIView
 	int i;
+	light_flicker = false;
+	setSpookyLights = false;
 
 // Entorn VGI: Variable de control per a Status Bar (consola) 
 	statusB = false;
@@ -2510,6 +2513,13 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			{
 				cout << "START BUTTON" << endl;
 				OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 0);
+				
+				Level::CURRENT_LEVEL.gameStarted = true;
+				//iniciar audio tren
+				Level::CURRENT_LEVEL.trainSound->setIsPaused(false);
+				//iniciar timer
+				Level::CURRENT_LEVEL.gameTimer = chrono::steady_clock::now();
+				Level::CURRENT_LEVEL.gameTimer2 = chrono::steady_clock::now();
 			}
 			if (h / ypos < 1.58 && h / ypos > 1.4)
 			{
@@ -3070,22 +3080,6 @@ void APIENTRY glDebugOutput(GLenum source, GLenum type, GLuint id, GLenum severi
 
 int main(void)
 {
-
-
-	irrklang::ISoundEngine* soundEngine = irrklang::createIrrKlangDevice();;
-
-	if (!soundEngine)
-	{
-		cout << "Could not startup irrKlang engine" << endl;
-	}
-	if(soundEngine) {
-		// To play a sound, we only to call play2D(). The second parameter
-		// tells the engine to play it looped.
-		// play some sound stream, looped
-		irrklang::ISound* snd = soundEngine->play2D("../EntornVGI/media/movingTrain.mp3", true);
-		//soundEngine->setSoundVolume(irrklang::ik_f32(0.02)); //cambiar volumen
-	}
-
 	///-----includes_end-----
 
 	int i;
@@ -3243,18 +3237,8 @@ int main(void)
 	//next line is optional: it will be cleared by the destructor when the array goes out of scope
 	collisionShapes.clear();
 
-	
-
-
-	
-
 
 	BulletWorld::WORLD = new BulletWorld;
-
-
-
-
-
 
 
 //    GLFWwindow* window;
@@ -3559,32 +3543,71 @@ int main(void)
 	std::cout << "shader ID:" << shaderGouraud.getProgramID() << std::endl;
 	
 	Level::buildFirstLevel(shaderGouraud.getProgramID());
+	Level::CURRENT_LEVEL.flicker = &light_flicker;
+	Level::CURRENT_LEVEL.setSpookyLights = &setSpookyLights;
 	Level::CURRENT_LEVEL.llumAmbient = &llum_ambient;
 	Level::CURRENT_LEVEL.iFixe = &ifixe;
 
-	irrklang::ISound* backgroundSound = Audio::AUDIO_FUNCTIONS.play2D("./media/movingTrain.mp3", true, true);
-	if (!backgroundSound)
-	{
-		std::cout << "Could not play sound" << std::endl;
-	}
-	else
-	{
-		if (backgroundSound->getIsPaused()) {
-			backgroundSound->setVolume(0.1f);
-			backgroundSound->setIsPaused(false);
+
+	Level::CURRENT_LEVEL.trainSound = Audio::AUDIO_FUNCTIONS.play2D("./media/movingTrain.mp3", true, true);
+	if (Level::CURRENT_LEVEL.trainSound) {
+		if (Level::CURRENT_LEVEL.trainSound->getIsPaused()) {
+			Level::CURRENT_LEVEL.trainSound->setVolume(0.05f);
 		}
-	}
+	}	
 
 	irrklang::ISound* footsteps = Audio::AUDIO_FUNCTIONS.play2D("./media/footsteps.mp3", true, true);
-	footsteps->setVolume(0.25);
-	footsteps->setPlaybackSpeed(1.5);
+	if (footsteps) {
+		footsteps->setVolume(0.25f);
+		footsteps->setPlaybackSpeed(1.5);
+	}
 
+	chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+	chrono::steady_clock::time_point end;
 // Loop until the user closes the window
 
+	bool start = true;
+	int comptadorMinuts = 0;
 
     while (!glfwWindowShouldClose(window))
     {  
-	
+		// Avisa a cada minut que passa desde que s'ha clicat start
+		// So de passes sona i a cada minut s'apropen
+		// parpadejen les llums
+		if (Level::CURRENT_LEVEL.gameStarted) {
+			Level::CURRENT_LEVEL.gameTimer2 = chrono::steady_clock::now();
+		}
+		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 60) {
+			comptadorMinuts++;
+			cout << "HA PASSAT UN MINUT" << endl;
+			Level::CURRENT_LEVEL.gameTimer = chrono::steady_clock::now();
+
+			light_flicker = true;
+			irrklang::ISound* snd3 = Audio::AUDIO_FUNCTIONS.play2D("./media/flickering-lights.wav", false, true);
+			if (snd3) {
+				snd3->setVolume(0.075f);
+				snd3->setIsPaused(false);
+			}
+			Level::CURRENT_LEVEL.lightTimer = chrono::steady_clock::now();
+		}
+
+		// Efecte de llums
+		end = chrono::steady_clock::now();
+		if ((float(chrono::duration_cast<chrono::microseconds>(end - begin).count()) / 100000) >= 1 && light_flicker) {
+			begin = chrono::steady_clock::now();
+
+			if ((float(chrono::duration_cast<chrono::microseconds>(chrono::steady_clock::now() - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) <= 1) {
+				if (llum_ambient) {
+					llum_ambient = false;
+					ifixe = true;
+				}
+				else {
+					llum_ambient = true;
+					ifixe = false;
+				}
+			}
+		}
+
 // Poll for and process events */
 //        glfwPollEvents();
 
@@ -3737,9 +3760,9 @@ int main(void)
 	// next example for an explanation)
 	// The object is deleted simply by calling ->drop().
 
-	if (backgroundSound) {
+	/*if (backgroundSound) {
 		backgroundSound->drop();
-	}
+	}*/
 	
 	Audio::AUDIO_FUNCTIONS.~Audio();
 

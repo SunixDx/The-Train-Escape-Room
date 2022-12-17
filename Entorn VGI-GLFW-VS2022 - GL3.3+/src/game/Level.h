@@ -1,5 +1,6 @@
 #pragma once
 
+#include <chrono>
 #include "entities/Vago.h"
 #include "entities/Cucaracha.h"
 #include "entities/Maleta.h"
@@ -31,11 +32,21 @@ public:
 	Lever* lever;
 
 	//llums
+	bool* flicker;
+	bool* setSpookyLights;
 	bool* llumAmbient;
 	bool* iFixe;
 
+	bool gameStarted = false;
+
+	//temps
+	chrono::steady_clock::time_point gameTimer; //comença a contar al clicar start
+	chrono::steady_clock::time_point gameTimer2;
+	chrono::steady_clock::time_point lightTimer;
+
 	//sons
 	vector<irrklang::ISound*> sonsSlenderman;
+	irrklang::ISound* trainSound;
 
 	InteractableEntity* my_entity_under_cursor;
 
