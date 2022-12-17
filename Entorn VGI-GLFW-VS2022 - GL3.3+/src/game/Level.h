@@ -22,7 +22,6 @@ public:
 	
 	//tren exterior
 	Rail* rail;
-	Rail* exit;
 
 	//railes
 	Rail* rail1;
@@ -32,13 +31,13 @@ public:
 	Rail* rail5;
 	Rail* rail6;
 	//monstres
-	Rail* padlock;
+	Rail* slenderman;
 	Rail* billy;
 
 	Crypt* crypt;
 	Panel* panel;
 	Rail* exterior_tren;
-	Rail* megaphone;
+	GameEntity* megaphone;
 	GameEntity* clock;
 	GameEntity* clock2;
 	GameEntity* clock3;
