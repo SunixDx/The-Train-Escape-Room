@@ -1,11 +1,12 @@
 #include "Panel.h"
 #include "../graphics/Camera.h"
+#include "../ui/InteractionIndicator.h"
 
 Panel::Panel(Transform transform, Model* model, GLuint shader_id) : InteractableEntity(transform, model, shader_id, InteractionType::CLOSE_UP)
 {
-	my_model = model;
+	zoom = false;
 
-	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.5), btScalar(.5), btScalar(.5))); //definir collider
+	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.1), btScalar(.25), btScalar(.25))); //definir collider
 
 	btTransform groundTransform;
 	groundTransform.setIdentity();
@@ -38,21 +39,20 @@ void Panel::interact()
 	cout << "soy el panel" << endl;
 
 	Camera::MAIN_CAMERA.zoomIn(my_transform);
+	//zoom = true;
 
-	/*
-	int contra;
+	InteractionIndicator::instance.change_indicator(InteractionType::NONE);
 
-	std::cout << "INTRODUCE LA CONTRASEÑA:" << std::endl;
+}
 
-	std::cin >> contra;
-
-	if (contra == 578)
+InteractionType Panel::interaction_type() const
+{
+	if (!zoom)
 	{
-		std::cout << "CORRECTO!!" << std::endl;
+		return my_interaction_type;
 	}
 	else
 	{
-		std::cout << "ERROR, VUELVE A INTENTARLO" << std::endl;
+		return InteractionType::NONE;
 	}
-	*/
 }

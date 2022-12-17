@@ -8,6 +8,7 @@ enum class InteractionType
 	SIT,
 	MALETA,
 	CLOSE_UP,
+	NONE
 };
 
 class InteractableEntity : public GameEntity

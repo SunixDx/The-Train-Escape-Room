@@ -861,7 +861,17 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.zoom)
 	{
-		if (key == GLFW_KEY_C) Camera::MAIN_CAMERA.zoomOut();
+		if (key == GLFW_KEY_C)
+		{
+			Camera::MAIN_CAMERA.zoomOut();
+			
+			InteractableEntity* euc = Level::CURRENT_LEVEL.my_entity_under_cursor;
+			if (euc) //si hay algo bajo el cursor
+			{
+				if (euc->is_interactable())
+					InteractionIndicator::instance.change_indicator(euc->interaction_type());
+			}
+		}
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_RELEASE)
 	{
