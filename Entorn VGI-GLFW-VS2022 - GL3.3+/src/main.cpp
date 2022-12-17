@@ -3567,12 +3567,12 @@ int main(void)
 			//Camera::MAIN_CAMERA.position.z = trans.getOrigin().getZ();
 		}
 
-		/*
+		
 		skybox_offset.x -= delta * 450;
 		if (skybox_offset.x <= -2200)
 			skybox_offset.x = 2200;
-		*/
-		skybox_offset.x = 0;
+		
+		//skybox_offset.x = 0;
 
 
 
