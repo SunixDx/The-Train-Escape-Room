@@ -3452,21 +3452,22 @@ int main(void)
 	Texture texture_exit = LoadTexture("./textures/menu", "Menu Exit Rojo.png", "texture_diffuse");
 	Texture texture_start = LoadTexture("./textures/menu", "Menu Start Pressed.png", "texture_diffuse");
 
-	Transform menu_transform = Transform::blank();
-	menu_transform.scale(1.5);
+	Transform menu_transform = Transform();
+	menu_transform.scale(1);
 	Transform exit_transform = Transform();
 	menu_transform.scale(1);
 	Transform start_transform = Transform();
 	menu_transform.scale(1);
 
 	Transform menu_indicator_transform = Transform::blank();
-	menu_indicator_transform.scale(1);
-	menu_indicator_transform.translate({ 0, -0.2, 0 });
+	menu_indicator_transform.scale(1.8);
+	menu_indicator_transform.translate({ 0, 0, 0 });
 	Menu::instance = Menu(menu_indicator_transform);
 	Menu::instance
 		.set_menu_default(new UIElement(menu_transform, texture_menu))
 		.set_menu_exit(new UIElement(exit_transform, texture_exit))
-		.set_menu_start(new UIElement(start_transform, texture_start));
+		.set_menu_start(new UIElement(start_transform, texture_start))
+		.change_indicator(MenuType::MENU);
 
 	// interacteable
 	Texture texture_sit_down = LoadTexture("./textures/ui_assets", "seure_img.png", "texture_diffuse");
@@ -3496,7 +3497,6 @@ int main(void)
 	UI::instance.elements.push_back(new UIElement(crosshair_transform, texture));
 	UI::instance.elements.push_back(&InteractionIndicator::instance);
 	UI::instance.elements.push_back(&Menu::instance);
-	UI::instance.elements.push_back(new UIElement(menu_transform, texture_menu));
 
 
 	//Mesh::CROSSHAIR = new Mesh(plane_vertices, plane_indices, plane_textures);

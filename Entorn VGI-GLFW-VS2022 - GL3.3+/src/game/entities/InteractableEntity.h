@@ -7,7 +7,14 @@ enum class InteractionType
 	OPEN_CLOSE,
 	SIT,
 	MALETA,
-	CLOSE_UP,
+	CLOSE_UP
+};
+
+enum class MenuType
+{
+	MENU,
+	START,
+	EXIT
 };
 
 class InteractableEntity : public GameEntity

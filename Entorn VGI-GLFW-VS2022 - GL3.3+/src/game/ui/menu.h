@@ -9,7 +9,7 @@ public:
 
 	Menu(Transform transform) : UIElement(transform) {}
 
-	void change_indicator(InteractionType type);
+	void change_indicator(MenuType type);
 	void remove_indicator();
 
 	Menu& set_menu_default(UIElement* indicator);
