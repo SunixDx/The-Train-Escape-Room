@@ -8,7 +8,8 @@ enum class InteractionType
 	SIT,
 	MALETA,
 	CLOSE_UP,
-	LEVER
+	LEVER,
+	NONE
 };
 
 enum class MenuType

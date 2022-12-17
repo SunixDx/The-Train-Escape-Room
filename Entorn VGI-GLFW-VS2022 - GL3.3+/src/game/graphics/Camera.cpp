@@ -113,6 +113,35 @@ void Camera::fly_arround(glm::vec3 center)
 	MAIN_CAMERA.position.y = 0 - (sin(MAIN_CAMERA.horizontal_angle) * MAIN_CAMERA.flying_radius) + center.y;
 }
 
+void Camera::zoomIn(Transform trans)
+{
+	if (!zoom)
+	{
+		SAVE_CAMERA = MAIN_CAMERA;
+		MAIN_CAMERA.zoom = true;
+	}
+
+	MAIN_CAMERA.position.x = trans.position().x - 0.35;
+	MAIN_CAMERA.position.y = trans.position().y;
+	MAIN_CAMERA.position.z = trans.position().z;
+
+	MAIN_CAMERA.horizontal_angle = 0;
+	MAIN_CAMERA.vertical_angle = 0;
+	
+}
+
+void Camera::zoomOut()
+{
+	SAVE_CAMERA.horizontal_angle = MAIN_CAMERA.horizontal_angle;
+	SAVE_CAMERA.vertical_angle = MAIN_CAMERA.vertical_angle;
+
+
+	MAIN_CAMERA = SAVE_CAMERA;
+	MAIN_CAMERA.zoom = false;
+}
+
+
+
 /*
 void show_cam_vectors()
 {

@@ -861,7 +861,7 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		}
 			
 	}
-	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && !Camera::MAIN_CAMERA.sit && !Camera::MAIN_CAMERA.flying)
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && !Camera::MAIN_CAMERA.sit && !Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.zoom)
 	{
 		if (key == GLFW_KEY_W) w_pressed = true;
 		if (key == GLFW_KEY_S) s_pressed = true;
@@ -877,6 +877,20 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.sit && !Camera::MAIN_CAMERA.flying)
 	{
 		if (key == GLFW_KEY_C) Camera::MAIN_CAMERA.standUp();
+	}
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.zoom)
+	{
+		if (key == GLFW_KEY_C)
+		{
+			Camera::MAIN_CAMERA.zoomOut();
+			
+			InteractableEntity* euc = Level::CURRENT_LEVEL.my_entity_under_cursor;
+			if (euc) //si hay algo bajo el cursor
+			{
+				if (euc->is_interactable())
+					InteractionIndicator::instance.change_indicator(euc->interaction_type());
+			}
+		}
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_RELEASE)
 	{
@@ -2584,7 +2598,7 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 			Menu::instance.change_indicator(MenuType::MENU);
 		}
 	}
-	if (camera == CAM_PERSONALITZADA && !Camera::MAIN_CAMERA.flying)
+	if (camera == CAM_PERSONALITZADA && !Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.zoom)
 	{
 		Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.mouse_speed * float(w / 2 - xpos);
 		Camera::MAIN_CAMERA.vertical_angle += Camera::MAIN_CAMERA.mouse_speed * float(h / 2 - ypos);
@@ -3652,19 +3666,26 @@ int main(void)
 		Camera::MAIN_CAMERA.my_rigid_body->setLinearVelocity(velocity);
 
 		Camera::MAIN_CAMERA.syncColliders();
-		BulletWorld::WORLD->simulate(delta);
+		BulletWorld::WORLD->simulate(delta * 10);
 		
 		btTransform trans;
 		Camera::MAIN_CAMERA.my_rigid_body->getMotionState()->getWorldTransform(trans);
 
-		if (!Camera::MAIN_CAMERA.sit)
+		if (!Camera::MAIN_CAMERA.sit && !Camera::MAIN_CAMERA.zoom)
 		{
 			Camera::MAIN_CAMERA.position.x = trans.getOrigin().getX();
 			Camera::MAIN_CAMERA.position.y = trans.getOrigin().getY();
 			//Camera::MAIN_CAMERA.position.z = trans.getOrigin().getZ();
 		}
 
-		
+		if (Camera::MAIN_CAMERA.zoom || Camera::MAIN_CAMERA.flying)
+		{
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+		else 
+		{
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		}
 
 
 // Crida a OnPaint() per redibuixar l'escena

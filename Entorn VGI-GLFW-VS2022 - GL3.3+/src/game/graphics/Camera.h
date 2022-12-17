@@ -13,6 +13,8 @@ public:
 	void syncColliders();
 	void sitDown(const Seient* seient);
 	void standUp();
+	void zoomIn(Transform trans);
+	void zoomOut();
 
 	void fly();
 	void enterTrain();
@@ -34,6 +36,7 @@ public:
 
 	bool sit = false;
 	bool flying = false;
+	bool zoom = false;
 
 	static Camera MAIN_CAMERA;
 	static Camera SAVE_CAMERA;

@@ -37,7 +37,6 @@ public:
 
 	static Level CURRENT_LEVEL;
 
-
 	void MaybeSpawnSlender();
 	void despawnSlender();
 };
