@@ -17,4 +17,5 @@ public:
 
 private:
 	btRigidBody* my_rigid_body;
+	bool pulsada;
 };

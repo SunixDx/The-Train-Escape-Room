@@ -245,7 +245,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	// palanca
 	Transform trLever = Transform();
-	Lever* lever = new Lever(trLever, new Model("./textures/lever/Lever2.fbx"), sh_programID);
+	Lever* lever = new Lever(trLever, new Model("./textures/lever/lever.obj"), sh_programID);
 
 	Level::CURRENT_LEVEL.padlock = padlock;
 	Level::CURRENT_LEVEL.my_vago = vago;

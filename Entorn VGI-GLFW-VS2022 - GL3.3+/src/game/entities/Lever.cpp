@@ -2,7 +2,7 @@
 
 Lever::Lever(Transform transform, Model* model, GLuint shader_id) : InteractableEntity(transform, model, shader_id, InteractionType::LEVER)
 {
-
+	pulsada = false;
 	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(0.25), btScalar(0.1), btScalar(0.5))); //definir collider
 
 	btTransform groundTransform;
@@ -33,6 +33,10 @@ Lever::Lever(Transform transform, Model* model, GLuint shader_id) : Interactable
 
 void Lever::interact()
 {
-	cout << "HAS INTERACTUAT AMB LA PALANCA, SUPOSO" << endl;
-	my_transform.rotate((PI), vec3(1.0f, 0.0f, 0.0f));
+	if (!pulsada)
+	{
+		cout << "HAS INTERACTUAT AMB LA PALANCA, SUPOSO" << endl;
+		my_transform.rotate((2*PI), vec3(1.0f, 0.0f, 0.0f));
+		pulsada = true;
+	}
 }
