@@ -91,7 +91,7 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\src\game\audio\AudioFunctions.cpp">
-          <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\src\game\entities\Libro1.cpp">
       <Filter>Archivos de origen</Filter>
@@ -101,6 +101,9 @@
     </ClCompile>
     <ClCompile Include="..\src\game\entities\Panel.cpp">
       <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\tots_els_rails.cpp">
+      <Filter>Archivos de encabezado</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -192,7 +195,7 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\src\game\audio\AudioFunctions.h">
-          <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\src\game\entities\Libro1.h">
       <Filter>Archivos de encabezado</Filter>

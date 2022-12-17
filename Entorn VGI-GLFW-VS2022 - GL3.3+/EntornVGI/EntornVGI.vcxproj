@@ -40,6 +40,7 @@
     <ClCompile Include="..\src\game\graphics\Vertex.cpp" />
     <ClCompile Include="..\src\game\Level.cpp" />
     <ClCompile Include="..\src\game\physics\BulletWorld.cpp" />
+    <ClCompile Include="..\src\game\tots_els_rails.cpp" />
     <ClCompile Include="..\src\game\ui\Transform2D.cpp" />
     <ClCompile Include="..\src\game\ui\UI.cpp" />
     <ClCompile Include="..\src\glut_geometry.cpp" />

@@ -20,6 +20,11 @@
 #include <irrKlang/irrKlang.h>
 
 glm::vec3 skybox_offset = {0, 0, 0};
+glm::vec3 slenderman_offset = vec3(7.0f, 0.0f, -0.1f);
+glm::vec3 slenderman_offset_inicial = vec3(7.0f, 0.0f, -0.1f);
+
+glm::vec3 exterior_offset = vec3(7.0f, 0.0f, -0.1f);
+glm::vec3 exterior_offset_inicial = vec3(0.0f, -15.0f, 0.0f);
 
 void InitGL()
 {
@@ -3438,6 +3443,7 @@ int main(void)
 	std::cout << "shader ID:" << shaderGouraud.getProgramID() << std::endl;
 	
 	Level::buildFirstLevel(shaderGouraud.getProgramID());
+	Level::exterior_train_offset(shaderGouraud.getProgramID(), exterior_offset_inicial);
 	Level::CURRENT_LEVEL.llumAmbient = &llum_ambient;
 	Level::CURRENT_LEVEL.iFixe = &ifixe;
 
@@ -3473,6 +3479,14 @@ int main(void)
 		now = glfwGetTime();
 		delta = now - previous;
 		previous = now;
+
+		Level::slender_offset(shaderGouraud.getProgramID(), slenderman_offset);
+		
+
+		if (slenderman_offset.x > -2)
+		{
+			slenderman_offset.x = slenderman_offset_inicial.x;
+		}
 
 // // Entorn VGI. Timer: for each timer do this
 		time -= delta;
@@ -3553,9 +3567,12 @@ int main(void)
 			//Camera::MAIN_CAMERA.position.z = trans.getOrigin().getZ();
 		}
 
+		/*
 		skybox_offset.x -= delta * 450;
 		if (skybox_offset.x <= -2200)
 			skybox_offset.x = 2200;
+		*/
+		skybox_offset.x = 0;
 
 
 
