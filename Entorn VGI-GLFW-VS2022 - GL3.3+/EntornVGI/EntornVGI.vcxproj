@@ -31,6 +31,7 @@
     <ClCompile Include="..\src\game\entities\Rail.cpp" />
     <ClCompile Include="..\src\game\entities\Seient.cpp" />
     <ClCompile Include="..\src\game\entities\Taula.cpp" />
+    <ClCompile Include="..\src\game\entities\Terreny.cpp" />
     <ClCompile Include="..\src\game\entities\Vago.cpp" />
     <ClCompile Include="..\src\game\entities\Via.cpp" />
     <ClCompile Include="..\src\game\graphics\Camera.cpp" />
@@ -70,6 +71,7 @@
     <ClInclude Include="..\src\game\entities\Rail.h" />
     <ClInclude Include="..\src\game\entities\Seient.h" />
     <ClInclude Include="..\src\game\entities\Taula.h" />
+    <ClInclude Include="..\src\game\entities\Terreny.h" />
     <ClInclude Include="..\src\game\entities\Vago.h" />
     <ClInclude Include="..\src\game\entities\Via.h" />
     <ClInclude Include="..\src\game\graphics\Camera.h" />

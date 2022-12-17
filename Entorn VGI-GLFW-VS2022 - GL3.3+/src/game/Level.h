@@ -9,6 +9,7 @@
 #include "entities/Rail.h"
 #include "entities/Lever.h"
 #include "entities/Via.h"
+#include "entities/Terreny.h"
 
 
 class Level {
@@ -30,6 +31,7 @@ public:
 	
 
 	Via* via;
+	Terreny* terreny;
 	//railes
 	Rail* rail1;
 	Rail* rail2;

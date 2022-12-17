@@ -444,6 +444,8 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 
 		//Model::BACKPACK->Draw(MatriuVista, MatriuTG, tr, sh_programID);
 
+		Level::CURRENT_LEVEL.via->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.terreny->mostrar(MatriuVista, MatriuTG);
 		
 		Level::CURRENT_LEVEL.my_vago->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.my_vago_2->mostrar(MatriuVista, MatriuTG);
@@ -467,7 +469,7 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		
 		//railes
 		
-		Level::CURRENT_LEVEL.via->mostrar(MatriuVista, MatriuTG);
+
 		//Level::CURRENT_LEVEL.rail1->mostrar(MatriuVista, MatriuTG);
 		//Level::CURRENT_LEVEL.rail_1->mostrar(MatriuVista, MatriuTG);
 		//Level::CURRENT_LEVEL.rail2->mostrar(MatriuVista, MatriuTG);

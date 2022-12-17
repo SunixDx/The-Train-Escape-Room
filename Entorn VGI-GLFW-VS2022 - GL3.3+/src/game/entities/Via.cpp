@@ -1,8 +1,8 @@
 #include "Via.h"
 
-Via::Via(Transform transform, Model* model_rail, GLuint shader_id): GameEntity(transform, nullptr, shader_id)
+Via::Via(Transform transform, Model* model_rail, GLuint shader_id, float speed): speed(speed), GameEntity(transform, nullptr, shader_id)
 {
-	n_rails = 8;
+	n_rails = 80;
 	longitud_rail = 8.7;
 
 	float offset_rail = 0 - n_rails / 2 * longitud_rail;
@@ -25,9 +25,9 @@ void Via::update(float delta_time)
 {
 	for (auto rail : my_children)
 	{
-		rail->my_transform.position().x += delta_time * 25;
+		rail->my_transform.position().x -= delta_time * speed;
 
-		if (rail->my_transform.position().x > n_rails / 2 * longitud_rail)
-			rail->my_transform.position().x -= n_rails / 2 * longitud_rail * 2;
+		if (rail->my_transform.position().x < -(n_rails / 2 * longitud_rail))
+			rail->my_transform.position().x += n_rails / 2 * longitud_rail * 2;
 	}
 }

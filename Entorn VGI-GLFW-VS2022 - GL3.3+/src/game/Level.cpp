@@ -318,8 +318,15 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Model* model_rail = new Model("./textures/rails/rail1/scene.gltf");
 	Transform via_tr;
 	via_tr.translate({ 17.0f, -1.736f, -1.35f });
-	Via* via = new Via(via_tr, model_rail, sh_programID);
+	Via* via = new Via(via_tr, model_rail, sh_programID, 25);
 	Level::CURRENT_LEVEL.via = via;
+
+	Model* model_terreny = new Model("./textures/terreny/terreny.obj");
+	Transform terreny_tr;
+	terreny_tr.translate({ 17.0f, -1.736f, -2.0f });
+	Terreny* terreny = new Terreny(terreny_tr, model_terreny, sh_programID, 25);
+	Level::CURRENT_LEVEL.terreny = terreny;
+
 
 
 	//-------------------------------------SLENDERMANS----------------------------------------------
