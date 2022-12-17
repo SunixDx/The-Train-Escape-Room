@@ -3024,6 +3024,8 @@ void APIENTRY glDebugOutput(GLenum source, GLenum type, GLuint id, GLenum severi
 
 int main(void)
 {
+
+
 	irrklang::ISoundEngine* soundEngine = irrklang::createIrrKlangDevice();;
 
 	if (!soundEngine)
@@ -3529,8 +3531,11 @@ int main(void)
 	if (!steps)
 		cout << "Error al crear el so" << endl;
 
+	bool start = true;
+
     while (!glfwWindowShouldClose(window))
     {  
+	
 // Poll for and process events */
 //        glfwPollEvents();
 
@@ -3623,18 +3628,27 @@ int main(void)
 			//Camera::MAIN_CAMERA.position.z = trans.getOrigin().getZ();
 		}
 
-
+		
 
 
 // Crida a OnPaint() per redibuixar l'escena
 		OnPaint(window);
-
 
 // Intercanvia l'escena al front de la pantalla
 	//	glfwSwapBuffers(window);
 
 // Poll for and process events
 		glfwPollEvents();
+		if (start)
+		{
+			start = false;
+			// INICIAR TOT
+			OnKeyDown(window, GLFW_KEY_P, 1, GLFW_PRESS, 1);
+			OnKeyDown(window, GLFW_KEY_L, 1, GLFW_PRESS, 1);
+			OnKeyDown(window, GLFW_KEY_F3, 1, GLFW_PRESS, 2);
+			OnKeyDown(window, GLFW_KEY_P, 1, GLFW_PRESS, 0);
+			OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 0);
+		}
     }
 
 // Check if the ESC key was pressed or the window was closed
