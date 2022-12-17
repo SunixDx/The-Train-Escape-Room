@@ -1,0 +1,70 @@
+@startuml Classes
+
+interface InteractableEntity {
+    vistual void interact();
+}
+
+class Vago{
+    +Vago(Transform transform, Mesh* mesh, GLuint shader_id);
+    +~Vago()
+    
+    +void afegirTaula(Taula* taula);
+	+void afegirSeient(Seient* seient);
+	+void mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG);
+
+    -Mesh* my_mesh;
+	-Transform my_transform;
+	-GLuint my_shader_id;
+
+	-std::vector<Taula*> my_taules;
+	-std::vector<Seient> my_seients;
+}
+
+class Taula{
+    +Taula(Transform transform, Mesh* mesh, GLuint shader_id);
+    +~Taula()
+    
+	+void mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG);
+
+    -Mesh* my_mesh;
+	-Transform my_transform;
+	-GLuint my_shader_id;
+    -btRigidBody* my_rigid_body;
+}
+
+class Seient{
+    +Seient(Transform transform, Mesh* mesh, GLuint shader_id);
+    +~Seient()
+    
+	+void mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG);
+
+    -Mesh* my_mesh;
+	-Transform my_transform;
+	-GLuint my_shader_id;
+    -btRigidBody* my_rigid_body;
+}
+
+
+InteractableEntity  <|-- Vago
+InteractableEntity  <|-- Taula
+InteractableEntity  <|-- Seient
+
+
+Vago o-- Taula
+Vago o-- Seient
+
+
+class Camera {
+	+void setupColliders();
+	+void syncColliders();
+
+    float horizontal_angle;
+	float vertical_angle;
+	float move_speed;
+	float turn_speed;
+	float mouse_speed;
+	glm::vec3 position;
+	btRigidBody* my_rigid_body;
+}
+
+@enduml
