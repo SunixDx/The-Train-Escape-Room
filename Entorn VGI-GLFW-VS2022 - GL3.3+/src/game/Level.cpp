@@ -7,9 +7,11 @@ Level Level::CURRENT_LEVEL;
 void Level::buildFirstLevel(GLuint sh_programID)
 {
 	Transform tr = Transform();
-	tr.position() = vec3(0.0f, 0.0f, Vago::Z_OFFSET); //posicionamos objeto
+	tr.position() = vec3(0.0f, 0.0f, -0.1f);
+	tr.scale() = vec3(1.0f);
+	tr.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
 
-	Model* model_vago = new Model({ *Mesh::BASIC_CUBE_MESH });
+	Model* model_vago = new Model("./textures/tren sin puertas y puerta/tren_sin_puertas.gltf");
 
 	Vago* vago = new Vago(tr, model_vago, sh_programID);
 
@@ -20,15 +22,10 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	for (int i = 0; i < 1; i++)
 	{
 		if (i == 2)
-		{
-			xValorTaula += 4.53f;
-			//tercera mesa ha de llegar a 5,69
-		}
+			xValorTaula += 4.53f; //tercera mesa ha de llegar a 5,69
 		else if (i > 0)
-		{
 			xValorTaula += 2.06f;
 
-		}
 		vago->addChild(new Taula(Transform(vec3(xValorTaula, 1.2f, -0.7f), quat(1.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), model_taula, sh_programID));
 	}
 
@@ -37,14 +34,10 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	for (int i = 0; i < 1; i++)
 	{
 		if (i == 2)
-		{
 			xValorTaula += 4.53f;
-		}
 		else if (i > 0)
-		{
 			xValorTaula += 2.06f;
 
-		}
 		vago->addChild(new Taula(Transform(vec3(xValorTaula, -1.2f, -0.7f), quat(1.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), model_taula, sh_programID));
 	}
 
@@ -58,15 +51,10 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	for (int i = 0; i < 4; i++)
 	{
 		if (i == 2)
-		{
-			xValorSeientEndavant += 4.58f;
-			//6,34 - i=3
-		}
+			xValorSeientEndavant += 4.58f; //6,34 - i=3
 		else if (i > 0)
-		{
-			xValorSeientEndavant += 2.02f;
-			//1,69
-		}
+			xValorSeientEndavant += 2.02f; //1,69
+
 		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, 1.2f, -1.2f), mirar_endevant, vec3(1.0f)), nullptr, sh_programID));
 	}
 
@@ -75,14 +63,10 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	for (int i = 0; i < 4; i++)
 	{
 		if (i == 2)
-		{
 			xValorSeientEndavant += 4.58f;
-		}
 		else if (i > 0)
-		{
 			xValorSeientEndavant += 2.02f;
 
-		}
 		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, -1.2f, -1.2f), mirar_endevant, vec3(1.0f)), nullptr, sh_programID));
 	}
 
@@ -91,16 +75,10 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	for (int i = 0; i < 4; i++)
 	{
 		if (i == 2)
-		{
-			xValorSeientEndarrere += 4.55f;
-			//5,04 - i=3
-		}
+			xValorSeientEndarrere += 4.55f; //5,04 - i=3
 		else if (i > 0)
-		{
-			xValorSeientEndarrere += 2.02f;
-			//0.39
+			xValorSeientEndarrere += 2.02f; //0.39
 
-		}
 		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, 1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
 	}
 
@@ -109,17 +87,23 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	for (int i = 0; i < 4; i++)
 	{
 		if (i == 2)
-		{
 			xValorSeientEndarrere += 4.55f;
-		}
 		else if (i > 0)
-		{
 			xValorSeientEndarrere += 2.02f;
 
-		}
 		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, -1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
 	}
-	
+
+	Transform tr_porta_fixa;
+	GameEntity* porta_fixa = new GameEntity(tr_porta_fixa, new Model("./textures/tren sin puertas y puerta/puerta.gltf"), sh_programID);
+	vago->addChild(porta_fixa);
+
+	Transform tr_porta_mobil;
+	tr_porta_mobil.rotate(PI / 2, {1, 0, 0});
+	tr_porta_mobil.scale(10);
+	GameEntity* porta_mobil = new GameEntity(tr_porta_mobil, new Model("./textures/tren sin puertas y puerta/puerta.gltf"), sh_programID);
+	vago->addChild(porta_mobil);
+
 	Level::CURRENT_LEVEL.my_vago = vago;
 
 	float c = glm::cos(glm::pi<float>() / 4);
@@ -140,7 +124,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	trRail.rotate(glm::pi<float>()/2, vec3(1.0f, 0.0f, 0.0f));
 
-	Rail* railes = new Rail(trRail, new Model("./textures/tren_final/scene.gltf"), sh_programID);
+	Rail* railes = new Rail(trRail, new Model("./textures/tren_final/scene.gltf INVALID"), sh_programID);
 	Level::CURRENT_LEVEL.rail = railes;
 
 	//maleta

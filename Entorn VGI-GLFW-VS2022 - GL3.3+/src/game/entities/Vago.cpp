@@ -2,7 +2,7 @@
 
 float Vago::Z_OFFSET = 1.5f;
 
-Vago::Vago(Transform transform, Model* model, GLuint shader_id): GameEntity(transform, nullptr, shader_id)
+Vago::Vago(Transform transform, Model* model, GLuint shader_id): GameEntity(transform, model, shader_id)
 {
 	btCollisionShape* groundShape_paret1 = new btBoxShape(btVector3(btScalar(6.f), btScalar(0.1), btScalar(1.f)));
 	btCollisionShape* groundShape_paret2 = new btBoxShape(btVector3(btScalar(6.f), btScalar(0.1f), btScalar(1.f)));
