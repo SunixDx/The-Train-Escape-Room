@@ -3452,12 +3452,12 @@ int main(void)
 	Texture texture_exit = LoadTexture("./textures/menu", "Menu Exit Rojo.png", "texture_diffuse");
 	Texture texture_start = LoadTexture("./textures/menu", "Menu Start Pressed.png", "texture_diffuse");
 
-	Transform menu_transform = Transform();
-	menu_transform.scale(2);
+	Transform menu_transform = Transform::blank();
+	menu_transform.scale(1.5);
 	Transform exit_transform = Transform();
-	menu_transform.scale(2);
+	menu_transform.scale(1);
 	Transform start_transform = Transform();
-	menu_transform.scale(2);
+	menu_transform.scale(1);
 
 	Transform menu_indicator_transform = Transform::blank();
 	menu_indicator_transform.scale(1);
@@ -3496,6 +3496,8 @@ int main(void)
 	UI::instance.elements.push_back(new UIElement(crosshair_transform, texture));
 	UI::instance.elements.push_back(&InteractionIndicator::instance);
 	UI::instance.elements.push_back(&Menu::instance);
+	UI::instance.elements.push_back(new UIElement(menu_transform, texture_menu));
+
 
 	//Mesh::CROSSHAIR = new Mesh(plane_vertices, plane_indices, plane_textures);
 
