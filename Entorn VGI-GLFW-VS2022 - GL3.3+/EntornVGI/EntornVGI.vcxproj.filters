@@ -69,9 +69,6 @@
     <ClCompile Include="..\src\game\Level.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\game\entities\Crosshair.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\game\entities\Cucaracha.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -116,6 +113,9 @@
     </ClCompile>
     <ClCompile Include="..\src\game\tots_els_rails.cpp">
       <Filter>Archivos de encabezado</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\ui\Crosshair.cpp">
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,9 +179,6 @@
     <ClInclude Include="..\src\game\Level.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\game\entities\Crosshair.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\game\entities\InteractableEntity.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -225,6 +222,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\src\game\entities\Lever.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\ui\Crosshair.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

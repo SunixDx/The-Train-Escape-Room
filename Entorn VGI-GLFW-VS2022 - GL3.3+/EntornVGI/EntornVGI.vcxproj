@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="..\src\escena.cpp" />
     <ClCompile Include="..\src\game\audio\AudioFunctions.cpp" />
-    <ClCompile Include="..\src\game\entities\Crosshair.cpp" />
     <ClCompile Include="..\src\game\entities\Crypt.cpp" />
     <ClCompile Include="..\src\game\entities\Cucaracha.cpp" />
     <ClCompile Include="..\src\game\entities\Lever.cpp" />
@@ -41,6 +40,7 @@
     <ClCompile Include="..\src\game\graphics\Vertex.cpp" />
     <ClCompile Include="..\src\game\Level.cpp" />
     <ClCompile Include="..\src\game\physics\BulletWorld.cpp" />
+    <ClCompile Include="..\src\game\ui\Crosshair.cpp" />
     <ClCompile Include="..\src\game\ui\InteractionIndicator.cpp" />
     <ClCompile Include="..\src\game\ui\menu.cpp" />
     <ClCompile Include="..\src\game\tots_els_rails.cpp" />
@@ -58,7 +58,6 @@
     <ClInclude Include="..\src\constants.h" />
     <ClInclude Include="..\src\escena.h" />
     <ClInclude Include="..\src\game\audio\AudioFunctions.h" />
-    <ClInclude Include="..\src\game\entities\Crosshair.h" />
     <ClInclude Include="..\src\game\entities\Crypt.h" />
     <ClInclude Include="..\src\game\entities\Cucaracha.h" />
     <ClInclude Include="..\src\game\entities\GameEntity.h" />
@@ -79,6 +78,7 @@
     <ClInclude Include="..\src\game\graphics\Vertex.h" />
     <ClInclude Include="..\src\game\Level.h" />
     <ClInclude Include="..\src\game\physics\BulletWorld.h" />
+    <ClInclude Include="..\src\game\ui\Crosshair.h" />
     <ClInclude Include="..\src\game\ui\InteractionIndicator.h" />
     <ClInclude Include="..\src\game\ui\menu.h" />
     <ClInclude Include="..\src\game\ui\Transform2D.h" />
