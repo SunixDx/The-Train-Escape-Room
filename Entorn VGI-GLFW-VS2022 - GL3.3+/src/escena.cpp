@@ -52,7 +52,7 @@ void dibuixa_Eixos(GLuint ax_programID, bool eix, GLuint axis_Id, CMask3D reixa,
 }
 
 // Dibuixa Skybox en forma de Cub, activant un shader propi.
-void dibuixa_Skybox(GLuint sk_programID, GLuint cmTexture, char eix_Polar, glm::mat4 MatriuProjeccio, glm::mat4 MatriuVista)
+void dibuixa_Skybox(GLuint sk_programID, GLuint cmTexture, char eix_Polar, glm::mat4 MatriuProjeccio, glm::mat4 MatriuVista, glm::vec3 offset)
 {
 	glm::mat4 ModelMatrix(1.0);
 
@@ -70,6 +70,7 @@ void dibuixa_Skybox(GLuint sk_programID, GLuint cmTexture, char eix_Polar, glm::
 	else if (eix_Polar == POLARX) ModelMatrix = glm::rotate(ModelMatrix, radians(-90.0f), vec3(0.0f, 0.0f, 1.0f));
 
 // Escalar Cub Skybox a 5000 per encabir objectes escena a l'interior
+	ModelMatrix = glm::translate(ModelMatrix, offset);
 	ModelMatrix = glm::scale(ModelMatrix, vec3(5000.0f, 5000.0f, 5000.0f));		//glScaled(5000.0, 5000.0, 5000.0);
 	glUniformMatrix4fv(glGetUniformLocation(sk_programID, "modelMatrix"), 1, GL_FALSE, &ModelMatrix[0][0]);
 
@@ -443,25 +444,43 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 
 		//Model::BACKPACK->Draw(MatriuVista, MatriuTG, tr, sh_programID);
 
+		
 		Level::CURRENT_LEVEL.my_vago->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.cucaracha->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.rail->mostrar(MatriuVista, MatriuTG);
-		
-		Level::CURRENT_LEVEL.padlock->mostrar(MatriuVista, MatriuTG); //slenderman
+		//Level::CURRENT_LEVEL.exterior_tren->mostrar(MatriuVista, MatriuTG);
 		
 		Level::CURRENT_LEVEL.maleta->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.maletaTapa->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.libro1->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.crypt->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.panel->mostrar(MatriuVista, MatriuTG);
-		Level::CURRENT_LEVEL.exterior_tren->mostrar(MatriuVista, MatriuTG);
+		//Level::CURRENT_LEVEL.exterior_tren->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.megaphone->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.clock->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.clock2->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.clock3->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.biblia->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.lever->mostrar(MatriuVista, MatriuTG);
+
+		/*
+		//railes
+		Level::CURRENT_LEVEL.rail1->mostrar(MatriuVista, MatriuTG);
+		//Level::CURRENT_LEVEL.rail_1->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.rail2->mostrar(MatriuVista, MatriuTG);
+		//Level::CURRENT_LEVEL.rail_2->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.rail3->mostrar(MatriuVista, MatriuTG);
+		//Level::CURRENT_LEVEL.rail_3->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.rail4->mostrar(MatriuVista, MatriuTG);
+		//Level::CURRENT_LEVEL.rail_4->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.rail5->mostrar(MatriuVista, MatriuTG);
+		//Level::CURRENT_LEVEL.rail_5->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.rail6->mostrar(MatriuVista, MatriuTG);
+		//Level::CURRENT_LEVEL.rail_6->mostrar(MatriuVista, MatriuTG);
+		*/
 		
+		Level::CURRENT_LEVEL.slenderman->mostrar(MatriuVista, MatriuTG); //slenderman
+		//Level::CURRENT_LEVEL.billy->mostrar(MatriuVista, MatriuTG); //billy
 		Shader::UI.Use();
 
 		Shader::UI.setMatrix4fv("normalMatrix", mat4(1.0f));

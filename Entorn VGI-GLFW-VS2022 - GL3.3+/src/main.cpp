@@ -22,6 +22,13 @@
 #include <bullet/btBulletDynamicsCommon.h>
 #include <irrKlang/irrKlang.h>
 
+glm::vec3 skybox_offset = {0, 0, 0};
+glm::vec3 slenderman_offset = vec3(7.0f, 0.0f, -0.1f);
+glm::vec3 slenderman_offset_inicial = vec3(7.0f, 0.0f, -0.1f);
+
+glm::vec3 exterior_offset = vec3(7.0f, 0.0f, -0.1f);
+glm::vec3 exterior_offset_inicial = vec3(0.0f, -15.0f, 0.0f);
+
 void InitGL()
 {
 // TODO: agregar aquï¿½ el cï¿½digo de construcciï¿½n
@@ -420,7 +427,7 @@ void OnPaint(GLFWwindow* window)
 // Aquï¿½ farem les cridesper a definir Viewport, Projecciï¿½ i Cï¿½mara:: FI -------------------------
 		// Dibuixar Model (escena)
 		configura_Escena();     // Aplicar Transformacions Geometriques segons persiana Transformacio i configurar objectes
-		dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+		dibuixa_Escena(glm::vec3(0));		// Dibuix geometria de l'escena amb comandes GL.
 
 	// Intercanvia l'escena al front de la pantalla
 		glfwSwapBuffers(window);
@@ -452,7 +459,7 @@ void OnPaint(GLFWwindow* window)
 			eixos, grid, hgrid);
 		// Dibuix de l'Objecte o l'Escena
 		configura_Escena();     // Aplicar Transformacions Geometriques segons persiana Transformacio i configurar objectes
-		dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+		dibuixa_Escena(glm::vec3(0));		// Dibuix geometria de l'escena amb comandes GL.
 
 // ISOMï¿½TRICA (Inferior Dreta)
 		// Definiciï¿½ de Viewport, Projecciï¿½ i Cï¿½mara
@@ -462,7 +469,7 @@ void OnPaint(GLFWwindow* window)
 			eixos, grid, hgrid);
 		// Dibuix de l'Objecte o l'Escena
 		configura_Escena();     // Aplicar Transformacions Geometriques segons persiana Transformacio i configurar objectes
-		dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+		dibuixa_Escena(glm::vec3(0));		// Dibuix geometria de l'escena amb comandes GL.
 
 // ALï¿½AT (Superior Esquerra)
 		// Definiciï¿½ de Viewport, Projecciï¿½ i Cï¿½mara
@@ -472,7 +479,7 @@ void OnPaint(GLFWwindow* window)
 			eixos, grid, hgrid);
 		// Dibuix de l'Objecte o l'Escena
 		  configura_Escena();     // Aplicar Transformacions Geom?triques segons persiana Transformacio i configurar objectes
-	 	  dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+	 	  dibuixa_Escena(glm::vec3(0));		// Dibuix geometria de l'escena amb comandes GL.
 
 // PERFIL (Superior Dreta)
 		// Definiciï¿½ de Viewport, Projecciï¿½ i Cï¿½mara
@@ -483,7 +490,7 @@ void OnPaint(GLFWwindow* window)
 		// Dibuix de l'Objecte o l'Escena
 		configura_Escena();     // Aplicar Transformacions Geom?triques segons persiana Transformacio i configurar objectes
 		  // glScalef();			// Escalat d'objectes, per adequar-los a les vistes ortogrï¿½fiques (Prï¿½ctica 2)
-		dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+		dibuixa_Escena(glm::vec3(0));		// Dibuix geometria de l'escena amb comandes GL.
 
 		// Intercanvia l'escena al front de la pantalla
 		glfwSwapBuffers(window);
@@ -531,7 +538,7 @@ void OnPaint(GLFWwindow* window)
 
 		// Dibuix de l'Objecte o l'Escena
 		configura_Escena();     // Aplicar Transformacions Geometriques segons persiana Transformacio i configurar objectes.
-		dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+		dibuixa_Escena(skybox_offset);		// Dibuix geometria de l'escena amb comandes GL.
 
 		// Intercanvia l'escena al front de la pantalla
 		glfwSwapBuffers(window);
@@ -591,12 +598,11 @@ void configura_Escena() {
 }
 
 // dibuixa_Escena: Funcio que crida al dibuix dels diferents elements de l'escana
-void dibuixa_Escena() {
+void dibuixa_Escena(glm::vec3 skybox_offset) {
 
 	//glUseProgram(shader_programID);
-
 //	Dibuix SkyBox Cï¿½bic.
-	if (SkyBoxCube) dibuixa_Skybox(skC_programID, cubemapTexture, Vis_Polar, ProjectionMatrix, ViewMatrix);
+	if (SkyBoxCube) dibuixa_Skybox(skC_programID, cubemapTexture, Vis_Polar, ProjectionMatrix, ViewMatrix, skybox_offset);
 
 //	Dibuix Coordenades Mï¿½n i Reixes.
 	dibuixa_Eixos(eixos_programID, eixos, eixos_Id, grid, hgrid, ProjectionMatrix, ViewMatrix);
@@ -840,7 +846,10 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		std::cout << "CAM PERSONALITZADA" << std::endl;
-		camera = CAM_PERSONALITZADA;
+		if (camera == CAM_PERSONALITZADA)
+			camera = CAM_ESFERICA;
+		else
+			camera = CAM_PERSONALITZADA;
 		Camera::MAIN_CAMERA.position = glm::vec3(0, 0, 1.8);
 	}
 	else if (mods == 0 && key == GLFW_KEY_F && action == GLFW_PRESS)
@@ -1156,12 +1165,12 @@ void Teclat_Shift(int key, GLFWwindow* window)
 					{	// load Skybox textures
 						// -------------
 						std::vector<std::string> faces =
-							{	".\\textures\\skybox\\powerlines\\right.jpg",
-								".\\textures\\skybox\\powerlines\\left.jpg",
-								".\\textures\\skybox\\powerlines\\top.jpg",
-								".\\textures\\skybox\\powerlines\\bottom.jpg",
-								".\\textures\\skybox\\powerlines\\front.jpg",
-								".\\textures\\skybox\\powerlines\\back.jpg"
+							{	".\\textures\\skybox\\final\\left.png", //girado
+								".\\textures\\skybox\\final\\right.png", //girado
+								".\\textures\\skybox\\final\\top.png",
+								".\\textures\\skybox\\final\\bottom.png",
+								".\\textures\\skybox\\final\\front.png",
+								".\\textures\\skybox\\final\\back.png"
 							};
 						cubemapTexture = loadCubemap(faces);	
 					}
@@ -3559,6 +3568,9 @@ int main(void)
 	std::cout << "shader ID:" << shaderGouraud.getProgramID() << std::endl;
 	
 	Level::buildFirstLevel(shaderGouraud.getProgramID());
+	Level::exterior_train_offset(shaderGouraud.getProgramID(), exterior_offset_inicial);
+	Level::slender_offset(shaderGouraud.getProgramID(), slenderman_offset);
+
 	Level::CURRENT_LEVEL.llumAmbient = &llum_ambient;
 	Level::CURRENT_LEVEL.iFixe = &ifixe;
 
@@ -3582,10 +3594,9 @@ int main(void)
 		cout << "Error al crear el so" << endl;
 
 	bool start = true;
-
+	float trasX = 0;
     while (!glfwWindowShouldClose(window))
-    {  
-	
+    {
 // Poll for and process events */
 //        glfwPollEvents();
 
@@ -3594,9 +3605,15 @@ int main(void)
 		delta = now - previous;
 		previous = now;
 
+		if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x > -2)
+		{
+			Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(-0.5, 0, 0) * delta);
+		}
+
 // // Entorn VGI. Timer: for each timer do this
 		time -= delta;
 		if ((time <= 0.0) && (satelit || anima)) OnTimer();
+
 
 
 		glm::vec3 direction = glm::normalize(glm::vec3(
@@ -3686,6 +3703,12 @@ int main(void)
 		{
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		}
+		
+		skybox_offset.x -= delta * 450;
+		if (skybox_offset.x <= -2200)
+			skybox_offset.x = 2200;
+		
+		//skybox_offset.x = 0;
 
 
 // Crida a OnPaint() per redibuixar l'escena

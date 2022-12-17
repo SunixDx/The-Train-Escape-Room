@@ -12,13 +12,29 @@
 class Level {
 public:
 	static void buildFirstLevel(GLuint sh_programID);
+	static void slender_offset(GLuint sh_programID, glm::vec3 offset_slenderman);
+	static void exterior_train_offset(GLuint sh_programID, glm::vec3 offset_exterior);
 	Vago* my_vago;
 	Cucaracha* cucaracha;
 	Maleta* maleta;
 	GameEntity* maletaTapa;
 	Libro1* libro1;
+	
+	//tren exterior
 	Rail* rail;
+	Rail* exit;
+
+	//railes
+	Rail* rail1;
+	Rail* rail2;
+	Rail* rail3;
+	Rail* rail4;
+	Rail* rail5;
+	Rail* rail6;
+	//monstres
 	Rail* padlock;
+	Rail* billy;
+
 	Crypt* crypt;
 	Panel* panel;
 	Rail* exterior_tren;
