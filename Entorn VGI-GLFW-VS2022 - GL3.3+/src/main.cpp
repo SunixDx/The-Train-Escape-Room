@@ -3485,7 +3485,7 @@ int main(void)
 
 		if (slenderman_offset.x > -2)
 		{
-			slenderman_offset.x = slenderman_offset_inicial.x;
+			slenderman_offset.x -= 0.017;
 		}
 
 // // Entorn VGI. Timer: for each timer do this
