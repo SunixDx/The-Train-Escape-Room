@@ -178,7 +178,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	//panel
 	Transform trPanel = Transform();
-	trPanel.translate(vec3(8.75f, -0.8f, 1.7f));
+	trPanel.translate(vec3(8.75f, -0.8f, 1.9f));
 	trPanel.rotate((PI / -6) * 9, vec3(0.0f, 0.0f, 1.0f));
 	trPanel.scale(vec3(0.1f));
 

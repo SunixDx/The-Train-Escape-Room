@@ -842,7 +842,7 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		camera = CAM_PERSONALITZADA;
 		Camera::MAIN_CAMERA.position = glm::vec3(0, 0, 1.8);
 	}
-	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && !Camera::MAIN_CAMERA.sit)
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && !Camera::MAIN_CAMERA.sit && !Camera::MAIN_CAMERA.zoom)
 	{
 		if (key == GLFW_KEY_W) w_pressed = true;
 		if (key == GLFW_KEY_S) s_pressed = true;
@@ -858,6 +858,10 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.sit)
 	{
 		if (key == GLFW_KEY_C) Camera::MAIN_CAMERA.standUp();
+	}
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.zoom)
+	{
+		if (key == GLFW_KEY_C) Camera::MAIN_CAMERA.zoomOut();
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_RELEASE)
 	{
@@ -2537,7 +2541,7 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 	GLdouble vdir[3] = { 0, 0, 0 };
 	CSize gir, girn, girT, zoomincr;
 
-	if (camera == CAM_PERSONALITZADA)
+	if (camera == CAM_PERSONALITZADA && !Camera::MAIN_CAMERA.zoom)
 	{
 		Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.mouse_speed * float(w / 2 - xpos);
 		Camera::MAIN_CAMERA.vertical_angle += Camera::MAIN_CAMERA.mouse_speed * float(h / 2 - ypos);
@@ -3564,16 +3568,25 @@ int main(void)
 		Camera::MAIN_CAMERA.my_rigid_body->setLinearVelocity(velocity);
 
 		Camera::MAIN_CAMERA.syncColliders();
-		BulletWorld::WORLD->simulate(delta);
+		BulletWorld::WORLD->simulate(delta * 10);
 		
 		btTransform trans;
 		Camera::MAIN_CAMERA.my_rigid_body->getMotionState()->getWorldTransform(trans);
 
-		if (!Camera::MAIN_CAMERA.sit)
+		if (!Camera::MAIN_CAMERA.sit && !Camera::MAIN_CAMERA.zoom)
 		{
 			Camera::MAIN_CAMERA.position.x = trans.getOrigin().getX();
 			Camera::MAIN_CAMERA.position.y = trans.getOrigin().getY();
 			//Camera::MAIN_CAMERA.position.z = trans.getOrigin().getZ();
+		}
+
+		if (Camera::MAIN_CAMERA.zoom)
+		{
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+		else 
+		{
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		}
 
 

@@ -13,6 +13,8 @@ public:
 	void syncColliders();
 	void sitDown(const Seient* seient);
 	void standUp();
+	void zoomIn(Transform trans);
+	void zoomOut();
 
 	// Variables de control de l'opci� C�mera->Personalitzada?
 	float horizontal_angle = 0;
@@ -25,6 +27,7 @@ public:
 	btRigidBody* my_rigid_body;
 
 	bool sit = false;
+	bool zoom = false;
 
 	static Camera MAIN_CAMERA;
 	static Camera SAVE_CAMERA;

@@ -8,7 +8,7 @@
 #include "InteractableEntity.h"
 #include "GameEntity.h"
 
-class Panel: public GameEntity
+class Panel: public InteractableEntity
 {
 public:
 	Panel(Transform transform, Model* model, GLuint shader_id);

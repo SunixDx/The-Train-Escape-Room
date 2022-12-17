@@ -1,10 +1,11 @@
 #include "Panel.h"
+#include "../graphics/Camera.h"
 
-Panel::Panel(Transform transform, Model* model, GLuint shader_id) : GameEntity(transform, model, shader_id)
+Panel::Panel(Transform transform, Model* model, GLuint shader_id) : InteractableEntity(transform, model, shader_id, InteractionType::CLOSE_UP)
 {
 	my_model = model;
 
-	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.5), btScalar(.5), btScalar(.35))); //definir collider
+	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.5), btScalar(.5), btScalar(.5))); //definir collider
 
 	btTransform groundTransform;
 	groundTransform.setIdentity();
@@ -34,6 +35,11 @@ Panel::Panel(Transform transform, Model* model, GLuint shader_id) : GameEntity(t
 
 void Panel::interact()
 {
+	cout << "soy el panel" << endl;
+
+	Camera::MAIN_CAMERA.zoomIn(my_transform);
+
+	/*
 	int contra;
 
 	std::cout << "INTRODUCE LA CONTRASEÑA:" << std::endl;
@@ -48,4 +54,5 @@ void Panel::interact()
 	{
 		std::cout << "ERROR, VUELVE A INTENTARLO" << std::endl;
 	}
+	*/
 }
