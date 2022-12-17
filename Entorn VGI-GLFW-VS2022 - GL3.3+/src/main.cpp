@@ -2570,6 +2570,20 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 	GLdouble vdir[3] = { 0, 0, 0 };
 	CSize gir, girn, girT, zoomincr;
 
+	if (Camera::MAIN_CAMERA.flying)
+	{
+		if (w / xpos < 2.2 && w / xpos > 1.8 && h / ypos < 2.1 && h / ypos > 1.8)
+		{
+			Menu::instance.change_indicator(MenuType::START);
+		}
+		else if (w / xpos < 2.2 && w / xpos > 1.8 && h / ypos < 1.58 && h / ypos > 1.4)
+		{
+			Menu::instance.change_indicator(MenuType::EXIT);
+		}
+		else {
+			Menu::instance.change_indicator(MenuType::MENU);
+		}
+	}
 	if (camera == CAM_PERSONALITZADA && !Camera::MAIN_CAMERA.flying)
 	{
 		Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.mouse_speed * float(w / 2 - xpos);
