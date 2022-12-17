@@ -2484,9 +2484,22 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 
 // TODO: Agregue aquï¿½ su cï¿½digo de controlador de mensajes o llame al valor predeterminado
 
-	if (Camera::MAIN_CAMERA.flying)
+	if (Camera::MAIN_CAMERA.flying && action == GLFW_PRESS)
 	{
-		cout << "X: " << xpos << " , Y: " << ypos << endl;
+		if (w / xpos < 2.2 && w / xpos > 1.8)
+		{
+			if (h / ypos < 2.1 && h / ypos > 1.8)
+			{
+				cout << "START BUTTON" << endl;
+				Menu::instance
+					.change_indicator(4);
+				OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 0);
+			}
+			if (h / ypos < 1.58 && h / ypos > 1.4)
+			{
+
+			}
+		}
 	}
 
 // OnLButtonDown
