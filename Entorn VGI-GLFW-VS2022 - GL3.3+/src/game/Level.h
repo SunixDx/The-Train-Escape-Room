@@ -23,6 +23,7 @@ public:
 	Panel* panel;
 
 	//llums
+	bool* flicker;
 	bool* llumAmbient;
 	bool* iFixe;
 

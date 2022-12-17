@@ -216,14 +216,26 @@ void Level::MaybeSpawnSlender()
 	// Activar spooky lighting
 	*llumAmbient = false;
 	*iFixe = true;
+	*flicker = true;
 
 	// Reproduir audio
 	irrklang::vec3df position(padlock->my_transform.position().x, padlock->my_transform.position().y, padlock->my_transform.position().z);
 	irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/spooky_sound.wav", position, false, true);
+	snd->setMinDistance(1.5f);
 	Audio::AUDIO_FUNCTIONS.setVolume(snd, 0.5f);
 	Audio::AUDIO_FUNCTIONS.pause_or_unpause(snd);
 
+	irrklang::ISound* snd2 = Audio::AUDIO_FUNCTIONS.play3D("./media/slender-breathing.wav", position, false, true);
+	snd->setMinDistance(1.5f);
+	Audio::AUDIO_FUNCTIONS.setVolume(snd2, 1.0f);
+	Audio::AUDIO_FUNCTIONS.pause_or_unpause(snd2);
+
+	irrklang::ISound* snd3 = Audio::AUDIO_FUNCTIONS.play2D("./media/flickering-lights.mp3", false, true);
+	Audio::AUDIO_FUNCTIONS.setVolume(snd3, 0.25f);
+	Audio::AUDIO_FUNCTIONS.pause_or_unpause(snd3);
+
 	sonsSlenderman.push_back(snd);
+	sonsSlenderman.push_back(snd2);
 
 	// Mostrar slenderman
 	padlock->my_enabled = true;
@@ -234,6 +246,7 @@ void Level::despawnSlender()
 	// return to normal lighting
 	*llumAmbient = true;
 	*iFixe = false;
+	*flicker = false;
 
 	for (irrklang::ISound* snd : sonsSlenderman)
 	{

@@ -5,6 +5,7 @@
 
 //#include <GLFW/glfw3.h>
 #include <iostream>
+#include <chrono>
 #include "stdafx.h"
 #include "shader.h"
 #include "visualitzacio.h"
@@ -25,6 +26,7 @@ void InitGL()
 
 //------ Entorn VGI: Inicialitzaciï¿½ de les variables globals de CEntornVGIView
 	int i;
+	light_flicker = false;
 
 // Entorn VGI: Variable de control per a Status Bar (consola) 
 	statusB = false;
@@ -3175,7 +3177,7 @@ int main(void)
 
 //    GLFWwindow* window;
 // Entorn VGI. Timer: Variables
-	float time = elapsedTime;
+	float time_elapsed = elapsedTime;
 	float now;
 	float delta;
 
@@ -3421,6 +3423,7 @@ int main(void)
 	std::cout << "shader ID:" << shaderGouraud.getProgramID() << std::endl;
 	
 	Level::buildFirstLevel(shaderGouraud.getProgramID());
+	Level::CURRENT_LEVEL.flicker = &light_flicker;
 	Level::CURRENT_LEVEL.llumAmbient = &llum_ambient;
 	Level::CURRENT_LEVEL.iFixe = &ifixe;
 
@@ -3441,11 +3444,21 @@ int main(void)
 	footsteps->setVolume(0.25);
 	footsteps->setPlaybackSpeed(1.5);
 
+	chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+	chrono::steady_clock::time_point end = chrono::steady_clock::now();
 // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))
     {  
 // Poll for and process events */
 //        glfwPollEvents();
+		end = chrono::steady_clock::now();
+		if ((float(chrono::duration_cast<chrono::microseconds>(end - begin).count()) / 100000) >= 1 && light_flicker) {
+			begin = chrono::steady_clock::now();
+			if (llum_ambient)
+				llum_ambient = false;
+			else
+				llum_ambient = true;
+		}
 
 // Entorn VGI. Timer: common part, do this only once
 		now = glfwGetTime();
@@ -3453,8 +3466,8 @@ int main(void)
 		previous = now;
 
 // // Entorn VGI. Timer: for each timer do this
-		time -= delta;
-		if ((time <= 0.0) && (satelit || anima)) OnTimer();
+		time_elapsed -= delta;
+		if ((time_elapsed <= 0.0) && (satelit || anima)) OnTimer();
 
 
 		glm::vec3 direction = glm::normalize(glm::vec3(
