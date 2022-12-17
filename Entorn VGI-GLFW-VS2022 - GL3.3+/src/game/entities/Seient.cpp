@@ -4,7 +4,7 @@
 #include "../graphics/Camera.h"
 #include <iostream>
 
-Seient::Seient(Transform transform, Model* model, GLuint shader_id): GameEntity(transform, nullptr, shader_id)
+Seient::Seient(Transform transform, Model* model, GLuint shader_id): InteractableEntity(transform, nullptr, shader_id, InteractionType::SIT)
 {
 	btCollisionShape* groundShape_banc = new btBoxShape(btVector3(btScalar(.25), btScalar(.5), btScalar(.25)));
 	btCollisionShape* groundShape_respatller = new btBoxShape(btVector3(btScalar(.001), btScalar(.5), btScalar(.25)));

@@ -23,6 +23,8 @@
 #include "game/graphics/Model.h"
 #include "game/graphics/Camera.h"
 #include "game/Level.h"
+#include "game/ui/UI.h"
+#include "game/ui/InteractionIndicator.h"
 
 #include <iostream>
 
@@ -452,6 +454,13 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		Level::CURRENT_LEVEL.libro1->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.crypt->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.panel->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.exterior_tren->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.megaphone->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.clock->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.clock2->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.clock3->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.biblia->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.lever->mostrar(MatriuVista, MatriuTG);
 		
 		Shader::UI.Use();
 
@@ -460,14 +469,13 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		Shader::UI.setMatrix4fv("modelMatrix", mat4(1.0f));
 		
 
-		
+		UI::instance.mostrar(Shader::UI);
 
+		/*
 		Transform trc = Transform::blank();
 		trc.scale(0.04f);
-
-
 		Mesh::CROSSHAIR->Draw(MatriuVista, MatriuTG, trc, Shader::UI.programID);
-
+		*/
 
 		glm::vec3 out_origin(Camera::MAIN_CAMERA.position.x, Camera::MAIN_CAMERA.position.y, Camera::MAIN_CAMERA.position.z); //desde donde sale el raycast
 		//direccion del raycast
@@ -479,7 +487,17 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		
 		InteractableEntity* interactable = (InteractableEntity*)BulletWorld::WORLD->rayCast(out_origin, out_direction, 1.8); //lanza el rayo y devuelve el objeto que ha tocado, si no hay objeto devuelve NULL
 
-		Level::CURRENT_LEVEL.my_entity_under_cursor = interactable; //lo guardamos
+		if (Level::CURRENT_LEVEL.my_entity_under_cursor != interactable)
+		{
+			Level::CURRENT_LEVEL.my_entity_under_cursor = interactable; //lo guardamos
+			if (interactable != nullptr)
+			{
+				if (interactable->is_interactable())
+					InteractionIndicator::instance.change_indicator(interactable->interaction_type());
+			}
+			else
+				InteractionIndicator::instance.remove_indicator();
+		}
 
 		glDisable(GL_BLEND);
 	}

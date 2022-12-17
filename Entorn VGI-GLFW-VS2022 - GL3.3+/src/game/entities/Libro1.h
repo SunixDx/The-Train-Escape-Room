@@ -9,7 +9,7 @@
 #include "GameEntity.h"
 #include "../audio/AudioFunctions.h"
 
-class Libro1: public GameEntity
+class Libro1: public InteractableEntity
 {
 public:
 	Libro1(Transform transform, Model* model_tancat, Model* model_obert, GLuint shader_id);

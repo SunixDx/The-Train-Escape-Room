@@ -1,7 +1,7 @@
 #include "Maleta.h"
 #include "../Level.h"
 
-Maleta::Maleta(Transform transform, Model* model, GLuint shader_program_id, GameEntity* tapa) : GameEntity(transform, model, shader_program_id), my_aixecada(false)
+Maleta::Maleta(Transform transform, Model* model, GLuint shader_program_id, GameEntity* tapa) : InteractableEntity(transform, model, shader_program_id, InteractionType::MALETA), my_aixecada(false)
 {
 	my_tapa = tapa;
 	addChild(tapa);

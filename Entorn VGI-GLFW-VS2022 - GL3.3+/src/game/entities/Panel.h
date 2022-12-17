@@ -8,16 +8,18 @@
 #include "InteractableEntity.h"
 #include "GameEntity.h"
 
-class Panel: public GameEntity
+
+class Panel: public InteractableEntity
 {
 public:
 	Panel(Transform transform, Model* model, GLuint shader_id);
 
 	void interact();
 
+	InteractionType interaction_type() const;
+
 private:
 	btRigidBody* my_rigid_body;
-
-	Model* my_model;
+	bool zoom;
 };
 

@@ -16,6 +16,9 @@
 #include "game/graphics/Model.h"
 #include "game/graphics/Camera.h"
 #include "game/Level.h"
+#include "game/ui/UI.h"
+#include "game/ui/InteractionIndicator.h"
+#include "game/ui/menu.h"
 
 #include <bullet/btBulletDynamicsCommon.h>
 #include <irrKlang/irrKlang.h>
@@ -842,7 +845,25 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		camera = CAM_PERSONALITZADA;
 		Camera::MAIN_CAMERA.position = glm::vec3(0, 0, 1.8);
 	}
-	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && !Camera::MAIN_CAMERA.sit)
+	else if (mods == 0 && key == GLFW_KEY_F && action == GLFW_PRESS)
+	{
+		if (!Camera::MAIN_CAMERA.flying)
+		{
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			Camera::MAIN_CAMERA.fly();
+			Menu::instance
+				.change_indicator(MenuType::MENU);
+		}
+		else
+		{
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			Camera::MAIN_CAMERA.enterTrain();
+			Menu::instance
+				.remove_indicator();
+		}
+			
+	}
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && !Camera::MAIN_CAMERA.sit && !Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.zoom)
 	{
 		if (key == GLFW_KEY_W) w_pressed = true;
 		if (key == GLFW_KEY_S) s_pressed = true;
@@ -850,16 +871,32 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		if (key == GLFW_KEY_D) d_pressed = true;
 
 		std::cout << "MOVING" << std::endl;
+		//soundEngine->play2D("../EntornVGI/media/Footsteps.mp3");
 		std::cout << "NOT MOVING" << std::endl;
 
 		if (key == GLFW_KEY_C) c_pressed = true;
 	}
-	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.sit)
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.sit && !Camera::MAIN_CAMERA.flying)
 	{
 		if (key == GLFW_KEY_C) Camera::MAIN_CAMERA.standUp();
 	}
+	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.zoom)
+	{
+		if (key == GLFW_KEY_C)
+		{
+			Camera::MAIN_CAMERA.zoomOut();
+			
+			InteractableEntity* euc = Level::CURRENT_LEVEL.my_entity_under_cursor;
+			if (euc) //si hay algo bajo el cursor
+			{
+				if (euc->is_interactable())
+					InteractionIndicator::instance.change_indicator(euc->interaction_type());
+			}
+		}
+	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_RELEASE)
 	{
+		//soundEngine->removeSoundSource("../EntornVGI/media/Footsteps.mp3");
 		if (key == GLFW_KEY_W) w_pressed = false;
 		if (key == GLFW_KEY_S) s_pressed = false;
 		if (key == GLFW_KEY_A) a_pressed = false;
@@ -1723,7 +1760,7 @@ void Teclat_ColorObjecte(int key, int action)
 
 
 // Teclat_ColorFons: Teclat pels canvis del color de fons.
-	void Teclat_ColorFons(int key, int action)
+void Teclat_ColorFons(int key, int action)
 {		const double incr = 0.025f;
 
 		if (action == GLFW_PRESS)
@@ -2272,7 +2309,6 @@ void Teclat_TransRota(int key, int action)
 	}
 }
 
-
 // Teclat_TransTraslada: Teclat pels canvis del valor de traslaciï¿½ per X,Y,Z.
 void Teclat_TransTraslada(int key, int action)
 {
@@ -2395,7 +2431,6 @@ void Teclat_TransTraslada(int key, int action)
 	}
 }
 
-
 // Teclat_Grid: Teclat pels desplaï¿½aments dels gridXY, gridXZ i gridYZ.
 void Teclat_Grid(int key, int action)
 {
@@ -2469,6 +2504,22 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 
 // TODO: Agregue aquï¿½ su cï¿½digo de controlador de mensajes o llame al valor predeterminado
 
+	if (Camera::MAIN_CAMERA.flying && action == GLFW_PRESS)
+	{
+		if (w / xpos < 2.2 && w / xpos > 1.8)
+		{
+			if (h / ypos < 2.1 && h / ypos > 1.8)
+			{
+				cout << "START BUTTON" << endl;
+				OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 0);
+			}
+			if (h / ypos < 1.58 && h / ypos > 1.4)
+			{
+				OnKeyDown(window, GLFW_KEY_ESCAPE, 1, GLFW_PRESS, 0);
+			}
+		}
+	}
+
 // OnLButtonDown
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) //pulsar click
 		{
@@ -2481,7 +2532,10 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 
 			InteractableEntity* euc = Level::CURRENT_LEVEL.my_entity_under_cursor; 
 			if (euc) //si hay algo bajo el cursor
-				euc->interact(); //ejecutamos interact
+			{
+				if (euc->is_interactable())
+					euc->interact(); //ejecutamos interact
+			}	
 		}
 // OnLButtonUp: Funciï¿½ que es crida quan deixem d'apretar el botï¿½ esquerra del mouse.
 	else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
@@ -2532,7 +2586,21 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 	GLdouble vdir[3] = { 0, 0, 0 };
 	CSize gir, girn, girT, zoomincr;
 
-	if (camera == CAM_PERSONALITZADA)
+	if (Camera::MAIN_CAMERA.flying)
+	{
+		if (w / xpos < 2.2 && w / xpos > 1.8 && h / ypos < 2.1 && h / ypos > 1.8)
+		{
+			Menu::instance.change_indicator(MenuType::START);
+		}
+		else if (w / xpos < 2.2 && w / xpos > 1.8 && h / ypos < 1.58 && h / ypos > 1.4)
+		{
+			Menu::instance.change_indicator(MenuType::EXIT);
+		}
+		else {
+			Menu::instance.change_indicator(MenuType::MENU);
+		}
+	}
+	if (camera == CAM_PERSONALITZADA && !Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.zoom)
 	{
 		Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.mouse_speed * float(w / 2 - xpos);
 		Camera::MAIN_CAMERA.vertical_angle += Camera::MAIN_CAMERA.mouse_speed * float(h / 2 - ypos);
@@ -3004,6 +3072,22 @@ void APIENTRY glDebugOutput(GLenum source, GLenum type, GLuint id, GLenum severi
 
 int main(void)
 {
+
+
+	irrklang::ISoundEngine* soundEngine = irrklang::createIrrKlangDevice();;
+
+	if (!soundEngine)
+	{
+		cout << "Could not startup irrKlang engine" << endl;
+	}
+	if(soundEngine) {
+		// To play a sound, we only to call play2D(). The second parameter
+		// tells the engine to play it looped.
+		// play some sound stream, looped
+		irrklang::ISound* snd = soundEngine->play2D("../EntornVGI/media/movingTrain.mp3", true);
+		//soundEngine->setSoundVolume(irrklang::ik_f32(0.02)); //cambiar volumen
+	}
+
 	///-----includes_end-----
 
 	int i;
@@ -3407,15 +3491,69 @@ int main(void)
 		0, 1, 2, 2, 3, 0,			// v0-v1-v2-v3 (front)
 	};
 
-	Texture texture;
-	texture.id = TextureFromFile("crosshair.png", "./textures", false);
-	texture.type = "texture_diffuse";
-	texture.path = "./textures/crosshair.png";
-	std::vector<Texture> plane_textures = {
-		texture,
-	};
+	// crosshair
+	Texture texture = LoadTexture("./textures", "circle.png", "texture_diffuse");
 
-	Mesh::CROSSHAIR = new Mesh(plane_vertices, plane_indices, plane_textures);
+	Transform crosshair_transform = Transform::blank();
+	crosshair_transform.scale(0.025);
+
+	// menu
+	Texture texture_menu = LoadTexture("./textures/menu", "Menu DEFAULT.png", "texture_diffuse");
+	Texture texture_exit = LoadTexture("./textures/menu", "Menu Exit Rojo.png", "texture_diffuse");
+	Texture texture_start = LoadTexture("./textures/menu", "Menu Start Pressed.png", "texture_diffuse");
+
+	Transform menu_transform = Transform();
+	menu_transform.scale(1);
+	Transform exit_transform = Transform();
+	menu_transform.scale(1);
+	Transform start_transform = Transform();
+	menu_transform.scale(1);
+
+	Transform menu_indicator_transform = Transform::blank();
+	menu_indicator_transform.scale(1.8);
+	menu_indicator_transform.translate({ 0, 0, 0 });
+	Menu::instance = Menu(menu_indicator_transform);
+	Menu::instance
+		.set_menu_default(new UIElement(menu_transform, texture_menu))
+		.set_menu_exit(new UIElement(exit_transform, texture_exit))
+		.set_menu_start(new UIElement(start_transform, texture_start))
+		.change_indicator(MenuType::MENU);
+
+	// interacteable
+	Texture texture_sit_down = LoadTexture("./textures/ui_assets", "seure_img.png", "texture_diffuse");
+	Texture texture_obrir_tancar = LoadTexture("./textures/ui_assets", "obrir_tancar_img.png", "texture_diffuse");
+	Texture texture_maleta = LoadTexture("./textures/ui_assets", "maleta_img.png", "texture_diffuse");
+	Texture texture_close_up = LoadTexture("./textures/ui_assets", "aproparse_img.png", "texture_diffuse");
+	Texture texture_lever = LoadTexture("./textures/ui_assets", "lever_img.png", "texture_diffuse");
+
+	Transform transform_sit = Transform();
+	transform_sit.scale(0.15);
+	Transform transform_open_close = Transform();
+	transform_open_close.scale(0.15);
+	Transform transform_maleta = Transform();
+	transform_maleta.scale(0.2);
+	Transform transform_close_up = Transform();
+	transform_close_up.scale(0.15);
+	Transform transform_lever = Transform();
+	transform_lever.scale(0.18);
+
+	Transform indicator_transform = Transform::blank();
+	indicator_transform.scale(1);
+	indicator_transform.translate({ 0, -0.2, 0 });
+	InteractionIndicator::instance = InteractionIndicator(indicator_transform);
+	InteractionIndicator::instance
+		.set_sit_indicator(new UIElement(transform_sit, texture_sit_down))
+		.set_maleta(new UIElement(transform_maleta, texture_maleta))
+		.set_open_close_indicator(new UIElement(transform_open_close, texture_obrir_tancar))
+		.set_close_up_indicator(new UIElement(transform_close_up, texture_close_up))
+		.set_lever(new UIElement(transform_lever, texture_lever));
+
+	UI::instance.elements.push_back(new UIElement(crosshair_transform, texture));
+	UI::instance.elements.push_back(&InteractionIndicator::instance);
+	UI::instance.elements.push_back(&Menu::instance);
+
+
+	//Mesh::CROSSHAIR = new Mesh(plane_vertices, plane_indices, plane_textures);
 
 	string path = "./textures/maya/maya.obj"; //ruta del objeto
 	Model::BACKPACK = new Model(path); //crear nuevo modelo
@@ -3447,8 +3585,11 @@ int main(void)
 	chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 	chrono::steady_clock::time_point end = chrono::steady_clock::now();
 // Loop until the user closes the window
+
+
     while (!glfwWindowShouldClose(window))
     {  
+	
 // Poll for and process events */
 //        glfwPollEvents();
 		end = chrono::steady_clock::now();
@@ -3486,11 +3627,6 @@ int main(void)
 
 		vec3 old_position = Camera::MAIN_CAMERA.position;
 
-		if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed * delta;
-		if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed * delta;
-		if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed * delta;
-		if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed * delta;
-
 		if (w_pressed || s_pressed || a_pressed || d_pressed) {
 			if (footsteps) {
 				if (footsteps->getIsPaused())
@@ -3505,44 +3641,89 @@ int main(void)
 			}
 		}
 
+		btVector3 velocity(0, 0, 0);
+		
+		if (w_pressed)
+		{
+			velocity.setX(velocity.x() + direction.x * Camera::MAIN_CAMERA.move_speed);
+			velocity.setY(velocity.y() + direction.y * Camera::MAIN_CAMERA.move_speed);
+		}
+		if (s_pressed)
+		{
+			velocity.setX(velocity.x() - direction.x * Camera::MAIN_CAMERA.move_speed);
+			velocity.setY(velocity.y() - direction.y * Camera::MAIN_CAMERA.move_speed);
+		}
+
+		if (a_pressed)
+		{
+			velocity.setX(velocity.x() + left.x * Camera::MAIN_CAMERA.move_speed);
+			velocity.setY(velocity.y() + left.y * Camera::MAIN_CAMERA.move_speed);
+		}
+		if (d_pressed)
+		{
+			velocity.setX(velocity.x() - left.x * Camera::MAIN_CAMERA.move_speed);
+			velocity.setY(velocity.y() - left.y * Camera::MAIN_CAMERA.move_speed);
+		}
+		
 		if (c_pressed)
 		{
 			if (Camera::MAIN_CAMERA.position.z > 1) Camera::MAIN_CAMERA.position.z -= 2 * delta;
 		}
-		else if (Camera::MAIN_CAMERA.position.z < 1.8 && !Camera::MAIN_CAMERA.sit) Camera::MAIN_CAMERA.position.z += 0.1;
-		
-		Camera::MAIN_CAMERA.syncColliders();
-		BulletWorld::WORLD->performCollisionDetection();
-		auto collision = BulletWorld::WORLD->testCollision(Camera::MAIN_CAMERA.my_rigid_body);
-		bool collides = get<0>(collision);
-		if (collides)
+		else if (Camera::MAIN_CAMERA.position.z < 1.8 && !Camera::MAIN_CAMERA.sit)
 		{
-			btVector3 bt_direction = get<1>(collision);
+			Camera::MAIN_CAMERA.position.z += 2 * delta;
+		}
 
-			std::cout << "bt_direction (" << bt_direction.x() << ", " << bt_direction.y() << ", " << bt_direction.z() << ")" << std::endl;
+		if (Camera::MAIN_CAMERA.flying)
+		{
+			Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.angular_speed;
+			Camera::MAIN_CAMERA.fly_arround(glm::vec3(0, 0, 0));
+		}
 
-			glm::vec3 col_direction = glm::normalize(glm::vec3(bt_direction.x(), bt_direction.y(), 0));
-			
-			direction = direction - col_direction;
-			left = left - direction;
+		Camera::MAIN_CAMERA.my_rigid_body->activate();
+		Camera::MAIN_CAMERA.my_rigid_body->setGravity({0, 0, 0});
+		Camera::MAIN_CAMERA.my_rigid_body->setLinearVelocity(velocity);
 
-			Camera::MAIN_CAMERA.position = old_position;
+		Camera::MAIN_CAMERA.syncColliders();
+		BulletWorld::WORLD->simulate(delta * 10);
+		
+		btTransform trans;
+		Camera::MAIN_CAMERA.my_rigid_body->getMotionState()->getWorldTransform(trans);
 
-			if (w_pressed) Camera::MAIN_CAMERA.position += direction * Camera::MAIN_CAMERA.move_speed * delta;
-			if (s_pressed) Camera::MAIN_CAMERA.position -= direction * Camera::MAIN_CAMERA.move_speed * delta;
-			if (a_pressed) Camera::MAIN_CAMERA.position += left * Camera::MAIN_CAMERA.move_speed * delta;
-			if (d_pressed) Camera::MAIN_CAMERA.position -= left * Camera::MAIN_CAMERA.move_speed * delta;
+		if (!Camera::MAIN_CAMERA.sit && !Camera::MAIN_CAMERA.zoom)
+		{
+			Camera::MAIN_CAMERA.position.x = trans.getOrigin().getX();
+			Camera::MAIN_CAMERA.position.y = trans.getOrigin().getY();
+			//Camera::MAIN_CAMERA.position.z = trans.getOrigin().getZ();
+		}
+
+		if (Camera::MAIN_CAMERA.zoom || Camera::MAIN_CAMERA.flying)
+		{
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		}
+		else 
+		{
+			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		}
 
 // Crida a OnPaint() per redibuixar l'escena
 		OnPaint(window);
-
 
 // Intercanvia l'escena al front de la pantalla
 	//	glfwSwapBuffers(window);
 
 // Poll for and process events
 		glfwPollEvents();
+		if (start)
+		{
+			start = false;
+			// INICIAR TOT
+			OnKeyDown(window, GLFW_KEY_P, 1, GLFW_PRESS, 1);
+			OnKeyDown(window, GLFW_KEY_L, 1, GLFW_PRESS, 1);
+			OnKeyDown(window, GLFW_KEY_F3, 1, GLFW_PRESS, 2);
+			OnKeyDown(window, GLFW_KEY_P, 1, GLFW_PRESS, 0);
+			OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 0);
+		}
     }
 
 // Check if the ESC key was pressed or the window was closed

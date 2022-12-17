@@ -8,6 +8,7 @@ class BulletWorld {
 public:
 	BulletWorld();
 	void* rayCast(glm::vec3 origin, glm::vec3 direction, float distance);
+	void simulate(btScalar timeStep);
 	void performCollisionDetection();
 	std::tuple<bool, btVector3> testCollision(btRigidBody* rigid_body);
 

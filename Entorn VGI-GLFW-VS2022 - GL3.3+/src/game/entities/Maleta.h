@@ -10,7 +10,7 @@
 #include "../audio/AudioFunctions.h"
 
 
-class Maleta : public GameEntity
+class Maleta : public InteractableEntity
 {
 public:
 	Maleta(Transform transform, Model* model, GLuint shader_program_id, GameEntity* tapa);

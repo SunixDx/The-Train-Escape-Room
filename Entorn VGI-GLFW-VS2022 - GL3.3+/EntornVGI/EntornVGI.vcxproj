@@ -24,6 +24,7 @@
     <ClCompile Include="..\src\game\entities\Crosshair.cpp" />
     <ClCompile Include="..\src\game\entities\Crypt.cpp" />
     <ClCompile Include="..\src\game\entities\Cucaracha.cpp" />
+    <ClCompile Include="..\src\game\entities\Lever.cpp" />
     <ClCompile Include="..\src\game\entities\Libro1.cpp" />
     <ClCompile Include="..\src\game\entities\Maleta.cpp" />
     <ClCompile Include="..\src\game\entities\GameEntity.cpp" />
@@ -40,8 +41,11 @@
     <ClCompile Include="..\src\game\graphics\Vertex.cpp" />
     <ClCompile Include="..\src\game\Level.cpp" />
     <ClCompile Include="..\src\game\physics\BulletWorld.cpp" />
+    <ClCompile Include="..\src\game\ui\InteractionIndicator.cpp" />
+    <ClCompile Include="..\src\game\ui\menu.cpp" />
     <ClCompile Include="..\src\game\ui\Transform2D.cpp" />
     <ClCompile Include="..\src\game\ui\UI.cpp" />
+    <ClCompile Include="..\src\game\ui\UIElement.cpp" />
     <ClCompile Include="..\src\glut_geometry.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\material.cpp" />
@@ -58,6 +62,7 @@
     <ClInclude Include="..\src\game\entities\Cucaracha.h" />
     <ClInclude Include="..\src\game\entities\GameEntity.h" />
     <ClInclude Include="..\src\game\entities\InteractableEntity.h" />
+    <ClInclude Include="..\src\game\entities\Lever.h" />
     <ClInclude Include="..\src\game\entities\Libro1.h" />
     <ClInclude Include="..\src\game\entities\Maleta.h" />
     <ClInclude Include="..\src\game\entities\Panel.h" />
@@ -73,6 +78,8 @@
     <ClInclude Include="..\src\game\graphics\Vertex.h" />
     <ClInclude Include="..\src\game\Level.h" />
     <ClInclude Include="..\src\game\physics\BulletWorld.h" />
+    <ClInclude Include="..\src\game\ui\InteractionIndicator.h" />
+    <ClInclude Include="..\src\game\ui\menu.h" />
     <ClInclude Include="..\src\game\ui\Transform2D.h" />
     <ClInclude Include="..\src\game\ui\UI.h" />
     <ClInclude Include="..\src\game\ui\UIElement.h" />

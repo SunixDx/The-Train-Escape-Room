@@ -13,4 +13,9 @@ public:
 	Vago(Transform transform, Model* model, GLuint shader_id);
 
 	static float Z_OFFSET;
+
+	btRigidBody* my_rigid_body_paret1;
+	btRigidBody* my_rigid_body_paret2;
+	btRigidBody* my_rigid_body_paret3;
+	btRigidBody* my_rigid_body_paret4;
 };

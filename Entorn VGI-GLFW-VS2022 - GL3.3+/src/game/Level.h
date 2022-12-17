@@ -8,6 +8,7 @@
 #include "entities/Panel.h"
 #include "entities/Rail.h"
 #include "audio/AudioFunctions.h"
+#include "entities/Lever.h"
 
 class Level {
 public:
@@ -21,6 +22,13 @@ public:
 	Rail* padlock;
 	Crypt* crypt;
 	Panel* panel;
+	Rail* exterior_tren;
+	Rail* megaphone;
+	GameEntity* clock;
+	GameEntity* clock2;
+	GameEntity* clock3;
+	GameEntity* biblia;
+	Lever* lever;
 
 	//llums
 	bool* flicker;
@@ -33,7 +41,6 @@ public:
 	InteractableEntity* my_entity_under_cursor;
 
 	static Level CURRENT_LEVEL;
-
 
 	void MaybeSpawnSlender();
 	void despawnSlender();

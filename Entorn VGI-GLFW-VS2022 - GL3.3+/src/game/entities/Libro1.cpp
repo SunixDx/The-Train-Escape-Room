@@ -1,11 +1,11 @@
 #include "Libro1.h"
 
-Libro1::Libro1(Transform transform, Model* model_tancat, Model* model_obert, GLuint shader_id) : GameEntity(transform, model_tancat, shader_id)
+Libro1::Libro1(Transform transform, Model* model_tancat, Model* model_obert, GLuint shader_id) : InteractableEntity(transform, model_tancat, shader_id, InteractionType::OPEN_CLOSE)
 {
 	my_model_obert = model_obert;
 	my_model_tancat = model_tancat;
 
-	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.5), btScalar(.5), btScalar(.35))); //definir collider
+	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.15), btScalar(0.1), btScalar(.1))); //definir collider
 
 	btTransform groundTransform;
 	groundTransform.setIdentity();
