@@ -18,6 +18,7 @@
 #include "game/ui/UI.h"
 #include "game/ui/InteractionIndicator.h"
 #include "game/ui/menu.h"
+#include "game/ui/Crosshair.h"
 
 #include <bullet/btBulletDynamicsCommon.h>
 #include <irrKlang/irrKlang.h>
@@ -860,6 +861,8 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 			Camera::MAIN_CAMERA.fly();
 			Menu::instance
 				.change_indicator(MenuType::MENU);
+
+			Crosshair::instance.disable();
 		}
 		else
 		{
@@ -2519,6 +2522,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			{
 				cout << "START BUTTON" << endl;
 				OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 0);
+				Crosshair::instance.enable();
 			}
 			if (h / ypos < 1.58 && h / ypos > 1.4)
 			{
@@ -3555,7 +3559,9 @@ int main(void)
 		.set_close_up_indicator(new UIElement(transform_close_up, texture_close_up))
 		.set_lever(new UIElement(transform_lever, texture_lever));
 
-	UI::instance.elements.push_back(new UIElement(crosshair_transform, texture));
+	Crosshair::instance = Crosshair(crosshair_transform, texture);
+
+	UI::instance.elements.push_back(&Crosshair::instance);
 	UI::instance.elements.push_back(&InteractionIndicator::instance);
 	UI::instance.elements.push_back(&Menu::instance);
 

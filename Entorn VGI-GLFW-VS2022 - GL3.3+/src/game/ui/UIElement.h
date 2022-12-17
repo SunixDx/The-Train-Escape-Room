@@ -10,8 +10,19 @@ public:
 	UIElement(Transform transform);
 
 
+	void disable()
+	{
+		enabled = false;
+	}
+
+	void enable()
+	{
+		enabled = true;
+	}
+
 	Transform my_transform;
 	Mesh* my_mesh;
+	bool enabled = true;
 
 	std::vector<UIElement*> my_children;
 
