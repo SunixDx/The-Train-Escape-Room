@@ -2531,6 +2531,31 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 		}
 	}
 
+	if (Camera::MAIN_CAMERA.zoom && action == GLFW_PRESS)
+	{
+		int r = -1, c = -1;
+		
+		// columna:
+		if (w / xpos < 3 && w / xpos > 2.5) c = 0;
+		if (w / xpos < 2.35 && w / xpos > 2) c = 1;
+		if (w / xpos < 1.93 && w / xpos > 1.72) c = 2;
+		if (w / xpos < 1.63 && w / xpos > 1.47) c = 3;
+
+		// fila
+		if (h / ypos < 2.9 && h / ypos > 2.1) r = 0;
+		if (h / ypos < 1.9 && h / ypos > 1.56) r = 1;
+		if (h / ypos < 1.42 && h / ypos > 1.2) r = 2;
+
+		if (r != -1 && c != -1) 
+		{
+			int panell_numeric[3][4] = { {1, 2, 3, -1}, {4, 5, 6, -2}, {7, 8, 9, 0} };
+			int tecla = panell_numeric[r][c];
+
+			cout << "Tecla: " << tecla << endl;
+		}
+		
+	}
+
 // OnLButtonDown
 	if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) //pulsar click
 		{

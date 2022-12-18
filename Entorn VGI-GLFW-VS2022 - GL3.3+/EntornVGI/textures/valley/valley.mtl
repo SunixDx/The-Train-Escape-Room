@@ -1,0 +1,35 @@
+# Blender 3.3.1 MTL File: 'valley.blend'
+# www.blender.org
+
+newmtl smallrocks
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd smallrocks_baseColor.png
+map_Bump -bm 1.000000 smallrocks_normal.png
+
+newmtl terraintilled
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd terraintilled_baseColor.png
+map_Bump -bm 1.000000 terraintilled_normal.png
+
+newmtl tinyrocks
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd tinyrocks_baseColor.png
+map_Bump -bm 1.000000 tinyrocks_normal.png
