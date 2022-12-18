@@ -34,6 +34,21 @@ Panel::Panel(Transform transform, Model* model, GLuint shader_id) : Interactable
 
 	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape);
 	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body);
+
+
+	for (int i = 0; i < display_digits.size(); i++)
+	{
+		auto tr = Transform();
+		tr.scale(1.0f / 2.0f);
+		tr.rotate(PI / 2, {0, 1, 0});
+		tr.rotate(PI, { 0, 1, 0 });
+		float offset = (float) i / 2.5f;
+
+		tr.translate({0.025, 1.05, -0.2 - offset});
+		auto digit = new GameEntity(tr, nullptr, shader_id);
+		display_digits[i] = digit;
+		addChild(digit);
+	}
 }
 
 void Panel::interact()
