@@ -3593,7 +3593,7 @@ int main(void)
 			
 			irrklang::ISound* snd3 = Audio::AUDIO_FUNCTIONS.play2D("./media/flickering-lights.wav", false, true);
 			if (snd3) {
-				snd3->setVolume(0.09f);
+				snd3->setVolume(0.1f);
 				snd3->setIsPaused(false);
 			}
 		}
