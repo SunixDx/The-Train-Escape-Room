@@ -42,7 +42,6 @@ void Panel::interact()
 
 	Camera::MAIN_CAMERA.zoomIn(my_transform);
 	//zoom = true;
-	Level::CURRENT_LEVEL.my_vago->obrir_porta();
 
 	InteractionIndicator::instance.change_indicator(InteractionType::NONE);
 

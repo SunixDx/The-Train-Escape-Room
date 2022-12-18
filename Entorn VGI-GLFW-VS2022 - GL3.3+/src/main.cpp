@@ -2553,12 +2553,24 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 		if (h / ypos < 1.9 && h / ypos > 1.56) r = 1;
 		if (h / ypos < 1.42 && h / ypos > 1.2) r = 2;
 
-		if (r != -1 && c != -1) 
+		if (r != -1 && c != -1) // c cancelar, o ok
 		{
-			// -1 = cancel, -2 = ok
-			int panell_numeric[3][4] = { {1, 2, 3, -1}, {4, 5, 6, -2}, {7, 8, 9, 0} };
-			int tecla = panell_numeric[r][c];
-
+			char panell_numeric[3][4] = { {'1','2', '3', 'c'}, {'4', '5', '6', 'k' }, {'7', '8', '9', '0'} };
+			char tecla = panell_numeric[r][c];
+			if (tecla == 'k')
+			{
+				if (contrasenya == "573")
+				{
+					Level::CURRENT_LEVEL.my_vago->obrir_porta();
+				}
+				else contrasenya.clear();
+				cout << "solucio" << endl;
+			}
+			else if (tecla == 'c') {
+				contrasenya.clear();
+				cout << "borrar" << endl;
+			}
+			else contrasenya += tecla;
 			cout << "Tecla: " << tecla << endl;
 		}
 	}
@@ -3776,6 +3788,8 @@ int main(void)
 			OnKeyDown(window, GLFW_KEY_F3, 1, GLFW_PRESS, 2);
 			OnKeyDown(window, GLFW_KEY_P, 1, GLFW_PRESS, 0);
 			OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 0);
+			OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 1);
+
 		}
     }
 
