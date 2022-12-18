@@ -2,8 +2,8 @@
 
 Terreny::Terreny(Transform transform, Model* model_rail, GLuint shader_id, float speed) : speed(speed), GameEntity(transform, nullptr, shader_id)
 {
-	n_terrenys = 4;
-	longitud_terreny = 400;
+	n_terrenys = 6;
+	longitud_terreny = 500;
 
 	float offset_rail = 0 - n_terrenys / 2 * longitud_terreny;
 
@@ -11,7 +11,9 @@ Terreny::Terreny(Transform transform, Model* model_rail, GLuint shader_id, float
 	{
 		Transform tr;
 		tr.translate({ offset_rail, 0, 0 });
-		tr.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
+		//tr.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
+		tr.rotate(glm::pi<float>() / 2, vec3(0.0f, 0.0f, 1.0f));
+		tr.scale(0.025f);
 
 		GameEntity* rail = new GameEntity(tr, model_rail, shader_id);
 		addChild(rail);
