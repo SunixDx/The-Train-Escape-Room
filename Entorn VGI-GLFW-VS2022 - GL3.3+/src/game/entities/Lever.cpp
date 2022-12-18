@@ -37,6 +37,7 @@ void Lever::interact()
 	{
 		cout << "HAS INTERACTUAT AMB LA PALANCA, SUPOSO" << endl;
 		my_transform.rotate((2*PI), vec3(1.0f, 0.0f, 0.0f));
+		Camera::MAIN_CAMERA.fly_behind();
 		pulsada = true;
 	}
 }

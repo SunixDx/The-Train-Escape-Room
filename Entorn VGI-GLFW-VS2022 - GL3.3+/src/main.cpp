@@ -853,6 +853,11 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 			camera = CAM_PERSONALITZADA;
 		Camera::MAIN_CAMERA.position = glm::vec3(0, 0, 1.8);
 	}
+	else if (mods == 0 && key == GLFW_KEY_E && action == GLFW_PRESS)
+	{
+		Camera::MAIN_CAMERA.fly_behind();
+	}
+	
 	else if (mods == 0 && key == GLFW_KEY_F && action == GLFW_PRESS)
 	{
 		if (!Camera::MAIN_CAMERA.flying)
@@ -902,8 +907,6 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 				if (euc->is_interactable())
 					InteractionIndicator::instance.change_indicator(euc->interaction_type());
 			}
-
-			contrasenya.clear();
 		}
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_RELEASE)
@@ -1170,12 +1173,12 @@ void Teclat_Shift(int key, GLFWwindow* window)
 					{	// load Skybox textures
 						// -------------
 						std::vector<std::string> faces =
-							{	".\\textures\\skybox\\lago_helado\\right.jpg", //girado
-								".\\textures\\skybox\\lago_helado\\left.jpg", //girado
-								".\\textures\\skybox\\lago_helado\\top.jpg",
-								".\\textures\\skybox\\lago_helado\\bottom.jpg",
-								".\\textures\\skybox\\lago_helado\\front.jpg",
-								".\\textures\\skybox\\lago_helado\\back.jpg"
+							{	".\\textures\\skybox\\final\\left.png", //girado
+								".\\textures\\skybox\\final\\right.png", //girado
+								".\\textures\\skybox\\final\\top.png",
+								".\\textures\\skybox\\final\\bottom.png",
+								".\\textures\\skybox\\final\\front.png",
+								".\\textures\\skybox\\final\\back.png"
 							};
 						cubemapTexture = loadCubemap(faces);	
 					}
@@ -2516,7 +2519,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 
 // TODO: Agregue aquï¿½ su cï¿½digo de controlador de mensajes o llame al valor predeterminado
 
-	if (Camera::MAIN_CAMERA.flying && action == GLFW_PRESS)
+	if (Camera::MAIN_CAMERA.flying && action == GLFW_PRESS && !Camera::MAIN_CAMERA.endcam)
 	{
 		if (w / xpos < 2.2 && w / xpos > 1.8)
 		{
@@ -2535,6 +2538,8 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 
 	if (Camera::MAIN_CAMERA.zoom && action == GLFW_PRESS)
 	{
+		//cout << "x " << w / xpos << " y " << h / ypos << endl;
+
 		int r = -1, c = -1;
 		
 		// columna:
@@ -2550,12 +2555,12 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 
 		if (r != -1 && c != -1) 
 		{
+			// -1 = cancel, -2 = ok
 			int panell_numeric[3][4] = { {1, 2, 3, -1}, {4, 5, 6, -2}, {7, 8, 9, 0} };
 			int tecla = panell_numeric[r][c];
 
 			cout << "Tecla: " << tecla << endl;
 		}
-		
 	}
 
 // OnLButtonDown
@@ -2575,7 +2580,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 					euc->interact(); //ejecutamos interact
 			}	
 		}
-// OnLButtonUp: Funciï¿½ que es crida quan deixem d'apretar el botï¿½ esquerra del mouse.
+// OnLButtonUp: Funciï¿½ que es crida quan deixem Fd'apretar el botï¿½ esquerra del mouse.
 	else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
 			{	// Entorn VGI: Desactivem flag m_ButoEAvall quan deixem d'apretar botï¿½ esquerra del mouse.
 				m_ButoEAvall = false;
@@ -2624,7 +2629,7 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 	GLdouble vdir[3] = { 0, 0, 0 };
 	CSize gir, girn, girT, zoomincr;
 
-	if (Camera::MAIN_CAMERA.flying)
+	if (Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.endcam)
 	{
 		if (w / xpos < 2.2 && w / xpos > 1.8 && h / ypos < 2.1 && h / ypos > 1.8)
 		{
@@ -3642,7 +3647,7 @@ int main(void)
 
 		if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 10)
 		{
-			Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(0.5,0, 0)*delta);
+			Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(0.5,0, 0));
 		}
 
 		//railes
@@ -3650,8 +3655,6 @@ int main(void)
 		Level::CURRENT_LEVEL.via->update(delta);
 		Level::CURRENT_LEVEL.via_secundaria->update(delta);
 		Level::CURRENT_LEVEL.terreny->update(delta);
-
-		Level::CURRENT_LEVEL.tren_passant->update(delta);
 
 // // Entorn VGI. Timer: for each timer do this
 		time -= delta;
@@ -3715,7 +3718,7 @@ int main(void)
 			Camera::MAIN_CAMERA.position.z += 2 * delta;
 		}
 
-		if (Camera::MAIN_CAMERA.flying)
+		if (Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.endcam)
 		{
 			Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.angular_speed;
 			Camera::MAIN_CAMERA.fly_arround(glm::vec3(0, 0, 0));
@@ -3738,7 +3741,7 @@ int main(void)
 			//Camera::MAIN_CAMERA.position.z = trans.getOrigin().getZ();
 		}
 
-		if (Camera::MAIN_CAMERA.zoom || Camera::MAIN_CAMERA.flying)
+		if (Camera::MAIN_CAMERA.zoom || Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.endcam)
 		{
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		}

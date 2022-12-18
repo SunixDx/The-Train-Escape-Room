@@ -7,6 +7,7 @@
 #include "../physics/BulletWorld.h"
 #include "InteractableEntity.h"
 #include "GameEntity.h"
+#include "../src/game/graphics/Camera.h"
 
 class Lever : public InteractableEntity
 {
