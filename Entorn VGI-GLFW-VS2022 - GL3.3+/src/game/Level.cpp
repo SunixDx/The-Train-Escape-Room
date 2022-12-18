@@ -314,10 +314,11 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	//rellotge 1
 	Transform trClock = Transform();
-	trClock.translate(vec3(-1.5, 1.45f, 0.5f));
 	trClock.scale(vec3(0.15f));
+	trClock.translate(vec3(7.6, -1.6f, 0.0f));
 	trClock.rotate(PI / 2, vec3(0.0f, 0.0f, 1.0f));
-	trClock.rotate(PI / -4, vec3(1.0f, 0.0f, 0.0f));
+	//trClock.rotate(PI / -6, vec3(1.0f, 0.0f, 0.0f));
+
 	GameEntity* clock = new GameEntity(trClock, new Model("./textures/clock/clock1.obj"), sh_programID);
 
 	//rellotge 2
@@ -329,9 +330,9 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	//rellotge 3
 	Transform trClock3 = Transform();
-	trClock3.translate(vec3(7.6, -1.6f, 0.0f));
+	trClock3.translate(vec3(-1.5, 1.45f, 0.5f));
 	trClock3.scale(vec3(0.2f));
-	trClock3.rotate(PI / -6, vec3(1.0f, 0.0f, 0.0f));
+	//trClock3.rotate(PI / -4, vec3(1.0f, 0.0f, 0.0f));
 	GameEntity* clock3 = new GameEntity(trClock3, new Model("./textures/clock/clock3.obj"), sh_programID);
 
 	//biblia
