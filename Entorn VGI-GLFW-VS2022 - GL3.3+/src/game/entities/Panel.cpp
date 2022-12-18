@@ -6,7 +6,7 @@ Panel::Panel(Transform transform, Model* model, GLuint shader_id) : Interactable
 {
 	zoom = false;
 
-	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.1), btScalar(.25), btScalar(.25))); //definir collider
+	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(.1), btScalar(.15), btScalar(.1))); //definir collider
 
 	btTransform groundTransform;
 	groundTransform.setIdentity();

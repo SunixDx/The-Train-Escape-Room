@@ -177,7 +177,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Level::CURRENT_LEVEL.my_vago = vago;
 
 
-
 	float c = glm::cos(glm::pi<float>() / 4);
 	float s = glm::sin(glm::pi<float>() / 4);
 	
@@ -197,7 +196,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	Rail* railes = new Rail(trRail, new Model("./textures/tren_final/scene.gltf INVALID"), sh_programID);
 	Level::CURRENT_LEVEL.rail = railes;
-
 
 	//cartel exit
 	Transform trExit = Transform();
@@ -236,17 +234,25 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Transform trCrypt = Transform();
 	trCrypt.translate(vec3(1.05f, -1.98f, 0.65f));
 	trCrypt.scale(vec3(0.2f));
-	trCrypt.rotate((PI / -6) * 9, vec3(0.0f, 0.0f, 1.0f));
+	trCrypt.rotate((PI / -2) * 3, vec3(0.0f, 0.0f, 1.0f));
 
 	Crypt* crypt = new Crypt(trCrypt, new Model("./textures/placa_codi/placa_codi.obj"), sh_programID);
 
 	//panel
 	Transform trPanel = Transform();
 	trPanel.translate(vec3(8.75f, -0.8f, 1.9f));
-	trPanel.rotate((PI / -6) * 9, vec3(0.0f, 0.0f, 1.0f));
+	trPanel.rotate((PI / -2) * 3, vec3(0.0f, 0.0f, 1.0f));
 	trPanel.scale(vec3(0.1f));
 
 	Panel* panel = new Panel(trPanel, new Model("./textures/panel/panel_propio.obj"), sh_programID);
+
+	//panel_color
+	Transform trPanelColor = Transform();
+	trPanelColor.translate(vec3(8.75f, -0.8f, 2.15f));
+	trPanelColor.rotate((PI / -2) * 3, vec3(0.0f, 0.0f, 1.0f));
+	trPanelColor.scale(vec3(0.06f));
+
+	GameEntity* panel_color = new GameEntity(trPanelColor, new Model("./textures/panel_color/panel_color.obj"), sh_programID);
 	
 	//slenderman
 	Transform trPadlock = Transform();
@@ -280,8 +286,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Terreny* terreny = new Terreny(terreny_tr, model_terreny, sh_programID, 25);
 	Level::CURRENT_LEVEL.terreny = terreny;
 
-
-
 	//-------------------------------------SLENDERMANS----------------------------------------------
 	//pasagero
 	/*
@@ -291,7 +295,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	trBilly.rotate((glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
 	Rail* billy = new Rail(trBilly, new Model("./textures/slenderman/scene.gltf"), sh_programID);
 	*/
-
 
 	//megafono
 	Transform trMegafono = Transform();
@@ -307,29 +310,29 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Transform trClock = Transform();
 	trClock.translate(vec3(-1.5, 1.45f, 0.5f));
 	trClock.scale(vec3(0.15f));
-	trClock.rotate((PI / 6) * 3, vec3(0.0f, 0.0f, 1.0f));
-	trClock.rotate((PI / -12) * 3, vec3(1.0f, 0.0f, 0.0f));
+	trClock.rotate(PI / 2, vec3(0.0f, 0.0f, 1.0f));
+	trClock.rotate(PI / -4, vec3(1.0f, 0.0f, 0.0f));
 	GameEntity* clock = new GameEntity(trClock, new Model("./textures/clock/clock1.obj"), sh_programID);
 
 	//rellotge 2
 	Transform trClock2 = Transform();
 	trClock2.translate(vec3(4.7f, -1.9f, 1.5f));
 	trClock2.scale(vec3(0.2f));
-	trClock2.rotate((PI / -6), vec3(.0f, .0f, 0.0f));
+	trClock2.rotate(PI / -6, vec3(.0f, .0f, 0.0f));
 	GameEntity* clock2 = new GameEntity(trClock2, new Model("./textures/clock/clock2.obj"), sh_programID);
 
 	//rellotge 3
 	Transform trClock3 = Transform();
 	trClock3.translate(vec3(7.6, -1.6f, 0.0f));
 	trClock3.scale(vec3(0.2f));
-	trClock3.rotate((PI / -6), vec3(1.0f, 0.0f, 0.0f));
+	trClock3.rotate(PI / -6, vec3(1.0f, 0.0f, 0.0f));
 	GameEntity* clock3 = new GameEntity(trClock3, new Model("./textures/clock/clock3.obj"), sh_programID);
 
 	//biblia
 	Transform trBiblia = Transform();
-	trBiblia.translate(vec3(7.6, -1.6f, 0.0f));
+	trBiblia.translate(vec3(8.75f, 1.3f, 1.7f));
 	trBiblia.scale(vec3(0.2f));
-	trBiblia.rotate((PI / -6), vec3(1.0f, 0.0f, 0.0f));
+	trBiblia.rotate(PI / -2, vec3(1.0f, 0.0f, 0.0f));
 	GameEntity* biblia = new GameEntity(trBiblia, new Model("./textures/biblia/biblia.obj"), sh_programID);
 
 	// palanca
@@ -343,15 +346,16 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Level::CURRENT_LEVEL.libro1 = libro1;
 	Level::CURRENT_LEVEL.crypt = crypt;
 	Level::CURRENT_LEVEL.panel = panel;
+	Level::CURRENT_LEVEL.panel_color = panel_color;
 	Level::CURRENT_LEVEL.my_entity_under_cursor = nullptr;
 	Level::CURRENT_LEVEL.megaphone = megafono;
-
-	//Level::CURRENT_LEVEL.exterior_tren = exterior;
 	Level::CURRENT_LEVEL.clock = clock;
 	Level::CURRENT_LEVEL.clock2 = clock2;
 	Level::CURRENT_LEVEL.clock3 = clock3;
 	Level::CURRENT_LEVEL.biblia = biblia;
 	Level::CURRENT_LEVEL.lever = lever;
+	//Level::CURRENT_LEVEL.exterior_tren = exterior;
+	
 }
 
 void Level::MaybeSpawnSlender()
