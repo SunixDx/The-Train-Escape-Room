@@ -1168,12 +1168,12 @@ void Teclat_Shift(int key, GLFWwindow* window)
 					{	// load Skybox textures
 						// -------------
 						std::vector<std::string> faces =
-							{	".\\textures\\skybox\\final\\left.png", //girado
-								".\\textures\\skybox\\final\\right.png", //girado
-								".\\textures\\skybox\\final\\top.png",
-								".\\textures\\skybox\\final\\bottom.png",
-								".\\textures\\skybox\\final\\front.png",
-								".\\textures\\skybox\\final\\back.png"
+							{	".\\textures\\skybox\\lago_helado\\right.jpg", //girado
+								".\\textures\\skybox\\lago_helado\\left.jpg", //girado
+								".\\textures\\skybox\\lago_helado\\top.jpg",
+								".\\textures\\skybox\\lago_helado\\bottom.jpg",
+								".\\textures\\skybox\\lago_helado\\front.jpg",
+								".\\textures\\skybox\\lago_helado\\back.jpg"
 							};
 						cubemapTexture = loadCubemap(faces);	
 					}
@@ -3615,7 +3615,7 @@ int main(void)
 
 		if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 10)
 		{
-			Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(0.5,0, 0));
+			Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(0.5,0, 0)*delta);
 		}
 
 		//railes
@@ -3623,6 +3623,8 @@ int main(void)
 		Level::CURRENT_LEVEL.via->update(delta);
 		Level::CURRENT_LEVEL.via_secundaria->update(delta);
 		Level::CURRENT_LEVEL.terreny->update(delta);
+
+		Level::CURRENT_LEVEL.tren_passant->update(delta);
 
 // // Entorn VGI. Timer: for each timer do this
 		time -= delta;

@@ -447,6 +447,7 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		Level::CURRENT_LEVEL.via->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.via_secundaria->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.terreny->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.tren_passant->mostrar(MatriuVista, MatriuTG);
 		
 		Level::CURRENT_LEVEL.my_vago->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.my_vago_2->mostrar(MatriuVista, MatriuTG);
