@@ -1,6 +1,8 @@
 #include "Panel.h"
 #include "../graphics/Camera.h"
 #include "../ui/InteractionIndicator.h"
+#include "../Level.h"
+
 
 Panel::Panel(Transform transform, Model* model, GLuint shader_id) : InteractableEntity(transform, model, shader_id, InteractionType::CLOSE_UP)
 {
@@ -40,6 +42,7 @@ void Panel::interact()
 
 	Camera::MAIN_CAMERA.zoomIn(my_transform);
 	//zoom = true;
+	Level::CURRENT_LEVEL.my_vago->obrir_porta();
 
 	InteractionIndicator::instance.change_indicator(InteractionType::NONE);
 

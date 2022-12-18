@@ -11,17 +11,18 @@ Level Level::CURRENT_LEVEL;
 //-------------------------------------------------------------------------------------------------
 
 void Level::exterior_train_offset(GLuint sh_programID, glm::vec3 exterior_offset)
-{
+{/*
 	//exterior tren
 	Transform trExterior = Transform();
-	trExterior.position() = vec3(0.0f, 0.0f, -3.0f);
-	trExterior.scale() = vec3(0.016f);
+	trExterior.position() = vec3(0.0f, 11.814f, -1.2f);
+	trExterior.scale() = vec3(0.022f);
 
 	trExterior.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f,0.0f));
 	//trExterior.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
 
 	Rail* exterior = new Rail(trExterior, new Model("./textures/tren_exterior/scene.gltf"), sh_programID);
 	Level::CURRENT_LEVEL.exterior_tren = exterior;
+ */
 }
 
 
@@ -264,10 +265,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Rail* padlock = new Rail(trPadlock, new Model("./textures/slenderman/scene.gltf"), sh_programID);
 	padlock->my_enabled = false;
 
-	//exterior tren
-	Transform trExterior = Transform();
-	trExterior.position() = vec3(0.0f, 0.0f, 50.0f);
-	trExterior.scale() = vec3(0.2f);
 
 	Model* model_rail = new Model("./textures/rails/rail1/scene.gltf");
 	Transform via_tr;
@@ -276,15 +273,24 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Level::CURRENT_LEVEL.via = via;
 
 	Transform via_secundaria_tr;
-	via_secundaria_tr.translate({ 17.0f, 5.736f, -1.35f });
+	via_secundaria_tr.translate({ 17.0f, 10.0f, -1.35f });
 	Via* via_secundaria = new Via(via_secundaria_tr, model_rail, sh_programID, 25);
 	Level::CURRENT_LEVEL.via_secundaria = via_secundaria;
 
-	Model* model_terreny = new Model("./textures/terreny/terreny.obj");
+	Model* model_terreny = new Model("./textures/valley/valley.gltf");
 	Transform terreny_tr;
-	terreny_tr.translate({ 17.0f, -1.736f, -2.0f });
+	terreny_tr.translate({ 17.0f, 6.5f, -2.0f });
 	Terreny* terreny = new Terreny(terreny_tr, model_terreny, sh_programID, 25);
 	Level::CURRENT_LEVEL.terreny = terreny;
+	
+
+	//tren passant
+	Model* model_exterior = new Model("./textures/tren_exterior/scene.gltf");
+	Transform trExterior;
+	trExterior.position() = vec3(0.0f, 11.814f, -1.2f);
+	Tren_passant* tren_passant = new Tren_passant(trExterior, model_exterior, sh_programID, 30);
+	Level::CURRENT_LEVEL.tren_passant = tren_passant;
+
 
 	//-------------------------------------SLENDERMANS----------------------------------------------
 	//pasagero
@@ -337,6 +343,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	// palanca
 	Transform trLever = Transform();
+	trLever.translate(vec3(20.0f, 0.0f, 0.0f));
 	Lever* lever = new Lever(trLever, new Model("./textures/lever/lever.obj"), sh_programID);
 
 	Level::CURRENT_LEVEL.slenderman = padlock;
