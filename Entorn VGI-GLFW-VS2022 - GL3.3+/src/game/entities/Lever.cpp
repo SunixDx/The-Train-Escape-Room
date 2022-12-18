@@ -36,6 +36,12 @@ void Lever::interact()
 	if (!pulsada)
 	{
 		cout << "HAS INTERACTUAT AMB LA PALANCA, SUPOSO" << endl;
+		irrklang::vec3df position(my_transform.position().x, my_transform.position().y, my_transform.position().z);
+		irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/lever.mp3", position, false, true);
+		if (snd) {
+			snd->setVolume(0.35f);
+			snd->setIsPaused(false);
+		}
 		my_transform.rotate((2*PI), vec3(1.0f, 0.0f, 0.0f));
 		pulsada = true;
 	}

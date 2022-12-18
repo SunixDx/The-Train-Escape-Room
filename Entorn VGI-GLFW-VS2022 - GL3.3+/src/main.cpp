@@ -2513,10 +2513,11 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			{
 				cout << "START BUTTON" << endl;
 				OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 0);
-				
+
 				Level::CURRENT_LEVEL.gameStarted = true;
 				//iniciar audio tren
 				Level::CURRENT_LEVEL.trainSound->setIsPaused(false);
+				Level::CURRENT_LEVEL.audioExplicacion->setIsPaused(false);
 				//iniciar timer
 				Level::CURRENT_LEVEL.gameTimer = chrono::steady_clock::now();
 				Level::CURRENT_LEVEL.gameTimer2 = chrono::steady_clock::now();
@@ -3551,10 +3552,18 @@ int main(void)
 
 	Level::CURRENT_LEVEL.trainSound = Audio::AUDIO_FUNCTIONS.play2D("./media/movingTrain.mp3", true, true);
 	if (Level::CURRENT_LEVEL.trainSound) {
-		if (Level::CURRENT_LEVEL.trainSound->getIsPaused()) {
-			Level::CURRENT_LEVEL.trainSound->setVolume(0.05f);
-		}
-	}	
+		Level::CURRENT_LEVEL.trainSound->setVolume(0.05f);
+	}
+	
+	float megafonoX = Level::CURRENT_LEVEL.megaphone->my_transform.position().x;
+	float megafonoY = Level::CURRENT_LEVEL.megaphone->my_transform.position().y;
+	float megafonoZ = Level::CURRENT_LEVEL.megaphone->my_transform.position().z;
+	irrklang::vec3df position(megafonoX, megafonoY, megafonoZ);
+	Level::CURRENT_LEVEL.audioExplicacion = Audio::AUDIO_FUNCTIONS.play3D("./media/Audio-explicacion.mpeg", position, false, true);
+	if (Level::CURRENT_LEVEL.audioExplicacion) {
+		Level::CURRENT_LEVEL.audioExplicacion->setMinDistance(0.5);
+		Level::CURRENT_LEVEL.audioExplicacion->setVolume(1.0f);
+	}
 
 	irrklang::ISound* footsteps = Audio::AUDIO_FUNCTIONS.play2D("./media/footsteps.mp3", true, true);
 	if (footsteps) {
@@ -3577,11 +3586,9 @@ int main(void)
 		if (Level::CURRENT_LEVEL.gameStarted) {
 			Level::CURRENT_LEVEL.gameTimer2 = chrono::steady_clock::now();
 		}
-		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 60) {
-			comptadorMinuts++;
-			cout << "HA PASSAT UN MINUT" << endl;
-			Level::CURRENT_LEVEL.gameTimer = chrono::steady_clock::now();
-
+		
+		// Activa l'efecte de llums
+		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 45) {
 			light_flicker = true;
 			irrklang::ISound* snd3 = Audio::AUDIO_FUNCTIONS.play2D("./media/flickering-lights.wav", false, true);
 			if (snd3) {
@@ -3590,6 +3597,15 @@ int main(void)
 			}
 			Level::CURRENT_LEVEL.lightTimer = chrono::steady_clock::now();
 		}
+
+		// Comptador de minuts
+		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 60) {
+			comptadorMinuts++;
+			cout << "HA PASSAT UN MINUT " << comptadorMinuts << endl;
+			Level::CURRENT_LEVEL.gameTimer = chrono::steady_clock::now();
+			// TODO: comptadorMinuts == 5 --> screamer final i fin partida
+		}
+
 
 		// Efecte de llums
 		end = chrono::steady_clock::now();

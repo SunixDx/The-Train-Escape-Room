@@ -47,6 +47,7 @@ public:
 	//sons
 	vector<irrklang::ISound*> sonsSlenderman;
 	irrklang::ISound* trainSound;
+	irrklang::ISound* audioExplicacion;
 
 	InteractableEntity* my_entity_under_cursor;
 
