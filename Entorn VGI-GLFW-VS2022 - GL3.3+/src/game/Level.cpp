@@ -324,8 +324,8 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	//tren passant
 	Model* model_exterior = new Model("./textures/tren_exterior/scene.gltf");
 	Transform trExterior;
-	trExterior.position() = vec3(0.0f, 11.814f, -1.2f);
-	Tren_passant* tren_passant = new Tren_passant(trExterior, model_exterior, sh_programID, 30);
+	trExterior.position() = vec3(750.0f, 11.814f, -1.2f);
+	Tren_passant* tren_passant = new Tren_passant(trExterior, model_exterior, sh_programID, 80);
 	Level::CURRENT_LEVEL.tren_passant = tren_passant;
 
 

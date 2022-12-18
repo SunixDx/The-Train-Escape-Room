@@ -3687,6 +3687,7 @@ int main(void)
 		Level::CURRENT_LEVEL.via->update(delta);
 		Level::CURRENT_LEVEL.via_secundaria->update(delta);
 		Level::CURRENT_LEVEL.terreny->update(delta);
+		Level::CURRENT_LEVEL.tren_passant->update(delta);
 
 // // Entorn VGI. Timer: for each timer do this
 		time -= delta;
