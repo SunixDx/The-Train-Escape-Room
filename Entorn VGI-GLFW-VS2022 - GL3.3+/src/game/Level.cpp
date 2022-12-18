@@ -343,6 +343,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	// palanca
 	Transform trLever = Transform();
+	trLever.translate(vec3(20.0f, 0.0f, 0.0f));
 	Lever* lever = new Lever(trLever, new Model("./textures/lever/lever.obj"), sh_programID);
 
 	Level::CURRENT_LEVEL.slenderman = padlock;
