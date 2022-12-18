@@ -3738,6 +3738,8 @@ int main(void)
 			// INICIAR TOT
 			OnKeyDown(window, GLFW_KEY_P, 1, GLFW_PRESS, 1);
 			OnKeyDown(window, GLFW_KEY_L, 1, GLFW_PRESS, 1);
+			OnKeyDown(window, GLFW_KEY_K, 1, GLFW_PRESS, 1);
+			OnKeyDown(window, GLFW_KEY_Z, 1, GLFW_PRESS, 1);
 			OnKeyDown(window, GLFW_KEY_F3, 1, GLFW_PRESS, 2);
 			OnKeyDown(window, GLFW_KEY_P, 1, GLFW_PRESS, 0);
 			OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 0);

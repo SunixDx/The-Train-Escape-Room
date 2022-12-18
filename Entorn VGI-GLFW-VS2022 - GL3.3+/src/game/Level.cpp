@@ -8,58 +8,6 @@ Level Level::CURRENT_LEVEL;
 //----------------------------------------------Railes----------------------------------------------
 //en tots_els_rails.cpp
 // Funcion para imprimir todos los railes
-void imp_railes(GLuint sh_programID)
-{
-	
-	float distance = 6;
-
-	Model* model_rail = new Model("./textures/rails/rail1/scene.gltf");
-
-	Transform trRail1 = Transform();
-	trRail1.position() = vec3(-8.5f, -1.736f, -1.35f);
-	trRail1.scale() = vec3(0.002175f);
-	trRail1.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
-	Rail* rail1 = new Rail(trRail1, model_rail, sh_programID);
-	Level::CURRENT_LEVEL.rail1 = rail1;
-	
-	Transform trRail2 = Transform();
-	trRail2.position() = vec3(0.0f, -1.736f, -1.35f);
-	trRail2.scale() = vec3(0.002175f);
-	trRail2.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
-	Rail* rail2 = new Rail(trRail2, model_rail, sh_programID);
-	Level::CURRENT_LEVEL.rail2 = rail2;
-
-
-	Transform trRail3 = Transform();
-	trRail3.position() = vec3(8.5f, -1.736f, -1.35f);
-	trRail3.scale() = vec3(0.002175f);
-	trRail3.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
-	Rail* rail3 = new Rail(trRail3, model_rail, sh_programID);
-	Level::CURRENT_LEVEL.rail3 = rail3;
-
-	
-	Transform trRail4 = Transform();
-	trRail4.position() = vec3(17.0f, -1.736f, -1.35f);
-	trRail4.scale() = vec3(0.002175f);
-	trRail4.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
-	Rail* rail4 = new Rail(trRail4, model_rail, sh_programID);
-	Level::CURRENT_LEVEL.rail4 = rail4;
-
-	Transform trRail5 = Transform();
-	trRail5.position() = vec3(25.5f, -1.736f, -1.35f);
-	trRail5.scale() = vec3(0.002175f);
-	trRail5.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
-	Rail* rail5 = new Rail(trRail5, model_rail, sh_programID);
-	Level::CURRENT_LEVEL.rail5 = rail5;
-
-	Transform trRail6 = Transform();
-	trRail6.position() = vec3(34.0f, -1.736f, -1.35f);
-	trRail6.scale() = vec3(0.002175f);
-	trRail6.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
-	Rail* rail6 = new Rail(trRail6, model_rail, sh_programID);
-	Level::CURRENT_LEVEL.rail6 = rail6;
-	
-}
 //-------------------------------------------------------------------------------------------------
 
 void Level::exterior_train_offset(GLuint sh_programID, glm::vec3 exterior_offset)
@@ -330,7 +278,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 
 	//-------------------------------------SLENDERMANS----------------------------------------------
-	imp_railes(sh_programID);
 	//pasagero
 	/*
 	Transform trBilly = Transform();
