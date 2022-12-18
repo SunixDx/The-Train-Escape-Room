@@ -274,7 +274,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Via* via_secundaria = new Via(via_secundaria_tr, model_rail, sh_programID, 25);
 	Level::CURRENT_LEVEL.via_secundaria = via_secundaria;
 
-	Model* model_terreny = new Model("./textures/terreny/terreny.obj");
+	Model* model_terreny = new Model("./textures/valley/valley.gltf");
 	Transform terreny_tr;
 	terreny_tr.translate({ 17.0f, -1.736f, -2.0f });
 	Terreny* terreny = new Terreny(terreny_tr, model_terreny, sh_programID, 25);
