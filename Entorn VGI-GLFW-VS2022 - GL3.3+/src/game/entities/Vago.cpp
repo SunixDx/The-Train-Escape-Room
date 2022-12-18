@@ -86,7 +86,6 @@ Vago::Vago(Transform transform, Model* model, GLuint shader_id): GameEntity(tran
 	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape_porta);
 	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body_porta);
 
-	// PARET 4 (paret detras)
 	btTransform groundTransform_paret4;
 	groundTransform_paret4.setIdentity();
 	groundTransform_paret4.setOrigin(btVector3(my_transform.position().x - 2.3f, my_transform.position().y, my_transform.position().z + Vago::Z_OFFSET));

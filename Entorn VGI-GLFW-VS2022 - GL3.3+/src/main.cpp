@@ -853,6 +853,11 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 			camera = CAM_PERSONALITZADA;
 		Camera::MAIN_CAMERA.position = glm::vec3(0, 0, 1.8);
 	}
+	else if (mods == 0 && key == GLFW_KEY_E && action == GLFW_PRESS)
+	{
+		Camera::MAIN_CAMERA.fly_behind();
+	}
+	
 	else if (mods == 0 && key == GLFW_KEY_F && action == GLFW_PRESS)
 	{
 		if (!Camera::MAIN_CAMERA.flying)
@@ -2514,7 +2519,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 
 // TODO: Agregue aquï¿½ su cï¿½digo de controlador de mensajes o llame al valor predeterminado
 
-	if (Camera::MAIN_CAMERA.flying && action == GLFW_PRESS)
+	if (Camera::MAIN_CAMERA.flying && action == GLFW_PRESS && !Camera::MAIN_CAMERA.endcam)
 	{
 		if (w / xpos < 2.2 && w / xpos > 1.8)
 		{
@@ -2528,6 +2533,45 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			{
 				OnKeyDown(window, GLFW_KEY_ESCAPE, 1, GLFW_PRESS, 0);
 			}
+		}
+	}
+
+	if (Camera::MAIN_CAMERA.zoom && action == GLFW_PRESS)
+	{
+		//cout << "x " << w / xpos << " y " << h / ypos << endl;
+
+		int r = -1, c = -1;
+		
+		// columna:
+		if (w / xpos < 3 && w / xpos > 2.5) c = 0;
+		if (w / xpos < 2.35 && w / xpos > 2) c = 1;
+		if (w / xpos < 1.93 && w / xpos > 1.72) c = 2;
+		if (w / xpos < 1.63 && w / xpos > 1.47) c = 3;
+
+		// fila
+		if (h / ypos < 2.9 && h / ypos > 2.1) r = 0;
+		if (h / ypos < 1.9 && h / ypos > 1.56) r = 1;
+		if (h / ypos < 1.42 && h / ypos > 1.2) r = 2;
+
+		if (r != -1 && c != -1) // c cancelar, o ok
+		{
+			char panell_numeric[3][4] = { {'1','2', '3', 'c'}, {'4', '5', '6', 'k' }, {'7', '8', '9', '0'} };
+			char tecla = panell_numeric[r][c];
+			if (tecla == 'k')
+			{
+				if (contrasenya == "573")
+				{
+					Level::CURRENT_LEVEL.my_vago->obrir_porta();
+				}
+				else contrasenya.clear();
+				cout << "solucio" << endl;
+			}
+			else if (tecla == 'c') {
+				contrasenya.clear();
+				cout << "borrar" << endl;
+			}
+			else contrasenya += tecla;
+			cout << "Tecla: " << tecla << endl;
 		}
 	}
 
@@ -2548,7 +2592,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 					euc->interact(); //ejecutamos interact
 			}	
 		}
-// OnLButtonUp: Funciï¿½ que es crida quan deixem d'apretar el botï¿½ esquerra del mouse.
+// OnLButtonUp: Funciï¿½ que es crida quan deixem Fd'apretar el botï¿½ esquerra del mouse.
 	else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
 			{	// Entorn VGI: Desactivem flag m_ButoEAvall quan deixem d'apretar botï¿½ esquerra del mouse.
 				m_ButoEAvall = false;
@@ -2597,7 +2641,7 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 	GLdouble vdir[3] = { 0, 0, 0 };
 	CSize gir, girn, girT, zoomincr;
 
-	if (Camera::MAIN_CAMERA.flying)
+	if (Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.endcam)
 	{
 		if (w / xpos < 2.2 && w / xpos > 1.8 && h / ypos < 2.1 && h / ypos > 1.8)
 		{
@@ -3686,7 +3730,7 @@ int main(void)
 			Camera::MAIN_CAMERA.position.z += 2 * delta;
 		}
 
-		if (Camera::MAIN_CAMERA.flying)
+		if (Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.endcam)
 		{
 			Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.angular_speed;
 			Camera::MAIN_CAMERA.fly_arround(glm::vec3(0, 0, 0));
@@ -3709,7 +3753,7 @@ int main(void)
 			//Camera::MAIN_CAMERA.position.z = trans.getOrigin().getZ();
 		}
 
-		if (Camera::MAIN_CAMERA.zoom || Camera::MAIN_CAMERA.flying)
+		if (Camera::MAIN_CAMERA.zoom || Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.endcam)
 		{
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		}
@@ -3744,6 +3788,8 @@ int main(void)
 			OnKeyDown(window, GLFW_KEY_F3, 1, GLFW_PRESS, 2);
 			OnKeyDown(window, GLFW_KEY_P, 1, GLFW_PRESS, 0);
 			OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 0);
+			OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 1);
+
 		}
     }
 

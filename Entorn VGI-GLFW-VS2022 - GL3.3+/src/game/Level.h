@@ -10,6 +10,7 @@
 #include "entities/Lever.h"
 #include "entities/Via.h"
 #include "entities/Terreny.h"
+#include "entities/tren_passant.h"
 
 
 class Level {
@@ -26,6 +27,8 @@ public:
 	
 	//tren exterior
 	Rail* rail;	
+	//tren passant
+	Tren_passant* tren_passant;
 
 	Via* via;
 	Via* via_secundaria;
@@ -44,7 +47,6 @@ public:
 	Crypt* crypt;
 	Panel* panel;
 	GameEntity* panel_color;
-	Rail* exterior_tren;
 	GameEntity* megaphone;
 	GameEntity* clock;
 	GameEntity* clock2;

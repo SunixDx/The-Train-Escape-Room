@@ -1,5 +1,4 @@
 #include "Lever.h"
-#include "../Level.h"
 
 Lever::Lever(Transform transform, Model* model, GLuint shader_id) : InteractableEntity(transform, model, shader_id, InteractionType::LEVER)
 {
@@ -36,10 +35,9 @@ void Lever::interact()
 {
 	if (!pulsada)
 	{
-		Level::CURRENT_LEVEL.my_vago->obrir_porta();
-
 		cout << "HAS INTERACTUAT AMB LA PALANCA, SUPOSO" << endl;
 		my_transform.rotate((2*PI), vec3(1.0f, 0.0f, 0.0f));
+		Camera::MAIN_CAMERA.fly_behind();
 		pulsada = true;
 	}
 }

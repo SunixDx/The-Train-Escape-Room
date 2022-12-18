@@ -1,6 +1,8 @@
 #include "Panel.h"
 #include "../graphics/Camera.h"
 #include "../ui/InteractionIndicator.h"
+#include "../Level.h"
+
 
 Panel::Panel(Transform transform, Model* model, GLuint shader_id) : InteractableEntity(transform, model, shader_id, InteractionType::CLOSE_UP)
 {
