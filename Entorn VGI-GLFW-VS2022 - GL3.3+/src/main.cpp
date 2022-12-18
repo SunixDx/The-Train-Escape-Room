@@ -2554,7 +2554,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			char tecla = panell_numeric[r][c];
 			if (tecla == 'k')
 			{
-				if (contrasenya == "753")
+				if (contrasenya == "573")
 				{
 					Level::CURRENT_LEVEL.my_vago->obrir_porta();
 				}
@@ -3786,6 +3786,8 @@ int main(void)
 			OnKeyDown(window, GLFW_KEY_F3, 1, GLFW_PRESS, 2);
 			OnKeyDown(window, GLFW_KEY_P, 1, GLFW_PRESS, 0);
 			OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 0);
+			OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 1);
+
 		}
     }
 

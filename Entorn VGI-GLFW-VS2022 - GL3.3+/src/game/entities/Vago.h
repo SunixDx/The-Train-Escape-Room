@@ -15,6 +15,7 @@ public:
 	void obrir_porta()
 	{
 		my_porta->my_transform.translate(my_translacio_obrir_porta);
+		my_rigid_body_paret3->setCollisionFlags(my_rigid_body_paret3->getCollisionFlags() | btCollisionObject::CF_NO_CONTACT_RESPONSE);
 	}
 
 	void afegir_porta(GameEntity* porta, vec3 translacio_obrir)

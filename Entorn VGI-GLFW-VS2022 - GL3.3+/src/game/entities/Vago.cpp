@@ -59,7 +59,7 @@ Vago::Vago(Transform transform, Model* model, GLuint shader_id): GameEntity(tran
 	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape_paret2);
 	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body_paret2);
 
-	// PARET 3 (paret megafono [delante])
+	// PARET 3 (paret panel [delante])
 
 	btTransform groundTransform_paret3;
 	groundTransform_paret3.setIdentity();
@@ -86,7 +86,7 @@ Vago::Vago(Transform transform, Model* model, GLuint shader_id): GameEntity(tran
 	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape_paret3);
 	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body_paret3);
 	
-	// PARET 4 (paret detras)
+	// PARET 4 (paret megafono [detras])
 	btTransform groundTransform_paret4;
 	groundTransform_paret4.setIdentity();
 	groundTransform_paret4.setOrigin(btVector3(my_transform.position().x - 2.3f, my_transform.position().y, my_transform.position().z + Vago::Z_OFFSET));
