@@ -14,6 +14,14 @@ public:
 
 	void obrir_porta()
 	{
+		BulletWorld::WORLD->my_dynamics_world->removeRigidBody(my_rigid_body_porta);
+		auto to_erease = std::find(my_rigidbodies.begin(), my_rigidbodies.end(), my_rigid_body_porta);
+		if (to_erease != my_rigidbodies.end())
+		{
+			delete* to_erease;
+			my_rigidbodies.erase(to_erease);
+		}
+		my_rigid_body_porta = nullptr;
 		my_porta->my_transform.translate(my_translacio_obrir_porta);
 	}
 
@@ -26,10 +34,8 @@ public:
 
 	static float Z_OFFSET;
 
-	btRigidBody* my_rigid_body_paret1;
-	btRigidBody* my_rigid_body_paret2;
-	btRigidBody* my_rigid_body_paret3;
-	btRigidBody* my_rigid_body_paret4;
+	btRigidBody* my_rigid_body_porta;
+	std::vector<btRigidBody*> my_rigidbodies;
 
 	GameEntity* my_porta = nullptr;
 	vec3 my_translacio_obrir_porta = {0, 0, 0};
