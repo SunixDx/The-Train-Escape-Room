@@ -3621,6 +3621,7 @@ int main(void)
 		//railes
 		
 		Level::CURRENT_LEVEL.via->update(delta);
+		Level::CURRENT_LEVEL.via_secundaria->update(delta);
 		Level::CURRENT_LEVEL.terreny->update(delta);
 
 // // Entorn VGI. Timer: for each timer do this

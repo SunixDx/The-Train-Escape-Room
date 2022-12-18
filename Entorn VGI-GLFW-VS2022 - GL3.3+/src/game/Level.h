@@ -31,6 +31,7 @@ public:
 	
 
 	Via* via;
+	Via* via_secundaria;
 	Terreny* terreny;
 	//railes
 	Rail* rail1;
