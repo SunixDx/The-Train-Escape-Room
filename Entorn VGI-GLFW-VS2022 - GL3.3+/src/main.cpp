@@ -902,6 +902,8 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 				if (euc->is_interactable())
 					InteractionIndicator::instance.change_indicator(euc->interaction_type());
 			}
+
+			contrasenya.clear();
 		}
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_RELEASE)
