@@ -112,9 +112,7 @@
 	bool oculta;    // Men� ocultacions: Activa [true] o desactiva [false] Ocultacions (Z-buffer).
 	bool back_line; // Men� ocultacions: Activa [true] o desactiva [false] dibuix cares back com a l�nies.
 
-// Entorn VGI: Variables de control del men� Iluminaci�	
-	bool light_flicker;
-	bool setSpookyLights;
+// Entorn VGI: Variables de control del men� Iluminaci�
 	bool ifixe;         // Iluminaci� fixe independent del PV (ifixe=1) 
 						// o depenent (mobil) respecte el PV (casc miner) (ifixe=0)
 	bool ilum2sides;	// Iluminaci� de les cares FRONT i BACK [TRUE] o nom�s les FRONT [FALSE]

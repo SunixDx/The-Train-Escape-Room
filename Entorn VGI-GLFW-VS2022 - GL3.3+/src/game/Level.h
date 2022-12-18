@@ -32,17 +32,19 @@ public:
 	Lever* lever;
 
 	//llums
-	bool* flicker;
-	bool* setSpookyLights;
+	bool flicker = false;
+	bool setScaryLights = false;
 	bool* llumAmbient;
 	bool* iFixe;
+		//combinacions de llums per l'efecte de parpadeig -> first = llumAmbient, second = ifixe
+	vector <pair<bool, bool>> lights{ make_pair(false, true), make_pair(false, false), make_pair(true, false), make_pair(true, true) };
 
+	//control de partida 
 	bool gameStarted = false;
 
 	//temps
 	chrono::steady_clock::time_point gameTimer; //comença a contar al clicar start
 	chrono::steady_clock::time_point gameTimer2;
-	chrono::steady_clock::time_point lightTimer;
 
 	//sons
 	vector<irrklang::ISound*> sonsSlenderman;

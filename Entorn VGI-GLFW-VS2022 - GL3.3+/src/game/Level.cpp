@@ -265,6 +265,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 void Level::MaybeSpawnSlender()
 {
 	// Activar spooky lighting
+	setScaryLights = true;
 	*llumAmbient = false;
 	*iFixe = true;
 
@@ -295,8 +296,7 @@ void Level::MaybeSpawnSlender()
 void Level::despawnSlender()
 {
 	// return to normal lighting
-	*llumAmbient = true;
-	*iFixe = false;
+	setScaryLights = false;
 
 	for (irrklang::ISound* snd : sonsSlenderman)
 	{

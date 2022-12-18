@@ -29,8 +29,6 @@ void InitGL()
 
 //------ Entorn VGI: Inicialitzaciï¿½ de les variables globals de CEntornVGIView
 	int i;
-	light_flicker = false;
-	setSpookyLights = false;
 
 // Entorn VGI: Variable de control per a Status Bar (consola) 
 	statusB = false;
@@ -3081,6 +3079,8 @@ void APIENTRY glDebugOutput(GLenum source, GLenum type, GLuint id, GLenum severi
 
 int main(void)
 {
+	srand((unsigned)time(NULL));
+
 	///-----includes_end-----
 
 	int i;
@@ -3544,8 +3544,6 @@ int main(void)
 	std::cout << "shader ID:" << shaderGouraud.getProgramID() << std::endl;
 	
 	Level::buildFirstLevel(shaderGouraud.getProgramID());
-	Level::CURRENT_LEVEL.flicker = &light_flicker;
-	Level::CURRENT_LEVEL.setSpookyLights = &setSpookyLights;
 	Level::CURRENT_LEVEL.llumAmbient = &llum_ambient;
 	Level::CURRENT_LEVEL.iFixe = &ifixe;
 
@@ -3577,6 +3575,7 @@ int main(void)
 
 	bool start = true;
 	int comptadorMinuts = 0;
+	int lightsIterator = 0;
 
     while (!glfwWindowShouldClose(window))
     {  
@@ -3587,15 +3586,16 @@ int main(void)
 			Level::CURRENT_LEVEL.gameTimer2 = chrono::steady_clock::now();
 		}
 		
-		// Activa l'efecte de llums
-		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 45) {
-			light_flicker = true;
+		// Activa l'efecte de llums 
+		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 60) {
+			Level::CURRENT_LEVEL.flicker = true;
+			lightsIterator = 0;
+			
 			irrklang::ISound* snd3 = Audio::AUDIO_FUNCTIONS.play2D("./media/flickering-lights.wav", false, true);
 			if (snd3) {
-				snd3->setVolume(0.075f);
+				snd3->setVolume(0.09f);
 				snd3->setIsPaused(false);
 			}
-			Level::CURRENT_LEVEL.lightTimer = chrono::steady_clock::now();
 		}
 
 		// Comptador de minuts
@@ -3606,22 +3606,22 @@ int main(void)
 			// TODO: comptadorMinuts == 5 --> screamer final i fin partida
 		}
 
-
 		// Efecte de llums
-		end = chrono::steady_clock::now();
-		if ((float(chrono::duration_cast<chrono::microseconds>(end - begin).count()) / 100000) >= 1 && light_flicker) {
-			begin = chrono::steady_clock::now();
+		if ((float(chrono::duration_cast<chrono::microseconds>(chrono::steady_clock::now() - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) <= 1 && Level::CURRENT_LEVEL.flicker) {
+			// Control de velocitat del parpadeig
+			end = chrono::steady_clock::now();
+			if ((float(chrono::duration_cast<chrono::microseconds>(end - begin).count()) / 100000) >= 1) {
+				begin = chrono::steady_clock::now();
 
-			if ((float(chrono::duration_cast<chrono::microseconds>(chrono::steady_clock::now() - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) <= 1) {
-				if (llum_ambient) {
-					llum_ambient = false;
-					ifixe = true;
-				}
-				else {
-					llum_ambient = true;
-					ifixe = false;
-				}
+				lightsIterator = rand() % Level::CURRENT_LEVEL.lights.size();
+				llum_ambient = Level::CURRENT_LEVEL.lights[lightsIterator].first;
+				ifixe = Level::CURRENT_LEVEL.lights[lightsIterator].second;
 			}
+		}
+		else if(!Level::CURRENT_LEVEL.setScaryLights) {
+			Level::CURRENT_LEVEL.flicker = false;
+			llum_ambient = true;
+			ifixe = false;
 		}
 
 // Poll for and process events */
