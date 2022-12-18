@@ -459,17 +459,16 @@ void dibuixa(GLuint sh_programID, char obj, glm::mat4 MatriuVista, glm::mat4 Mat
 		Level::CURRENT_LEVEL.libro1->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.crypt->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.panel->mostrar(MatriuVista, MatriuTG);
-		//Level::CURRENT_LEVEL.exterior_tren->mostrar(MatriuVista, MatriuTG);
+		Level::CURRENT_LEVEL.panel_color->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.megaphone->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.clock->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.clock2->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.clock3->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.biblia->mostrar(MatriuVista, MatriuTG);
 		Level::CURRENT_LEVEL.lever->mostrar(MatriuVista, MatriuTG);
-
+		//Level::CURRENT_LEVEL.exterior_tren->mostrar(MatriuVista, MatriuTG);
 		
 		//railes
-		
 
 		//Level::CURRENT_LEVEL.rail1->mostrar(MatriuVista, MatriuTG);
 		//Level::CURRENT_LEVEL.rail_1->mostrar(MatriuVista, MatriuTG);

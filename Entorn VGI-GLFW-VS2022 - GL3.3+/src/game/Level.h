@@ -25,10 +25,7 @@ public:
 	Libro1* libro1;
 	
 	//tren exterior
-	Rail* rail;
-
-
-	
+	Rail* rail;	
 
 	Via* via;
 	Via* via_secundaria;
@@ -46,6 +43,7 @@ public:
 
 	Crypt* crypt;
 	Panel* panel;
+	GameEntity* panel_color;
 	Rail* exterior_tren;
 	GameEntity* megaphone;
 	GameEntity* clock;
