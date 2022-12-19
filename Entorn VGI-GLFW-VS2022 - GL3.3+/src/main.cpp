@@ -608,7 +608,7 @@ void dibuixa_Escena(glm::vec3 skybox_offset) {
 	if (SkyBoxCube) dibuixa_Skybox(skC_programID, cubemapTexture, Vis_Polar, ProjectionMatrix, ViewMatrix, skybox_offset);
 
 //	Dibuix Coordenades Mï¿½n i Reixes.
-	dibuixa_Eixos(eixos_programID, eixos, eixos_Id, grid, hgrid, ProjectionMatrix, ViewMatrix);
+	//dibuixa_Eixos(eixos_programID, eixos, eixos_Id, grid, hgrid, ProjectionMatrix, ViewMatrix);
 
 // Escalat d'objectes, per adequar-los a les vistes ortogrï¿½fiques (Prï¿½ctica 2)
 //	GTMatrix = glm::scalef();
