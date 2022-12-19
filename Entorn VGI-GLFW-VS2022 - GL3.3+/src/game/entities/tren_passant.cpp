@@ -1,4 +1,5 @@
 #include "tren_passant.h"
+#include "../Level.h"
 
 Tren_passant::Tren_passant(Transform transform, Model* model_rail, GLuint shader_id, float speed) : speed(speed), GameEntity(transform, nullptr, shader_id)
 {
@@ -28,6 +29,19 @@ void Tren_passant::update(float delta_time)
 		exterior->my_transform.position().x -= delta_time * speed;
 
 		if (exterior->my_transform.position().x < -(n_trens / 2 * longitud_tren)*7)
-			exterior->my_transform.position().x = 500;
+			exterior->my_transform.position().x += 4500;
+
+		if (exterior->my_transform.position().x == 50)
+		{
+			irrklang::vec3df position(my_transform.position().x, my_transform.position().y, my_transform.position().z);
+			//irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/briefcase.wav", position, false, true);
+			irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/tren_passant.wav", position, false, true);
+			if (snd)
+			{
+				snd->setVolume(400.0f);
+				snd->setIsPaused(false);
+				Audio::AUDIO_FUNCTIONS.allSounds.push_back(snd);
+			}
+		}
 	}
 }

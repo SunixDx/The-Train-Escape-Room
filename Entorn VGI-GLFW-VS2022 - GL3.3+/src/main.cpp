@@ -3632,7 +3632,7 @@ int main(void)
 
 	Level::CURRENT_LEVEL.trainSound = Audio::AUDIO_FUNCTIONS.play2D("./media/movingTrain.mp3", true, true);
 	if (Level::CURRENT_LEVEL.trainSound) {
-		Level::CURRENT_LEVEL.trainSound->setVolume(1.75f);
+		Level::CURRENT_LEVEL.trainSound->setVolume(1.25f);
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(Level::CURRENT_LEVEL.trainSound);
 	}
 	
@@ -3640,10 +3640,10 @@ int main(void)
 	float megafonoY = Level::CURRENT_LEVEL.megaphone->my_transform.position().y;
 	float megafonoZ = Level::CURRENT_LEVEL.megaphone->my_transform.position().z;
 	irrklang::vec3df position(megafonoX, megafonoY, megafonoZ);
-	Level::CURRENT_LEVEL.audioExplicacion = Audio::AUDIO_FUNCTIONS.play3D("./media/Audio-explicacion.mpeg", position, false, true);
+	Level::CURRENT_LEVEL.audioExplicacion = Audio::AUDIO_FUNCTIONS.play3D("./media/Audio-explicacion.mp3", position, false, true);
 	if (Level::CURRENT_LEVEL.audioExplicacion) {
-		Level::CURRENT_LEVEL.audioExplicacion->setMinDistance(0.5);
-		Level::CURRENT_LEVEL.audioExplicacion->setVolume(80.0f);
+		Level::CURRENT_LEVEL.audioExplicacion->setMinDistance(4.5);
+		Level::CURRENT_LEVEL.audioExplicacion->setVolume(600.0f);
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(Level::CURRENT_LEVEL.audioExplicacion);
 	}
 
@@ -3678,7 +3678,7 @@ int main(void)
 			
 			irrklang::ISound* snd3 = Audio::AUDIO_FUNCTIONS.play2D("./media/flickering-lights.wav", false, true);
 			if (snd3) {
-				snd3->setVolume(8.0f);
+				snd3->setVolume(10.0f);
 				snd3->setIsPaused(false);
 			}
 		}
@@ -3721,7 +3721,7 @@ int main(void)
 
 		if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 10)
 		{
-			Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(0.5,0, 0));
+			Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(0.5,0, 0)*delta);
 		}
 
 		//railes

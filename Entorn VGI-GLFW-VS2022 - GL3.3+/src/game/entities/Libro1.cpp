@@ -44,7 +44,7 @@ void Libro1::interact()
 		irrklang::vec3df position(my_transform.position().x, my_transform.position().y, my_transform.position().z);
 		irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/book-open.wav", position, false, true);
 		if (snd) {
-			Audio::AUDIO_FUNCTIONS.setVolume(snd, 80.0);
+			Audio::AUDIO_FUNCTIONS.setVolume(snd, 300.0);
 			Audio::AUDIO_FUNCTIONS.pause_or_unpause(snd);
 			Audio::AUDIO_FUNCTIONS.allSounds.push_back(snd);
 		}
@@ -59,7 +59,7 @@ void Libro1::interact()
 
 		irrklang::vec3df position(my_transform.position().x, my_transform.position().y, my_transform.position().z);
 		irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/close-book.mp3", position, false, true);
-		Audio::AUDIO_FUNCTIONS.setVolume(snd, 20.0);
+		Audio::AUDIO_FUNCTIONS.setVolume(snd, 1000.0);
 		Audio::AUDIO_FUNCTIONS.pause_or_unpause(snd);
 
 		std::cout << "HAS CERRADO EL LIBRO" << std::endl;

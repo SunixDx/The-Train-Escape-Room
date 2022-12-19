@@ -46,7 +46,6 @@
     <ClCompile Include="..\src\game\ui\Crosshair.cpp" />
     <ClCompile Include="..\src\game\ui\InteractionIndicator.cpp" />
     <ClCompile Include="..\src\game\ui\menu.cpp" />
-    <ClCompile Include="..\src\game\tots_els_rails.cpp" />
     <ClCompile Include="..\src\game\ui\Transform2D.cpp" />
     <ClCompile Include="..\src\game\ui\UI.cpp" />
     <ClCompile Include="..\src\game\ui\UIElement.cpp" />
