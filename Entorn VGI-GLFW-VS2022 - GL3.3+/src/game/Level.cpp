@@ -413,7 +413,7 @@ void Level::MaybeSpawnSlender()
 	// Reproduir audio
 	irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play2D("./media/spooky_sound.wav", false, true);
 	if (snd) {
-		snd->setVolume(0.3f);
+		snd->setVolume(1.2f);
 		snd->setIsPaused(false);
 		sonsSlenderman.push_back(snd);
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(snd);
@@ -423,7 +423,7 @@ void Level::MaybeSpawnSlender()
 	irrklang::ISound* snd2 = Audio::AUDIO_FUNCTIONS.play3D("./media/slender-breathing+ambience.wav", position, false, true);
 	if (snd2) {
 		snd2->setMinDistance(4.0f);
-		snd2->setVolume(3.0f);
+		snd2->setVolume(12.0f);
 		snd2->setIsPaused(false);
 		sonsSlenderman.push_back(snd2);
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(snd2);

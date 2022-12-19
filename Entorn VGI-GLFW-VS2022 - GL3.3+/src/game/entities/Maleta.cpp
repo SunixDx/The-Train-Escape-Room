@@ -42,7 +42,7 @@ void Maleta::interact()
 	irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/briefcase.wav", position, false, true);
 	if (snd)
 	{
-		snd->setVolume(2.0f);
+		snd->setVolume(8.0f);
 		snd->setIsPaused(false);
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(snd);
 	}

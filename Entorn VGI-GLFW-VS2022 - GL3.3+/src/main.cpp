@@ -3632,7 +3632,7 @@ int main(void)
 
 	Level::CURRENT_LEVEL.trainSound = Audio::AUDIO_FUNCTIONS.play2D("./media/movingTrain.mp3", true, true);
 	if (Level::CURRENT_LEVEL.trainSound) {
-		Level::CURRENT_LEVEL.trainSound->setVolume(0.05f);
+		Level::CURRENT_LEVEL.trainSound->setVolume(0.2f);
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(Level::CURRENT_LEVEL.trainSound);
 	}
 	
@@ -3643,13 +3643,13 @@ int main(void)
 	Level::CURRENT_LEVEL.audioExplicacion = Audio::AUDIO_FUNCTIONS.play3D("./media/Audio-explicacion.mpeg", position, false, true);
 	if (Level::CURRENT_LEVEL.audioExplicacion) {
 		Level::CURRENT_LEVEL.audioExplicacion->setMinDistance(0.5);
-		Level::CURRENT_LEVEL.audioExplicacion->setVolume(1.0f);
+		Level::CURRENT_LEVEL.audioExplicacion->setVolume(4.0f);
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(Level::CURRENT_LEVEL.audioExplicacion);
 	}
 
 	irrklang::ISound* footsteps = Audio::AUDIO_FUNCTIONS.play2D("./media/footsteps.mp3", true, true);
 	if (footsteps) {
-		footsteps->setVolume(0.25f);
+		footsteps->setVolume(1.0f);
 		footsteps->setPlaybackSpeed(1.5);
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(footsteps);
 	}
@@ -3678,7 +3678,7 @@ int main(void)
 			
 			irrklang::ISound* snd3 = Audio::AUDIO_FUNCTIONS.play2D("./media/flickering-lights.wav", false, true);
 			if (snd3) {
-				snd3->setVolume(0.1f);
+				snd3->setVolume(0.4f);
 				snd3->setIsPaused(false);
 			}
 		}

@@ -39,7 +39,7 @@ void Lever::interact()
 		irrklang::vec3df position(my_transform.position().x, my_transform.position().y, my_transform.position().z);
 		irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/lever.mp3", position, false, true);
 		if (snd) {
-			snd->setVolume(0.35f);
+			snd->setVolume(1.4f);
 			snd->setIsPaused(false);
 			Audio::AUDIO_FUNCTIONS.allSounds.push_back(snd);
 		}
