@@ -32,6 +32,8 @@ public:
 		my_translacio_obrir_porta = translacio_obrir;
 	}
 
+
+	bool perseguir;
 	static float Z_OFFSET;
 
 	btRigidBody* my_rigid_body_porta;

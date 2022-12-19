@@ -18,8 +18,9 @@
 class Level {
 public:
 	static void buildFirstLevel(GLuint sh_programID);
-	static void slender_offset(GLuint sh_programID, glm::vec3 offset_slenderman);
+	static void slender_offset(GLuint sh_programID, glm::vec3 offset_slenderman,int posicio);
 	static void exterior_train_offset(GLuint sh_programID, glm::vec3 offset_exterior);
+
 	Vago* my_vago;
 	Vago* my_vago_2;
 	Cucaracha* cucaracha;
@@ -56,7 +57,10 @@ public:
 	GameEntity* biblia;
 	Lever* lever;
 
+
+
 	//llums
+	int pos_slenderman;
 	bool flicker = false;
 	bool setScaryLights = false;
 	bool* llumAmbient;

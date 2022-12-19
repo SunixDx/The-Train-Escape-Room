@@ -62,12 +62,12 @@ void Level::exterior_train_offset(GLuint sh_programID, glm::vec3 exterior_offset
 }
 
 
-void Level::slender_offset(GLuint sh_programID, glm::vec3 offset_slenderman)
+void Level::slender_offset(GLuint sh_programID, glm::vec3 offset_slenderman,int posicio)
 {
-	
-	int posicio = 4;
+	Level::CURRENT_LEVEL.pos_slenderman = posicio;
 	Transform trPadlock = Transform();
 	if (posicio == 1) {
+		
 		trPadlock.position() = offset_slenderman;
 		trPadlock.scale() = vec3(0.5f);
 		trPadlock.rotate((glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
@@ -87,14 +87,15 @@ void Level::slender_offset(GLuint sh_programID, glm::vec3 offset_slenderman)
 		trPadlock.rotate((glm::pi<float>() * 2), vec3(1.0f, 0.0f, 0.0f));
 	}
 	Rail* padlock = new Rail(trPadlock, new Model("./textures/slenderman/scene.gltf"), sh_programID);
-	padlock->my_enabled = false;
-
 	Level::CURRENT_LEVEL.slenderman = padlock;
+	//padlock->my_enabled = true;
+
 	
 }
 
 void Level::buildFirstLevel(GLuint sh_programID)
 {
+
 	Transform tr = Transform();
 	tr.position() = vec3(0.0f, 0.0f, -0.1f);
 	tr.scale() = vec3(1.0f);
