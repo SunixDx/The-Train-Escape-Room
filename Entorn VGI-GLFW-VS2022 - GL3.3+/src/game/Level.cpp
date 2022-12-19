@@ -274,8 +274,9 @@ void Level::MaybeSpawnSlender()
 	if (snd) {
 		snd->setVolume(0.3f);
 		snd->setIsPaused(false);
+		sonsSlenderman.push_back(snd);
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(snd);
 	}
-	sonsSlenderman.push_back(snd);
 	
 	irrklang::vec3df position(padlock->my_transform.position().x, padlock->my_transform.position().y, padlock->my_transform.position().z);
 	irrklang::ISound* snd2 = Audio::AUDIO_FUNCTIONS.play3D("./media/slender-breathing+ambience.wav", position, false, true);
@@ -283,8 +284,9 @@ void Level::MaybeSpawnSlender()
 		snd2->setMinDistance(4.0f);
 		snd2->setVolume(3.0f);
 		snd2->setIsPaused(false);
+		sonsSlenderman.push_back(snd2);
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(snd2);
 	}
-	sonsSlenderman.push_back(snd2);
 
 	// Mostrar slenderman
 	padlock->my_enabled = true;

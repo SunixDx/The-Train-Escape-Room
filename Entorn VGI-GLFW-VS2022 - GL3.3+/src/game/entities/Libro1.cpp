@@ -43,8 +43,11 @@ void Libro1::interact()
 
 		irrklang::vec3df position(my_transform.position().x, my_transform.position().y, my_transform.position().z);
 		irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/book-open.wav", position, false, true);
-		Audio::AUDIO_FUNCTIONS.setVolume(snd, 1.0);
-		Audio::AUDIO_FUNCTIONS.pause_or_unpause(snd);
+		if (snd) {
+			Audio::AUDIO_FUNCTIONS.setVolume(snd, 1.0);
+			Audio::AUDIO_FUNCTIONS.pause_or_unpause(snd);
+			Audio::AUDIO_FUNCTIONS.allSounds.push_back(snd);
+		}
 
 		std::cout << "HAS ABIERTO EL LIBRO" << std::endl;
 	}

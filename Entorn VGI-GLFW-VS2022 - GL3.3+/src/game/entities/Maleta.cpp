@@ -44,6 +44,7 @@ void Maleta::interact()
 	{
 		snd->setVolume(2.0f);
 		snd->setIsPaused(false);
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(snd);
 	}
 
 	if (my_aixecada)

@@ -14,8 +14,14 @@ public:
 		}
 	}
 	~Audio() {
+		for (irrklang::ISound* snd : allSounds)
+		{
+			snd->drop();
+		}
 		engine->drop();
 	}
+	
+	vector<irrklang::ISound*> allSounds;
 
 	// Play sounds
 	irrklang::ISound* play2D(const char* path, bool looped, bool startPaused);

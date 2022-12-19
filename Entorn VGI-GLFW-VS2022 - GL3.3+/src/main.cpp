@@ -3551,6 +3551,7 @@ int main(void)
 	Level::CURRENT_LEVEL.trainSound = Audio::AUDIO_FUNCTIONS.play2D("./media/movingTrain.mp3", true, true);
 	if (Level::CURRENT_LEVEL.trainSound) {
 		Level::CURRENT_LEVEL.trainSound->setVolume(0.05f);
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(Level::CURRENT_LEVEL.trainSound);
 	}
 	
 	float megafonoX = Level::CURRENT_LEVEL.megaphone->my_transform.position().x;
@@ -3561,12 +3562,14 @@ int main(void)
 	if (Level::CURRENT_LEVEL.audioExplicacion) {
 		Level::CURRENT_LEVEL.audioExplicacion->setMinDistance(0.5);
 		Level::CURRENT_LEVEL.audioExplicacion->setVolume(1.0f);
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(Level::CURRENT_LEVEL.audioExplicacion);
 	}
 
 	irrklang::ISound* footsteps = Audio::AUDIO_FUNCTIONS.play2D("./media/footsteps.mp3", true, true);
 	if (footsteps) {
 		footsteps->setVolume(0.25f);
 		footsteps->setPlaybackSpeed(1.5);
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(footsteps);
 	}
 
 	chrono::steady_clock::time_point begin = chrono::steady_clock::now();
