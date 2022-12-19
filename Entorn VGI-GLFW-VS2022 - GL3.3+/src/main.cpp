@@ -30,6 +30,7 @@ glm::vec3 slenderman_offset_inicial = vec3(-1.8f, 0.0f, -0.1f);
 
 glm::vec3 exterior_offset = vec3(7.0f, 0.0f, -0.1f);
 glm::vec3 exterior_offset_inicial = vec3(0.0f, -15.0f, 0.0f);
+bool porta_oberta = false;
 
 void InitGL()
 {
@@ -2577,6 +2578,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			{
 				if (contrasenya == "573")
 				{
+					porta_oberta = true;
 					Level::CURRENT_LEVEL.my_vago->obrir_porta();
 				}
 				else
@@ -3719,10 +3721,16 @@ int main(void)
 
 		float v = -30;
 
-		if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 10)
+
+		if (porta_oberta)
 		{
-			Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(0.5,0, 0)*delta);
+			Level::CURRENT_LEVEL.slenderman->my_transform.position() = vec3(-1.8f, 0.0f, -0.1f);;
+			if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 17)
+			{
+				Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(0.8, 0, 0) * delta);
+			}
 		}
+		
 
 		//railes
 		
