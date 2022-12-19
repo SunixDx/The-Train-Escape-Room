@@ -5,7 +5,7 @@ Tren_passant::Tren_passant(Transform transform, Model* model_rail, GLuint shader
 	n_trens = 7;
 	longitud_tren = 45;
 
-	float offset_exterior_passant = 0 - n_trens / 2 * longitud_tren;
+	float offset_exterior_passant = 0 -n_trens / 2 * longitud_tren;
 
 	for (int i = 0; i < n_trens; i++)
 	{
@@ -27,7 +27,7 @@ void Tren_passant::update(float delta_time)
 	{
 		exterior->my_transform.position().x -= delta_time * speed;
 
-		if (exterior->my_transform.position().x < -(n_trens / 2 * longitud_tren)*7)
-			exterior->my_transform.position().x = 500;
+		if (exterior->my_transform.position().x < -(n_trens / 2 * longitud_tren) * 7)
+			exterior->my_transform.position().x += 1300;
 	}
 }

@@ -606,7 +606,7 @@ void dibuixa_Escena(glm::vec3 skybox_offset) {
 	if (SkyBoxCube) dibuixa_Skybox(skC_programID, cubemapTexture, Vis_Polar, ProjectionMatrix, ViewMatrix, skybox_offset);
 
 //	Dibuix Coordenades Mï¿½n i Reixes.
-	dibuixa_Eixos(eixos_programID, eixos, eixos_Id, grid, hgrid, ProjectionMatrix, ViewMatrix);
+	//dibuixa_Eixos(eixos_programID, eixos, eixos_Id, grid, hgrid, ProjectionMatrix, ViewMatrix);
 
 // Escalat d'objectes, per adequar-los a les vistes ortogrï¿½fiques (Prï¿½ctica 2)
 //	GTMatrix = glm::scalef();
@@ -1175,12 +1175,12 @@ void Teclat_Shift(int key, GLFWwindow* window)
 					{	// load Skybox textures
 						// -------------
 						std::vector<std::string> faces =
-							{	".\\textures\\skybox\\final\\left.png", //girado
-								".\\textures\\skybox\\final\\right.png", //girado
-								".\\textures\\skybox\\final\\top.png",
-								".\\textures\\skybox\\final\\bottom.png",
-								".\\textures\\skybox\\final\\front.png",
-								".\\textures\\skybox\\final\\back.png"
+							{	".\\textures\\skybox\\nieve_noche\\right.jpg", //girado
+								".\\textures\\skybox\\nieve_noche\\left.jpg", //girado
+								".\\textures\\skybox\\nieve_noche\\top.jpg",
+								".\\textures\\skybox\\nieve_noche\\bottom.jpg",
+								".\\textures\\skybox\\nieve_noche\\front.jpg",
+								".\\textures\\skybox\\nieve_noche\\back.jpg"
 							};
 						cubemapTexture = loadCubemap(faces);	
 					}
@@ -3638,7 +3638,6 @@ int main(void)
 	std::cout << "shader ID:" << shaderGouraud.getProgramID() << std::endl;
 	
 	Level::buildFirstLevel(shaderGouraud.getProgramID());
-	Level::exterior_train_offset(shaderGouraud.getProgramID(), exterior_offset_inicial);
 	Level::slender_offset(shaderGouraud.getProgramID(), slenderman_offset);
 
 	Level::CURRENT_LEVEL.llumAmbient = &llum_ambient;
@@ -3679,7 +3678,7 @@ int main(void)
 
 		if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 10)
 		{
-			Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(0.5,0, 0));
+			Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(0.5,0, 0)*delta);
 		}
 
 		//railes

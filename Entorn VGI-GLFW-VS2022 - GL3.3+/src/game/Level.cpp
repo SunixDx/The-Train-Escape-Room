@@ -47,21 +47,6 @@ std::array<Model*, 10> load_panel_digit_models()
 	return models;
 }
 
-void Level::exterior_train_offset(GLuint sh_programID, glm::vec3 exterior_offset)
-{/*
-	//exterior tren
-	Transform trExterior = Transform();
-	trExterior.position() = vec3(0.0f, 11.814f, -1.2f);
-	trExterior.scale() = vec3(0.022f);
-
-	trExterior.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f,0.0f));
-	//trExterior.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
-
-	Rail* exterior = new Rail(trExterior, new Model("./textures/tren_exterior/scene.gltf"), sh_programID);
-	Level::CURRENT_LEVEL.exterior_tren = exterior;
- */
-}
-
 
 void Level::slender_offset(GLuint sh_programID, glm::vec3 offset_slenderman)
 {
@@ -324,7 +309,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	//tren passant
 	Model* model_exterior = new Model("./textures/tren_exterior/scene.gltf");
 	Transform trExterior;
-	trExterior.position() = vec3(750.0f, 11.814f, -1.2f);
+	trExterior.position() = vec3(350.0f, 11.814f, -1.2f);
 	Tren_passant* tren_passant = new Tren_passant(trExterior, model_exterior, sh_programID, 80);
 	Level::CURRENT_LEVEL.tren_passant = tren_passant;
 
