@@ -44,6 +44,7 @@ void Lever::interact()
 			Audio::AUDIO_FUNCTIONS.allSounds.push_back(snd);
 		}
 		my_transform.rotate((2*PI), vec3(1.0f, 0.0f, 0.0f));
+		Camera::MAIN_CAMERA.fly_behind();
 		pulsada = true;
 	}
 }

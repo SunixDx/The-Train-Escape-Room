@@ -2,11 +2,11 @@
 
 float Vago::Z_OFFSET = 1.5f;
 
-Vago::Vago(Transform transform, Model* model, GLuint shader_id): GameEntity(transform, nullptr, shader_id)
+Vago::Vago(Transform transform, Model* model, GLuint shader_id): GameEntity(transform, model, shader_id)
 {
 	btCollisionShape* groundShape_paret1 = new btBoxShape(btVector3(btScalar(6.f), btScalar(0.1), btScalar(1.f)));
 	btCollisionShape* groundShape_paret2 = new btBoxShape(btVector3(btScalar(6.f), btScalar(0.1f), btScalar(1.f)));
-	btCollisionShape* groundShape_paret3 = new btBoxShape(btVector3(btScalar(0.1), btScalar(2.f), btScalar(1.f)));
+	btCollisionShape* groundShape_porta = new btBoxShape(btVector3(btScalar(0.1), btScalar(0.5f), btScalar(1.f)));
 	btCollisionShape* groundShape_paret4 = new btBoxShape(btVector3(btScalar(0.1f), btScalar(2.f), btScalar(1.f)));
 
 	// PARET 1 (paret del libro [izquierda])
@@ -29,7 +29,7 @@ Vago::Vago(Transform transform, Model* model, GLuint shader_id): GameEntity(tran
 
 
 	body_paret1->setUserPointer(this);
-	my_rigid_body_paret1 = body_paret1;
+	my_rigidbodies.push_back(body_paret1);
 
 	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape_paret1);
 	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body_paret1);
@@ -54,39 +54,38 @@ Vago::Vago(Transform transform, Model* model, GLuint shader_id): GameEntity(tran
 
 
 	body_paret2->setUserPointer(this);
-	my_rigid_body_paret2 = body_paret2;
+	my_rigidbodies.push_back(body_paret2);
 
 	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape_paret2);
 	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body_paret2);
 
 	// PARET 3 (paret megafono [delante])
-
-	btTransform groundTransform_paret3;
-	groundTransform_paret3.setIdentity();
-	groundTransform_paret3.setOrigin(btVector3(my_transform.position().x + 8.8f, my_transform.position().y, my_transform.position().z + Vago::Z_OFFSET));
-
-	btScalar mass_paret3(0.);
+	
+	btTransform groundTransform_porta;
+	groundTransform_porta.setIdentity();
+	groundTransform_porta.setOrigin(btVector3(my_transform.position().x + 8.8f, my_transform.position().y, my_transform.position().z + Vago::Z_OFFSET));
+	
+	btScalar mass_porta(0.);
 
 	//rigidbody is dynamic if and only if mass is non zero, otherwise static
-	btVector3 localInertia_paret3(0, 0, 0);
-	if (mass_paret3 != 0.f)
-		groundShape_paret3->calculateLocalInertia(mass_paret3, localInertia_paret3);
+	btVector3 localInertia_porta(0, 0, 0);
+	if (mass_porta != 0.f)
+		groundShape_porta->calculateLocalInertia(mass_porta, localInertia_porta);
 
 
 	//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
-	btDefaultMotionState* myMotionState_paret3 = new btDefaultMotionState(groundTransform_paret3);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo_paret3(mass_paret3, myMotionState_paret3, groundShape_paret3, localInertia_paret3);
-	btRigidBody* body_paret3 = new btRigidBody(rbInfo_paret3);
+	btDefaultMotionState* myMotionState_porta = new btDefaultMotionState(groundTransform_porta);
+	btRigidBody::btRigidBodyConstructionInfo rbInfo_porta(mass_porta, myMotionState_porta, groundShape_porta, localInertia_porta);
+	btRigidBody* body_porta = new btRigidBody(rbInfo_porta);
 
 
-	body_paret3->setUserPointer(this);
-	my_rigid_body_paret3 = body_paret3;
+	body_porta->setUserPointer(this);
+	my_rigidbodies.push_back(body_porta);
+	my_rigid_body_porta = body_porta;
 
+	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape_porta);
+	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body_porta);
 
-	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape_paret3);
-	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body_paret3);
-	
-	// PARET 4 (paret detras)
 	btTransform groundTransform_paret4;
 	groundTransform_paret4.setIdentity();
 	groundTransform_paret4.setOrigin(btVector3(my_transform.position().x - 2.3f, my_transform.position().y, my_transform.position().z + Vago::Z_OFFSET));
@@ -106,7 +105,7 @@ Vago::Vago(Transform transform, Model* model, GLuint shader_id): GameEntity(tran
 
 
 	body_paret4->setUserPointer(this);
-	my_rigid_body_paret4 = body_paret4;
+	my_rigidbodies.push_back(body_paret4);
 
 
 	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape_paret4);

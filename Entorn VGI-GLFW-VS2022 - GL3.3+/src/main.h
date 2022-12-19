@@ -61,6 +61,9 @@
 	bool d_pressed = false;
 	bool c_pressed = false;
 
+	// string del panel
+	std::string contrasenya;
+
 // Entorn VGI: Variables de control per Men� Vista: fullsecreen, pan, dibuixar eixos i grid. 
 	bool fullscreen;	// Opci� booleana per Pantalla Completal [0:NO,1:SI]
 	bool pan;			// Opcio Pan. Despla�ament del centre de l'esfera de Vista [0:NO,1:SI]
@@ -216,7 +219,7 @@
 
 	void OnPaint(GLFWwindow* window);
 	void configura_Escena();
-	void dibuixa_Escena();
+	void dibuixa_Escena(glm::vec3 skybox_offset);
 	void Barra_Estat();
 
 /*

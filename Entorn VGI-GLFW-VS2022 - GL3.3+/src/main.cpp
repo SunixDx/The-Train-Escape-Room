@@ -19,9 +19,17 @@
 #include "game/ui/UI.h"
 #include "game/ui/InteractionIndicator.h"
 #include "game/ui/menu.h"
+#include "game/ui/Crosshair.h"
 
 #include <bullet/btBulletDynamicsCommon.h>
 #include <irrKlang/irrKlang.h>
+
+glm::vec3 skybox_offset = {0, 0, 0};
+glm::vec3 slenderman_offset = vec3(-1.8f, 0.0f, -0.1f);
+glm::vec3 slenderman_offset_inicial = vec3(-1.8f, 0.0f, -0.1f);
+
+glm::vec3 exterior_offset = vec3(7.0f, 0.0f, -0.1f);
+glm::vec3 exterior_offset_inicial = vec3(0.0f, -15.0f, 0.0f);
 
 void InitGL()
 {
@@ -421,7 +429,7 @@ void OnPaint(GLFWwindow* window)
 // Aquï¿½ farem les cridesper a definir Viewport, Projecciï¿½ i Cï¿½mara:: FI -------------------------
 		// Dibuixar Model (escena)
 		configura_Escena();     // Aplicar Transformacions Geometriques segons persiana Transformacio i configurar objectes
-		dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+		dibuixa_Escena(glm::vec3(0));		// Dibuix geometria de l'escena amb comandes GL.
 
 	// Intercanvia l'escena al front de la pantalla
 		glfwSwapBuffers(window);
@@ -453,7 +461,7 @@ void OnPaint(GLFWwindow* window)
 			eixos, grid, hgrid);
 		// Dibuix de l'Objecte o l'Escena
 		configura_Escena();     // Aplicar Transformacions Geometriques segons persiana Transformacio i configurar objectes
-		dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+		dibuixa_Escena(glm::vec3(0));		// Dibuix geometria de l'escena amb comandes GL.
 
 // ISOMï¿½TRICA (Inferior Dreta)
 		// Definiciï¿½ de Viewport, Projecciï¿½ i Cï¿½mara
@@ -463,7 +471,7 @@ void OnPaint(GLFWwindow* window)
 			eixos, grid, hgrid);
 		// Dibuix de l'Objecte o l'Escena
 		configura_Escena();     // Aplicar Transformacions Geometriques segons persiana Transformacio i configurar objectes
-		dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+		dibuixa_Escena(glm::vec3(0));		// Dibuix geometria de l'escena amb comandes GL.
 
 // ALï¿½AT (Superior Esquerra)
 		// Definiciï¿½ de Viewport, Projecciï¿½ i Cï¿½mara
@@ -473,7 +481,7 @@ void OnPaint(GLFWwindow* window)
 			eixos, grid, hgrid);
 		// Dibuix de l'Objecte o l'Escena
 		  configura_Escena();     // Aplicar Transformacions Geom?triques segons persiana Transformacio i configurar objectes
-	 	  dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+	 	  dibuixa_Escena(glm::vec3(0));		// Dibuix geometria de l'escena amb comandes GL.
 
 // PERFIL (Superior Dreta)
 		// Definiciï¿½ de Viewport, Projecciï¿½ i Cï¿½mara
@@ -484,7 +492,7 @@ void OnPaint(GLFWwindow* window)
 		// Dibuix de l'Objecte o l'Escena
 		configura_Escena();     // Aplicar Transformacions Geom?triques segons persiana Transformacio i configurar objectes
 		  // glScalef();			// Escalat d'objectes, per adequar-los a les vistes ortogrï¿½fiques (Prï¿½ctica 2)
-		dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+		dibuixa_Escena(glm::vec3(0));		// Dibuix geometria de l'escena amb comandes GL.
 
 		// Intercanvia l'escena al front de la pantalla
 		glfwSwapBuffers(window);
@@ -532,7 +540,7 @@ void OnPaint(GLFWwindow* window)
 
 		// Dibuix de l'Objecte o l'Escena
 		configura_Escena();     // Aplicar Transformacions Geometriques segons persiana Transformacio i configurar objectes.
-		dibuixa_Escena();		// Dibuix geometria de l'escena amb comandes GL.
+		dibuixa_Escena(skybox_offset);		// Dibuix geometria de l'escena amb comandes GL.
 
 		// Intercanvia l'escena al front de la pantalla
 		glfwSwapBuffers(window);
@@ -592,12 +600,11 @@ void configura_Escena() {
 }
 
 // dibuixa_Escena: Funcio que crida al dibuix dels diferents elements de l'escana
-void dibuixa_Escena() {
+void dibuixa_Escena(glm::vec3 skybox_offset) {
 
 	//glUseProgram(shader_programID);
-
 //	Dibuix SkyBox Cï¿½bic.
-	if (SkyBoxCube) dibuixa_Skybox(skC_programID, cubemapTexture, Vis_Polar, ProjectionMatrix, ViewMatrix);
+	if (SkyBoxCube) dibuixa_Skybox(skC_programID, cubemapTexture, Vis_Polar, ProjectionMatrix, ViewMatrix, skybox_offset);
 
 //	Dibuix Coordenades Mï¿½n i Reixes.
 	dibuixa_Eixos(eixos_programID, eixos, eixos_Id, grid, hgrid, ProjectionMatrix, ViewMatrix);
@@ -841,9 +848,17 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		std::cout << "CAM PERSONALITZADA" << std::endl;
-		camera = CAM_PERSONALITZADA;
+		if (camera == CAM_PERSONALITZADA)
+			camera = CAM_ESFERICA;
+		else
+			camera = CAM_PERSONALITZADA;
 		Camera::MAIN_CAMERA.position = glm::vec3(0, 0, 1.8);
 	}
+	else if (mods == 0 && key == GLFW_KEY_E && action == GLFW_PRESS)
+	{
+		Camera::MAIN_CAMERA.fly_behind();
+	}
+	
 	else if (mods == 0 && key == GLFW_KEY_F && action == GLFW_PRESS)
 	{
 		if (!Camera::MAIN_CAMERA.flying)
@@ -852,6 +867,8 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 			Camera::MAIN_CAMERA.fly();
 			Menu::instance
 				.change_indicator(MenuType::MENU);
+
+			Crosshair::instance.disable();
 		}
 		else
 		{
@@ -884,7 +901,9 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		if (key == GLFW_KEY_C)
 		{
 			Camera::MAIN_CAMERA.zoomOut();
-			
+			contrasenya.clear();
+			Level::CURRENT_LEVEL.panel->clear_display();
+
 			InteractableEntity* euc = Level::CURRENT_LEVEL.my_entity_under_cursor;
 			if (euc) //si hay algo bajo el cursor
 			{
@@ -1157,12 +1176,12 @@ void Teclat_Shift(int key, GLFWwindow* window)
 					{	// load Skybox textures
 						// -------------
 						std::vector<std::string> faces =
-							{	".\\textures\\skybox\\powerlines\\right.jpg",
-								".\\textures\\skybox\\powerlines\\left.jpg",
-								".\\textures\\skybox\\powerlines\\top.jpg",
-								".\\textures\\skybox\\powerlines\\bottom.jpg",
-								".\\textures\\skybox\\powerlines\\front.jpg",
-								".\\textures\\skybox\\powerlines\\back.jpg"
+							{	".\\textures\\skybox\\final\\left.png", //girado
+								".\\textures\\skybox\\final\\right.png", //girado
+								".\\textures\\skybox\\final\\top.png",
+								".\\textures\\skybox\\final\\bottom.png",
+								".\\textures\\skybox\\final\\front.png",
+								".\\textures\\skybox\\final\\back.png"
 							};
 						cubemapTexture = loadCubemap(faces);	
 					}
@@ -2503,7 +2522,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 
 // TODO: Agregue aquï¿½ su cï¿½digo de controlador de mensajes o llame al valor predeterminado
 
-	if (Camera::MAIN_CAMERA.flying && action == GLFW_PRESS)
+	if (Camera::MAIN_CAMERA.flying && action == GLFW_PRESS && !Camera::MAIN_CAMERA.endcam)
 	{
 		if (w / xpos < 2.2 && w / xpos > 1.8)
 		{
@@ -2511,7 +2530,6 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			{
 				cout << "START BUTTON" << endl;
 				OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 0);
-
 				Level::CURRENT_LEVEL.gameStarted = true;
 				//iniciar audio tren
 				Level::CURRENT_LEVEL.trainSound->setIsPaused(false);
@@ -2519,11 +2537,70 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 				//iniciar timer
 				Level::CURRENT_LEVEL.gameTimer = chrono::steady_clock::now();
 				Level::CURRENT_LEVEL.gameTimer2 = chrono::steady_clock::now();
+				Crosshair::instance.enable();
 			}
+
 			if (h / ypos < 1.58 && h / ypos > 1.4)
 			{
 				OnKeyDown(window, GLFW_KEY_ESCAPE, 1, GLFW_PRESS, 0);
 			}
+		}
+	}
+
+	if (Camera::MAIN_CAMERA.zoom && action == GLFW_PRESS)
+	{
+		//cout << "x " << w / xpos << " y " << h / ypos << endl;
+
+		int r = -1, c = -1;
+		
+		// columna:
+		if (w / xpos < 3 && w / xpos > 2.5) c = 0;
+		if (w / xpos < 2.35 && w / xpos > 2) c = 1;
+		if (w / xpos < 1.93 && w / xpos > 1.72) c = 2;
+		if (w / xpos < 1.63 && w / xpos > 1.47) c = 3;
+
+		// fila
+		if (h / ypos < 2.9 && h / ypos > 2.1) r = 0;
+		if (h / ypos < 1.9 && h / ypos > 1.56) r = 1;
+		if (h / ypos < 1.42 && h / ypos > 1.2) r = 2;
+
+		if (r != -1 && c != -1) // c cancelar, o ok
+		{
+			char panell_numeric[3][4] = {
+				{'1','2', '3', 'c'},
+				{'4', '5', '6', 'k' },
+				{'7', '8', '9', '0'}
+			};
+
+			char tecla = panell_numeric[r][c];
+			if (tecla == 'k')
+			{
+				if (contrasenya == "573")
+				{
+					Level::CURRENT_LEVEL.my_vago->obrir_porta();
+				}
+				else
+				{
+					contrasenya.clear();
+					Level::CURRENT_LEVEL.panel->clear_display();
+				}
+					
+				cout << "solucio" << endl;
+			}
+			else if (tecla == 'c')
+			{
+				contrasenya.clear();
+				Level::CURRENT_LEVEL.panel->clear_display();
+				cout << "borrar" << endl;
+			}
+			else
+			{
+				contrasenya += tecla;
+				if (contrasenya.length() > 3)
+					contrasenya.erase(0, contrasenya.length() - 3);
+				Level::CURRENT_LEVEL.panel->push_digit(tecla - '0');
+			}
+			cout << "Tecla: " << tecla << endl;
 		}
 	}
 
@@ -2544,7 +2621,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 					euc->interact(); //ejecutamos interact
 			}	
 		}
-// OnLButtonUp: Funciï¿½ que es crida quan deixem d'apretar el botï¿½ esquerra del mouse.
+// OnLButtonUp: Funciï¿½ que es crida quan deixem Fd'apretar el botï¿½ esquerra del mouse.
 	else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
 			{	// Entorn VGI: Desactivem flag m_ButoEAvall quan deixem d'apretar botï¿½ esquerra del mouse.
 				m_ButoEAvall = false;
@@ -2593,7 +2670,7 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 	GLdouble vdir[3] = { 0, 0, 0 };
 	CSize gir, girn, girT, zoomincr;
 
-	if (Camera::MAIN_CAMERA.flying)
+	if (Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.endcam)
 	{
 		if (w / xpos < 2.2 && w / xpos > 1.8 && h / ypos < 2.1 && h / ypos > 1.8)
 		{
@@ -3531,7 +3608,9 @@ int main(void)
 		.set_close_up_indicator(new UIElement(transform_close_up, texture_close_up))
 		.set_lever(new UIElement(transform_lever, texture_lever));
 
-	UI::instance.elements.push_back(new UIElement(crosshair_transform, texture));
+	Crosshair::instance = Crosshair(crosshair_transform, texture);
+
+	UI::instance.elements.push_back(&Crosshair::instance);
 	UI::instance.elements.push_back(&InteractionIndicator::instance);
 	UI::instance.elements.push_back(&Menu::instance);
 
@@ -3544,6 +3623,9 @@ int main(void)
 	std::cout << "shader ID:" << shaderGouraud.getProgramID() << std::endl;
 	
 	Level::buildFirstLevel(shaderGouraud.getProgramID());
+	Level::exterior_train_offset(shaderGouraud.getProgramID(), exterior_offset_inicial);
+	Level::slender_offset(shaderGouraud.getProgramID(), slenderman_offset);
+
 	Level::CURRENT_LEVEL.llumAmbient = &llum_ambient;
 	Level::CURRENT_LEVEL.iFixe = &ifixe;
 
@@ -3579,7 +3661,7 @@ int main(void)
 	bool start = true;
 	int comptadorMinuts = 0;
 	int lightsIterator = 0;
-
+	float trasX = 0;
     while (!glfwWindowShouldClose(window))
     {  
 		// Avisa a cada minut que passa desde que s'ha clicat start
@@ -3635,9 +3717,24 @@ int main(void)
 		delta = now - previous;
 		previous = now;
 
+		float v = -30;
+
+		if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 10)
+		{
+			Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(0.5,0, 0));
+		}
+
+		//railes
+		
+		Level::CURRENT_LEVEL.via->update(delta);
+		Level::CURRENT_LEVEL.via_secundaria->update(delta);
+		Level::CURRENT_LEVEL.terreny->update(delta);
+		Level::CURRENT_LEVEL.tren_passant->update(delta);
+
 // // Entorn VGI. Timer: for each timer do this
 		time -= delta;
 		if ((time <= 0.0) && (satelit || anima)) OnTimer();
+
 
 
 		glm::vec3 direction = glm::normalize(glm::vec3(
@@ -3703,7 +3800,7 @@ int main(void)
 			Camera::MAIN_CAMERA.position.z += 2 * delta;
 		}
 
-		if (Camera::MAIN_CAMERA.flying)
+		if (Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.endcam)
 		{
 			Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.angular_speed;
 			Camera::MAIN_CAMERA.fly_arround(glm::vec3(0, 0, 0));
@@ -3726,7 +3823,7 @@ int main(void)
 			//Camera::MAIN_CAMERA.position.z = trans.getOrigin().getZ();
 		}
 
-		if (Camera::MAIN_CAMERA.zoom || Camera::MAIN_CAMERA.flying)
+		if (Camera::MAIN_CAMERA.zoom || Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.endcam)
 		{
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		}
@@ -3734,6 +3831,12 @@ int main(void)
 		{
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		}
+		
+		skybox_offset.x -= delta * 450;
+		if (skybox_offset.x <= -2200)
+			skybox_offset.x = 2200;
+		
+		//skybox_offset.x = 0;
 
 // Crida a OnPaint() per redibuixar l'escena
 		OnPaint(window);
@@ -3749,9 +3852,13 @@ int main(void)
 			// INICIAR TOT
 			OnKeyDown(window, GLFW_KEY_P, 1, GLFW_PRESS, 1);
 			OnKeyDown(window, GLFW_KEY_L, 1, GLFW_PRESS, 1);
+			OnKeyDown(window, GLFW_KEY_K, 1, GLFW_PRESS, 1);
+			OnKeyDown(window, GLFW_KEY_Z, 1, GLFW_PRESS, 1);
 			OnKeyDown(window, GLFW_KEY_F3, 1, GLFW_PRESS, 2);
 			OnKeyDown(window, GLFW_KEY_P, 1, GLFW_PRESS, 0);
 			OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 0);
+			OnKeyDown(window, GLFW_KEY_F, 1, GLFW_PRESS, 1);
+
 		}
     }
 

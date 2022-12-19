@@ -1,0 +1,11 @@
+Model Information:
+* title:	Train - British Rail Class 91 Power Car
+* source:	https://sketchfab.com/3d-models/train-british-rail-class-91-power-car-c439eb088b944eec875b5b785056e1ea
+* author:	timblewee (https://sketchfab.com/timblewee)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Train - British Rail Class 91 Power Car" (https://sketchfab.com/3d-models/train-british-rail-class-91-power-car-c439eb088b944eec875b5b785056e1ea) by timblewee (https://sketchfab.com/timblewee) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

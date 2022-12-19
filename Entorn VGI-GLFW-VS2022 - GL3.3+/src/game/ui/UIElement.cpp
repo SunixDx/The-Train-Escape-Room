@@ -31,6 +31,9 @@ UIElement::UIElement(Transform transform) : my_transform(transform), my_mesh(nul
 
 void UIElement::mostrar(glm::mat4 MatriuVista, glm::mat4 MatriuTG, Shader& shader)
 {
+	if (!enabled)
+		return;
+
 	if (my_mesh != nullptr)
 		my_mesh->Draw(MatriuVista, MatriuTG, my_transform, shader.getProgramID());
 

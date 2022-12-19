@@ -8,6 +8,7 @@
 #include "InteractableEntity.h"
 #include "GameEntity.h"
 #include "../audio/AudioFunctions.h"
+#include "../src/game/graphics/Camera.h"
 
 class Lever : public InteractableEntity
 {
