@@ -900,7 +900,9 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 		if (key == GLFW_KEY_C)
 		{
 			Camera::MAIN_CAMERA.zoomOut();
-			
+			contrasenya.clear();
+			Level::CURRENT_LEVEL.panel->clear_display();
+
 			InteractableEntity* euc = Level::CURRENT_LEVEL.my_entity_under_cursor;
 			if (euc) //si hay algo bajo el cursor
 			{
@@ -2555,7 +2557,12 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 
 		if (r != -1 && c != -1) // c cancelar, o ok
 		{
-			char panell_numeric[3][4] = { {'1','2', '3', 'c'}, {'4', '5', '6', 'k' }, {'7', '8', '9', '0'} };
+			char panell_numeric[3][4] = {
+				{'1','2', '3', 'c'},
+				{'4', '5', '6', 'k' },
+				{'7', '8', '9', '0'}
+			};
+
 			char tecla = panell_numeric[r][c];
 			if (tecla == 'k')
 			{
@@ -2563,14 +2570,27 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 				{
 					Level::CURRENT_LEVEL.my_vago->obrir_porta();
 				}
-				else contrasenya.clear();
+				else
+				{
+					contrasenya.clear();
+					Level::CURRENT_LEVEL.panel->clear_display();
+				}
+					
 				cout << "solucio" << endl;
 			}
-			else if (tecla == 'c') {
+			else if (tecla == 'c')
+			{
 				contrasenya.clear();
+				Level::CURRENT_LEVEL.panel->clear_display();
 				cout << "borrar" << endl;
 			}
-			else contrasenya += tecla;
+			else
+			{
+				contrasenya += tecla;
+				if (contrasenya.length() > 3)
+					contrasenya.erase(0, contrasenya.length() - 3);
+				Level::CURRENT_LEVEL.panel->push_digit(tecla - '0');
+			}
 			cout << "Tecla: " << tecla << endl;
 		}
 	}
@@ -3667,6 +3687,7 @@ int main(void)
 		Level::CURRENT_LEVEL.via->update(delta);
 		Level::CURRENT_LEVEL.via_secundaria->update(delta);
 		Level::CURRENT_LEVEL.terreny->update(delta);
+		Level::CURRENT_LEVEL.tren_passant->update(delta);
 
 // // Entorn VGI. Timer: for each timer do this
 		time -= delta;

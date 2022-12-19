@@ -10,6 +10,43 @@ Level Level::CURRENT_LEVEL;
 // Funcion para imprimir todos los railes
 //-------------------------------------------------------------------------------------------------
 
+Mesh make_panel_mesh(Texture texture)
+{
+	std::vector<Vertex> plane_vertices = {
+	Vertex({-0.5f, -0.5f,  0.0f}, {0.0,  0.0,  1.0}, {0.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+	Vertex({0.5f, -0.5f,  0.0f}, {0.0,  0.0,  1.0}, {1.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
+	Vertex({0.5f,  0.5f,  0.0f}, {0.0,  0.0,  1.0}, {1.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+	Vertex({-0.5f,  0.5f,  0.0f}, {0.0,  0.0,  1.0}, {0.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
+	};
+
+	std::vector<unsigned int> plane_indices = {
+		//0, 1, 2, 2, 3, 0,			// v0-v1-v2-v3 (front)
+		//2, 1, 0, 0, 3, 2,			// v0-v1-v2-v3 (front)
+		0, 2, 1, 0, 3, 2,			// v0-v1-v2-v3 (front)
+		//2, 3, 0, 1, 2, 0,			// v0-v1-v2-v3 (front)
+	};
+
+	std::vector<Texture> plane_textures = {
+		texture,
+	};
+
+	return Mesh(plane_vertices, plane_indices, plane_textures);
+}
+
+std::array<Model*, 10> load_panel_digit_models()
+{
+	std::array<Model*, 10> models;
+	for (int i = 0; i < models.size(); i++)
+	{
+		Texture texture = LoadTexture("./textures/panel", std::to_string(i) + "_display.png", "texture_diffuse");
+		std::vector<Mesh> meshes;
+		meshes.push_back(make_panel_mesh(texture));
+		models[i] = new Model(meshes);
+	}
+
+	return models;
+}
+
 void Level::exterior_train_offset(GLuint sh_programID, glm::vec3 exterior_offset)
 {/*
 	//exterior tren
@@ -246,7 +283,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	trPanel.scale(vec3(0.1f));
 
 	Panel* panel = new Panel(trPanel, new Model("./textures/panel/panel_propio.obj"), sh_programID);
-
+	panel->set_display_digits_models(load_panel_digit_models());
 	//panel_color
 	Transform trPanelColor = Transform();
 	trPanelColor.translate(vec3(8.75f, -0.8f, 2.15f));
@@ -287,8 +324,8 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	//tren passant
 	Model* model_exterior = new Model("./textures/tren_exterior/scene.gltf");
 	Transform trExterior;
-	trExterior.position() = vec3(0.0f, 11.814f, -1.2f);
-	Tren_passant* tren_passant = new Tren_passant(trExterior, model_exterior, sh_programID, 30);
+	trExterior.position() = vec3(750.0f, 11.814f, -1.2f);
+	Tren_passant* tren_passant = new Tren_passant(trExterior, model_exterior, sh_programID, 80);
 	Level::CURRENT_LEVEL.tren_passant = tren_passant;
 
 
@@ -314,10 +351,11 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	//rellotge 1
 	Transform trClock = Transform();
-	trClock.translate(vec3(-1.5, 1.45f, 0.5f));
 	trClock.scale(vec3(0.15f));
+	trClock.translate(vec3(7.6, -1.6f, 0.0f));
 	trClock.rotate(PI / 2, vec3(0.0f, 0.0f, 1.0f));
-	trClock.rotate(PI / -4, vec3(1.0f, 0.0f, 0.0f));
+	//trClock.rotate(PI / -6, vec3(1.0f, 0.0f, 0.0f));
+
 	GameEntity* clock = new GameEntity(trClock, new Model("./textures/clock/clock1.obj"), sh_programID);
 
 	//rellotge 2
@@ -329,9 +367,9 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	//rellotge 3
 	Transform trClock3 = Transform();
-	trClock3.translate(vec3(7.6, -1.6f, 0.0f));
+	trClock3.translate(vec3(-1.5, 1.45f, 0.5f));
 	trClock3.scale(vec3(0.2f));
-	trClock3.rotate(PI / -6, vec3(1.0f, 0.0f, 0.0f));
+	//trClock3.rotate(PI / -4, vec3(1.0f, 0.0f, 0.0f));
 	GameEntity* clock3 = new GameEntity(trClock3, new Model("./textures/clock/clock3.obj"), sh_programID);
 
 	//biblia

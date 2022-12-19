@@ -2,7 +2,7 @@
 
 Tren_passant::Tren_passant(Transform transform, Model* model_rail, GLuint shader_id, float speed) : speed(speed), GameEntity(transform, nullptr, shader_id)
 {
-	n_trens = 4;
+	n_trens = 7;
 	longitud_tren = 45;
 
 	float offset_exterior_passant = 0 - n_trens / 2 * longitud_tren;
@@ -27,7 +27,7 @@ void Tren_passant::update(float delta_time)
 	{
 		exterior->my_transform.position().x -= delta_time * speed;
 
-		if (exterior->my_transform.position().x < -(n_trens / 2 * longitud_tren))
-			exterior->my_transform.position().x += n_trens / 2 * longitud_tren * 2;
+		if (exterior->my_transform.position().x < -(n_trens / 2 * longitud_tren)*7)
+			exterior->my_transform.position().x = 500;
 	}
 }
