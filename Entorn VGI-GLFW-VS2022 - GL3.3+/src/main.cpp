@@ -3882,7 +3882,7 @@ int main(void)
 		Camera::MAIN_CAMERA.my_rigid_body->setLinearVelocity(velocity);
 
 		Camera::MAIN_CAMERA.syncColliders();
-		BulletWorld::WORLD->simulate(delta * 10);
+		BulletWorld::WORLD->simulate(delta);
 		
 		btTransform trans;
 		Camera::MAIN_CAMERA.my_rigid_body->getMotionState()->getWorldTransform(trans);
