@@ -897,11 +897,11 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.sit && !Camera::MAIN_CAMERA.flying)
 	{
-		if (key == GLFW_KEY_C) Camera::MAIN_CAMERA.standUp();
+		if (!Level::CURRENT_LEVEL.gameEnded && key == GLFW_KEY_C) Camera::MAIN_CAMERA.standUp();
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.zoom)
 	{
-		if (key == GLFW_KEY_C)
+		if (!Level::CURRENT_LEVEL.gameEnded && key == GLFW_KEY_C)
 		{
 			Camera::MAIN_CAMERA.zoomOut();
 			contrasenya.clear();
@@ -3705,13 +3705,16 @@ int main(void)
 			velocity.setY(velocity.y() - left.y * Camera::MAIN_CAMERA.move_speed);
 		}
 		
-		if (c_pressed)
+		if (!Level::CURRENT_LEVEL.gameEnded)
 		{
-			if (Camera::MAIN_CAMERA.position.z > 1) Camera::MAIN_CAMERA.position.z -= 2 * delta;
-		}
-		else if (Camera::MAIN_CAMERA.position.z < 1.8 && !Camera::MAIN_CAMERA.sit)
-		{
-			Camera::MAIN_CAMERA.position.z += 2 * delta;
+			if (c_pressed)
+			{
+				if (Camera::MAIN_CAMERA.position.z > 1) Camera::MAIN_CAMERA.position.z -= 2 * delta;
+			}
+			else if (Camera::MAIN_CAMERA.position.z < 1.8 && !Camera::MAIN_CAMERA.sit)
+			{
+				Camera::MAIN_CAMERA.position.z += 2 * delta;
+			}
 		}
 
 		if (Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.endcam)
