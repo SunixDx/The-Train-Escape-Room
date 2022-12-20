@@ -28,17 +28,21 @@ void Tren_passant::update(float delta_time)
 	{
 		exterior->my_transform.position().x -= delta_time * speed;
 
-		if (exterior->my_transform.position().x < -(n_trens / 2 * longitud_tren)*7)
-			exterior->my_transform.position().x += 4500;
-
-		if (exterior->my_transform.position().x == 50)
+		if (exterior->my_transform.position().x < -(n_trens / 2 * longitud_tren) * 7)
 		{
+			exterior->my_transform.position().x += 4500;
+			playing_sound = false;
+		}
+
+		if (!playing_sound && exterior->my_transform.position().x >= 50)
+		{
+			playing_sound = true;
 			irrklang::vec3df position(my_transform.position().x, my_transform.position().y, my_transform.position().z);
 			//irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/briefcase.wav", position, false, true);
-			irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/tren_passant.wav", position, false, true);
+			irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/train_pass.wav", position, false, true);
 			if (snd)
 			{
-				snd->setVolume(400.0f);
+				snd->setVolume(4000.0f);
 				snd->setIsPaused(false);
 				Audio::AUDIO_FUNCTIONS.allSounds.push_back(snd);
 			}
