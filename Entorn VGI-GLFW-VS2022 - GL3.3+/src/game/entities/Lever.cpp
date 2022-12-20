@@ -46,6 +46,7 @@ void Lever::interact()
 		my_transform.rotate((2*PI), vec3(1.0f, 0.0f, 0.0f));
 		Camera::MAIN_CAMERA.fly_behind();
 		Level::CURRENT_LEVEL.gameEnded = true;
+		Level::CURRENT_LEVEL.won = true;
 		pulsada = true;
 	}
 }

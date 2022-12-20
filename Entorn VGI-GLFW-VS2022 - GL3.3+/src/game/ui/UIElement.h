@@ -20,6 +20,11 @@ public:
 		enabled = true;
 	}
 
+	void add_child(UIElement* child)
+	{
+		my_children.push_back(child);
+	}
+
 	Transform my_transform;
 	Mesh* my_mesh;
 	bool enabled = true;

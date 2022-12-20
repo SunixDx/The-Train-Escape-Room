@@ -20,6 +20,7 @@
 #include "game/ui/InteractionIndicator.h"
 #include "game/ui/menu.h"
 #include "game/ui/Crosshair.h"
+#include "game/ui/EndScreen.h"
 
 #include <bullet/btBulletDynamicsCommon.h>
 #include <irrKlang/irrKlang.h>
@@ -897,11 +898,11 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.sit && !Camera::MAIN_CAMERA.flying)
 	{
-		if (key == GLFW_KEY_C) Camera::MAIN_CAMERA.standUp();
+		if (!Level::CURRENT_LEVEL.gameEnded && key == GLFW_KEY_C) Camera::MAIN_CAMERA.standUp();
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_PRESS && Camera::MAIN_CAMERA.zoom)
 	{
-		if (key == GLFW_KEY_C)
+		if (!Level::CURRENT_LEVEL.gameEnded && key == GLFW_KEY_C)
 		{
 			Camera::MAIN_CAMERA.zoomOut();
 			contrasenya.clear();
@@ -3181,164 +3182,6 @@ int main(void)
 {
 	srand((unsigned)time(NULL));
 
-	///-----includes_end-----
-
-	int i;
-	///-----initialization_start-----
-
-	///collision configuration contains default setup for memory, collision setup. Advanced users can create their own configuration.
-	btDefaultCollisionConfiguration* collisionConfiguration = new btDefaultCollisionConfiguration();
-
-	///use the default collision dispatcher. For parallel processing you can use a diffent dispatcher (see Extras/BulletMultiThreaded)
-	btCollisionDispatcher* dispatcher = new btCollisionDispatcher(collisionConfiguration);
-
-	///btDbvtBroadphase is a good general purpose broadphase. You can also try out btAxis3Sweep.
-	btBroadphaseInterface* overlappingPairCache = new btDbvtBroadphase();
-
-	///the default constraint solver. For parallel processing you can use a different solver (see Extras/BulletMultiThreaded)
-	btSequentialImpulseConstraintSolver* solver = new btSequentialImpulseConstraintSolver;
-
-	btDiscreteDynamicsWorld* dynamicsWorld = new btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
-
-	dynamicsWorld->setGravity(btVector3(0, -10, 0));
-
-	///-----initialization_end-----
-
-	//keep track of the shapes, we release memory at exit.
-	//make sure to re-use collision shapes among rigid bodies whenever possible!
-	btAlignedObjectArray<btCollisionShape*> collisionShapes;
-
-	///create a few basic rigid bodies
-
-	//the ground is a cube of side 100 at position y = -56.
-	//the sphere will hit it at y = -6, with center at -5
-	{
-		btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(50.), btScalar(50.), btScalar(50.)));
-
-		collisionShapes.push_back(groundShape);
-
-		btTransform groundTransform;
-		groundTransform.setIdentity();
-		groundTransform.setOrigin(btVector3(0, -56, 0));
-
-		btScalar mass(0.);
-
-		//rigidbody is dynamic if and only if mass is non zero, otherwise static
-		bool isDynamic = (mass != 0.f);
-
-		btVector3 localInertia(0, 0, 0);
-		if (isDynamic)
-			groundShape->calculateLocalInertia(mass, localInertia);
-
-		//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
-		btDefaultMotionState* myMotionState = new btDefaultMotionState(groundTransform);
-		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, groundShape, localInertia);
-		btRigidBody* body = new btRigidBody(rbInfo);
-
-		//add the body to the dynamics world
-		dynamicsWorld->addRigidBody(body);
-	}
-
-	{
-		//create a dynamic rigidbody
-
-		//btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
-		btCollisionShape* colShape = new btSphereShape(btScalar(1.));
-		collisionShapes.push_back(colShape);
-
-		/// Create Dynamic Objects
-		btTransform startTransform;
-		startTransform.setIdentity();
-
-		btScalar mass(1.f);
-
-		//rigidbody is dynamic if and only if mass is non zero, otherwise static
-		bool isDynamic = (mass != 0.f);
-
-		btVector3 localInertia(0, 0, 0);
-		if (isDynamic)
-			colShape->calculateLocalInertia(mass, localInertia);
-
-		startTransform.setOrigin(btVector3(2, 10, 0));
-
-		//using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
-		btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
-		btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
-		btRigidBody* body = new btRigidBody(rbInfo);
-
-		dynamicsWorld->addRigidBody(body);
-	}
-
-	/// Do some simulation
-
-	///-----stepsimulation_start-----
-	for (i = 0; i < 150; i++)
-	{
-		dynamicsWorld->stepSimulation(1.f / 60.f, 10);
-
-		//print positions of all objects
-		for (int j = dynamicsWorld->getNumCollisionObjects() - 1; j >= 0; j--)
-		{
-			btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[j];
-			btRigidBody* body = btRigidBody::upcast(obj);
-			btTransform trans;
-			if (body && body->getMotionState())
-			{
-				body->getMotionState()->getWorldTransform(trans);
-			}
-			else
-			{
-				trans = obj->getWorldTransform();
-			}
-			printf("world pos object %d = %f,%f,%f\n", j, float(trans.getOrigin().getX()), float(trans.getOrigin().getY()), float(trans.getOrigin().getZ()));
-		}
-	}
-
-	///-----stepsimulation_end-----
-
-	//cleanup in the reverse order of creation/initialization
-
-	///-----cleanup_start-----
-
-	//remove the rigidbodies from the dynamics world and delete them
-	for (i = dynamicsWorld->getNumCollisionObjects() - 1; i >= 0; i--)
-	{
-		btCollisionObject* obj = dynamicsWorld->getCollisionObjectArray()[i];
-		btRigidBody* body = btRigidBody::upcast(obj);
-		if (body && body->getMotionState())
-		{
-			delete body->getMotionState();
-		}
-		dynamicsWorld->removeCollisionObject(obj);
-		delete obj;
-	}
-
-	//delete collision shapes
-	for (int j = 0; j < collisionShapes.size(); j++)
-	{
-		btCollisionShape* shape = collisionShapes[j];
-		collisionShapes[j] = 0;
-		delete shape;
-	}
-
-	//delete dynamics world
-	delete dynamicsWorld;
-
-	//delete solver
-	delete solver;
-
-	//delete broadphase
-	delete overlappingPairCache;
-
-	//delete dispatcher
-	delete dispatcher;
-
-	delete collisionConfiguration;
-
-	//next line is optional: it will be cleared by the destructor when the array goes out of scope
-	collisionShapes.clear();
-
-
 	BulletWorld::WORLD = new BulletWorld;
 
 
@@ -3562,18 +3405,6 @@ int main(void)
 	Mesh::BASIC_CUBE_MESH_BROWN = new Mesh(cube_vertices_brown, indices, textures);
 	Mesh::BASIC_CUBE_MESH_SOFT_BROWN = new Mesh(cube_vertices_soft_brown, indices, textures);
 
-
-	std::vector<Vertex> plane_vertices = {
-		Vertex({0.5f,  0.5f,  0.0f}, {0.0,  0.0,  1.0}, {0.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
-		Vertex({-0.5f,  0.5f,  0.0f}, {0.0,  0.0,  1.0}, {1.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
-		Vertex({-0.5f, -0.5f,  0.0f}, {0.0,  0.0,  1.0}, {1.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
-		Vertex({0.5f, -0.5f,  0.0f}, {0.0,  0.0,  1.0}, {0.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
-	};
-	
-	std::vector<unsigned int> plane_indices = {
-		0, 1, 2, 2, 3, 0,			// v0-v1-v2-v3 (front)
-	};
-
 	// crosshair
 	Texture texture = LoadTexture("./textures", "circle.png", "texture_diffuse");
 
@@ -3631,14 +3462,25 @@ int main(void)
 		.set_close_up_indicator(new UIElement(transform_close_up, texture_close_up))
 		.set_lever(new UIElement(transform_lever, texture_lever));
 
+	Transform win_tr;
+	win_tr.scale(2.0f);
+	Texture texture_win = LoadTexture("./textures/ui_assets", "has_ganado.png", "texture_diffuse");
+	UIElement* win_screen = new UIElement(win_tr, texture_win);
+	
+	Transform loss_tr;
+	loss_tr.scale(2.0f);
+	Texture texture_loss = LoadTexture("./textures/ui_assets", "has_muerto_transparente.png", "texture_diffuse");
+	UIElement* loss_screen = new UIElement(loss_tr, texture_loss);
+
+	EndScreen::instance = new EndScreen(Transform(), win_screen, loss_screen);
+
 	Crosshair::instance = Crosshair(crosshair_transform, texture);
 
 	UI::instance.elements.push_back(&Crosshair::instance);
 	UI::instance.elements.push_back(&InteractionIndicator::instance);
 	UI::instance.elements.push_back(&Menu::instance);
+	UI::instance.elements.push_back(EndScreen::instance);
 
-
-	//Mesh::CROSSHAIR = new Mesh(plane_vertices, plane_indices, plane_textures);
 
 	string path = "./textures/maya/maya.obj"; //ruta del objeto
 	Model::BACKPACK = new Model(path); //crear nuevo modelo
@@ -3753,6 +3595,34 @@ int main(void)
 			comptadorMinuts++;
 			cout << "HA PASSAT UN MINUT " << comptadorMinuts << endl;
 			Level::CURRENT_LEVEL.gameTimer = chrono::steady_clock::now();
+			// TODO: comptadorMinuts == 5 --> screamer final i fin partida
+
+			if (comptadorMinuts == 5)
+			{
+				Level::CURRENT_LEVEL.gameEnded = true;
+				Camera::MAIN_CAMERA.sit = true;
+
+				Camera::MAIN_CAMERA.position.y = 0;
+				Camera::MAIN_CAMERA.vertical_angle = 0;
+				Camera::MAIN_CAMERA.horizontal_angle = PI;
+				
+				Level::posicionar_slenderman(slenderman_offset, 1);
+
+				Level::CURRENT_LEVEL.slenderman->my_transform.position().y = 0;
+				Level::CURRENT_LEVEL.slenderman->my_transform.position().x = Camera::MAIN_CAMERA.position.x - 0.5;
+				Level::CURRENT_LEVEL.slenderman->my_transform.position().z = -0.6;
+				Level::CURRENT_LEVEL.slenderman->my_enabled = true;
+
+				Level::CURRENT_LEVEL.setScaryLights = true;
+				*Level::CURRENT_LEVEL.llumAmbient = false;
+				*Level::CURRENT_LEVEL.iFixe = true;
+
+				Crosshair::instance.disable();
+
+				EndScreen::instance->lose();
+
+				std::cout << "SLENDERMAN TE HA MATADO" << std::endl;
+			}
 		}
 
 		// Efecte de llums
@@ -3794,9 +3664,9 @@ int main(void)
 
 		if (Level::CURRENT_LEVEL.my_vago->perseguir && !Level::CURRENT_LEVEL.gameEnded)
 		{
-			if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 17)
+			if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 21.5)
 			{
-				Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(1, 0, 0) * delta);
+				Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(1.75, 0, 0) * delta);
 			}
 		}
 		
@@ -3807,17 +3677,21 @@ int main(void)
 		Level::CURRENT_LEVEL.terreny->update(delta);
 		Level::CURRENT_LEVEL.tren_passant->update(delta);
 
-		if (Level::CURRENT_LEVEL.gameEnded)
+		if (Level::CURRENT_LEVEL.gameEnded && Level::CURRENT_LEVEL.won)
 		{
 			Level::CURRENT_LEVEL.via->stop(delta);
 			Level::CURRENT_LEVEL.via_secundaria->stop(delta);
 			Level::CURRENT_LEVEL.terreny->stop(delta);
+
+			if (Level::CURRENT_LEVEL.via->is_stopped())
+				EndScreen::instance->win();
 		}
 
 		bool panell_resolt = Level::CURRENT_LEVEL.panel->is_solved();
 		float x_camara = Camera::MAIN_CAMERA.position.x - 0.5;
+		bool endcam = Camera::MAIN_CAMERA.endcam;
 		float x_slender = Level::CURRENT_LEVEL.slenderman->my_transform.position().x;
-		if ((panell_resolt && x_camara < x_slender) || comptadorMinuts == 5)
+		if ((panell_resolt && x_camara < x_slender && !endcam) || comptadorMinuts == 5)
 		{
 			Level::CURRENT_LEVEL.gameEnded = true;
 			Camera::MAIN_CAMERA.sit = true;
@@ -3839,6 +3713,7 @@ int main(void)
 				if (screamer->getIsPaused())
 					screamer->setIsPaused(false);
 			}
+			EndScreen::instance->lose();
 			std::cout << "SLENDERMAN TE HA MATADO" << std::endl;
 		}
 
@@ -3917,13 +3792,16 @@ int main(void)
 			velocity.setY(velocity.y() - left.y * Camera::MAIN_CAMERA.move_speed);
 		}
 		
-		if (c_pressed)
+		if (!Level::CURRENT_LEVEL.gameEnded)
 		{
-			if (Camera::MAIN_CAMERA.position.z > 1) Camera::MAIN_CAMERA.position.z -= 2 * delta;
-		}
-		else if (Camera::MAIN_CAMERA.position.z < 1.8 && !Camera::MAIN_CAMERA.sit)
-		{
-			Camera::MAIN_CAMERA.position.z += 2 * delta;
+			if (c_pressed)
+			{
+				if (Camera::MAIN_CAMERA.position.z > 1) Camera::MAIN_CAMERA.position.z -= 2 * delta;
+			}
+			else if (Camera::MAIN_CAMERA.position.z < 1.8 && !Camera::MAIN_CAMERA.sit)
+			{
+				Camera::MAIN_CAMERA.position.z += 2 * delta;
+			}
 		}
 
 		if (Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.endcam)
@@ -3958,9 +3836,6 @@ int main(void)
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		}
 		
-		skybox_offset.x -= delta * 450;
-		if (skybox_offset.x <= -2200)
-			skybox_offset.x = 2200;
 		
 		//skybox_offset.x = 0;
 

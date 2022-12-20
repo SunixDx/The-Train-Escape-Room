@@ -71,6 +71,7 @@ public:
 	//control de partida 
 	bool gameStarted = false;
 	bool gameEnded = false;
+	bool won = false;
 
 	//temps
 	chrono::steady_clock::time_point gameTimer; //comença a contar al clicar start
