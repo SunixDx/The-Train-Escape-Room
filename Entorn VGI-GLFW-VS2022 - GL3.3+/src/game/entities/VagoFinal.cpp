@@ -82,6 +82,60 @@ VagoFinal::VagoFinal(Transform transform, Model* model, GLuint shader_id): GameE
 	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape_paret4);
 	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body_paret4);
 
+
+	// COLIDERS PASARELA
+
+	offsetLateral = 12.5;
+	
+	btCollisionShape* groundShape_pasarela_dreta = new btBoxShape(btVector3(btScalar(1.2f), btScalar(1.2f), btScalar(1.f)));
+	btCollisionShape* groundShape_pasarela_esquerra = new btBoxShape(btVector3(btScalar(1.2f), btScalar(1.2f), btScalar(1.f)));
+
+	btTransform groundTransform_pasarela_dreta;
+	groundTransform_pasarela_dreta.setIdentity();
+	groundTransform_pasarela_dreta.setOrigin(btVector3(my_transform.position().x + 2.8f - offsetLateral, my_transform.position().y - 2.1f, my_transform.position().z + VagoFinal::Z_OFFSET));
+
+	btScalar mass_pasarela_dreta(0.);
+
+	//rigidbody is dynamic if and only if mass is non zero, otherwise static
+	btVector3 localInertia_pasarela_dreta(0, 0, 0);
+	if (mass_pasarela_dreta != 0.f)
+		groundShape_pasarela_dreta->calculateLocalInertia(mass_pasarela_dreta, localInertia_pasarela_dreta);
+
+	//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
+	btDefaultMotionState* myMotionState_pasarela_dreta = new btDefaultMotionState(groundTransform_pasarela_dreta);
+	btRigidBody::btRigidBodyConstructionInfo rbInfo_pasarela_dreta(mass_pasarela_dreta, myMotionState_pasarela_dreta, groundShape_pasarela_dreta, localInertia_pasarela_dreta);
+	btRigidBody* body_pasarela_dreta = new btRigidBody(rbInfo_pasarela_dreta);
+
+	body_pasarela_dreta->setUserPointer(this);
+	my_rigidbodies.push_back(body_pasarela_dreta);
+
+	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape_pasarela_dreta);
+	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body_pasarela_dreta);
+
+	btTransform groundTransform_pasarela_esquerra;
+	groundTransform_pasarela_esquerra.setIdentity();
+	groundTransform_pasarela_esquerra.setOrigin(btVector3(my_transform.position().x + 2.8f - offsetLateral, my_transform.position().y + 2.1f, my_transform.position().z + VagoFinal::Z_OFFSET));
+
+	btScalar mass_pasarela_esquerra(0.);
+
+	//rigidbody is dynamic if and only if mass is non zero, otherwise static
+	btVector3 localInertia_pasarela_esquerra(0, 0, 0);
+	if (mass_pasarela_esquerra != 0.f)
+		groundShape_pasarela_esquerra->calculateLocalInertia(mass_pasarela_esquerra, localInertia_pasarela_esquerra);
+
+	//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
+	btDefaultMotionState* myMotionState_pasarela_esquerra = new btDefaultMotionState(groundTransform_pasarela_esquerra);
+	btRigidBody::btRigidBodyConstructionInfo rbInfo_pasarela_esquerra(mass_pasarela_esquerra, myMotionState_pasarela_esquerra, groundShape_pasarela_esquerra, localInertia_pasarela_esquerra);
+	btRigidBody* body_pasarela_esquerra = new btRigidBody(rbInfo_pasarela_esquerra);
+
+	body_pasarela_esquerra->setUserPointer(this);
+	my_rigidbodies.push_back(body_pasarela_esquerra);
+
+	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape_pasarela_esquerra);
+	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body_pasarela_esquerra);
+
+	// END COLIDERS PASARELA
+
 	my_children.push_back(new GameEntity(Transform(
 		vec3(0.0f, 2.1f, 0.0f),
 		quat(1.0f, 0.0f, 0.0f, 0.0f),
