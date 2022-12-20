@@ -3744,6 +3744,13 @@ int main(void)
 		Level::CURRENT_LEVEL.terreny->update(delta);
 		Level::CURRENT_LEVEL.tren_passant->update(delta);
 
+		if (Level::CURRENT_LEVEL.gameEnded)
+		{
+			Level::CURRENT_LEVEL.via->stop(delta);
+			Level::CURRENT_LEVEL.via_secundaria->stop(delta);
+			Level::CURRENT_LEVEL.terreny->stop(delta);
+		}
+
 // // Entorn VGI. Timer: for each timer do this
 		time -= delta;
 		if ((time <= 0.0) && (satelit || anima)) OnTimer();
