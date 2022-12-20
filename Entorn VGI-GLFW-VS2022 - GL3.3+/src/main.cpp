@@ -859,7 +859,10 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
 		Camera::MAIN_CAMERA.fly_behind();
 	}
-	
+	else if (mods == 0 && key == GLFW_KEY_T && action == GLFW_PRESS)
+	{
+		Camera::MAIN_CAMERA.look_behind();
+	}
 	else if (mods == 0 && key == GLFW_KEY_F && action == GLFW_PRESS)
 	{
 		if (!Camera::MAIN_CAMERA.flying)
@@ -2688,7 +2691,7 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 	}
 	if (camera == CAM_PERSONALITZADA && !Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.zoom)
 	{
-		Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.mouse_speed * float(w / 2 - xpos);
+		if (!Camera::MAIN_CAMERA.turning) Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.mouse_speed * float(w / 2 - xpos);
 		Camera::MAIN_CAMERA.vertical_angle += Camera::MAIN_CAMERA.mouse_speed * float(h / 2 - ypos);
 
 		Camera::MAIN_CAMERA.vertical_angle = glm::clamp<float>(Camera::MAIN_CAMERA.vertical_angle, -PI / 2 + 0.01, PI / 2 - 0.01);
@@ -3777,6 +3780,20 @@ int main(void)
 
 		btVector3 velocity(0, 0, 0);
 		
+		if (Camera::MAIN_CAMERA.horizontal_angle > (2 * PI))
+			Camera::MAIN_CAMERA.horizontal_angle = Camera::MAIN_CAMERA.horizontal_angle - (2 * PI);
+
+		if (Camera::MAIN_CAMERA.turning == true)
+		{
+			Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.turn_speed;
+			cout << Camera::MAIN_CAMERA.horizontal_angle << " " 
+				 << PI - Camera::MAIN_CAMERA.turn_speed << " "
+				 << PI + Camera::MAIN_CAMERA.turn_speed << endl;
+			if (Camera::MAIN_CAMERA.horizontal_angle > PI - Camera::MAIN_CAMERA.turn_speed &&
+				Camera::MAIN_CAMERA.horizontal_angle < PI + Camera::MAIN_CAMERA.turn_speed)
+				Camera::MAIN_CAMERA.turning == false;
+		}
+
 		if (w_pressed)
 		{
 			velocity.setX(velocity.x() + direction.x * Camera::MAIN_CAMERA.move_speed);

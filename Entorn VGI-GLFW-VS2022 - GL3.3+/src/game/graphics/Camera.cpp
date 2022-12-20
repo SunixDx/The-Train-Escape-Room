@@ -125,6 +125,11 @@ void Camera::fly_behind()
 	MAIN_CAMERA.position.z = MAIN_CAMERA.flying_radius/2;
 }
 
+void Camera::look_behind()
+{
+	MAIN_CAMERA.turning = true;
+}
+
 void Camera::zoomIn(Transform trans)
 {
 	if (!zoom)
