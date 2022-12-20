@@ -3650,7 +3650,7 @@ int main(void)
 
 	irrklang::ISound* footsteps = Audio::AUDIO_FUNCTIONS.play2D("./media/footsteps.mp3", true, true);
 	if (footsteps) {
-		footsteps->setVolume(10000.0f);
+		footsteps->setVolume(1000.0f);
 		footsteps->setPlaybackSpeed(1.5);
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(footsteps);
 	}
