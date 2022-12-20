@@ -31,3 +31,9 @@ void Via::update(float delta_time)
 			rail->my_transform.position().x += n_rails / 2 * longitud_rail * 2;
 	}
 }
+
+void Via::stop(float delta)
+{
+	speed -= delta * 4;
+	speed = glm::max(speed, 0.0f);
+}
