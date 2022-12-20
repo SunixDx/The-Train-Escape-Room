@@ -3693,6 +3693,11 @@ int main(void)
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(flickeringLightsSound);
 	}
 
+	irrklang::ISound* menuMusic = Audio::AUDIO_FUNCTIONS.play2D("./media/menu.mp3", true, true);
+	if (menuMusic) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(menuMusic);
+	}
+
 	chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 	chrono::steady_clock::time_point end;
 // Loop until the user closes the window
@@ -3703,6 +3708,16 @@ int main(void)
 	float trasX = 0;
     while (!glfwWindowShouldClose(window))
     {  
+		if (!Level::CURRENT_LEVEL.gameStarted) {
+			if (menuMusic) {
+				menuMusic->setIsPaused(false);
+			}
+		}
+		else {
+			if (menuMusic) {
+				menuMusic->setIsPaused(true);
+			}
+		}
 		if (Level::CURRENT_LEVEL.gameStarted) {
 			Level::CURRENT_LEVEL.gameTimer2 = chrono::steady_clock::now();
 		}
