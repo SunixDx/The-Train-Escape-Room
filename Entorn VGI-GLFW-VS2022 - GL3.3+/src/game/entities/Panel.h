@@ -42,9 +42,20 @@ public:
 		}
 	}
 
+	void solve()
+	{
+		solved = true;
+	}
+
+	bool is_solved() const
+	{
+		return solved;
+	}
+
 private:
 	btRigidBody* my_rigid_body;
 	bool zoom;
+	bool solved = false;
 
 	std::array<GameEntity*, 3> display_digits;
 	std::array<Model*, 10> display_digit_models = {nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, };

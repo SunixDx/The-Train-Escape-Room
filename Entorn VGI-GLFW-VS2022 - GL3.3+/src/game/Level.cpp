@@ -61,33 +61,33 @@ void Level::exterior_train_offset(GLuint sh_programID, glm::vec3 exterior_offset
  */
 }
 
-void Level::slender_offset(GLuint sh_programID, glm::vec3 offset_slenderman,int posicio)
+void Level::posicionar_slenderman(glm::vec3 offset_slenderman, int posicio)
 {
 	Level::CURRENT_LEVEL.pos_slenderman = posicio;
-	Transform trPadlock = Transform();
-	if (posicio == 1) {
-		trPadlock.position() = offset_slenderman;
-		trPadlock.scale() = vec3(0.5f);
-		trPadlock.rotate((glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
+	Level::CURRENT_LEVEL.slenderman->my_transform.reset_orientation();
+	if (posicio == 1)
+	{
+		Level::CURRENT_LEVEL.slenderman->my_transform.position() = offset_slenderman;
+		Level::CURRENT_LEVEL.slenderman->my_transform.scale() = vec3(0.5f);
+		Level::CURRENT_LEVEL.slenderman->my_transform.rotate((glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
 	}
-	else if (posicio == 2) {
-		trPadlock.position() = vec3(-1.0f, 0.0f, -0.1f);
-		trPadlock.scale() = vec3(0.5f);
-		trPadlock.rotate((glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
+	else if (posicio == 2)
+	{
+		Level::CURRENT_LEVEL.slenderman->my_transform.position() = vec3(-1.0f, 0.0f, -0.1f);
+		Level::CURRENT_LEVEL.slenderman->my_transform.scale() = vec3(0.5f);
+		Level::CURRENT_LEVEL.slenderman->my_transform.rotate((glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
 	}
-	else if (posicio == 3) {
-		trPadlock.position() = vec3(3.5f, 0.9f, -0.1f);
-		trPadlock.scale() = vec3(0.5f);
+	else if (posicio == 3)
+	{
+		Level::CURRENT_LEVEL.slenderman->my_transform.position() = vec3(3.5f, 0.9f, -0.1f);
+		Level::CURRENT_LEVEL.slenderman->my_transform.scale() = vec3(0.5f);
 	}
-	else if (posicio == 4) {
-		trPadlock.position() = vec3(3.5f, -0.9f, -0.1f);
-		trPadlock.scale() = vec3(0.5f);
-		trPadlock.rotate((glm::pi<float>() * 2), vec3(1.0f, 0.0f, 0.0f));
+	else if (posicio == 4)
+	{
+		Level::CURRENT_LEVEL.slenderman->my_transform.position() = vec3(3.5f, -0.9f, -0.1f);
+		Level::CURRENT_LEVEL.slenderman->my_transform.scale() = vec3(0.5f);
+		Level::CURRENT_LEVEL.slenderman->my_transform.rotate((glm::pi<float>() * 2), vec3(1.0f, 0.0f, 0.0f));
 	}
-	Rail* padlock = new Rail(trPadlock, new Model("./textures/slenderman/scene.gltf"), sh_programID);
-	Level::CURRENT_LEVEL.slenderman = padlock;
-	//padlock->my_enabled = true;
-	
 }
 
 void Level::buildFirstLevel(GLuint sh_programID)
@@ -474,7 +474,8 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	trLever.translate(vec3(20.0f, 0.0f, 0.0f));
 	Lever* lever = new Lever(trLever, new Model("./textures/lever/lever.obj"), sh_programID);
 
-	//Level::CURRENT_LEVEL.slenderman = padlock;
+	GameEntity* slenderman = new GameEntity(Transform(), new Model("./textures/slenderman/scene.gltf"), sh_programID);
+	Level::CURRENT_LEVEL.slenderman = slenderman;
 	Level::CURRENT_LEVEL.my_vago = vago;
 	Level::CURRENT_LEVEL.maleta = maleta;
 	Level::CURRENT_LEVEL.maletaTapa = maletaTapa;

@@ -32,3 +32,9 @@ void Terreny::update(float delta_time)
 			terreny->my_transform.position().x += n_terrenys / 2 * longitud_terreny * 2;
 	}
 }
+
+void Terreny::stop(float delta)
+{
+	speed -= delta * 4;
+	speed = glm::max(speed, 0.0f);
+}

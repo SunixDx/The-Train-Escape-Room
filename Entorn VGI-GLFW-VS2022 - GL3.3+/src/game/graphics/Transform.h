@@ -19,6 +19,7 @@ public:
 	mat4 apply(mat4 matriu_transformacions);
 
 	void translate(glm::vec3 movement);
+	void reset_orientation();
 	void rotate(glm::quat rotation);
 	void rotate(float angle, glm::vec3 axis);
 	void scale(float factor);

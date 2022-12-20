@@ -18,7 +18,7 @@
 class Level {
 public:
 	static void buildFirstLevel(GLuint sh_programID);
-	static void slender_offset(GLuint sh_programID, glm::vec3 offset_slenderman,int posicio);
+	static void posicionar_slenderman(glm::vec3 offset_slenderman,int posicio);
 	static void exterior_train_offset(GLuint sh_programID, glm::vec3 offset_exterior);
 
 	Vago* my_vago;
@@ -44,8 +44,7 @@ public:
 	Rail* rail5;
 	Rail* rail6;
 	//monstres
-	Rail* slenderman;
-	Rail* billy;
+	GameEntity* slenderman;
 
 	Crypt* crypt;
 	Panel* panel;
@@ -56,6 +55,8 @@ public:
 	GameEntity* clock3;
 	GameEntity* biblia;
 	Lever* lever;
+
+	bool acertado = false;
 
 	//llums
 	int pos_slenderman;
@@ -68,6 +69,7 @@ public:
 
 	//control de partida 
 	bool gameStarted = false;
+	bool gameEnded = false;
 
 	//temps
 	chrono::steady_clock::time_point gameTimer; //comença a contar al clicar start

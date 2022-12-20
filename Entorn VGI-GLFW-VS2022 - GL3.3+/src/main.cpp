@@ -858,7 +858,10 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 	{
 		Camera::MAIN_CAMERA.fly_behind();
 	}
-	
+	else if (mods == 0 && key == GLFW_KEY_T && action == GLFW_PRESS)
+	{
+		Camera::MAIN_CAMERA.look_behind();
+	}
 	else if (mods == 0 && key == GLFW_KEY_F && action == GLFW_PRESS)
 	{
 		if (!Camera::MAIN_CAMERA.flying)
@@ -909,6 +912,16 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 			{
 				if (euc->is_interactable())
 					InteractionIndicator::instance.change_indicator(euc->interaction_type());
+			}
+
+			if (Level::CURRENT_LEVEL.acertado)
+			{
+				Level::CURRENT_LEVEL.my_vago->perseguir = true;
+				Level::posicionar_slenderman(slenderman_offset, 1);
+				Level::CURRENT_LEVEL.slenderman->my_enabled = true;
+				Level::CURRENT_LEVEL.slenderman->my_transform.position() = vec3(-1.8f, 0.0f, -0.1f);
+				
+				Camera::MAIN_CAMERA.look_behind();
 			}
 		}
 	}
@@ -2577,8 +2590,15 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			{
 				if (contrasenya == "573")
 				{
-					Level::CURRENT_LEVEL.my_vago->perseguir = true;
+					Level::CURRENT_LEVEL.panel->solve();
 					Level::CURRENT_LEVEL.my_vago->obrir_porta();
+					Level::CURRENT_LEVEL.acertado = true;
+					/*Level::CURRENT_LEVEL.panel->solve();
+					Level::CURRENT_LEVEL.my_vago->perseguir = true;
+					Level::posicionar_slenderman(slenderman_offset, 1);
+					Level::CURRENT_LEVEL.slenderman->my_enabled = true;
+					Level::CURRENT_LEVEL.slenderman->my_transform.position() = vec3(-1.8f, 0.0f, -0.1f);
+					Level::CURRENT_LEVEL.my_vago->obrir_porta();*/
 				}
 				else
 				{
@@ -2685,9 +2705,10 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 			Menu::instance.change_indicator(MenuType::MENU);
 		}
 	}
-	if (camera == CAM_PERSONALITZADA && !Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.zoom)
+
+	if (camera == CAM_PERSONALITZADA && !Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.zoom && !Level::CURRENT_LEVEL.gameEnded)
 	{
-		Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.mouse_speed * float(w / 2 - xpos);
+		if (!Camera::MAIN_CAMERA.turning) Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.mouse_speed * float(w / 2 - xpos);
 		Camera::MAIN_CAMERA.vertical_angle += Camera::MAIN_CAMERA.mouse_speed * float(h / 2 - ypos);
 
 		Camera::MAIN_CAMERA.vertical_angle = glm::clamp<float>(Camera::MAIN_CAMERA.vertical_angle, -PI / 2 + 0.01, PI / 2 - 0.01);
@@ -3625,7 +3646,8 @@ int main(void)
 	
 	Level::buildFirstLevel(shaderGouraud.getProgramID());
 	Level::exterior_train_offset(shaderGouraud.getProgramID(), exterior_offset_inicial);
-	Level::slender_offset(shaderGouraud.getProgramID(), slenderman_offset,1);
+	Level::posicionar_slenderman(slenderman_offset, 4);
+	Level::CURRENT_LEVEL.slenderman->my_enabled = false;
 
 	Level::CURRENT_LEVEL.llumAmbient = &llum_ambient;
 	Level::CURRENT_LEVEL.iFixe = &ifixe;
@@ -3721,28 +3743,13 @@ int main(void)
 		float v = -30;
 		int c = 0;
 
-		if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 17)
-		{
-			Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(0.5, 0, 0) * delta);
-		}
 
-		if (Level::CURRENT_LEVEL.my_vago->perseguir)
+		if (Level::CURRENT_LEVEL.my_vago->perseguir && !Level::CURRENT_LEVEL.gameEnded)
 		{
-			if (c == 0)
+			if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 17)
 			{
-				if (Level::CURRENT_LEVEL.pos_slenderman == 2)
-					Level::CURRENT_LEVEL.slenderman->my_transform.rotate(2 * PI, vec3(1.0f, 0.0f, 0.0f));
-				else if (Level::CURRENT_LEVEL.pos_slenderman == 3)
-					Level::CURRENT_LEVEL.slenderman->my_transform.rotate(-(PI / 2), vec3(1.0f, 0.0f, 0.0f));
-				else if (Level::CURRENT_LEVEL.pos_slenderman == 4)
-					Level::CURRENT_LEVEL.slenderman->my_transform.rotate((PI / 2), vec3(1.0f, 0.0f, 0.0f));
-
-
-				Level::CURRENT_LEVEL.slenderman->my_transform.position() = vec3(-1.8f, 0.0f, -0.1f);
+				Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(1, 0, 0) * delta);
 			}
-
-			if (c == 0)
-				c++;
 		}
 		
 		//railes
@@ -3751,6 +3758,34 @@ int main(void)
 		Level::CURRENT_LEVEL.via_secundaria->update(delta);
 		Level::CURRENT_LEVEL.terreny->update(delta);
 		Level::CURRENT_LEVEL.tren_passant->update(delta);
+
+		if (Level::CURRENT_LEVEL.gameEnded)
+		{
+			Level::CURRENT_LEVEL.via->stop(delta);
+			Level::CURRENT_LEVEL.via_secundaria->stop(delta);
+			Level::CURRENT_LEVEL.terreny->stop(delta);
+		}
+
+		bool panell_resolt = Level::CURRENT_LEVEL.panel->is_solved();
+		float x_camara = Camera::MAIN_CAMERA.position.x - 0.5;
+		float x_slender = Level::CURRENT_LEVEL.slenderman->my_transform.position().x;
+		if ((panell_resolt && x_camara < x_slender) || comptadorMinuts == 5)
+		{
+			Level::CURRENT_LEVEL.gameEnded = true;
+			Camera::MAIN_CAMERA.sit = true;
+			Camera::MAIN_CAMERA.position.y = 0;
+			Camera::MAIN_CAMERA.vertical_angle = 0;
+			Camera::MAIN_CAMERA.horizontal_angle = PI;
+
+			Level::CURRENT_LEVEL.slenderman->my_transform.position().z = -0.6;
+			Level::CURRENT_LEVEL.setScaryLights = true;
+			*Level::CURRENT_LEVEL.llumAmbient = false;
+			*Level::CURRENT_LEVEL.iFixe = true;
+
+			Crosshair::instance.disable();
+
+			std::cout << "SLENDERMAN TE HA MATADO" << std::endl;
+		}
 
 // // Entorn VGI. Timer: for each timer do this
 		time -= delta;
@@ -3788,6 +3823,23 @@ int main(void)
 
 		btVector3 velocity(0, 0, 0);
 		
+		if (Camera::MAIN_CAMERA.horizontal_angle > (2 * PI))
+			Camera::MAIN_CAMERA.horizontal_angle = Camera::MAIN_CAMERA.horizontal_angle - (2 * PI);
+
+		if (Camera::MAIN_CAMERA.turning == true)
+		{
+			if (Camera::MAIN_CAMERA.horizontal_angle < PI)
+				Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.turn_speed / 2;
+			else
+				Camera::MAIN_CAMERA.horizontal_angle -= Camera::MAIN_CAMERA.turn_speed / 2;
+			if (Camera::MAIN_CAMERA.horizontal_angle > PI - Camera::MAIN_CAMERA.turn_speed &&
+				Camera::MAIN_CAMERA.horizontal_angle < PI + Camera::MAIN_CAMERA.turn_speed)
+			{
+				Camera::MAIN_CAMERA.turning = false;
+				Camera::MAIN_CAMERA.horizontal_angle = PI;
+			}
+		}
+
 		if (w_pressed)
 		{
 			velocity.setX(velocity.x() + direction.x * Camera::MAIN_CAMERA.move_speed);

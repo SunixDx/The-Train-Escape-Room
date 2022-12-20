@@ -119,10 +119,15 @@ void Camera::fly_behind()
 	MAIN_CAMERA.flying = true;
 
 	MAIN_CAMERA.horizontal_angle = 0;
-	MAIN_CAMERA.vertical_angle = 0 - (PI / 10);
+	MAIN_CAMERA.vertical_angle = 0 - (PI / 14);
 	MAIN_CAMERA.position.x = 15 - MAIN_CAMERA.flying_radius;
 	MAIN_CAMERA.position.y = 0;
 	MAIN_CAMERA.position.z = MAIN_CAMERA.flying_radius/2;
+}
+
+void Camera::look_behind()
+{
+	MAIN_CAMERA.turning = true;
 }
 
 void Camera::zoomIn(Transform trans)
@@ -146,7 +151,6 @@ void Camera::zoomOut()
 {
 	SAVE_CAMERA.horizontal_angle = MAIN_CAMERA.horizontal_angle;
 	SAVE_CAMERA.vertical_angle = MAIN_CAMERA.vertical_angle;
-
 
 	MAIN_CAMERA = SAVE_CAMERA;
 	MAIN_CAMERA.zoom = false;

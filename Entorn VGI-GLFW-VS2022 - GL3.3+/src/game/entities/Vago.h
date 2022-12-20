@@ -14,15 +14,18 @@ public:
 
 	void obrir_porta()
 	{
-		BulletWorld::WORLD->my_dynamics_world->removeRigidBody(my_rigid_body_porta);
-		auto to_erease = std::find(my_rigidbodies.begin(), my_rigidbodies.end(), my_rigid_body_porta);
-		if (to_erease != my_rigidbodies.end())
+		if (my_rigid_body_porta != nullptr)
 		{
-			delete* to_erease;
-			my_rigidbodies.erase(to_erease);
+			BulletWorld::WORLD->my_dynamics_world->removeRigidBody(my_rigid_body_porta);
+			auto to_erease = std::find(my_rigidbodies.begin(), my_rigidbodies.end(), my_rigid_body_porta);
+			if (to_erease != my_rigidbodies.end())
+			{
+				delete* to_erease;
+				my_rigidbodies.erase(to_erease);
+			}
+			my_rigid_body_porta = nullptr;
+			my_porta->my_transform.translate(my_translacio_obrir_porta);
 		}
-		my_rigid_body_porta = nullptr;
-		my_porta->my_transform.translate(my_translacio_obrir_porta);
 	}
 
 	void afegir_porta(GameEntity* porta, vec3 translacio_obrir)

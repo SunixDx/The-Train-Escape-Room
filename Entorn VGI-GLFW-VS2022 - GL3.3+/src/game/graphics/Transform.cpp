@@ -16,6 +16,11 @@ void Transform::translate(glm::vec3 translation)
 	my_position = my_position + translation;
 }
 
+void Transform::reset_orientation()
+{
+	my_orientation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f);
+}
+
 void Transform::rotate(glm::quat rotation)
 {
 	my_orientation = rotation * my_orientation;
