@@ -496,6 +496,9 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 void Level::MaybeSpawnSlender()
 {
+	slenderMaleta = true;
+	timerEventoSlender = chrono::steady_clock::now();
+
 	// Activar spooky lighting
 	setScaryLights = true;
 	*llumAmbient = false;
@@ -513,8 +516,7 @@ void Level::MaybeSpawnSlender()
 	irrklang::vec3df position(slenderman->my_transform.position().x, slenderman->my_transform.position().y, slenderman->my_transform.position().z);
 	irrklang::ISound* snd2 = Audio::AUDIO_FUNCTIONS.play3D("./media/slender-breathing+ambience.wav", position, false, true);
 	if (snd2) {
-		snd2->setMinDistance(4.0f);
-		snd2->setVolume(120.0f);
+		snd2->setVolume(1000.0f);
 		snd2->setIsPaused(false);
 		sonsSlenderman.push_back(snd2);
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(snd2);
@@ -526,6 +528,7 @@ void Level::MaybeSpawnSlender()
 
 void Level::despawnSlender()
 {
+	slenderMaleta = false;
 	// return to normal lighting
 	setScaryLights = false;
 

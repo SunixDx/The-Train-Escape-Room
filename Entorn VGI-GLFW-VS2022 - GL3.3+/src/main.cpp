@@ -3718,6 +3718,13 @@ int main(void)
 				menuMusic->setIsPaused(true);
 			}
 		}
+
+		if (Level::CURRENT_LEVEL.slenderMaleta) {
+			if ((float(chrono::duration_cast<chrono::microseconds>(chrono::steady_clock::now() - Level::CURRENT_LEVEL.timerEventoSlender).count()) / 1000000) >= 8) {
+				Level::CURRENT_LEVEL.despawnSlender();
+			}
+		}
+
 		if (Level::CURRENT_LEVEL.gameStarted) {
 			Level::CURRENT_LEVEL.gameTimer2 = chrono::steady_clock::now();
 		}

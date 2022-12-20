@@ -60,6 +60,7 @@ public:
 
 	//llums
 	int pos_slenderman;
+	bool slenderMaleta;
 	bool flicker = false;
 	bool setScaryLights = false;
 	bool* llumAmbient;
@@ -74,6 +75,7 @@ public:
 	//temps
 	chrono::steady_clock::time_point gameTimer; //comença a contar al clicar start
 	chrono::steady_clock::time_point gameTimer2;
+	chrono::steady_clock::time_point timerEventoSlender;
 
 	//sons
 	vector<irrklang::ISound*> sonsSlenderman;
