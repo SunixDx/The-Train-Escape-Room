@@ -3680,8 +3680,10 @@ int main(void)
 			Level::CURRENT_LEVEL.via_secundaria->stop(delta);
 			Level::CURRENT_LEVEL.terreny->stop(delta);
 
-			if (Level::CURRENT_LEVEL.via->is_stopped())
+			if (Level::CURRENT_LEVEL.via->is_stopped()) {
+				Audio::AUDIO_FUNCTIONS.play2D("./media/victoria.wav", false, false);
 				EndScreen::instance->win();
+			}
 
 			if (chaseTheme)
 				if (!chaseTheme->getIsPaused())
