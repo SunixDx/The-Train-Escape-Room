@@ -3666,7 +3666,7 @@ int main(void)
 		{
 			if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 21.5)
 			{
-				Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(1.75, 0, 0) * delta);
+				Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(2.35, 0, 0) * delta);
 			}
 		}
 		
