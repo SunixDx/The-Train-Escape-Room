@@ -3530,11 +3530,6 @@ int main(void)
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(screamer);
 	}
 
-	irrklang::ISound* flickeringLightsSound = Audio::AUDIO_FUNCTIONS.play2D("./media/flickering-lights.wav", false, true);
-	if (flickeringLightsSound) {
-		Audio::AUDIO_FUNCTIONS.allSounds.push_back(flickeringLightsSound);
-	}
-
 	irrklang::ISound* menuMusic = Audio::AUDIO_FUNCTIONS.play2D("./media/menu.mp3", true, true);
 	if (menuMusic) {
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(menuMusic);
@@ -3584,6 +3579,7 @@ int main(void)
 			Level::CURRENT_LEVEL.flicker = true;
 			lightsIterator = 0;
 			
+			irrklang::ISound* flickeringLightsSound = Audio::AUDIO_FUNCTIONS.play2D("./media/flickering-lights.wav", false, true);
 			if (flickeringLightsSound) {
 				flickeringLightsSound->setVolume(10.0f);
 				flickeringLightsSound->setIsPaused(false);
