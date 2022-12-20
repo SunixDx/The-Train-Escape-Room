@@ -3741,14 +3741,10 @@ int main(void)
 				Level::CURRENT_LEVEL.slenderman->my_transform.position() = vec3(-1.8f, 0.0f, -0.1f);
 			}
 
-
-			
-			
 			if (c == 0)
 				c++;
 		}
 		
-
 		//railes
 		
 		Level::CURRENT_LEVEL.via->update(delta);
@@ -3759,8 +3755,6 @@ int main(void)
 // // Entorn VGI. Timer: for each timer do this
 		time -= delta;
 		if ((time <= 0.0) && (satelit || anima)) OnTimer();
-
-
 
 		glm::vec3 direction = glm::normalize(glm::vec3(
 			cos(Camera::MAIN_CAMERA.horizontal_angle),

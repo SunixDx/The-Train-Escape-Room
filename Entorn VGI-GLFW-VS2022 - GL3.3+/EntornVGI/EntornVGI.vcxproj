@@ -34,6 +34,7 @@
     <ClCompile Include="..\src\game\entities\Terreny.cpp" />
     <ClCompile Include="..\src\game\entities\tren_passant.cpp" />
     <ClCompile Include="..\src\game\entities\Vago.cpp" />
+    <ClCompile Include="..\src\game\entities\VagoFinal.cpp" />
     <ClCompile Include="..\src\game\entities\Via.cpp" />
     <ClCompile Include="..\src\game\graphics\Camera.cpp" />
     <ClCompile Include="..\src\game\graphics\Mesh.cpp" />
@@ -74,6 +75,7 @@
     <ClInclude Include="..\src\game\entities\Terreny.h" />
     <ClInclude Include="..\src\game\entities\tren_passant.h" />
     <ClInclude Include="..\src\game\entities\Vago.h" />
+    <ClInclude Include="..\src\game\entities\VagoFinal.h" />
     <ClInclude Include="..\src\game\entities\Via.h" />
     <ClInclude Include="..\src\game\graphics\Camera.h" />
     <ClInclude Include="..\src\game\graphics\Mesh.h" />

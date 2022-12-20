@@ -61,13 +61,11 @@ void Level::exterior_train_offset(GLuint sh_programID, glm::vec3 exterior_offset
  */
 }
 
-
 void Level::slender_offset(GLuint sh_programID, glm::vec3 offset_slenderman,int posicio)
 {
 	Level::CURRENT_LEVEL.pos_slenderman = posicio;
 	Transform trPadlock = Transform();
 	if (posicio == 1) {
-		
 		trPadlock.position() = offset_slenderman;
 		trPadlock.scale() = vec3(0.5f);
 		trPadlock.rotate((glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
@@ -89,7 +87,6 @@ void Level::slender_offset(GLuint sh_programID, glm::vec3 offset_slenderman,int 
 	Rail* padlock = new Rail(trPadlock, new Model("./textures/slenderman/scene.gltf"), sh_programID);
 	Level::CURRENT_LEVEL.slenderman = padlock;
 	//padlock->my_enabled = true;
-
 	
 }
 
@@ -111,15 +108,8 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	tr_2.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
 	tr_2.rotate(glm::pi<float>()*2, vec3(1.0f, 0.0f, 0.0f));
 
-	Vago* vago_2 = new Vago(tr_2, model_vago, sh_programID);
+	VagoFinal* vago_2 = new VagoFinal(tr_2, model_vago, sh_programID);
 	Level::CURRENT_LEVEL.my_vago_2 = vago_2;
-
-
-	
-
-
-
-
 
 	Model* model_taula = new Model({ *Mesh::BASIC_CUBE_MESH_BROWN });
 	

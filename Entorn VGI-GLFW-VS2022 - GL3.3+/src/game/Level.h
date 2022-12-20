@@ -13,7 +13,7 @@
 #include "entities/Via.h"
 #include "entities/Terreny.h"
 #include "entities/tren_passant.h"
-
+#include "entities/VagoFinal.h"
 
 class Level {
 public:
@@ -22,7 +22,7 @@ public:
 	static void exterior_train_offset(GLuint sh_programID, glm::vec3 offset_exterior);
 
 	Vago* my_vago;
-	Vago* my_vago_2;
+	VagoFinal* my_vago_2;
 	Cucaracha* cucaracha;
 	Maleta* maleta;
 	GameEntity* maletaTapa;
@@ -56,8 +56,6 @@ public:
 	GameEntity* clock3;
 	GameEntity* biblia;
 	Lever* lever;
-
-
 
 	//llums
 	int pos_slenderman;
