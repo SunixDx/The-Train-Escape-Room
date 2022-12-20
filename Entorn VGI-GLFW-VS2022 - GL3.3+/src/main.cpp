@@ -3536,6 +3536,11 @@ int main(void)
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(menuMusic);
 	}
 
+	irrklang::ISound* audioVictoria = Audio::AUDIO_FUNCTIONS.play2D("./media/victoria.wav", false, true);
+	if (audioVictoria) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(audioVictoria);
+	}
+
 	chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 	chrono::steady_clock::time_point end;
 // Loop until the user closes the window
@@ -3681,7 +3686,9 @@ int main(void)
 			Level::CURRENT_LEVEL.terreny->stop(delta);
 
 			if (Level::CURRENT_LEVEL.via->is_stopped()) {
-				Audio::AUDIO_FUNCTIONS.play2D("./media/victoria.wav", false, false);
+				if (audioVictoria) {
+					audioVictoria->setIsPaused(false);
+				}
 				EndScreen::instance->win();
 			}
 
