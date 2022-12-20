@@ -101,7 +101,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Model* model_vago = new Model("./textures/tren sin puertas y puerta/tren_sin_puertas.gltf");
 	Vago* vago = new Vago(tr, model_vago, sh_programID);
 
-
 	Transform tr_2 = Transform();
 	tr_2.position() = vec3(19.5f, 0.0f, -0.1f);
 	tr_2.scale() = vec3(1.0f);
@@ -111,7 +110,7 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	VagoFinal* vago_2 = new VagoFinal(tr_2, model_vago, sh_programID);
 	Level::CURRENT_LEVEL.my_vago_2 = vago_2;
 
-	Model* model_taula = new Model({ *Mesh::BASIC_CUBE_MESH_BROWN });
+	/*Model* model_taula = new Model({*Mesh::BASIC_CUBE_MESH_BROWN});
 	
 	float xValorTaula = -110.98f;
 
@@ -135,12 +134,14 @@ void Level::buildFirstLevel(GLuint sh_programID)
 			xValorTaula += 2.06f;
 
 		vago->addChild(new Taula(Transform(vec3(xValorTaula, -1.2f, -0.7f), quat(1.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), model_taula, sh_programID));
-	}
+	}*/
 
-	Model* model_seient = new Model({ *Mesh::BASIC_CUBE_MESH_SOFT_BROWN });
+	//Model* model_seient = new Model({ *Mesh::BASIC_CUBE_MESH_SOFT_BROWN });
 
 	quat mirar_endevant = quat(1.0f, 0.0f, 0.0f, 0.0f);
 	quat mirar_enrere = quat(glm::cos(glm::pi<float>() / 2), glm::sin(glm::pi<float>() / 2) * 0.0f, glm::sin(glm::pi<float>() / 2) * 0.0f, glm::sin(glm::pi<float>() / 2) * 1.0f);
+
+	//vagon 1 asientos =====================================================================================================
 
 	float xValorSeientEndavant = -0.31f;
 
@@ -189,6 +190,109 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, -1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
 	}
+
+	xValorSeientEndavant = -0.31f;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndavant += 4.58f; //6,34 - i=3
+		else if (i > 0)
+			xValorSeientEndavant += 2.02f; //1,69
+
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, 1.2f, -1.2f), mirar_endevant, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	xValorSeientEndavant = -0.31f;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndavant += 4.58f;
+		else if (i > 0)
+			xValorSeientEndavant += 2.02f;
+
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, -1.2f, -1.2f), mirar_endevant, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	xValorSeientEndarrere = -1.63f;
+	
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndarrere += 4.55f; //5,04 - i=3
+		else if (i > 0)
+			xValorSeientEndarrere += 2.02f; //0.39
+
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, 1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	xValorSeientEndarrere = -1.63f;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndarrere += 4.55f;
+		else if (i > 0)
+			xValorSeientEndarrere += 2.02f;
+
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, -1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	//=============================================================================================================================
+	//vagon final asientos ========================================================================================================
+
+	float offsetFrente = 6.5;
+
+	xValorSeientEndavant = -0.31f + offsetFrente;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndavant += 4.58f; 
+		else if (i > 0)
+			xValorSeientEndavant += 2.02f; 
+
+		vago_2->addChild(new Seient(Transform(vec3(xValorSeientEndavant, 1.2f, -1.2f), mirar_endevant, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	xValorSeientEndavant = -0.31f + offsetFrente;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndavant += 4.58f;
+		else if (i > 0)
+			xValorSeientEndavant += 2.02f;
+
+		vago_2->addChild(new Seient(Transform(vec3(xValorSeientEndavant, -1.2f, -1.2f), mirar_endevant, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	xValorSeientEndarrere = -1.63f + offsetFrente;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndarrere += 4.55f; 
+		else if (i > 0)
+			xValorSeientEndarrere += 2.02f; 
+
+		vago_2->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, 1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	xValorSeientEndarrere = -1.63f + offsetFrente;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndarrere += 4.55f;
+		else if (i > 0)
+			xValorSeientEndarrere += 2.02f;
+
+		vago_2->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, -1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	//======================================================================================================
 
 	Model* porta = new Model("./textures/tren sin puertas y puerta/puerta.gltf");
 
