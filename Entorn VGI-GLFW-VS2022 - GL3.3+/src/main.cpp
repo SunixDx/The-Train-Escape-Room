@@ -2591,6 +2591,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			{
 				if (contrasenya == "573")
 				{
+					Audio::AUDIO_FUNCTIONS.play2D("./media/beep-soud-effect.mp3", false, false);
 					Level::CURRENT_LEVEL.panel->solve();
 					Level::CURRENT_LEVEL.my_vago->obrir_porta();
 					Level::CURRENT_LEVEL.acertado = true;
