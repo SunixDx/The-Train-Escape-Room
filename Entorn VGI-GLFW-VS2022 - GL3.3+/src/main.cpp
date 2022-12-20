@@ -3601,7 +3601,7 @@ int main(void)
 		}*/
 		
 		// Activa l'efecte de llums 
-		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 10 && !Level::CURRENT_LEVEL.gameEnded) {
+		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 60 && !Level::CURRENT_LEVEL.gameEnded) {
 			Level::CURRENT_LEVEL.flicker = true;
 			lightsIterator = 0;
 			
@@ -3613,7 +3613,7 @@ int main(void)
 		}
 
 		// Comptador de minuts
-		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 10) {
+		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 60) {
 			comptadorMinuts++;
 			cout << "HA PASSAT UN MINUT " << comptadorMinuts << endl;
 			Level::CURRENT_LEVEL.gameTimer = chrono::steady_clock::now();
