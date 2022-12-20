@@ -56,6 +56,8 @@ public:
 	GameEntity* biblia;
 	Lever* lever;
 
+	bool acertado = false;
+
 	//llums
 	int pos_slenderman;
 	bool flicker = false;

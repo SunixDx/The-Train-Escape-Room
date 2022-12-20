@@ -913,6 +913,16 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 				if (euc->is_interactable())
 					InteractionIndicator::instance.change_indicator(euc->interaction_type());
 			}
+
+			if (Level::CURRENT_LEVEL.acertado)
+			{
+				Level::CURRENT_LEVEL.my_vago->perseguir = true;
+				Level::posicionar_slenderman(slenderman_offset, 1);
+				Level::CURRENT_LEVEL.slenderman->my_enabled = true;
+				Level::CURRENT_LEVEL.slenderman->my_transform.position() = vec3(-1.8f, 0.0f, -0.1f);
+				
+				Camera::MAIN_CAMERA.look_behind();
+			}
 		}
 	}
 	else if (camera == CAM_PERSONALITZADA && action == GLFW_RELEASE)
@@ -2581,11 +2591,14 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 				if (contrasenya == "573")
 				{
 					Level::CURRENT_LEVEL.panel->solve();
+					Level::CURRENT_LEVEL.my_vago->obrir_porta();
+					Level::CURRENT_LEVEL.acertado = true;
+					/*Level::CURRENT_LEVEL.panel->solve();
 					Level::CURRENT_LEVEL.my_vago->perseguir = true;
 					Level::posicionar_slenderman(slenderman_offset, 1);
 					Level::CURRENT_LEVEL.slenderman->my_enabled = true;
 					Level::CURRENT_LEVEL.slenderman->my_transform.position() = vec3(-1.8f, 0.0f, -0.1f);
-					Level::CURRENT_LEVEL.my_vago->obrir_porta();
+					Level::CURRENT_LEVEL.my_vago->obrir_porta();*/
 				}
 				else
 				{
