@@ -21,6 +21,8 @@ public:
 	void fly_arround(vec3 center);
 	void fly_behind();
 
+	void look_behind();
+
 	// Variables de control de l'opci� C�mera->Personalitzada?
 	float horizontal_angle = 0;
 	float vertical_angle = 0;
@@ -39,6 +41,7 @@ public:
 	bool flying = false;
 	bool zoom = false;
 	bool endcam = false;
+	bool turning = false;
 
 	static Camera MAIN_CAMERA;
 	static Camera SAVE_CAMERA;
