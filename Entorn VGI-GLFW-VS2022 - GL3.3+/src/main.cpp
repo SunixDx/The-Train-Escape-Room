@@ -2578,6 +2578,9 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 				if (contrasenya == "573")
 				{
 					Level::CURRENT_LEVEL.my_vago->perseguir = true;
+					Level::posicionar_slenderman(slenderman_offset, 1);
+					Level::CURRENT_LEVEL.slenderman->my_enabled = true;
+					Level::CURRENT_LEVEL.slenderman->my_transform.position() = vec3(-1.8f, 0.0f, -0.1f);
 					Level::CURRENT_LEVEL.my_vago->obrir_porta();
 				}
 				else
@@ -3625,7 +3628,8 @@ int main(void)
 	
 	Level::buildFirstLevel(shaderGouraud.getProgramID());
 	Level::exterior_train_offset(shaderGouraud.getProgramID(), exterior_offset_inicial);
-	Level::slender_offset(shaderGouraud.getProgramID(), slenderman_offset,1);
+	Level::posicionar_slenderman(slenderman_offset, 4);
+	Level::CURRENT_LEVEL.slenderman->my_enabled = false;
 
 	Level::CURRENT_LEVEL.llumAmbient = &llum_ambient;
 	Level::CURRENT_LEVEL.iFixe = &ifixe;
@@ -3721,28 +3725,13 @@ int main(void)
 		float v = -30;
 		int c = 0;
 
-		if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 17)
-		{
-			Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(0.5, 0, 0) * delta);
-		}
 
 		if (Level::CURRENT_LEVEL.my_vago->perseguir)
 		{
-			if (c == 0)
+			if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 17)
 			{
-				if (Level::CURRENT_LEVEL.pos_slenderman == 2)
-					Level::CURRENT_LEVEL.slenderman->my_transform.rotate(2 * PI, vec3(1.0f, 0.0f, 0.0f));
-				else if (Level::CURRENT_LEVEL.pos_slenderman == 3)
-					Level::CURRENT_LEVEL.slenderman->my_transform.rotate(-(PI / 2), vec3(1.0f, 0.0f, 0.0f));
-				else if (Level::CURRENT_LEVEL.pos_slenderman == 4)
-					Level::CURRENT_LEVEL.slenderman->my_transform.rotate((PI / 2), vec3(1.0f, 0.0f, 0.0f));
-
-
-				Level::CURRENT_LEVEL.slenderman->my_transform.position() = vec3(-1.8f, 0.0f, -0.1f);
+				Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(1, 0, 0) * delta);
 			}
-
-			if (c == 0)
-				c++;
 		}
 		
 		//railes
