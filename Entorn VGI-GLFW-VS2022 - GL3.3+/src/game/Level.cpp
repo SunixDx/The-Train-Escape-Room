@@ -242,14 +242,14 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	//=============================================================================================================================
 	//vagon final asientos ========================================================================================================
 
-	float offsetFrente = 6.5;
+	float offsetFrente = 12.9;
 
 	xValorSeientEndavant = -0.31f + offsetFrente;
 
 	for (int i = 0; i < 4; i++)
 	{
 		if (i == 2)
-			xValorSeientEndavant += 4.58f; 
+			xValorSeientEndavant += 4.58f;
 		else if (i > 0)
 			xValorSeientEndavant += 2.02f; 
 

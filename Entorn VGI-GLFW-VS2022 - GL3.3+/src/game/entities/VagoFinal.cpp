@@ -58,34 +58,11 @@ VagoFinal::VagoFinal(Transform transform, Model* model, GLuint shader_id): GameE
 	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape_paret2);
 	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body_paret2);
 
-	// PARET 3 (paret megafono [delante])
-	
-	btTransform groundTransform_porta;
-	groundTransform_porta.setIdentity();
-	groundTransform_porta.setOrigin(btVector3(my_transform.position().x + 8.8f - offsetFrente, my_transform.position().y, my_transform.position().z + VagoFinal::Z_OFFSET));
-	
-	btScalar mass_porta(0.);
 
-	//rigidbody is dynamic if and only if mass is non zero, otherwise static
-	btVector3 localInertia_porta(0, 0, 0);
-	if (mass_porta != 0.f)
-		groundShape_porta->calculateLocalInertia(mass_porta, localInertia_porta);
-
-	//using motionstate is optional, it provides interpolation capabilities, and only synchronizes 'active' objects
-	btDefaultMotionState* myMotionState_porta = new btDefaultMotionState(groundTransform_porta);
-	btRigidBody::btRigidBodyConstructionInfo rbInfo_porta(mass_porta, myMotionState_porta, groundShape_porta, localInertia_porta);
-	btRigidBody* body_porta = new btRigidBody(rbInfo_porta);
-
-	body_porta->setUserPointer(this);
-	my_rigidbodies.push_back(body_porta);
-	my_rigid_body_porta = body_porta;
-
-	BulletWorld::WORLD->my_collision_shapes.push_back(groundShape_porta);
-	BulletWorld::WORLD->my_dynamics_world->addRigidBody(body_porta);
-
+	// PARET 4 la del fondo
 	btTransform groundTransform_paret4;
 	groundTransform_paret4.setIdentity();
-	groundTransform_paret4.setOrigin(btVector3(my_transform.position().x - 2.3f - offsetFrente, my_transform.position().y, my_transform.position().z + VagoFinal::Z_OFFSET));
+	groundTransform_paret4.setOrigin(btVector3(my_transform.position().x + 8.8f - offsetFrente, my_transform.position().y, my_transform.position().z + VagoFinal::Z_OFFSET));
 
 	btScalar mass_paret4(0.);
 
