@@ -2577,6 +2577,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			{
 				if (contrasenya == "573")
 				{
+					Level::CURRENT_LEVEL.panel->solve();
 					Level::CURRENT_LEVEL.my_vago->perseguir = true;
 					Level::posicionar_slenderman(slenderman_offset, 1);
 					Level::CURRENT_LEVEL.slenderman->my_enabled = true;
@@ -3746,6 +3747,17 @@ int main(void)
 			Level::CURRENT_LEVEL.via->stop(delta);
 			Level::CURRENT_LEVEL.via_secundaria->stop(delta);
 			Level::CURRENT_LEVEL.terreny->stop(delta);
+		}
+
+		bool panell_resolt = Level::CURRENT_LEVEL.panel->is_solved();
+		float x_camara = Camera::MAIN_CAMERA.position.x;
+		float x_slender = Level::CURRENT_LEVEL.slenderman->my_transform.position().x;
+		if ((panell_resolt && x_camara < x_slender) || comptadorMinuts == 5)
+		{
+			Level::CURRENT_LEVEL.gameEnded = true;
+			Camera::MAIN_CAMERA.sit = true;
+
+			std::cout << "SLENDERMAN TE HA MATADO" << std::endl;
 		}
 
 // // Entorn VGI. Timer: for each timer do this
