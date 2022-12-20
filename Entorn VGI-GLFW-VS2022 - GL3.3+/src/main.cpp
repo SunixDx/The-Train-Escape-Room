@@ -3554,6 +3554,31 @@ int main(void)
 			cout << "HA PASSAT UN MINUT " << comptadorMinuts << endl;
 			Level::CURRENT_LEVEL.gameTimer = chrono::steady_clock::now();
 			// TODO: comptadorMinuts == 5 --> screamer final i fin partida
+
+			if (comptadorMinuts == 5)
+			{
+				Level::CURRENT_LEVEL.gameEnded = true;
+				Camera::MAIN_CAMERA.sit = true;
+
+				Camera::MAIN_CAMERA.position.y = 0;
+				Camera::MAIN_CAMERA.vertical_angle = 0;
+				Camera::MAIN_CAMERA.horizontal_angle = PI;
+				
+				Level::posicionar_slenderman(slenderman_offset, 1);
+
+				Level::CURRENT_LEVEL.slenderman->my_transform.position().y = 0;
+				Level::CURRENT_LEVEL.slenderman->my_transform.position().x = Camera::MAIN_CAMERA.position.x - 0.5;
+				Level::CURRENT_LEVEL.slenderman->my_transform.position().z = -0.6;
+				Level::CURRENT_LEVEL.slenderman->my_enabled = true;
+
+				Level::CURRENT_LEVEL.setScaryLights = true;
+				*Level::CURRENT_LEVEL.llumAmbient = false;
+				*Level::CURRENT_LEVEL.iFixe = true;
+
+				Crosshair::instance.disable();
+
+				std::cout << "SLENDERMAN TE HA MATADO" << std::endl;
+			}
 		}
 
 		// Efecte de llums
