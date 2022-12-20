@@ -2580,6 +2580,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			{
 				if (contrasenya == "573")
 				{
+					Level::CURRENT_LEVEL.panel->solve();
 					Level::CURRENT_LEVEL.my_vago->perseguir = true;
 					Level::posicionar_slenderman(slenderman_offset, 1);
 					Level::CURRENT_LEVEL.slenderman->my_enabled = true;
@@ -2691,7 +2692,8 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 			Menu::instance.change_indicator(MenuType::MENU);
 		}
 	}
-	if (camera == CAM_PERSONALITZADA && !Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.zoom)
+
+	if (camera == CAM_PERSONALITZADA && !Camera::MAIN_CAMERA.flying && !Camera::MAIN_CAMERA.zoom && !Level::CURRENT_LEVEL.gameEnded)
 	{
 		if (!Camera::MAIN_CAMERA.turning) Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.mouse_speed * float(w / 2 - xpos);
 		Camera::MAIN_CAMERA.vertical_angle += Camera::MAIN_CAMERA.mouse_speed * float(h / 2 - ypos);
@@ -3729,7 +3731,7 @@ int main(void)
 		int c = 0;
 
 
-		if (Level::CURRENT_LEVEL.my_vago->perseguir)
+		if (Level::CURRENT_LEVEL.my_vago->perseguir && !Level::CURRENT_LEVEL.gameEnded)
 		{
 			if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 17)
 			{
@@ -3749,6 +3751,27 @@ int main(void)
 			Level::CURRENT_LEVEL.via->stop(delta);
 			Level::CURRENT_LEVEL.via_secundaria->stop(delta);
 			Level::CURRENT_LEVEL.terreny->stop(delta);
+		}
+
+		bool panell_resolt = Level::CURRENT_LEVEL.panel->is_solved();
+		float x_camara = Camera::MAIN_CAMERA.position.x - 0.5;
+		float x_slender = Level::CURRENT_LEVEL.slenderman->my_transform.position().x;
+		if ((panell_resolt && x_camara < x_slender) || comptadorMinuts == 5)
+		{
+			Level::CURRENT_LEVEL.gameEnded = true;
+			Camera::MAIN_CAMERA.sit = true;
+			Camera::MAIN_CAMERA.position.y = 0;
+			Camera::MAIN_CAMERA.vertical_angle = 0;
+			Camera::MAIN_CAMERA.horizontal_angle = PI;
+
+			Level::CURRENT_LEVEL.slenderman->my_transform.position().z = -0.6;
+			Level::CURRENT_LEVEL.setScaryLights = true;
+			*Level::CURRENT_LEVEL.llumAmbient = false;
+			*Level::CURRENT_LEVEL.iFixe = true;
+
+			Crosshair::instance.disable();
+
+			std::cout << "SLENDERMAN TE HA MATADO" << std::endl;
 		}
 
 // // Entorn VGI. Timer: for each timer do this
