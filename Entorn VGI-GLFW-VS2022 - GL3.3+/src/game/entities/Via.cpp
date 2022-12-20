@@ -37,3 +37,8 @@ void Via::stop(float delta)
 	speed -= delta * 4;
 	speed = glm::max(speed, 0.0f);
 }
+
+bool Via::is_stopped() const
+{
+	return speed == 0;
+}

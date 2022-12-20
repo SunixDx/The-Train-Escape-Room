@@ -20,6 +20,7 @@
 #include "game/ui/InteractionIndicator.h"
 #include "game/ui/menu.h"
 #include "game/ui/Crosshair.h"
+#include "game/ui/EndScreen.h"
 
 #include <bullet/btBulletDynamicsCommon.h>
 #include <irrKlang/irrKlang.h>
@@ -3460,11 +3461,24 @@ int main(void)
 		.set_close_up_indicator(new UIElement(transform_close_up, texture_close_up))
 		.set_lever(new UIElement(transform_lever, texture_lever));
 
+	Transform win_tr;
+	win_tr.scale(2.0f);
+	Texture texture_win = LoadTexture("./textures/ui_assets", "has_ganado.png", "texture_diffuse");
+	UIElement* win_screen = new UIElement(win_tr, texture_win);
+	
+	Transform loss_tr;
+	loss_tr.scale(2.0f);
+	Texture texture_loss = LoadTexture("./textures/ui_assets", "has_muerto_transparente.png", "texture_diffuse");
+	UIElement* loss_screen = new UIElement(loss_tr, texture_loss);
+
+	EndScreen::instance = new EndScreen(Transform(), win_screen, loss_screen);
+
 	Crosshair::instance = Crosshair(crosshair_transform, texture);
 
 	UI::instance.elements.push_back(&Crosshair::instance);
 	UI::instance.elements.push_back(&InteractionIndicator::instance);
 	UI::instance.elements.push_back(&Menu::instance);
+	UI::instance.elements.push_back(EndScreen::instance);
 
 
 	string path = "./textures/maya/maya.obj"; //ruta del objeto
@@ -3563,6 +3577,8 @@ int main(void)
 
 				Crosshair::instance.disable();
 
+				EndScreen::instance->lose();
+
 				std::cout << "SLENDERMAN TE HA MATADO" << std::endl;
 			}
 		}
@@ -3612,11 +3628,14 @@ int main(void)
 		Level::CURRENT_LEVEL.terreny->update(delta);
 		Level::CURRENT_LEVEL.tren_passant->update(delta);
 
-		if (Level::CURRENT_LEVEL.gameEnded)
+		if (Level::CURRENT_LEVEL.gameEnded && Level::CURRENT_LEVEL.won)
 		{
 			Level::CURRENT_LEVEL.via->stop(delta);
 			Level::CURRENT_LEVEL.via_secundaria->stop(delta);
 			Level::CURRENT_LEVEL.terreny->stop(delta);
+
+			if (Level::CURRENT_LEVEL.via->is_stopped())
+				EndScreen::instance->win();
 		}
 
 		bool panell_resolt = Level::CURRENT_LEVEL.panel->is_solved();
@@ -3638,6 +3657,7 @@ int main(void)
 
 			Crosshair::instance.disable();
 
+			EndScreen::instance->lose();
 			std::cout << "SLENDERMAN TE HA MATADO" << std::endl;
 		}
 

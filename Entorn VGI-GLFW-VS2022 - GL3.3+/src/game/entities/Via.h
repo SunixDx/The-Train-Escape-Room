@@ -7,6 +7,7 @@ public:
 	Via(Transform transform, Model* model_rail, GLuint shader_id, float speed);
 	void update(float delta_time);
 	void stop(float delta);
+	bool is_stopped() const;
 
 private:
 	int n_rails;
