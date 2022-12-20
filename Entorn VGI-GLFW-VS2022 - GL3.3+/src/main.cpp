@@ -3685,6 +3685,10 @@ int main(void)
 
 			if (Level::CURRENT_LEVEL.via->is_stopped())
 				EndScreen::instance->win();
+
+			if (chaseTheme)
+				if (!chaseTheme->getIsPaused())
+					chaseTheme->setIsPaused(true);
 		}
 
 		bool panell_resolt = Level::CURRENT_LEVEL.panel->is_solved();
@@ -3699,6 +3703,7 @@ int main(void)
 			Camera::MAIN_CAMERA.vertical_angle = 0;
 			Camera::MAIN_CAMERA.horizontal_angle = PI;
 
+			Level::CURRENT_LEVEL.slenderman->my_transform.position().x = Camera::MAIN_CAMERA.position.x - 0.51;
 			Level::CURRENT_LEVEL.slenderman->my_transform.position().z = -0.6;
 			Level::CURRENT_LEVEL.setScaryLights = true;
 			*Level::CURRENT_LEVEL.llumAmbient = false;
