@@ -1176,12 +1176,12 @@ void Teclat_Shift(int key, GLFWwindow* window)
 					{	// load Skybox textures
 						// -------------
 						std::vector<std::string> faces =
-							{	".\\textures\\skybox\\final\\left.png", //girado
-								".\\textures\\skybox\\final\\right.png", //girado
-								".\\textures\\skybox\\final\\top.png",
-								".\\textures\\skybox\\final\\bottom.png",
-								".\\textures\\skybox\\final\\front.png",
-								".\\textures\\skybox\\final\\back.png"
+							{	".\\textures\\skybox\\nieve_noche\\right.jpg", //girado
+								".\\textures\\skybox\\nieve_noche\\left.jpg", //girado
+								".\\textures\\skybox\\nieve_noche\\top.jpg",
+								".\\textures\\skybox\\nieve_noche\\bottom.jpg",
+								".\\textures\\skybox\\nieve_noche\\front.jpg",
+								".\\textures\\skybox\\nieve_noche\\back.jpg"
 							};
 						cubemapTexture = loadCubemap(faces);	
 					}
