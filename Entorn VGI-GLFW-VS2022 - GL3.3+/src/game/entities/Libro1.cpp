@@ -39,7 +39,7 @@ void Libro1::interact()
 	{
 		my_model = my_model_obert;
 		abierto = true;
-		my_transform.rotate((PI / 6) * 3, vec3(1.0f, 0.0f, 0.0f));
+		//my_transform.rotate((PI / 6) * 3, vec3(1.0f, 0.0f, 0.0f));
 
 		irrklang::vec3df position(my_transform.position().x, my_transform.position().y, my_transform.position().z);
 		irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/book-open.wav", position, false, true);
@@ -55,7 +55,7 @@ void Libro1::interact()
 	{
 		my_model = my_model_tancat;
 		abierto = false;
-		my_transform.rotate((PI / 6) * -3, vec3(1.0f, 0.0f, 0.0f));
+		//my_transform.rotate((PI / 6) * -3, vec3(1.0f, 0.0f, 0.0f));
 
 		irrklang::vec3df position(my_transform.position().x, my_transform.position().y, my_transform.position().z);
 		irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play3D("./media/close-book.mp3", position, false, true);
