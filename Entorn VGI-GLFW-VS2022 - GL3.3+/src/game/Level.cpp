@@ -311,6 +311,10 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Level::CURRENT_LEVEL.my_vago = vago;
 
 
+	Transform tr_porta_fixa_2;
+	GameEntity* porta_fixa_2 = new GameEntity(tr_porta_fixa_2, porta, sh_programID);
+	vago_2->addChild(porta_fixa_2);
+
 	float c = glm::cos(glm::pi<float>() / 4);
 	float s = glm::sin(glm::pi<float>() / 4);
 	
@@ -387,18 +391,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	trPanelColor.scale(vec3(0.06f));
 
 	GameEntity* panel_color = new GameEntity(trPanelColor, new Model("./textures/panel_color/panel_color.obj"), sh_programID);
-	
-	//slenderman
-	/*
-	Transform trPadlock = Transform();
-	trPadlock.position() = vec3(7.0f, 0.0f, -0.1f);
-	trPadlock.scale() = vec3(0.5f);
-
-	trPadlock.rotate(-(glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
-
-	Rail* padlock = new Rail(trPadlock, new Model("./textures/slenderman/scene.gltf"), sh_programID);
-	padlock->my_enabled = false;
-	*/
 
 
 	Model* model_rail = new Model("./textures/rails/rail1/scene.gltf");
