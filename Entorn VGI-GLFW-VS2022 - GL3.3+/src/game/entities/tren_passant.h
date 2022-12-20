@@ -11,4 +11,5 @@ private:
 	int n_trens;
 	float longitud_tren;
 	float speed;
+	bool playing_sound = false;
 };
