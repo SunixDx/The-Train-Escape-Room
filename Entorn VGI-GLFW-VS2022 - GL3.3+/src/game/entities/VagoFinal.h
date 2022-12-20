@@ -6,26 +6,22 @@
 #include "Seient.h"
 #include "GameEntity.h"
 
-
-class Vago : public GameEntity
+class VagoFinal : public GameEntity
 {
 public:
-	Vago(Transform transform, Model* model, GLuint shader_id);
+	VagoFinal(Transform transform, Model* model, GLuint shader_id);
 
 	void obrir_porta()
 	{
-		if (my_rigid_body_porta != nullptr)
+		BulletWorld::WORLD->my_dynamics_world->removeRigidBody(my_rigid_body_porta);
+		auto to_erease = std::find(my_rigidbodies.begin(), my_rigidbodies.end(), my_rigid_body_porta);
+		if (to_erease != my_rigidbodies.end())
 		{
-			BulletWorld::WORLD->my_dynamics_world->removeRigidBody(my_rigid_body_porta);
-			auto to_erease = std::find(my_rigidbodies.begin(), my_rigidbodies.end(), my_rigid_body_porta);
-			if (to_erease != my_rigidbodies.end())
-			{
-				delete* to_erease;
-				my_rigidbodies.erase(to_erease);
-			}
-			my_rigid_body_porta = nullptr;
-			my_porta->my_transform.translate(my_translacio_obrir_porta);
+			delete* to_erease;
+			my_rigidbodies.erase(to_erease);
 		}
+		my_rigid_body_porta = nullptr;
+		my_porta->my_transform.translate(my_translacio_obrir_porta);
 	}
 
 	void afegir_porta(GameEntity* porta, vec3 translacio_obrir)
@@ -34,7 +30,6 @@ public:
 		my_porta = porta;
 		my_translacio_obrir_porta = translacio_obrir;
 	}
-
 
 	bool perseguir;
 	static float Z_OFFSET;

@@ -61,40 +61,38 @@ void Level::exterior_train_offset(GLuint sh_programID, glm::vec3 exterior_offset
  */
 }
 
-
-void Level::slender_offset(GLuint sh_programID, glm::vec3 offset_slenderman)
+void Level::posicionar_slenderman(glm::vec3 offset_slenderman, int posicio)
 {
-	
-	int posicio = 1;
-	Transform trPadlock = Transform();
-	if (posicio == 1) {
-		trPadlock.position() = offset_slenderman;
-		trPadlock.scale() = vec3(0.5f);
-		trPadlock.rotate((glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
+	Level::CURRENT_LEVEL.pos_slenderman = posicio;
+	Level::CURRENT_LEVEL.slenderman->my_transform.reset_orientation();
+	if (posicio == 1)
+	{
+		Level::CURRENT_LEVEL.slenderman->my_transform.position() = offset_slenderman;
+		Level::CURRENT_LEVEL.slenderman->my_transform.scale() = vec3(0.5f);
+		Level::CURRENT_LEVEL.slenderman->my_transform.rotate((glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
 	}
-	else if (posicio == 2) {
-		trPadlock.position() = vec3(-1.0f, 0.0f, -0.1f);
-		trPadlock.scale() = vec3(0.5f);
-		trPadlock.rotate((glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
+	else if (posicio == 2)
+	{
+		Level::CURRENT_LEVEL.slenderman->my_transform.position() = vec3(-1.0f, 0.0f, -0.1f);
+		Level::CURRENT_LEVEL.slenderman->my_transform.scale() = vec3(0.5f);
+		Level::CURRENT_LEVEL.slenderman->my_transform.rotate((glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
 	}
-	else if (posicio == 3) {
-		trPadlock.position() = vec3(3.5f, 0.9f, -0.1f);
-		trPadlock.scale() = vec3(0.5f);
+	else if (posicio == 3)
+	{
+		Level::CURRENT_LEVEL.slenderman->my_transform.position() = vec3(3.5f, 0.9f, -0.1f);
+		Level::CURRENT_LEVEL.slenderman->my_transform.scale() = vec3(0.5f);
 	}
-	else if (posicio == 4) {
-		trPadlock.position() = vec3(3.5f, -0.9f, -0.1f);
-		trPadlock.scale() = vec3(0.5f);
-		trPadlock.rotate((glm::pi<float>() * 2), vec3(1.0f, 0.0f, 0.0f));
+	else if (posicio == 4)
+	{
+		Level::CURRENT_LEVEL.slenderman->my_transform.position() = vec3(3.5f, -0.9f, -0.1f);
+		Level::CURRENT_LEVEL.slenderman->my_transform.scale() = vec3(0.5f);
+		Level::CURRENT_LEVEL.slenderman->my_transform.rotate((glm::pi<float>() * 2), vec3(1.0f, 0.0f, 0.0f));
 	}
-	Rail* padlock = new Rail(trPadlock, new Model("./textures/slenderman/scene.gltf"), sh_programID);
-	padlock->my_enabled = true;
-
-	Level::CURRENT_LEVEL.slenderman = padlock;
-	
 }
 
 void Level::buildFirstLevel(GLuint sh_programID)
 {
+
 	Transform tr = Transform();
 	tr.position() = vec3(0.0f, 0.0f, -0.1f);
 	tr.scale() = vec3(1.0f);
@@ -103,24 +101,16 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	Model* model_vago = new Model("./textures/tren sin puertas y puerta/tren_sin_puertas.gltf");
 	Vago* vago = new Vago(tr, model_vago, sh_programID);
 
-
 	Transform tr_2 = Transform();
 	tr_2.position() = vec3(19.5f, 0.0f, -0.1f);
 	tr_2.scale() = vec3(1.0f);
 	tr_2.rotate(glm::pi<float>() / 2, vec3(1.0f, 0.0f, 0.0f));
 	tr_2.rotate(glm::pi<float>()*2, vec3(1.0f, 0.0f, 0.0f));
 
-	Vago* vago_2 = new Vago(tr_2, model_vago, sh_programID);
+	VagoFinal* vago_2 = new VagoFinal(tr_2, model_vago, sh_programID);
 	Level::CURRENT_LEVEL.my_vago_2 = vago_2;
 
-
-	
-
-
-
-
-
-	Model* model_taula = new Model({ *Mesh::BASIC_CUBE_MESH_BROWN });
+	/*Model* model_taula = new Model({*Mesh::BASIC_CUBE_MESH_BROWN});
 	
 	float xValorTaula = -110.98f;
 
@@ -144,12 +134,14 @@ void Level::buildFirstLevel(GLuint sh_programID)
 			xValorTaula += 2.06f;
 
 		vago->addChild(new Taula(Transform(vec3(xValorTaula, -1.2f, -0.7f), quat(1.0f, 0.0f, 0.0f, 0.0f), vec3(1.0f)), model_taula, sh_programID));
-	}
+	}*/
 
-	Model* model_seient = new Model({ *Mesh::BASIC_CUBE_MESH_SOFT_BROWN });
+	//Model* model_seient = new Model({ *Mesh::BASIC_CUBE_MESH_SOFT_BROWN });
 
 	quat mirar_endevant = quat(1.0f, 0.0f, 0.0f, 0.0f);
 	quat mirar_enrere = quat(glm::cos(glm::pi<float>() / 2), glm::sin(glm::pi<float>() / 2) * 0.0f, glm::sin(glm::pi<float>() / 2) * 0.0f, glm::sin(glm::pi<float>() / 2) * 1.0f);
+
+	//vagon 1 asientos =====================================================================================================
 
 	float xValorSeientEndavant = -0.31f;
 
@@ -199,6 +191,109 @@ void Level::buildFirstLevel(GLuint sh_programID)
 		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, -1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
 	}
 
+	xValorSeientEndavant = -0.31f;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndavant += 4.58f; //6,34 - i=3
+		else if (i > 0)
+			xValorSeientEndavant += 2.02f; //1,69
+
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, 1.2f, -1.2f), mirar_endevant, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	xValorSeientEndavant = -0.31f;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndavant += 4.58f;
+		else if (i > 0)
+			xValorSeientEndavant += 2.02f;
+
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndavant, -1.2f, -1.2f), mirar_endevant, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	xValorSeientEndarrere = -1.63f;
+	
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndarrere += 4.55f; //5,04 - i=3
+		else if (i > 0)
+			xValorSeientEndarrere += 2.02f; //0.39
+
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, 1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	xValorSeientEndarrere = -1.63f;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndarrere += 4.55f;
+		else if (i > 0)
+			xValorSeientEndarrere += 2.02f;
+
+		vago->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, -1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	//=============================================================================================================================
+	//vagon final asientos ========================================================================================================
+
+	float offsetFrente = 12.9;
+
+	xValorSeientEndavant = -0.31f + offsetFrente;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndavant += 4.58f;
+		else if (i > 0)
+			xValorSeientEndavant += 2.02f; 
+
+		vago_2->addChild(new Seient(Transform(vec3(xValorSeientEndavant, 1.2f, -1.2f), mirar_endevant, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	xValorSeientEndavant = -0.31f + offsetFrente;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndavant += 4.58f;
+		else if (i > 0)
+			xValorSeientEndavant += 2.02f;
+
+		vago_2->addChild(new Seient(Transform(vec3(xValorSeientEndavant, -1.2f, -1.2f), mirar_endevant, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	xValorSeientEndarrere = -1.63f + offsetFrente;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndarrere += 4.55f; 
+		else if (i > 0)
+			xValorSeientEndarrere += 2.02f; 
+
+		vago_2->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, 1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	xValorSeientEndarrere = -1.63f + offsetFrente;
+
+	for (int i = 0; i < 4; i++)
+	{
+		if (i == 2)
+			xValorSeientEndarrere += 4.55f;
+		else if (i > 0)
+			xValorSeientEndarrere += 2.02f;
+
+		vago_2->addChild(new Seient(Transform(vec3(xValorSeientEndarrere, -1.2f, -1.2f), mirar_enrere, vec3(1.0f)), nullptr, sh_programID));
+	}
+
+	//======================================================================================================
+
 	Model* porta = new Model("./textures/tren sin puertas y puerta/puerta.gltf");
 
 	Transform tr_porta_fixa;
@@ -215,6 +310,10 @@ void Level::buildFirstLevel(GLuint sh_programID)
 
 	Level::CURRENT_LEVEL.my_vago = vago;
 
+
+	Transform tr_porta_fixa_2;
+	GameEntity* porta_fixa_2 = new GameEntity(tr_porta_fixa_2, porta, sh_programID);
+	vago_2->addChild(porta_fixa_2);
 
 	float c = glm::cos(glm::pi<float>() / 4);
 	float s = glm::sin(glm::pi<float>() / 4);
@@ -292,18 +391,6 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	trPanelColor.scale(vec3(0.06f));
 
 	GameEntity* panel_color = new GameEntity(trPanelColor, new Model("./textures/panel_color/panel_color.obj"), sh_programID);
-	
-	//slenderman
-	/*
-	Transform trPadlock = Transform();
-	trPadlock.position() = vec3(7.0f, 0.0f, -0.1f);
-	trPadlock.scale() = vec3(0.5f);
-
-	trPadlock.rotate(-(glm::pi<float>() / 2), vec3(1.0f, 0.0f, 0.0f));
-
-	Rail* padlock = new Rail(trPadlock, new Model("./textures/slenderman/scene.gltf"), sh_programID);
-	padlock->my_enabled = false;
-	*/
 
 
 	Model* model_rail = new Model("./textures/rails/rail1/scene.gltf");
@@ -387,7 +474,8 @@ void Level::buildFirstLevel(GLuint sh_programID)
 	trLever.translate(vec3(20.0f, 0.0f, 0.0f));
 	Lever* lever = new Lever(trLever, new Model("./textures/lever/lever.obj"), sh_programID);
 
-	//Level::CURRENT_LEVEL.slenderman = padlock;
+	GameEntity* slenderman = new GameEntity(Transform(), new Model("./textures/slenderman/scene.gltf"), sh_programID);
+	Level::CURRENT_LEVEL.slenderman = slenderman;
 	Level::CURRENT_LEVEL.my_vago = vago;
 	Level::CURRENT_LEVEL.maleta = maleta;
 	Level::CURRENT_LEVEL.maletaTapa = maletaTapa;
