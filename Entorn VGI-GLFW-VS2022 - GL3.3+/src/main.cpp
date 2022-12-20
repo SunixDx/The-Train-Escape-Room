@@ -3562,7 +3562,7 @@ int main(void)
 		}
 
 		if (Level::CURRENT_LEVEL.slenderMaleta) {
-			if ((float(chrono::duration_cast<chrono::microseconds>(chrono::steady_clock::now() - Level::CURRENT_LEVEL.timerEventoSlender).count()) / 1000000) >= 8) {
+			if ((float(chrono::duration_cast<chrono::microseconds>(chrono::steady_clock::now() - Level::CURRENT_LEVEL.timerEventoSlender).count()) / 1000000) >= 5) {
 				Level::CURRENT_LEVEL.despawnSlender();
 			}
 		}
