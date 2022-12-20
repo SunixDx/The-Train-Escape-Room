@@ -2622,6 +2622,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 				Level::CURRENT_LEVEL.panel->push_digit(tecla - '0');
 			}
 			cout << "Tecla: " << tecla << endl;
+			Audio::AUDIO_FUNCTIONS.play2D("./media/button.mp3", false, false);
 		}
 	}
 
@@ -3677,6 +3678,21 @@ int main(void)
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(footsteps);
 	}
 
+	irrklang::ISound* chaseTheme = Audio::AUDIO_FUNCTIONS.play2D("./media/chase-theme.mp3", true, true);
+	if (chaseTheme) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(chaseTheme);
+	}
+
+	irrklang::ISound* screamer = Audio::AUDIO_FUNCTIONS.play2D("./media/jump-scare.mp3", false, true);
+	if (screamer) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(screamer);
+	}
+
+	irrklang::ISound* flickeringLightsSound = Audio::AUDIO_FUNCTIONS.play2D("./media/flickering-lights.wav", false, true);
+	if (flickeringLightsSound) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(flickeringLightsSound);
+	}
+
 	chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 	chrono::steady_clock::time_point end;
 // Loop until the user closes the window
@@ -3687,22 +3703,26 @@ int main(void)
 	float trasX = 0;
     while (!glfwWindowShouldClose(window))
     {  
-		// Avisa a cada minut que passa desde que s'ha clicat start
-		// So de passes sona i a cada minut s'apropen
-		// parpadejen les llums
 		if (Level::CURRENT_LEVEL.gameStarted) {
 			Level::CURRENT_LEVEL.gameTimer2 = chrono::steady_clock::now();
 		}
+
+		/*if (Level::CURRENT_LEVEL.my_vago->perseguir) {
+			if (flickeringLightsSound) {
+				flickeringLightsSound->setIsLooped(true);
+				flickeringLightsSound->setIsPaused(false);
+				flickeringLightsSound->setVolume(8.0f);
+			}
+		}*/
 		
 		// Activa l'efecte de llums 
-		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 60) {
+		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 60 && !Level::CURRENT_LEVEL.gameEnded) {
 			Level::CURRENT_LEVEL.flicker = true;
 			lightsIterator = 0;
 			
-			irrklang::ISound* snd3 = Audio::AUDIO_FUNCTIONS.play2D("./media/flickering-lights.wav", false, true);
-			if (snd3) {
-				snd3->setVolume(10.0f);
-				snd3->setIsPaused(false);
+			if (flickeringLightsSound) {
+				flickeringLightsSound->setVolume(10.0f);
+				flickeringLightsSound->setIsPaused(false);
 			}
 		}
 
@@ -3711,11 +3731,11 @@ int main(void)
 			comptadorMinuts++;
 			cout << "HA PASSAT UN MINUT " << comptadorMinuts << endl;
 			Level::CURRENT_LEVEL.gameTimer = chrono::steady_clock::now();
-			// TODO: comptadorMinuts == 5 --> screamer final i fin partida
 		}
 
 		// Efecte de llums
-		if ((float(chrono::duration_cast<chrono::microseconds>(chrono::steady_clock::now() - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) <= 1 && Level::CURRENT_LEVEL.flicker) {
+		if ((float(chrono::duration_cast<chrono::microseconds>(chrono::steady_clock::now() - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) <= 1 && Level::CURRENT_LEVEL.flicker 
+			|| (Level::CURRENT_LEVEL.my_vago->perseguir && !Level::CURRENT_LEVEL.gameEnded)) {
 			// Control de velocitat del parpadeig
 			end = chrono::steady_clock::now();
 			if ((float(chrono::duration_cast<chrono::microseconds>(end - begin).count()) / 100000) >= 1) {
@@ -3724,6 +3744,12 @@ int main(void)
 				lightsIterator = rand() % Level::CURRENT_LEVEL.lights.size();
 				llum_ambient = Level::CURRENT_LEVEL.lights[lightsIterator].first;
 				ifixe = Level::CURRENT_LEVEL.lights[lightsIterator].second;
+			}
+			if (Level::CURRENT_LEVEL.my_vago->perseguir && !Level::CURRENT_LEVEL.gameEnded) {
+				if (chaseTheme) {
+					if (chaseTheme->getIsPaused())
+						chaseTheme->setIsPaused(false);
+				}
 			}
 		}
 		else if(!Level::CURRENT_LEVEL.setScaryLights) {
@@ -3783,7 +3809,14 @@ int main(void)
 			*Level::CURRENT_LEVEL.iFixe = true;
 
 			Crosshair::instance.disable();
-
+			if (chaseTheme) {
+				if (!chaseTheme->getIsPaused())
+					chaseTheme->setIsPaused(true);
+			}
+			if (screamer) {
+				if (screamer->getIsPaused())
+					screamer->setIsPaused(false);
+			}
 			std::cout << "SLENDERMAN TE HA MATADO" << std::endl;
 		}
 

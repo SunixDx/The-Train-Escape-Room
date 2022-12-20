@@ -19,11 +19,11 @@ public:
 
 	static float Z_OFFSET;
 
+	bool my_aixecada;
 private:
 	bool firstInteraction = true;
 
 	btRigidBody* my_rigid_body;
 	GameEntity* my_tapa;
-	bool my_aixecada;
 };
 
