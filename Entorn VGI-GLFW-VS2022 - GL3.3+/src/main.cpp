@@ -3541,6 +3541,26 @@ int main(void)
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(audioVictoria);
 	}
 
+	irrklang::ISound* alerta1mins = Audio::AUDIO_FUNCTIONS.play2D("./media/1min.wav", false, true);
+	if (alerta1mins) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta1mins);
+	}
+
+	irrklang::ISound* alerta2mins = Audio::AUDIO_FUNCTIONS.play2D("./media/2min.wav", false, true);
+	if (alerta2mins) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta2mins);
+	}
+
+	irrklang::ISound* alerta3mins = Audio::AUDIO_FUNCTIONS.play2D("./media/3min.wav", false, true);
+	if (alerta3mins) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta3mins);
+	}
+
+	irrklang::ISound* alerta4mins = Audio::AUDIO_FUNCTIONS.play2D("./media/4min.wav", false, true);
+	if (alerta4mins) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta4mins);
+	}
+
 	chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 	chrono::steady_clock::time_point end;
 // Loop until the user closes the window
@@ -3581,7 +3601,7 @@ int main(void)
 		}*/
 		
 		// Activa l'efecte de llums 
-		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 60 && !Level::CURRENT_LEVEL.gameEnded) {
+		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 10 && !Level::CURRENT_LEVEL.gameEnded) {
 			Level::CURRENT_LEVEL.flicker = true;
 			lightsIterator = 0;
 			
@@ -3593,11 +3613,28 @@ int main(void)
 		}
 
 		// Comptador de minuts
-		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 60) {
+		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 10) {
 			comptadorMinuts++;
 			cout << "HA PASSAT UN MINUT " << comptadorMinuts << endl;
 			Level::CURRENT_LEVEL.gameTimer = chrono::steady_clock::now();
-			// TODO: comptadorMinuts == 5 --> screamer final i fin partida
+
+			switch (comptadorMinuts)
+			{
+			case 1:
+				alerta4mins->setIsPaused(false);
+				break;
+			case 2:
+				alerta3mins->setIsPaused(false);
+				break;
+			case 3:
+				alerta2mins->setIsPaused(false);
+				break;
+			case 4:
+				alerta1mins->setIsPaused(false);
+				break;
+			default:
+				break;
+			}
 
 			if (comptadorMinuts == 5)
 			{
