@@ -505,7 +505,7 @@ void Level::MaybeSpawnSlender()
 	*iFixe = true;
 
 	// Reproduir audio
-	irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play2D("./media/spooky_sound.wav", false, true);
+	irrklang::ISound* snd = Audio::AUDIO_FUNCTIONS.play2D("./media/behind-you.mp3", false, true);
 	if (snd) {
 		snd->setVolume(12.0f);
 		snd->setIsPaused(false);

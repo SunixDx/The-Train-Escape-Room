@@ -2591,6 +2591,7 @@ void OnMouseButton(GLFWwindow* window, int button, int action, int mods)
 			{
 				if (contrasenya == "573")
 				{
+					Audio::AUDIO_FUNCTIONS.play2D("./media/beep-soud-effect.mp3", false, false);
 					Level::CURRENT_LEVEL.panel->solve();
 					Level::CURRENT_LEVEL.my_vago->obrir_porta();
 					Level::CURRENT_LEVEL.acertado = true;
@@ -3530,14 +3531,34 @@ int main(void)
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(screamer);
 	}
 
-	irrklang::ISound* flickeringLightsSound = Audio::AUDIO_FUNCTIONS.play2D("./media/flickering-lights.wav", false, true);
-	if (flickeringLightsSound) {
-		Audio::AUDIO_FUNCTIONS.allSounds.push_back(flickeringLightsSound);
-	}
-
 	irrklang::ISound* menuMusic = Audio::AUDIO_FUNCTIONS.play2D("./media/menu.mp3", true, true);
 	if (menuMusic) {
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(menuMusic);
+	}
+
+	irrklang::ISound* audioVictoria = Audio::AUDIO_FUNCTIONS.play2D("./media/victoria.wav", false, true);
+	if (audioVictoria) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(audioVictoria);
+	}
+
+	irrklang::ISound* alerta1mins = Audio::AUDIO_FUNCTIONS.play2D("./media/1min.wav", false, true);
+	if (alerta1mins) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta1mins);
+	}
+
+	irrklang::ISound* alerta2mins = Audio::AUDIO_FUNCTIONS.play2D("./media/2min.wav", false, true);
+	if (alerta2mins) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta2mins);
+	}
+
+	irrklang::ISound* alerta3mins = Audio::AUDIO_FUNCTIONS.play2D("./media/3min.wav", false, true);
+	if (alerta3mins) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta3mins);
+	}
+
+	irrklang::ISound* alerta4mins = Audio::AUDIO_FUNCTIONS.play2D("./media/4min.wav", false, true);
+	if (alerta4mins) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta4mins);
 	}
 
 	chrono::steady_clock::time_point begin = chrono::steady_clock::now();
@@ -3562,7 +3583,7 @@ int main(void)
 		}
 
 		if (Level::CURRENT_LEVEL.slenderMaleta) {
-			if ((float(chrono::duration_cast<chrono::microseconds>(chrono::steady_clock::now() - Level::CURRENT_LEVEL.timerEventoSlender).count()) / 1000000) >= 8) {
+			if ((float(chrono::duration_cast<chrono::microseconds>(chrono::steady_clock::now() - Level::CURRENT_LEVEL.timerEventoSlender).count()) / 1000000) >= 5) {
 				Level::CURRENT_LEVEL.despawnSlender();
 			}
 		}
@@ -3584,6 +3605,7 @@ int main(void)
 			Level::CURRENT_LEVEL.flicker = true;
 			lightsIterator = 0;
 			
+			irrklang::ISound* flickeringLightsSound = Audio::AUDIO_FUNCTIONS.play2D("./media/flickering-lights.wav", false, true);
 			if (flickeringLightsSound) {
 				flickeringLightsSound->setVolume(10.0f);
 				flickeringLightsSound->setIsPaused(false);
@@ -3595,7 +3617,24 @@ int main(void)
 			comptadorMinuts++;
 			cout << "HA PASSAT UN MINUT " << comptadorMinuts << endl;
 			Level::CURRENT_LEVEL.gameTimer = chrono::steady_clock::now();
-			// TODO: comptadorMinuts == 5 --> screamer final i fin partida
+
+			switch (comptadorMinuts)
+			{
+			case 1:
+				alerta4mins->setIsPaused(false);
+				break;
+			case 2:
+				alerta3mins->setIsPaused(false);
+				break;
+			case 3:
+				alerta2mins->setIsPaused(false);
+				break;
+			case 4:
+				alerta1mins->setIsPaused(false);
+				break;
+			default:
+				break;
+			}
 
 			if (comptadorMinuts == 5)
 			{
@@ -3666,7 +3705,7 @@ int main(void)
 		{
 			if (Level::CURRENT_LEVEL.slenderman->my_transform.position().x < 21.5)
 			{
-				Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(1.75, 0, 0) * delta);
+				Level::CURRENT_LEVEL.slenderman->my_transform.translate(vec3(2.35, 0, 0) * delta);
 			}
 		}
 		
@@ -3683,8 +3722,12 @@ int main(void)
 			Level::CURRENT_LEVEL.via_secundaria->stop(delta);
 			Level::CURRENT_LEVEL.terreny->stop(delta);
 
-			if (Level::CURRENT_LEVEL.via->is_stopped())
+			if (Level::CURRENT_LEVEL.via->is_stopped()) {
+				if (audioVictoria) {
+					audioVictoria->setIsPaused(false);
+				}
 				EndScreen::instance->win();
+			}
 
 			if (chaseTheme)
 				if (!chaseTheme->getIsPaused())
