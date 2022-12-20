@@ -3403,18 +3403,6 @@ int main(void)
 	Mesh::BASIC_CUBE_MESH_BROWN = new Mesh(cube_vertices_brown, indices, textures);
 	Mesh::BASIC_CUBE_MESH_SOFT_BROWN = new Mesh(cube_vertices_soft_brown, indices, textures);
 
-
-	std::vector<Vertex> plane_vertices = {
-		Vertex({0.5f,  0.5f,  0.0f}, {0.0,  0.0,  1.0}, {0.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
-		Vertex({-0.5f,  0.5f,  0.0f}, {0.0,  0.0,  1.0}, {1.0, 0.0}, {1.0, 1.0, 1.0, 1.0}),
-		Vertex({-0.5f, -0.5f,  0.0f}, {0.0,  0.0,  1.0}, {1.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
-		Vertex({0.5f, -0.5f,  0.0f}, {0.0,  0.0,  1.0}, {0.0, 1.0}, {1.0, 1.0, 1.0, 1.0}),
-	};
-	
-	std::vector<unsigned int> plane_indices = {
-		0, 1, 2, 2, 3, 0,			// v0-v1-v2-v3 (front)
-	};
-
 	// crosshair
 	Texture texture = LoadTexture("./textures", "circle.png", "texture_diffuse");
 
@@ -3478,8 +3466,6 @@ int main(void)
 	UI::instance.elements.push_back(&InteractionIndicator::instance);
 	UI::instance.elements.push_back(&Menu::instance);
 
-
-	//Mesh::CROSSHAIR = new Mesh(plane_vertices, plane_indices, plane_textures);
 
 	string path = "./textures/maya/maya.obj"; //ruta del objeto
 	Model::BACKPACK = new Model(path); //crear nuevo modelo
