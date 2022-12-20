@@ -3792,13 +3792,10 @@ int main(void)
 
 		if (Camera::MAIN_CAMERA.turning == true)
 		{
-			Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.turn_speed;
-			cout << Camera::MAIN_CAMERA.horizontal_angle << " " 
-				 << PI - Camera::MAIN_CAMERA.turn_speed << " "
-				 << PI + Camera::MAIN_CAMERA.turn_speed << endl;
+			Camera::MAIN_CAMERA.horizontal_angle += Camera::MAIN_CAMERA.turn_speed / 2;
 			if (Camera::MAIN_CAMERA.horizontal_angle > PI - Camera::MAIN_CAMERA.turn_speed &&
 				Camera::MAIN_CAMERA.horizontal_angle < PI + Camera::MAIN_CAMERA.turn_speed)
-				Camera::MAIN_CAMERA.turning == false;
+				Camera::MAIN_CAMERA.turning = false;
 		}
 
 		if (w_pressed)
