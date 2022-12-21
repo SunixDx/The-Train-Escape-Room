@@ -3726,6 +3726,10 @@ int main(void)
 				if (audioVictoria) {
 					audioVictoria->setIsPaused(false);
 				}
+				if (Level::CURRENT_LEVEL.trainSound) {
+					if (!Level::CURRENT_LEVEL.trainSound->getIsPaused())
+						Level::CURRENT_LEVEL.trainSound->setIsPaused(true);
+				}
 				EndScreen::instance->win();
 			}
 
