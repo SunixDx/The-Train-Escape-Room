@@ -42,6 +42,7 @@ public:
 	bool zoom = false;
 	bool endcam = false;
 	bool turning = false;
+	bool aproaching = false;
 
 	static Camera MAIN_CAMERA;
 	static Camera SAVE_CAMERA;
