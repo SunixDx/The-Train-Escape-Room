@@ -2,7 +2,7 @@
 
 Menu Menu::instance = Menu(Transform());
 
-void Menu::change_indicator(MenuType type)
+void Menu::change_menu(MenuType type)
 {
 	my_children.clear();
 
@@ -22,7 +22,7 @@ void Menu::change_indicator(MenuType type)
 	}
 }
 
-void Menu::remove_indicator()
+void Menu::remove_menu()
 {
 	my_children.clear();
 }
