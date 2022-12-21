@@ -34,7 +34,7 @@ void Tren_passant::update(float delta_time)
 			playing_sound = false;
 		}
 
-		if (exterior->my_transform.position().x >= 50)
+		/*if (exterior->my_transform.position().x >= 50)
 		{
 			playing_sound = true;
 			irrklang::vec3df position(my_transform.position().x, my_transform.position().y, my_transform.position().z);
@@ -48,6 +48,6 @@ void Tren_passant::update(float delta_time)
 				}
 				Audio::AUDIO_FUNCTIONS.allSounds.push_back(my_snd);
 			}
-		}
+		*/
 	}
 }
