@@ -855,7 +855,7 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 			camera = CAM_PERSONALITZADA;
 		Camera::MAIN_CAMERA.position = glm::vec3(0, 0, 1.8);
 	}
-	else if (mods == 0 && key == GLFW_KEY_E && action == GLFW_PRESS)
+	else if (mods == 0 && key == GLFW_KEY_U && action == GLFW_PRESS)
 	{
 		Camera::MAIN_CAMERA.fly_behind();
 	}
@@ -870,7 +870,7 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 			Camera::MAIN_CAMERA.fly();
 			Menu::instance
-				.change_indicator(MenuType::MENU);
+				.change_menu(MenuType::MENU);
 
 			Crosshair::instance.disable();
 		}
@@ -879,7 +879,7 @@ void OnKeyDown(GLFWwindow* window, int key, int scancode, int action, int mods)
 			glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 			Camera::MAIN_CAMERA.enterTrain();
 			Menu::instance
-				.remove_indicator();
+				.remove_menu();
 		}
 			
 	}
@@ -2698,14 +2698,14 @@ void OnMouseMove(GLFWwindow* window, double xpos, double ypos)
 	{
 		if (w / xpos < 2.2 && w / xpos > 1.8 && h / ypos < 2.1 && h / ypos > 1.8)
 		{
-			Menu::instance.change_indicator(MenuType::START);
+			Menu::instance.change_menu(MenuType::START);
 		}
 		else if (w / xpos < 2.2 && w / xpos > 1.8 && h / ypos < 1.58 && h / ypos > 1.4)
 		{
-			Menu::instance.change_indicator(MenuType::EXIT);
+			Menu::instance.change_menu(MenuType::EXIT);
 		}
 		else {
-			Menu::instance.change_indicator(MenuType::MENU);
+			Menu::instance.change_menu(MenuType::MENU);
 		}
 	}
 
@@ -3432,7 +3432,7 @@ int main(void)
 		.set_menu_default(new UIElement(menu_transform, texture_menu))
 		.set_menu_exit(new UIElement(exit_transform, texture_exit))
 		.set_menu_start(new UIElement(start_transform, texture_start))
-		.change_indicator(MenuType::MENU);
+		.change_menu(MenuType::MENU);
 
 	// interacteable
 	Texture texture_sit_down = LoadTexture("./textures/ui_assets", "seure_img.png", "texture_diffuse");

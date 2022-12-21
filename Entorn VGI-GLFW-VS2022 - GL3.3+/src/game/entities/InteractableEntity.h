@@ -12,12 +12,6 @@ enum class InteractionType
 	NONE
 };
 
-enum class MenuType
-{
-	MENU,
-	START,
-	EXIT
-};
 
 class InteractableEntity : public GameEntity
 {
