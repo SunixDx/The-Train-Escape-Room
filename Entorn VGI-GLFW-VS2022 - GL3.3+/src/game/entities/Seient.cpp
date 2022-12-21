@@ -6,7 +6,7 @@
 
 Seient::Seient(Transform transform, Model* model, GLuint shader_id): InteractableEntity(transform, nullptr, shader_id, InteractionType::SIT)
 {
-	btCollisionShape* groundShape_banc = new btBoxShape(btVector3(btScalar(.25), btScalar(.5), btScalar(.25)));
+	btCollisionShape* groundShape_banc = new btBoxShape(btVector3(btScalar(.3), btScalar(.55), btScalar(.3)));
 	btCollisionShape* groundShape_respatller = new btBoxShape(btVector3(btScalar(.001), btScalar(.5), btScalar(.25)));
 
 	btTransform groundTransform_banc;

@@ -7,8 +7,8 @@ VagoFinal::VagoFinal(Transform transform, Model* model, GLuint shader_id): GameE
 	float offsetLateral = 6;
 	float offsetFrente = 6.5;
 
-	btCollisionShape* groundShape_paret1 = new btBoxShape(btVector3(btScalar(6.f), btScalar(0.1), btScalar(1.f)));
-	btCollisionShape* groundShape_paret2 = new btBoxShape(btVector3(btScalar(6.f), btScalar(0.1f), btScalar(1.f)));
+	btCollisionShape* groundShape_paret1 = new btBoxShape(btVector3(btScalar(6.f), btScalar(0.2f), btScalar(1.f)));
+	btCollisionShape* groundShape_paret2 = new btBoxShape(btVector3(btScalar(6.f), btScalar(0.2f), btScalar(1.f)));
 	btCollisionShape* groundShape_porta = new btBoxShape(btVector3(btScalar(0.1), btScalar(0.5f), btScalar(1.f)));
 	btCollisionShape* groundShape_paret4 = new btBoxShape(btVector3(btScalar(0.1f), btScalar(2.f), btScalar(1.f)));
 

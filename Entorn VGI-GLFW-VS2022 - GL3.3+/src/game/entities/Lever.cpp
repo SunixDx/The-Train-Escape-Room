@@ -4,7 +4,7 @@
 Lever::Lever(Transform transform, Model* model, GLuint shader_id) : InteractableEntity(transform, model, shader_id, InteractionType::LEVER)
 {
 	pulsada = false;
-	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(0.25), btScalar(0.1), btScalar(0.5))); //definir collider
+	btCollisionShape* groundShape = new btBoxShape(btVector3(btScalar(0.35), btScalar(0.2), btScalar(0.8))); //definir collider
 
 	btTransform groundTransform;
 	groundTransform.setIdentity();
