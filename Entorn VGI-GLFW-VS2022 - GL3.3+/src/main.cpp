@@ -3506,12 +3506,31 @@ int main(void)
 	float megafonoX = Level::CURRENT_LEVEL.megaphone->my_transform.position().x;
 	float megafonoY = Level::CURRENT_LEVEL.megaphone->my_transform.position().y;
 	float megafonoZ = Level::CURRENT_LEVEL.megaphone->my_transform.position().z;
-	irrklang::vec3df position(megafonoX, megafonoY, megafonoZ);
-	Level::CURRENT_LEVEL.audioExplicacion = Audio::AUDIO_FUNCTIONS.play3D("./media/Audio-explicacion.mp3", position, false, true);
+	irrklang::vec3df posicionMegafono(megafonoX, megafonoY, megafonoZ);
+	Level::CURRENT_LEVEL.audioExplicacion = Audio::AUDIO_FUNCTIONS.play3D("./media/Audio-explicacion.mp3", posicionMegafono, false, true);
 	if (Level::CURRENT_LEVEL.audioExplicacion) {
 		Level::CURRENT_LEVEL.audioExplicacion->setMinDistance(4.5);
 		Level::CURRENT_LEVEL.audioExplicacion->setVolume(600.0f);
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(Level::CURRENT_LEVEL.audioExplicacion);
+	}
+	irrklang::ISound* alerta1mins = Audio::AUDIO_FUNCTIONS.play2D("./media/1min.wav", false, true);
+	if (alerta1mins) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta1mins);
+	}
+
+	irrklang::ISound* alerta2mins = Audio::AUDIO_FUNCTIONS.play2D("./media/2min.wav", false, true);
+	if (alerta2mins) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta2mins);
+	}
+
+	irrklang::ISound* alerta3mins = Audio::AUDIO_FUNCTIONS.play2D("./media/3min.wav", false, true);
+	if (alerta3mins) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta3mins);
+	}
+
+	irrklang::ISound* alerta4mins = Audio::AUDIO_FUNCTIONS.play2D("./media/4min.wav", false, true);
+	if (alerta4mins) {
+		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta4mins);
 	}
 
 	irrklang::ISound* footsteps = Audio::AUDIO_FUNCTIONS.play2D("./media/footsteps.mp3", true, true);
@@ -3541,25 +3560,6 @@ int main(void)
 		Audio::AUDIO_FUNCTIONS.allSounds.push_back(audioVictoria);
 	}
 
-	irrklang::ISound* alerta1mins = Audio::AUDIO_FUNCTIONS.play2D("./media/1min.wav", false, true);
-	if (alerta1mins) {
-		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta1mins);
-	}
-
-	irrklang::ISound* alerta2mins = Audio::AUDIO_FUNCTIONS.play2D("./media/2min.wav", false, true);
-	if (alerta2mins) {
-		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta2mins);
-	}
-
-	irrklang::ISound* alerta3mins = Audio::AUDIO_FUNCTIONS.play2D("./media/3min.wav", false, true);
-	if (alerta3mins) {
-		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta3mins);
-	}
-
-	irrklang::ISound* alerta4mins = Audio::AUDIO_FUNCTIONS.play2D("./media/4min.wav", false, true);
-	if (alerta4mins) {
-		Audio::AUDIO_FUNCTIONS.allSounds.push_back(alerta4mins);
-	}
 
 	chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 	chrono::steady_clock::time_point end;
@@ -3613,7 +3613,7 @@ int main(void)
 		}
 
 		// Comptador de minuts
-		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 60) {
+		if ((float(chrono::duration_cast<chrono::microseconds>(Level::CURRENT_LEVEL.gameTimer2 - Level::CURRENT_LEVEL.gameTimer).count()) / 1000000) >= 60 && !Level::CURRENT_LEVEL.gameEnded) {
 			comptadorMinuts++;
 			cout << "HA PASSAT UN MINUT " << comptadorMinuts << endl;
 			Level::CURRENT_LEVEL.gameTimer = chrono::steady_clock::now();
