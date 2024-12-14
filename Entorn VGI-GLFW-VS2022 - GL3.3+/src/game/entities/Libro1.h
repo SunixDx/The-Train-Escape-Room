@@ -6,9 +6,8 @@
 #include  <bullet/btBulletDynamicsCommon.h>
 #include "../physics/BulletWorld.h"
 #include "InteractableEntity.h"
-#include "GameEntity.h"
 
-class Libro1: public GameEntity
+class Libro1: public InteractableEntity
 {
 public:
 	Libro1(Transform transform, Model* model_tancat, Model* model_obert, GLuint shader_id);

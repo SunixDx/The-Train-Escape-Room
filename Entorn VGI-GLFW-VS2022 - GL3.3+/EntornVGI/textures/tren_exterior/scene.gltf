@@ -3,24 +3,24 @@
     {
       "bufferView": 2,
       "componentType": 5126,
-      "count": 65532,
+      "count": 44987,
       "max": [
-        9.901436805725098,
-        33.12770080566406,
-        60.81806945800781
+        177.1185302734375,
+        1029.7445068359375,
+        514.3790283203125
       ],
       "min": [
-        -10.829469680786133,
-        0.36970698833465576,
-        -60.147254943847656
+        -177.1185302734375,
+        -1029.7445068359375,
+        -1.4654388427734375
       ],
       "type": "VEC3"
     },
     {
       "bufferView": 2,
-      "byteOffset": 786384,
+      "byteOffset": 539844,
       "componentType": 5126,
-      "count": 65532,
+      "count": 44987,
       "max": [
         1.0,
         1.0,
@@ -36,7 +36,7 @@
     {
       "bufferView": 3,
       "componentType": 5126,
-      "count": 65532,
+      "count": 44987,
       "max": [
         1.0,
         1.0,
@@ -54,286 +54,61 @@
     {
       "bufferView": 1,
       "componentType": 5126,
-      "count": 65532,
+      "count": 44987,
       "max": [
-        0.9928349852561951,
-        0.9988229870796204
+        0.996293306350708,
+        0.9979999661445618
       ],
       "min": [
-        0.0031880000606179237,
-        0.0
+        0.0020000000949949026,
+        0.0020000000949949026
       ],
       "type": "VEC2"
     },
     {
       "bufferView": 0,
       "componentType": 5125,
-      "count": 215892,
-      "type": "SCALAR"
-    },
-    {
-      "bufferView": 2,
-      "byteOffset": 1572768,
-      "componentType": 5126,
-      "count": 65532,
-      "max": [
-        9.782645225524902,
-        33.12770080566406,
-        60.81806945800781
-      ],
-      "min": [
-        -10.349584579467773,
-        0.36970698833465576,
-        -60.147254943847656
-      ],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 2,
-      "byteOffset": 2359152,
-      "componentType": 5126,
-      "count": 65532,
-      "max": [
-        1.0,
-        1.0,
-        1.0
-      ],
-      "min": [
-        -1.0,
-        -1.0,
-        -1.0
-      ],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 3,
-      "byteOffset": 1048512,
-      "componentType": 5126,
-      "count": 65532,
-      "max": [
-        1.0,
-        1.0,
-        1.0,
-        1.0
-      ],
-      "min": [
-        -1.0,
-        -1.0,
-        -1.0,
-        -1.0
-      ],
-      "type": "VEC4"
-    },
-    {
-      "bufferView": 1,
-      "byteOffset": 524256,
-      "componentType": 5126,
-      "count": 65532,
-      "max": [
-        0.985867977142334,
-        0.9923790097236633
-      ],
-      "min": [
-        0.004480999894440174,
-        0.0
-      ],
-      "type": "VEC2"
-    },
-    {
-      "bufferView": 0,
-      "byteOffset": 863568,
-      "componentType": 5125,
-      "count": 200502,
-      "type": "SCALAR"
-    },
-    {
-      "bufferView": 2,
-      "byteOffset": 3145536,
-      "componentType": 5126,
-      "count": 7622,
-      "max": [
-        -0.5234130024909973,
-        26.510419845581055,
-        58.84767150878906
-      ],
-      "min": [
-        -10.948259353637695,
-        11.756044387817383,
-        -58.176856994628906
-      ],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 2,
-      "byteOffset": 3237000,
-      "componentType": 5126,
-      "count": 7622,
-      "max": [
-        1.0,
-        1.0,
-        1.0
-      ],
-      "min": [
-        -1.0,
-        -1.0,
-        -1.0
-      ],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 3,
-      "byteOffset": 2097024,
-      "componentType": 5126,
-      "count": 7622,
-      "max": [
-        1.0,
-        1.0,
-        1.0,
-        1.0
-      ],
-      "min": [
-        -1.0,
-        -1.0,
-        -1.0,
-        -1.0
-      ],
-      "type": "VEC4"
-    },
-    {
-      "bufferView": 1,
-      "byteOffset": 1048512,
-      "componentType": 5126,
-      "count": 7622,
-      "max": [
-        0.9928349852561951,
-        0.9853209853172302
-      ],
-      "min": [
-        0.04798800125718117,
-        0.04946799948811531
-      ],
-      "type": "VEC2"
-    },
-    {
-      "bufferView": 0,
-      "byteOffset": 1665576,
-      "componentType": 5125,
-      "count": 26580,
-      "type": "SCALAR"
-    },
-    {
-      "bufferView": 2,
-      "byteOffset": 3328464,
-      "componentType": 5126,
-      "count": 697,
-      "max": [
-        9.031636238098145,
-        29.404537200927734,
-        58.14592742919922
-      ],
-      "min": [
-        -10.078462600708008,
-        13.399444580078125,
-        -57.475120544433594
-      ],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 2,
-      "byteOffset": 3336828,
-      "componentType": 5126,
-      "count": 697,
-      "max": [
-        1.0,
-        0.9005401134490967,
-        1.0
-      ],
-      "min": [
-        -1.0,
-        -0.9005271196365356,
-        -1.0
-      ],
-      "type": "VEC3"
-    },
-    {
-      "bufferView": 3,
-      "byteOffset": 2218976,
-      "componentType": 5126,
-      "count": 697,
-      "max": [
-        0.9988585114479065,
-        1.0,
-        0.9897547364234924,
-        1.0
-      ],
-      "min": [
-        -0.9986445903778076,
-        -0.9999983310699463,
-        -1.0,
-        -1.0
-      ],
-      "type": "VEC4"
-    },
-    {
-      "bufferView": 1,
-      "byteOffset": 1109488,
-      "componentType": 5126,
-      "count": 697,
-      "max": [
-        0.6655470132827759,
-        0.9325510263442993
-      ],
-      "min": [
-        0.1642950028181076,
-        0.4253999888896942
-      ],
-      "type": "VEC2"
-    },
-    {
-      "bufferView": 0,
-      "byteOffset": 1771896,
-      "componentType": 5125,
-      "count": 2592,
+      "count": 135294,
       "type": "SCALAR"
     }
   ],
   "asset": {
     "extras": {
-      "author": "aocrisan (https://sketchfab.com/aocrisan)",
+      "author": "3ddominator (https://sketchfab.com/roughdominator)",
       "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
-      "source": "https://sketchfab.com/3d-models/060-da-diesel-locomotive-7ec2fb3bf0664da5979a55a86f5cdbc5",
-      "title": "060 DA Diesel Locomotive"
+      "source": "https://sketchfab.com/3d-models/train-wagon-42875c098c33456b84bcfcdc4c7f1c58",
+      "title": "Train Wagon"
     },
-    "generator": "Sketchfab-12.66.0",
+    "generator": "Sketchfab-12.65.0",
     "version": "2.0"
   },
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 1782264,
+      "byteLength": 541176,
       "name": "floatBufferViews",
       "target": 34963
     },
     {
       "buffer": 0,
-      "byteLength": 1115064,
-      "byteOffset": 1782264,
+      "byteLength": 359896,
+      "byteOffset": 541176,
       "byteStride": 8,
       "name": "floatBufferViews",
       "target": 34962
     },
     {
       "buffer": 0,
-      "byteLength": 3345192,
-      "byteOffset": 2897328,
+      "byteLength": 1079688,
+      "byteOffset": 901072,
       "byteStride": 12,
       "name": "floatBufferViews",
       "target": 34962
     },
     {
       "buffer": 0,
-      "byteLength": 2230128,
-      "byteOffset": 6242520,
+      "byteLength": 719792,
+      "byteOffset": 1980760,
       "byteStride": 16,
       "name": "floatBufferViews",
       "target": 34962
@@ -341,39 +116,27 @@
   ],
   "buffers": [
     {
-      "byteLength": 8472648,
+      "byteLength": 2700552,
       "uri": "scene.bin"
     }
   ],
   "images": [
     {
-      "uri": "textures/rotrain_met_baseColor.jpeg"
+      "uri": "textures/Material_9588_baseColor.jpeg"
     },
     {
-      "uri": "textures/rotrain_met_metallicRoughness.png"
+      "uri": "textures/Material_9588_metallicRoughness.png"
     },
     {
-      "uri": "textures/rotrain_met_normal.png"
-    },
-    {
-      "uri": "textures/rotrain_glass_baseColor.png"
-    },
-    {
-      "uri": "textures/rotrain_glass_metallicRoughness.png"
-    },
-    {
-      "uri": "textures/rotrain_glass_normal.png"
+      "uri": "textures/Material_9588_normal.png"
     }
   ],
   "materials": [
     {
       "doubleSided": true,
-      "name": "rotrain_met",
+      "name": "Material_9588",
       "normalTexture": {
         "index": 2
-      },
-      "occlusionTexture": {
-        "index": 1
       },
       "pbrMetallicRoughness": {
         "baseColorTexture": {
@@ -383,30 +146,11 @@
           "index": 1
         }
       }
-    },
-    {
-      "alphaMode": "BLEND",
-      "doubleSided": true,
-      "name": "rotrain_glass",
-      "normalTexture": {
-        "index": 5
-      },
-      "occlusionTexture": {
-        "index": 4
-      },
-      "pbrMetallicRoughness": {
-        "baseColorTexture": {
-          "index": 3
-        },
-        "metallicRoughnessTexture": {
-          "index": 4
-        }
-      }
     }
   ],
   "meshes": [
     {
-      "name": "defaultMaterial",
+      "name": "Object114_Material #9588_0",
       "primitives": [
         {
           "attributes": {
@@ -420,54 +164,6 @@
           "mode": 4
         }
       ]
-    },
-    {
-      "name": "defaultMaterial",
-      "primitives": [
-        {
-          "attributes": {
-            "NORMAL": 6,
-            "POSITION": 5,
-            "TANGENT": 7,
-            "TEXCOORD_0": 8
-          },
-          "indices": 9,
-          "material": 0,
-          "mode": 4
-        }
-      ]
-    },
-    {
-      "name": "defaultMaterial",
-      "primitives": [
-        {
-          "attributes": {
-            "NORMAL": 11,
-            "POSITION": 10,
-            "TANGENT": 12,
-            "TEXCOORD_0": 13
-          },
-          "indices": 14,
-          "material": 0,
-          "mode": 4
-        }
-      ]
-    },
-    {
-      "name": "defaultMaterial",
-      "primitives": [
-        {
-          "attributes": {
-            "NORMAL": 16,
-            "POSITION": 15,
-            "TANGENT": 17,
-            "TEXCOORD_0": 18
-          },
-          "indices": 19,
-          "material": 1,
-          "mode": 4
-        }
-      ]
     }
   ],
   "nodes": [
@@ -476,17 +172,17 @@
         1
       ],
       "matrix": [
-        0.125,
+        1.0,
         0.0,
         0.0,
         0.0,
         0.0,
-        2.7755575615628914e-17,
-        -0.125,
+        2.220446049250313e-16,
+        -1.0,
         0.0,
         0.0,
-        0.125,
-        2.7755575615628914e-17,
+        1.0,
+        2.220446049250313e-16,
         0.0,
         0.0,
         0.0,
@@ -505,44 +201,53 @@
         0.0,
         0.0,
         0.0,
-        -4.371139006309477e-08,
-        0.999999999999999,
+        0.0,
+        1.0,
         0.0,
         0.0,
-        -0.999999999999999,
-        -4.371139006309477e-08,
+        -1.0,
+        0.0,
         0.0,
         0.0,
         0.0,
         0.0,
         1.0
       ],
-      "name": "Collada visual scene group"
+      "name": "71b50789a81d4fd89ace4ed0952ec380.fbx"
     },
     {
       "children": [
-        3,
-        4,
-        5,
-        6
+        3
       ],
-      "name": "pCube95"
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "matrix": [
+        1.0499999523162842,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.3314682458337103e-16,
+        -1.0499999523162842,
+        0.0,
+        0.0,
+        1.0499999523162842,
+        2.3314682458337103e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Object114"
     },
     {
       "mesh": 0,
-      "name": "defaultMaterial"
-    },
-    {
-      "mesh": 1,
-      "name": "defaultMaterial"
-    },
-    {
-      "mesh": 2,
-      "name": "defaultMaterial"
-    },
-    {
-      "mesh": 3,
-      "name": "defaultMaterial"
+      "name": "Object114_Material #9588_0"
     }
   ],
   "samplers": [
@@ -574,18 +279,6 @@
     {
       "sampler": 0,
       "source": 2
-    },
-    {
-      "sampler": 0,
-      "source": 3
-    },
-    {
-      "sampler": 0,
-      "source": 4
-    },
-    {
-      "sampler": 0,
-      "source": 5
     }
   ]
 }

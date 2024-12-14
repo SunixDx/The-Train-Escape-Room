@@ -13,12 +13,5 @@ class Crypt: public GameEntity
 public:
 	Crypt(Transform transform, Model* model, GLuint shader_id);
 
-	void interact();
-
-private:
-	btRigidBody* my_rigid_body;
-
-	Model* my_model_obert;
-	Model* my_model_tancat;
 };
 

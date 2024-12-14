@@ -69,9 +69,6 @@
     <ClCompile Include="..\src\game\Level.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\game\entities\Crosshair.cpp">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\game\entities\Cucaracha.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -91,7 +88,7 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\src\game\audio\AudioFunctions.cpp">
-          <Filter>Archivos de origen</Filter>
+      <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\src\game\entities\Libro1.cpp">
       <Filter>Archivos de origen</Filter>
@@ -100,6 +97,33 @@
       <Filter>Archivos de origen</Filter>
     </ClCompile>
     <ClCompile Include="..\src\game\entities\Panel.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\ui\UIElement.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\ui\InteractionIndicator.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\ui\menu.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\entities\Lever.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\tots_els_rails.cpp">
+      <Filter>Archivos de encabezado</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\ui\Crosshair.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\entities\Via.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\entities\Terreny.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\game\entities\tren_passant.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -164,9 +188,6 @@
     <ClInclude Include="..\src\game\Level.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\game\entities\Crosshair.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\game\entities\InteractableEntity.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
@@ -192,7 +213,7 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\src\game\audio\AudioFunctions.h">
-          <Filter>Archivos de encabezado</Filter>
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\src\game\entities\Libro1.h">
       <Filter>Archivos de encabezado</Filter>
@@ -201,6 +222,27 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="..\src\game\entities\Panel.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\ui\InteractionIndicator.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\ui\menu.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\entities\Lever.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\ui\Crosshair.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\entities\Via.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\entities\Terreny.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\game\entities\tren_passant.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

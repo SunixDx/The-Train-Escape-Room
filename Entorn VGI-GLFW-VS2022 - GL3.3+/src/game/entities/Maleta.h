@@ -6,9 +6,8 @@
 #include  <bullet/btBulletDynamicsCommon.h>
 #include "../physics/BulletWorld.h"
 #include "InteractableEntity.h"
-#include "GameEntity.h"
 
-class Maleta : public GameEntity
+class Maleta : public InteractableEntity
 {
 public:
 	Maleta(Transform transform, Model* model, GLuint shader_program_id, GameEntity* tapa);
