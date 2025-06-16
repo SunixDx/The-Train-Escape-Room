@@ -3,8 +3,6 @@
 Welcome to our 3D **Terror Escape Room** project, set inside a **mysterious train**.  
 This game was developed in a **custom C++ engine** provided by our professor during the university course.
 
-👉 **[🎬 LIVE GAME FILES – Download from Google Drive](https://drive.google.com/drive/folders/1i-Zg26c0T2Vo4iETtPWK8pkD6WYIkei3?usp=sharing)**
-
 ---
 
 ## 👥 Team Members
@@ -20,7 +18,8 @@ Developed by:
   - The project will **not work on earlier versions**
   - Make sure to install **Desktop development with C++**
 
-- 📦 Download full project files, find them above:
+- 📦 Download full project files
+    - git clone https://github.com/SunixDx/The-Train-Escape-Room.git
 
 ---
 
@@ -103,9 +102,6 @@ The game includes **4 different lighting systems**, helping set the mood:
 **Lighting Type 3**
 ![Light 3](public/images/light-3.png)
 
-**Numeric Panel with backlight**
-![Panel](public/images/numeric-panel.png)
-
 ---
 
 ### 🔐 Panels and Puzzles
@@ -115,6 +111,7 @@ The game includes **4 different lighting systems**, helping set the mood:
 ![Book](public/images/book.png)
 ![Clock](public/images/clock.png)
 ![Briefcase](public/images/briefcase.png)
+![Panel](public/images/numeric-panel.png)
 
 ---
 
