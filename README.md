@@ -1,4 +1,4 @@
-# 🎮 VGI_Project_Grup_02 – 3D Escape Room Experience
+# 🎮 3D Escape Room Experience
 
 Welcome to our 3D **Terror Escape Room** project, set inside a **mysterious train**.  
 This game was developed in a **custom C++ engine** provided by our professor during the university course.
@@ -43,7 +43,7 @@ Developed by:
 |----------|--------------------------------------------|
 | `W A S D` | Move player                               |
 | `C`      | Crouch / Uncrouch / Stand Up / Leave Panel |
-| `Click`  | Interact with elements                     |
+| `Left Click`  | Interact with elements                     |
 | `ESC`    | Exit game                                  |
 
 ---
@@ -80,19 +80,14 @@ The game includes **4 different lighting systems**, helping set the mood:
 **Escape Moment**
 ![Monster](public/images/monster.png)
 
-**Static Object Views (Book, Clock, Briefcase)**
-![Book](public/images/book.png)
-![Clock](public/images/clock.png)
-![Briefcase](public/images/briefcase.png)
-
 ---
 
 ### 🚃 Inside the Train Wagon
 
-**Interior of the train**
 ![Inside](public/images/inside.png)
 
-**Outside perspective**
+### 🚃 Outside the Train Wagon
+
 ![Outside](public/images/outside.png)
 
 ---
@@ -115,9 +110,11 @@ The game includes **4 different lighting systems**, helping set the mood:
 
 ### 🔐 Panels and Puzzles
 
-**Panel Puzzle View**
-![Panel Interaction](public/images/panel.png)
 
+![Panel Interaction](public/images/panel.png)
+![Book](public/images/book.png)
+![Clock](public/images/clock.png)
+![Briefcase](public/images/briefcase.png)
 
 ---
 
