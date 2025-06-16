@@ -72,18 +72,52 @@ The game includes **4 different lighting systems**, helping set the mood:
 
 ## 🖼️ Screenshots
 
-### 🎥 Cameras (Menu, Escape, Static Angles)
-![Cameras](public/screenshots/cameras.png)
+### 🎥 Camera Types (Menu, Escape, Static)
+
+**Main Menu**
+![Menu](public/images/menu.png)
+
+**Escape Moment**
+![Monster](public/images/monster.png)
+
+**Static Object Views (Book, Clock, Briefcase)**
+![Book](public/images/book.png)
+![Clock](public/images/clock.png)
+![Briefcase](public/images/briefcase.png)
 
 ---
 
 ### 🚃 Inside the Train Wagon
-![Train Interior](public/screenshots/train_interior.png)
+
+**Interior of the train**
+![Inside](public/images/inside.png)
+
+**Outside perspective**
+![Outside](public/images/outside.png)
 
 ---
 
 ### 💡 Lighting Types
-![Lighting](public/screenshots/lighting_types.png)
+
+**Lighting Type 1**
+![Light 1](public/images/light-1.png)
+
+**Lighting Type 2**
+![Light 2](public/images/light-2.png)
+
+**Lighting Type 3**
+![Light 3](public/images/light-3.png)
+
+**Numeric Panel with backlight**
+![Panel](public/images/numeric-panel.png)
+
+---
+
+### 🔐 Panels and Puzzles
+
+**Panel Puzzle View**
+![Panel Interaction](public/images/panel.png)
+
 
 ---
 

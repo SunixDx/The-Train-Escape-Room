@@ -1,0 +1,11 @@
+Model Information:
+* title:	CD810 motor train
+* source:	https://sketchfab.com/3d-models/cd810-motor-train-121922992c4c44c9a121a40c82c79382
+* author:	voxellation (https://sketchfab.com/continentialvoxels)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "CD810 motor train" (https://sketchfab.com/3d-models/cd810-motor-train-121922992c4c44c9a121a40c82c79382) by voxellation (https://sketchfab.com/continentialvoxels) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

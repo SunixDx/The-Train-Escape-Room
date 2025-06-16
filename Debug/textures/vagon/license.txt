@@ -1,0 +1,11 @@
+Model Information:
+* title:	Train Wagon
+* source:	https://sketchfab.com/3d-models/train-wagon-42875c098c33456b84bcfcdc4c7f1c58
+* author:	3ddominator (https://sketchfab.com/roughdominator)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Train Wagon" (https://sketchfab.com/3d-models/train-wagon-42875c098c33456b84bcfcdc4c7f1c58) by 3ddominator (https://sketchfab.com/roughdominator) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
