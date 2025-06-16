@@ -20,8 +20,7 @@ Developed by:
   - The project will **not work on earlier versions**
   - Make sure to install **Desktop development with C++**
 
-- 📦 Download full project files:
-  - **[Google Drive Folder](https://drive.google.com/drive/folders/1i-Zg26c0T2Vo4iETtPWK8pkD6WYIkei3?usp=sharing)**
+- 📦 Download full project files, find them above:
 
 ---
 
